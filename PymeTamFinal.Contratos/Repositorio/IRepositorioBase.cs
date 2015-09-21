@@ -22,6 +22,7 @@ namespace PymeTamFinal.Contratos.Repositorio
         IQueryable<T> Cargar(object filtroPersonal);
         IQueryable<T> Cargar(Expression<Func<T, bool>> lambda);
         T CargarPorId(object id);
+        T CargarPorId(object id, string[] tablasOp);
         T AsignarA(object src, object dest);
         void DesAsociar(T entidad);
         #endregion

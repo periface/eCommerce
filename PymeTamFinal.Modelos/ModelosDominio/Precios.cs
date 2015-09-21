@@ -17,11 +17,12 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         /// <summary>
         /// precio original
         /// </summary>
+        [Required(ErrorMessage ="Precio requerido")]
         public decimal precio { get; set; }
         /// <summary>
         /// Descuento aplicado al precio original
         /// </summary>
-        public decimal descuento { get; set; }
+        public decimal? descuento { get; set; }
         /// <summary>
         /// precio con el descuento aplicado
         /// </summary>

@@ -348,6 +348,8 @@
     <Content Include="Areas\Administrador\Views\Productos\EditarGaleria.cshtml" />
     <Content Include="Areas\Administrador\Views\Productos\ImagenesGaleria.cshtml" />
     <Content Include="Areas\Administrador\Views\Productos\EditarPrecio.cshtml" />
+    <Content Include="Areas\Administrador\Views\Shared\_error404ParcialModal.cshtml" />
+    <Content Include="Areas\Administrador\Views\Productos\EliminarProductoVentana.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -458,6 +460,10 @@
     <ProjectReference Include="..\PymeTamFinal.Contratos\PymeTamFinal.Contratos.csproj">
       <Project>{0e1bf5b2-11f9-419f-8e93-d158cda2c407}</Project>
       <Name>PymeTamFinal.Contratos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PymeTamFinal.Controles\PymeTamFinal.Controles.csproj">
+      <Project>{6ecf8219-97eb-46f1-a630-24b4001d71ab}</Project>
+      <Name>PymeTamFinal.Controles</Name>
     </ProjectReference>
     <ProjectReference Include="..\PymeTamFinal.HtmlHelpers\PymeTamFinal.HtmlHelpers.csproj">
       <Project>{6b67c991-4ee4-496f-bc3a-a00afac332d7}</Project>

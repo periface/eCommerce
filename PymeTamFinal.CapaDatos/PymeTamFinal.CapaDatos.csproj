@@ -66,9 +66,13 @@
     <Compile Include="Migrations\201509210254140_precioEsp.Designer.cs">
       <DependentUpon>201509210254140_precioEsp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509210258497_que.cs" />
-    <Compile Include="Migrations\201509210258497_que.Designer.cs">
-      <DependentUpon>201509210258497_que.cs</DependentUpon>
+    <Compile Include="Migrations\201509211746161_nullableDescuento.cs" />
+    <Compile Include="Migrations\201509211746161_nullableDescuento.Designer.cs">
+      <DependentUpon>201509211746161_nullableDescuento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509211805027_precioActualizacion.cs" />
+    <Compile Include="Migrations\201509211805027_precioActualizacion.Designer.cs">
+      <DependentUpon>201509211805027_precioActualizacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,8 +100,11 @@
     <EmbeddedResource Include="Migrations\201509210254140_precioEsp.resx">
       <DependentUpon>201509210254140_precioEsp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509210258497_que.resx">
-      <DependentUpon>201509210258497_que.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509211746161_nullableDescuento.resx">
+      <DependentUpon>201509211746161_nullableDescuento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509211805027_precioActualizacion.resx">
+      <DependentUpon>201509211805027_precioActualizacion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -43,5 +43,10 @@ namespace PymeTamFinal.Repositorios.Repos
             context.Entry(entidad).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
         }
+        public override void Eliminar(Precios entidad)
+        {
+            context.Entry(entidad).State = System.Data.Entity.EntityState.Deleted;
+            context.SaveChanges();
+        }
     }
 }

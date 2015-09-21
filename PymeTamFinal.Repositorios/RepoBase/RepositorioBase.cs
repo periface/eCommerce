@@ -148,6 +148,11 @@ namespace PymeTamFinal.Repositorios.RepoBase
         {
             context.Entry(entidad).State = EntityState.Detached;
         }
+
+        public virtual T CargarPorId(object id, string[] tablasOp)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

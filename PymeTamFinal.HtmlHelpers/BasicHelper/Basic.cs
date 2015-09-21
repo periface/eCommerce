@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PymeTamFinal.Modelos.ModelosDominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,20 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
 {
     public static class Basic
     {
-        public static IHtmlString imagen(this HtmlHelper helper,string imagen, string[] clasesAdicionales)
+        public static IHtmlString imagen(this HtmlHelper helper, string imagen, string[] clasesAdicionales)
         {
             TagBuilder img = new TagBuilder("img");
             Dictionary<string, string> attr = new Dictionary<string, string>();
             attr.Add("src", imagen);
             string clases = "img-responsive";
-            if (clasesAdicionales != null) {
+            if (clasesAdicionales != null)
+            {
                 foreach (var item in clasesAdicionales)
                 {
                     clases += " " + item;
                 }
             }
-            
+
             attr.Add("class", clases);
 
             if (!string.IsNullOrEmpty(imagen))
@@ -31,7 +33,7 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             }
             return new HtmlString(img.ToString(TagRenderMode.SelfClosing));
         }
-        public static IHtmlString imagen(this HtmlHelper helper,string imagen, string[] clasesAdicionales,int w,int h)
+        public static IHtmlString imagen(this HtmlHelper helper, string imagen, string[] clasesAdicionales, int w, int h)
         {
             TagBuilder img = new TagBuilder("img");
             Dictionary<string, string> attr = new Dictionary<string, string>();
@@ -45,14 +47,14 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
                 }
             }
             attr.Add("class", clases);
-            attr.Add("style", "width:" + w + "px;" + "height:" + h+"px;");
+            attr.Add("style", "width:" + w + "px;" + "height:" + h + "px;");
             if (!string.IsNullOrEmpty(imagen))
             {
                 img.MergeAttributes(attr);
             }
             return new HtmlString(img.ToString(TagRenderMode.SelfClosing));
         }
-        public static IHtmlString imagen(this HtmlHelper helper,string imagen, string[] clasesAdicionales,int w,int h,bool usarresizer)
+        public static IHtmlString imagen(this HtmlHelper helper, string imagen, string[] clasesAdicionales, int w, int h, bool usarresizer)
         {
             TagBuilder img = new TagBuilder("img");
             Dictionary<string, string> attr = new Dictionary<string, string>();
@@ -60,7 +62,8 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             {
                 attr.Add("src", imagen + "?w=" + w + "&h=" + h);
             }
-            else {
+            else
+            {
                 attr.Add("style", "width:" + w + "px;" + "height:" + h + "px;");
             }
             string clases = "img-responsive";
@@ -79,7 +82,7 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             }
             return new HtmlString(img.ToString(TagRenderMode.SelfClosing));
         }
-        public static IHtmlString imagen(this HtmlHelper helper,string imagen, string[] clasesAdicionales,string w,string h)
+        public static IHtmlString imagen(this HtmlHelper helper, string imagen, string[] clasesAdicionales, string w, string h)
         {
             TagBuilder img = new TagBuilder("img");
             Dictionary<string, string> attr = new Dictionary<string, string>();
@@ -100,21 +103,41 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             }
             return new HtmlString(img.ToString(TagRenderMode.SelfClosing));
         }
-        public static IHtmlString estado(this HtmlHelper helper,bool estado) {
+        public static IHtmlString estado(this HtmlHelper helper, bool estado)
+        {
             TagBuilder span = new TagBuilder("span");
             if (estado)
             {
                 span.MergeAttribute("class", "label label-success");
                 span.SetInnerText("Habilitado(a)");
             }
-            else {
+            else
+            {
                 span.MergeAttribute("class", "label label-danger");
                 span.SetInnerText("Deshabilitado(a)");
             }
             return new HtmlString(span.ToString());
         }
-        public static string formatoPrecio(this HtmlHelper helper, decimal precio) {
-            return "$ "+ precio.ToString("#.##") + " MXN";
+        public static string formatoPrecio(this HtmlHelper helper, decimal precio)
+        {
+            return "$ " + precio.ToString("#.##") + " MXN";
+        }
+        public static string displayEstilo(this HtmlHelper helper, Precios model)
+        {
+            if (model != null)
+            {
+                if (model.descuentoActivo)
+                {
+                    return "";
+                }
+                else
+                {
+
+                    return "style=display:none;";
+                }
+            }
+            return "style=display:none;";
+
         }
     }
 }

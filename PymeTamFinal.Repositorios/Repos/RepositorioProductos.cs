@@ -28,6 +28,16 @@ namespace PymeTamFinal.Repositorios.Repos
         {
             return context.Producto.Find(id);
         }
+        public override Producto CargarPorId(object id,string[]tablasOp)
+        {
+            var ctxP = context.Producto;
+            foreach (var item in tablasOp)
+            {
+                ctxP.Include(item);
+            }
+            var idProducto = (int)id;
+            return ctxP.SingleOrDefault(a=>a.idProducto==idProducto);
+        }
         public override IQueryable<Producto> Cargar()
         {
             return context.Producto.Include("Categoria");
@@ -39,6 +49,11 @@ namespace PymeTamFinal.Repositorios.Repos
         public override void Editar(Producto entidad)
         {
             context.Entry(entidad).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+        public override void Eliminar(Producto entidad)
+        {
+            context.Entry(entidad).State = EntityState.Deleted;
             context.SaveChanges();
         }
     }

@@ -113,6 +113,12 @@
                     $("#modalProducto").modal("show");
                 });
             });
+            $("body").on("click", ".eliminarProducto", function () {
+                var id = $(this).data("id");
+                $("#modalProducto").load("/Administrador/Productos/EliminarProductoVentana/"+id, function () {
+                    $("#modalProducto").modal("show");
+                });
+            });
         });
 
     </script>

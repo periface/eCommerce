@@ -3,7 +3,21 @@
     ViewBag.Title = "Editar galeria de " + Model.nombreProducto;
 }
 <div class="container-fluid">
-
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Editar galeria <small>Galeria de @Model.nombreProducto</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i><a href="@Url.Action("Index", "Productos")"> Mis productos</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Galeria - @Model.nombreProducto
+                </li>
+            </ol>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <input type="hidden" id="id" name="id" value="@Model.idProducto" />

@@ -34,6 +34,5 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public virtual ICollection<CajaComentarios> comentarios { get; set; }
         public virtual ICollection<GaleriaProducto> galeria { get; set; }
         public virtual ICollection<Diferenciadores> diferenciadores { get; set; }
-        public virtual Precios precio { get; set; }
     }
 }

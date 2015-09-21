@@ -1,4 +1,5 @@
 ﻿using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.Controles;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Modelos.ModelosVista;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace PymeTamFinal.Areas.Administrador.Controllers
 {
-    public class ProductosController : Controller
+    public class ProductosController : AdminController
     {
         #region props
         IRepositorioBase<Producto> _producto;
@@ -162,16 +163,18 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         {
             if (ModelState.IsValid)
             {
-                switch (model.tipo)
-                {
-                    case "Porcentual":
-                        model.precioEsp = (model.precio * model.descuento) / 100;
-                        break;
-                    case "Real":
-                        model.precioEsp = model.precio - model.descuento;
-                        break;
-                    default:
-                        break;
+                if (model.descuento.HasValue && model.descuentoActivo) {
+                    switch (model.tipo)
+                    {
+                        case "Porcentual":
+                            model.precioEsp = (model.precio * model.descuento.Value) / 100;
+                            break;
+                        case "Real":
+                            model.precioEsp = model.precio - model.descuento.Value;
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 var precioOrigial = cargaOriginal(model.idProducto);
                 if (precioOrigial != null)
@@ -191,6 +194,36 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
 
             return RedirectToAction("Index");
         }
+        public ActionResult EliminarProductoVentana(int? id) {
+            if (!id.HasValue) {
+                if (!Request.IsAjaxRequest()) {
+                    return HttpNotFound();
+                }
+                return View(error404Parcial);
+            }
+            var producto = _producto.CargarPorId(id);
+            return View(producto);
+        }
+        public ActionResult EliminarProducto(int id) {
+            
+            var producto = _producto.CargarPorId(id);
+            int idProducto = producto.idProducto;
+            eliminarGaleria(idProducto);
+            eliminarPrecio(idProducto);
+            _producto.Eliminar(producto);
+            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado,ControllerContext.Controller);
+            return RedirectToAction("Index");
+        }
+
+        private void eliminarPrecio(int idProducto)
+        {
+            var precio = _precios.CargarPorId(idProducto);
+            if (precio != null) {
+                _precios.Eliminar(precio);
+            }
+            return;
+        }
+
         [HttpPost]
         public ActionResult SubirImagen()
         {
@@ -372,6 +405,15 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 return p;
             }
             return "precio no disponible";
+        }
+        private void eliminarGaleria(int idProducto)
+        {
+            var galeria = _galeria.Cargar(a => a.idProducto == idProducto);
+            foreach (var item in galeria.ToList())
+            {
+                PlugIns.AdministradorDeArchivos.eliminarArchivo(item.imagen);
+                _galeria.Eliminar(item);
+            }
         }
         private bool precioEnFecha(DateTime? fechaInicio, DateTime? fechaVencimiento)
         {

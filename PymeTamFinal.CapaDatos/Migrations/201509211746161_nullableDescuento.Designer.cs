@@ -7,13 +7,13 @@ namespace PymeTamFinal.CapaDatos.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class que : IMigrationMetadata
+    public sealed partial class nullableDescuento : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(que));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(nullableDescuento));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509210258497_que"; }
+            get { return "201509211746161_nullableDescuento"; }
         }
         
         string IMigrationMetadata.Source
