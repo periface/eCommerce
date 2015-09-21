@@ -1,17 +1,91 @@
-﻿
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.CajaComentarios>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">
-            Secciones <small>Administración de secciones</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li class="active">
-                <i class="fa fa-dashboard"></i> Listado de secciones
-            </li>
-        </ol>
+<link href="~/Scripts/datatables/datatables.min.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Comentarios <small>Administración de comentarios</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Listado de comentarios
+                </li>
+            </ol>
+        </div>
     </div>
+
+    @{Html.RenderPartial("_listaComentarios");}
 </div>
+@section Scripts{
+    <script>
+        var table = $('#comentarios').DataTable({
+            //"bProcessing": true,
+            //"bServerSide": true,
+            "ajax": {
+                "url": '/Administrador/Comentarios/CargaComentarios/',
+                "dataSrc": '',
+                "deferRender": true,
+            },
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excel',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }
+            },
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                }
+            ],
+            "columns":
+            [
+                { data: 'idCliente' },
+                { data: 'cliente' },
+                { data: 'producto' },
+                { data: 'calificacion' },
+                { data: 'opciones' }
+            ],
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "buttons": {
+                    "copyTitle": 'Tabla copiada',
+                    "copyInfo": {
+                        _: '%d Filas copiadas',
+                        1: '1 fila copiada'
+                    },
+                    'copy': 'Copiar',
+                    'excel': 'Exportar a excel',
+                    "colvis": "Columnas visibles"
+                },
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+        });
+    </script>
+    }

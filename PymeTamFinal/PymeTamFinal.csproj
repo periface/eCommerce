@@ -213,6 +213,7 @@
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TiendaController.cs" />
+    <Compile Include="Controllers\WidgetsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -350,6 +351,7 @@
     <Content Include="Areas\Administrador\Views\Productos\EditarPrecio.cshtml" />
     <Content Include="Areas\Administrador\Views\Shared\_error404ParcialModal.cshtml" />
     <Content Include="Areas\Administrador\Views\Productos\EliminarProductoVentana.cshtml" />
+    <Content Include="Areas\Administrador\Views\Shared\_listaComentarios.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -443,6 +445,7 @@
     <Folder Include="Content\Temas\LandingPage\" />
     <Folder Include="Content\Temas\SbAdmin\fonts\" />
     <Folder Include="Views\Tienda\" />
+    <Folder Include="Views\Widgets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

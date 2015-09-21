@@ -51,10 +51,12 @@ namespace PymeTamFinal.App_Start
             container.RegisterType<IRepositorioBase<Producto>, RepositorioProductos>();
             container.RegisterType<IRepositorioBase<GaleriaProducto>, RepositorioGaleria>();
             container.RegisterType<IRepositorioBase<Precios>, RepositorioPrecios>();
+            container.RegisterType<IRepositorioBase<CajaComentarios>, RepositorioComentarios>();
+            container.RegisterType<IRepositorioBase<Cliente>, RepositorioCliente>();
             //Para user el accountController
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
-            ///Para poder usar identity
+            //Para poder usar identity
             container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());

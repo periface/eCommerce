@@ -74,6 +74,14 @@
     <Compile Include="Migrations\201509211805027_precioActualizacion.Designer.cs">
       <DependentUpon>201509211805027_precioActualizacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509212004055_ActualizacionActualizada.cs" />
+    <Compile Include="Migrations\201509212004055_ActualizacionActualizada.Designer.cs">
+      <DependentUpon>201509212004055_ActualizacionActualizada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509212051536_actualizacion.cs" />
+    <Compile Include="Migrations\201509212051536_actualizacion.Designer.cs">
+      <DependentUpon>201509212051536_actualizacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -105,6 +113,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509211805027_precioActualizacion.resx">
       <DependentUpon>201509211805027_precioActualizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509212004055_ActualizacionActualizada.resx">
+      <DependentUpon>201509212004055_ActualizacionActualizada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509212051536_actualizacion.resx">
+      <DependentUpon>201509212051536_actualizacion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
