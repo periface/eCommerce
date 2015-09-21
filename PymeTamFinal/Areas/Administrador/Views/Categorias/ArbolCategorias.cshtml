@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Categoria>
+@{
+    Layout = null;
+}    
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-info">
+            <div class="panel-heading"><div class="panel-title">Arbol de categorias</div></div>
+            <div class="panel-body">
+                <div class="well">
+                    <div id="tree" class="row">
+                        <div>
+                            @{
+                                <div class="treeview" style="font-size:larger;">
+                                    @{
+                                        @*Here I will going to load Treeview menus*@
+                                        <ul>
+                                            @foreach (var i in Model)
+                                            {
+                                                <li>
+                                                    <br />
+                                                    <span class="collapse collapsible" data-loaded="false" pid="@i.idCategoria">&nbsp;</span>
+                                                    @* Here I have added the above span for collapsible button for treeview *@
+                                                    @* and data-loaded="false" means its sub menu not loaded yet from database *@
+                                                    <span>
+                                                        <a class="button btn btn-sm btn-success" data-id="@i.idCategoria">@i.nombreCategoria</a>&nbsp;&nbsp;&nbsp;
+                                                        <a data-id="@i.idCategoria" href="#" class="eliminarCategoria">Eliminar</a>
+                                                        @*@Html.ActionLink("Eliminar", "EliminarCategoria", new { id = i.idCategoria })*@
+                                                    </span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-info">
+            <div class="panel-heading"><div class="panel-title">Panel de detalle</div></div>
+            <div class="panel-body" id="contenedorP">
+                No hay información
+            </div>
+        </div>
+    </div>
+</div>

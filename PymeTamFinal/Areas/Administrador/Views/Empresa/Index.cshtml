@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Empresa>
+@{
+    ViewBag.Title = "Mi Empresa";
+}
+<style>
+    .sinborde {
+        border-radius: 0px;
+    }
+    .panel {
+        margin-top:10px;
+    }
+    .tamLetra {
+        font-size: 13px;
+    }
+
+    .btn-default {
+        background-color: #777;
+        color: #fff;
+        font-weight: bold;
+    }
+
+        .btn-default:hover {
+            background-color: #777;
+            color: #fff;
+            cursor: default;
+        }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Mi Empresa <small>Información de la empresa</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Mi Empresa
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("NuevaInformacion", "Empresa")" class="btn btn-success sinborde">
+                <i class="fa fa-plus-square-o"></i> Agregar Informacion
+            </a>
+        </div>
+    </div>
+
+    @{ Html.RenderPartial("_listaEmpresas", Model);}
+
+</div>
+

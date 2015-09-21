@@ -1,0 +1,62 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Producto>
+@{ 
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-12">
+        <table id="productos" class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        #Id
+                    </th>
+                    <th>
+                        Sku
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Precio (MXN)
+                    </th>
+                    <th>
+                        Stock
+                    </th>
+                    <th>
+                        Categoria
+                    </th>
+                    <th>
+                        Opciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in Model)
+                {
+
+                    <tr>
+
+                        <td>
+                            @item.idProducto
+                        </td>
+                        <td>
+                            @item.nombreProducto
+                        </td>
+                        <td>
+                            @Html.formatoPrecio(item.precioProducto)
+                        </td>
+                        <td>
+                            @item.stock
+                        </td>
+                        <td>
+                            @Html.mostrarCategoria(item.categoria)
+                        </td>
+                        <td>
+                            <a href="#">Editar</a> | <a href="#">Eliminar</a>
+                        </td>
+                    </tr>
+                }*@
+            </tbody>
+        </table>
+    </div>
+</div>

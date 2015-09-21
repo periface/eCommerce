@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Categoria>
+@{ 
+    Layout = null;
+
+}
+<div class="row">
+    <div class="col-md-12">
+        <h3>Tabla de categorias</h3>
+        <table class="table table-responsive" id="categorias">
+            <thead>
+                <tr>
+                    <th>
+                        #id de Categoria
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Padre
+                    </th>
+                    <th>
+                        Opciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.idCategoria
+                        </td>
+                        <td>
+                            @item.nombreCategoria
+                        </td>
+                        <td>
+                            @Html.checaCategorizacion(item.idPadre)
+                        </td>
+                        <td>
+                            <a href="#" class="button" data-id="@item.idCategoria">Editar</a> | <a data-id="@item.idCategoria" href="#" class="eliminarCategoria">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

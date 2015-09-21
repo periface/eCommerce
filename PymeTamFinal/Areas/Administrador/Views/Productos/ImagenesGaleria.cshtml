@@ -1,0 +1,19 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.GaleriaProducto>
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Imagenes en galeria</h2>
+    </div>
+</div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 imagen-@item.idImagen">
+            @Html.imagen(item.imagen, new string[] { "img-circle", "img-rounded", "img-thumbnail" }, 300, 300)
+            <h3>Fecha de registro: @item.fechaRegistro.ToShortDateString()</h3>
+            <h4><a data-id="@item.idImagen" class="btn btn-danger eliminaImagen">Eliminar imagen</a></h4>
+        </div>
+    }
+</div>

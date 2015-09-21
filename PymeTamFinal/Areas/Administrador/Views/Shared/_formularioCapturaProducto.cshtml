@@ -1,0 +1,115 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Producto
+@{
+    Layout = null;
+ }
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <section id="datosPrincipales">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Información principal</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 form-group">
+                <label class="control-label">Sku</label>
+                @Html.TextBoxFor(a => a.sku, new { @class = "form-control" })
+            </div>
+            <div class="col-md-2 form-group">
+                <label class="control-label">Nombre de producto</label>
+                @Html.TextBoxFor(a => a.nombreProducto, new { @class = "form-control" })
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="control-label">Imagen principal</label>
+                <input type="file" name="imagen" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label class="control-label">Descripción corta de producto</label>
+                @Html.TextAreaFor(a => a.descripcionCorta, new { @class = "form-control" })
+            </div>
+
+        </div>
+    </section>
+    <section id="contenidoWeb">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Contenido del producto</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label">
+                    Detalles del producto
+                </label>
+                @Html.TextAreaFor(a => a.descripcionProducto, new { @class = "form-control" })
+            </div>
+        </div>
+
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Opciones y configuracion</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 form-group">
+                <label class="control-label">
+                    Stock
+                </label>
+                @Html.TextBoxFor(a => a.stock, new { @class = "form-control", type = "number" })
+            </div>
+            <div class="col-lg-2">
+                <div class="checkbox">
+                    <label>
+                        @Html.EditorFor(a => a.habilitarComentarios)
+                        Habilitar caja comentarios
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="checkbox">
+                    <label>
+                        @Html.EditorFor(a => a.mostrarStock)
+                        Mostrar stock en tienda
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="checkbox">
+                    <label>
+                        @Html.EditorFor(a => a.mostrarSinStock)
+                        Mostrar aunque no tenga stock
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="checkbox">
+                    <label>
+                        @Html.EditorFor(a => a.habilitarCompraSinStock)
+                        Habilitar compra sin stock
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label class="control-label">Tags</label>
+                @Html.TextBoxFor(a => a.tags, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-lg-6">
+                <label class="control-label">Categoria</label>
+                @Html.DropDownList("idCategoria", (IEnumerable<SelectListItem>)ViewBag.categorias, new { @class = "form-control" })
+
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+            <button class="btn btn-success" type="submit">Guardar</button>
+        </div>
+    </div>
+}

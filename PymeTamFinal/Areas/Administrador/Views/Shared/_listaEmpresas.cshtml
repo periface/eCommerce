@@ -1,0 +1,104 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Empresa>
+
+@foreach (var empresa in Model)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="@Html.ClasePanelEmpresa(empresa.infoActiva)" >
+                <div class="panel-heading sinborde">
+                    <span><i class="fa fa-list-alt"></i> | Informacion de la empresa</span>
+                    @Html.BotonPanelEmpresa(empresa)
+                </div>
+                <div class="panel-body sinborde">
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="thumbnail">
+                                @Html.imagen(empresa.imgPrincipalEmpresa, new string[] { "img-rounded", "img-tal" })
+                                <hr />
+                                <div class="caption text-center">
+                                    <span class="btn btn-default btn-lg sinborde tamLetra" style="width:100%"><i class="fa fa-phone"></i> | Telefono:</span>
+                                    @empresa.telefonoEmpresa
+                                    <hr />
+                                    <span class="btn btn-default btn-lg sinborde tamLetra" style="width:100%"><i class="fa fa-envelope-o"></i> | Correo:</span>
+                                    @empresa.correoOficialEmpresa
+
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                        <div class="col-md-9">
+                            <table class="table table-responsive table-hover">
+                                <tr>
+                                    <td colspan="3">
+                                        <span class="label label-default tamLetra sinborde">Nombre de la empresa:</span><br /> Nombre
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span class="label label-default tamLetra sinborde">Mision de la empresa:</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <p class="text-justify">
+                                            @empresa.misionEmpresa
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span class="label label-default tamLetra sinborde">Vision de la empresa:</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <p class="text-justify">
+                                            @empresa.visionEmpresa
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="label label-default sinborde tamLetra">Direccion:</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        @empresa.direccionEmpresa
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <span class="label label-default sinborde tamLetra">Redes sociales</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <i class=" fa fa-facebook-square "></i>&nbsp;<a target="_blank" href="@empresa.facebookEmpresa">@empresa.facebookEmpresa</a> | <i class="fa fa-twitter-square"></i>&nbsp;<a target="_blank" href="https://twitter.com/@empresa.twitterEmpresa">@empresa.twitterEmpresa</a>
+                                    </td>
+                                </tr>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("EditarInformacion", "Empresa", new { Area = "Administrador", id=empresa.idEmpresa })" class="btn btn-primary sinborde">
+                                            <span><i class="fa fa-edit"></i> | Editar información</span>
+                                        </a>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("EliminarInformacion", new { Area="Administrador", id = empresa.idEmpresa})" class="btn btn-danger sinborde">
+                                            <span><i class="fa fa-trash-o"></i> | Eliminar información</span>
+                                        </a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+}

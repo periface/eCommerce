@@ -1,0 +1,152 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Categoria>
+@{
+    ViewBag.Title = "Categorias";
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<style>
+    /*Estilo de arbol*/
+    #tree .loadingP {
+        background-image: url('/Content/Images/generated-image.gif');
+        width: 15px;
+        display: inline-block;
+    }
+
+    #tree .collapse {
+        width: 15px;
+        background-image: url('/Content/Images/ui-icons_454545_256x240.png');
+        background-repeat: no-repeat;
+        background-position: -36px -17px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    #tree .expand {
+        width: 15px;
+        background-image: url('/Content/Images/ui-icons_454545_256x240.png');
+        background-repeat: no-repeat;
+        background-position: -50px -17px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    #tree .treeview ul {
+        font: 14px Arial, Sans-Serif;
+        margin: 0px;
+        padding-left: 20px;
+        list-style: none;
+    }
+
+    #tree .treeview > li > a {
+        font-weight: bold;
+    }
+
+    #tree .treeview li a {
+        padding: 4px;
+        font-size: 12px;
+        display: inline-block;
+        text-decoration: none;
+        width: auto;
+    }
+</style>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Categorias <small>Administración de categorias</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Categorias
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a id="agregarCat" class="btn btn-success sinborde">
+                <i class="fa fa-plus-square-o"></i> Agregar Categoria
+            </a>
+        </div>
+    </div>
+    <br />
+    @{Html.RenderAction("ArbolCategorias");}
+    @{Html.RenderPartial("_listaCategorias", Model);}
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Areas/Administrador/PlugIns/tree.js"></script>
+    <script>
+        $(function () {
+            $("#agregarCat").click(function () {
+                $("#modalCategoria").load("/Administrador/Categorias/NuevaCategoria", function () {
+                    $("#modalCategoria").modal("show");
+                });
+            });
+            $("body").on("click", ".eliminarCategoria", function () {
+                var id = $(this).data("id");
+                $("#modalCategoria").load("/Administrador/Categorias/EliminarVentana/" + id, function () {
+                    $("#modalCategoria").modal("show");
+                    $('.dependientes').DataTable({
+                        "language": {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                    });
+                });
+            });
+            $('#categorias').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+            });
+        });
+    </script>
+}
+@section final{
+    <div class="modal fade" id="modalCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}

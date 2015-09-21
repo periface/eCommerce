@@ -1,0 +1,278 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Empresa
+
+@{
+    ViewBag.Title = "Editar " + Model.nombreEmpresa;
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .contact-map {
+        width: 100%;
+        height: 385px;
+        margin-bottom: 70px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Editar Información <small>Editar información de la empresa</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="@Url.Action("Index","Empresa")">Mi Empresa</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Editar Información
+                </li>
+            </ol>
+        </div>
+    </div>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(a => a.imgPrincipalEmpresa)
+        @Html.HiddenFor(a => a.idEmpresa)
+        @Html.HiddenFor(a => a.infoActiva)
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="control-label col-md-2">Nombre de Empresa</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.nombreEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nombreEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Slogan</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.slogan, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.slogan, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Misión</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.misionEmpresa, htmlAttributes: new { @class = "form-control", cols = "10", rows = "4" })
+                    @Html.ValidationMessageFor(model => model.misionEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Visión</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.visionEmpresa, htmlAttributes: new { @class = "form-control", cols = "10", rows = "4" })
+                    @Html.ValidationMessageFor(model => model.visionEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Dirección</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.direccionEmpresa, htmlAttributes: new { @class = "form-control", cols = "10", rows = "4" })
+                    @Html.ValidationMessageFor(model => model.direccionEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Correo principal</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.correoOficialEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.correoOficialEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Correo de ventas</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.correoVentasEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.correoVentasEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Correo envios</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.correoEnviosEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.correoEnviosEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Link de facebook</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.facebookEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.facebookEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Twitter de empresa</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.twitterEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.telefonoEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Telefono</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.telefonoEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.telefonoEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.imgEmprsa, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.imgEmprsa, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.imgEmprsa, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                <div class="col-md-2">
+                    <label>Modificar imagen</label>
+                </div>
+                <div class="col-md-10">
+                    <input type="file" name="imagen" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2">
+                    <label>Coordenadas de ubicación</label>
+                </div>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(a => a.empLat, new { @class = "form-control" })
+                    @Html.TextBoxFor(a => a.empLong, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <label class="control-label">Seleccionar ubicación de tienda</label><br />
+                    <button type="button" class="btn btn-default" id="posicionMark">Ir a posición establecida</button>
+                    <button type="button" class="btn btn-default" id="posicionAc">Ir a posición actual</button>
+                    <div id="gmap" class="contact-map">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="Guardar Información" class="btn btn-lg btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+    <script src="~/Scripts/gmaps.js"></script>
+    <script>
+        var map;
+        $(document).ready(function () {
+            var lat;
+            var long;
+            var empLat;
+            var empLong;
+            $.get("/Tienda/Inicio/CargaCoords", function (d) {
+                lat = d.lat;
+                long = d.lng;
+                var map;
+                map = new GMaps({
+                    el: '#gmap',
+                    lat: d.lat,
+                    lng: d.lng,
+                    zoom: 14,
+                    clickable: true,
+                    click: function (e) {
+                        var lat = e.latLng.G;
+                        var long = e.latLng.K;
+                        $("#empLat").val(lat);
+                        $("#empLong").val(long);
+                        map.removeMarkers();
+                        map.addMarker({
+                            lat: lat,
+                            lng: long,
+                            title: 'Ubicación actual',
+                        });
+                        console.log();
+                    }
+                });
+                map.addMarker({
+                    lat: lat,
+                    lng: long,
+                    title: 'Ubicación actual',
+                });
+                $("#posicionAc").click(function () {
+
+                    GMaps.geolocate({
+                        success: function (position) {
+                            map.setCenter(position.coords.latitude, position.coords.longitude);
+
+                        },
+                        error: function (error) {
+                            alert('Geolocation failed: ' + error.message);
+                        },
+                        not_supported: function () {
+                            alert("Your browser does not support geolocation");
+                        },
+                        always: function () {
+                        }
+                    });
+                });
+            }).error(function () {
+                lat = 57.797333;
+                long = 12.050211;
+                var map;
+                map = new GMaps({
+                    el: '#gmap',
+                    lat: lat,
+                    lng: long,
+                    zoom: 14,
+                    clickable: true,
+                    click: function (e) {
+                        console.log(e);
+                        var lat = e.latLng.H;
+                        var long = e.latLng.L;
+                        $("#empLat").val(lat);
+                        $("#empLong").val(long);
+                        map.removeMarkers();
+                        map.addMarker({
+                            lat: lat,
+                            lng: long,
+                            title: 'Ubicación actual',
+                        });
+                        console.log();
+                    }
+                });
+                
+                $("#posicionAc").click(function () {
+
+                    GMaps.geolocate({
+                        success: function (position) {
+                            map.setCenter(position.coords.latitude, position.coords.longitude);
+
+                        },
+                        error: function (error) {
+                            alert('Geolocation failed: ' + error.message);
+                        },
+                        not_supported: function () {
+                            alert("Your browser does not support geolocation");
+                        },
+                        always: function () {
+                        }
+                    });
+                });
+                $("#posicionMark").click(function () {
+                    empLat = $("#empLat").val();
+                    empLong = $("#empLong").val();
+                    map.addMarker({
+                        lat: empLat,
+                        lng: empLong,
+                        title: 'Ubicación actual',
+                    });
+                    map.setCenter(empLat, empLong);
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Agregar Producto";
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Agregar producto <small>Captura de producto</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i><a href="@Url.Action("Index", "Productos")"> Mis productos</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Nuevo Producto
+                </li>
+            </ol>
+        </div>
+    </div>
+    @{Html.RenderPartial("_formularioCapturaProducto");}
+</div>
+@section Scripts{
+<script src="~/Areas/Administrador/PlugIns/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('descripcionProducto', {
+
+        });
+    </script>
+    }

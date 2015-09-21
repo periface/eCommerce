@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Seccion>
+@{
+    ViewBag.Title = "_listaSecciones";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Tabla de secciones</h3>
+        <table id="secciones" class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        #Id Sección
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Contenido
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.idSeccion
+                        </td>
+                        <td>
+                            @item.nombreSeccion
+                        </td>
+                        <td>
+                            <a data-id="@item.idSeccion" class="modalCont" href="#">Ver contenido</a>
+                        </td>
+                        <td>
+                          @Html.estado(item.estadoSeccion)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("EditarSeccion", "Secciones", new { id = item.idSeccion })">Editar</a> | <a data-id="@item.idSeccion" href="#" class="modalElimina">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

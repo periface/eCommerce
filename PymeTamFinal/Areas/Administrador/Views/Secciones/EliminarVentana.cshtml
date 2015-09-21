@@ -1,0 +1,27 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Seccion
+@{
+    Layout = null;
+}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">¿Desea eliminar la sección @Model.nombreSeccion?</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.imagen(Model.imagenSeccion, null, 100, 100)
+                </div>
+                <div class="col-md-6">
+                    @Html.Raw(Model.contenidoSeccion)
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="@Url.Action("EliminarSeccion","Secciones", new { id=Model.idSeccion })" class="btn btn-danger">Eliminar</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>
+

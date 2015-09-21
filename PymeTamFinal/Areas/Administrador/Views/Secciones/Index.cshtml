@@ -1,0 +1,86 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Seccion>
+@{
+    ViewBag.Title = "Secciones";
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Secciones <small>Administración de secciones</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Secciones
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("NuevaSeccion", "Secciones")" class="btn btn-success sinborde">
+                <i class="fa fa-plus-square-o"></i> Agregar Sección
+            </a>
+        </div>
+    </div>
+    <br />
+    <br />
+    @{Html.RenderPartial("_listaSecciones",Model);}
+</div>
+
+@section Scripts{
+    <script>
+
+        $("body").on("click", ".modalCont", function () {
+            var id = $(this).data("id");
+            $("#modalContenido").load("/Administrador/Secciones/VerContenido/" + id, function () {
+                $('#modalContenido').modal("show");
+            }).error(function () {
+                alert("Contenido no encontrado");
+            });
+        });
+        $("body").on("click", ".modalElimina", function () {
+            var id = $(this).data("id");
+            $("#modalContenido").load("/Administrador/Secciones/EliminarVentana/" + id, function () {
+                $('#modalContenido').modal("show");
+            }).error(function () {
+                alert("Contenido no encontrado");
+            });
+        });
+        $(function () {
+            $('#secciones').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "bAutoWidth": false
+            });
+        });
+    </script>
+}
+@section final{
+    <div class="modal fade" id="modalContenido" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        
+    </div>
+}

@@ -1,0 +1,48 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Categoria
+@{
+    Layout = null;
+}
+@using (Html.BeginForm())
+{
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Nueva Categoria</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-lg-12">
+
+                        <label class="control-label">Categoria padre</label>
+                        <select class="form-control" name="idPadre">
+                            <option value="0">
+                                Categoria Padre
+                            </option>
+                            @foreach (var item in ViewBag.categorias)
+                            {
+                                <option value="@item.idCategoria">
+                                    @item.nombreCategoria
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12">
+                        <label class="control-label">
+                            Nombre de categoria
+                        </label>
+                        @Html.TextBoxFor(a => a.nombreCategoria, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(a=>a.nombreCategoria)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}
+@Scripts.Render("~/bundles/jqueryval")

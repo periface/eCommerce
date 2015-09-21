@@ -1,0 +1,60 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Categoria
+@{
+    Layout = null;
+}
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(a => a.idCategoria)
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="checkbox">
+                <label>
+                    @if (Model.idPadre == 0)
+                    {
+                        <input type="checkbox" checked="checked" id="padre" name="padre" /><span>Es categoria padre</span>
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="padre" name="padre" /><span>Es categoria padre</span>
+                    }
+                </label>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 form-group">
+            @if (Model.idPadre == 0)
+            {
+                @Html.DropDownList("idPadre", (IEnumerable<SelectListItem>)ViewBag.categorias, new { @class = "form-control", disabled = "disabled" })
+            }
+            else
+            {
+                @Html.DropDownList("idPadre", (IEnumerable<SelectListItem>)ViewBag.categorias, new { @class = "form-control" })
+
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 form-group">
+            <label class="control-label">Nombre de categoria</label>
+            @Html.TextBoxFor(a => a.nombreCategoria, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="submit" class="btn btn-success" value="Guardar Cambios" />
+        </div>
+    </div>
+}
+<script>
+    $("#padre").change(function () {
+        if ($(this).is(":checked")) {
+            $("#idPadre").prop("disabled", "disabled");
+        }
+        else {
+            $("#idPadre").removeAttr("disabled");
+        }
+    });
+</script>

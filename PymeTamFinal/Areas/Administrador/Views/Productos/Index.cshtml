@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Productos";
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Productos <small>Administración de productos</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Productos
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("AgregarProducto","Productos")" class="btn btn-success sinborde">
+                <i class="fa fa-plus-square-o"></i> Agregar Producto
+            </a>
+        </div>
+    </div>
+    <br />
+    @{Html.RenderPartial("_listaProductos");}
+</div>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script>
+        $(function () {
+            var table = $('#productos').DataTable({
+                //"bProcessing": true,
+                //"bServerSide": true,
+                "ajax": {
+                    "url": '/Administrador/Productos/CargaProductos/',
+                    "dataSrc": '',
+                    "deferRender": true,
+                },
+                dom: 'Bfrtip',
+                buttons: [{
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                    {
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4,5]
+                        }
+                    }
+                ],
+                "columns":
+                [
+                    { data: 'idProducto' },
+                    { data: 'sku' },
+                    { data: 'nombreProducto' },
+                    { data: 'precio' },
+                    { data: 'stock' },
+                    { data: 'categoria' },
+                    { data: 'opciones' },
+                ],
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "buttons": {
+                        "copyTitle": 'Tabla copiada',
+                        "copyInfo": {
+                            _: '%d Filas copiadas',
+                            1: '1 fila copiada'
+                        },
+                        'copy': 'Copiar',
+                        'excel': 'Exportar a excel',
+                        "colvis": "Columnas visibles"
+                    },
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+            });
+            $("body").on("click", ".editarGaleria", function () {
+                var id = $(this).data("id");
+                window.location.href = "/Administrador/Productos/EditarGaleria/" + id;
+                //$("#modalProducto").load("/Administrador/Productos/EditarGaleria/"+id, function () {
+                //    $("#modalProducto").modal("show");
+                //});
+            });
+            $("body").on("click", ".editarPrecio", function () {
+                var id = $(this).data("id");
+                $("#modalProducto").load("/Administrador/Productos/EditarPrecio/"+id, function () {
+                    $("#modalProducto").modal("show");
+                });
+            });
+        });
+
+    </script>
+
+}
+@section final{
+    <div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}
