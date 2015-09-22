@@ -20,6 +20,10 @@ namespace PymeTamFinal.Controles
         {
             if (filterContext.ExceptionHandled)
                 return;
+
+            if (filterContext.Exception.HResult == 500) {
+
+            }
             filterContext.Result = new ViewResult() {
                 ViewName = error500Parcial
             };
