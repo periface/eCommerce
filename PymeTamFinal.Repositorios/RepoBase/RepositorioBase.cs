@@ -153,6 +153,14 @@ namespace PymeTamFinal.Repositorios.RepoBase
         {
             throw new NotImplementedException();
         }
+
+        public virtual void AgregarRelacion(int entidad0, int entidad1)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void EliminarRelacion(int entidad0, int entidad1) {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

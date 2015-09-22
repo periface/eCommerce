@@ -194,6 +194,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Areas\Administrador\AdministradorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrador\Controllers\AreasServicioController.cs" />
     <Compile Include="Areas\Administrador\Controllers\CategoriasController.cs" />
     <Compile Include="Areas\Administrador\Controllers\ComentariosController.cs" />
     <Compile Include="Areas\Administrador\Controllers\CostosEnvioController.cs" />
@@ -359,6 +360,15 @@
     <Content Include="Areas\Administrador\Views\Comentarios\EditarComentario.cshtml" />
     <Content Include="Areas\Administrador\Views\Shared\_Error500.cshtml" />
     <Content Include="Areas\Administrador\Views\Comentarios\EliminarComentarioVentana.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\Index.cshtml" />
+    <Content Include="Areas\Administrador\Views\Shared\_listaPaises.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\Estados.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\Ciudades.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\AgregarPais.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\AgregarEstado.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\AgregarCiudad.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\AgregarEnvio.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\AgregarEnvioEstado.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -388,6 +398,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

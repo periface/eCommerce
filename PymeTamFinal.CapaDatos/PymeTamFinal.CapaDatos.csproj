@@ -86,6 +86,10 @@
     <Compile Include="Migrations\201509221454550_comentariosHabilitarProp.Designer.cs">
       <DependentUpon>201509221454550_comentariosHabilitarProp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509221811112_many2manyCostosCiudades.cs" />
+    <Compile Include="Migrations\201509221811112_many2manyCostosCiudades.Designer.cs">
+      <DependentUpon>201509221811112_many2manyCostosCiudades.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509221454550_comentariosHabilitarProp.resx">
       <DependentUpon>201509221454550_comentariosHabilitarProp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509221811112_many2manyCostosCiudades.resx">
+      <DependentUpon>201509221811112_many2manyCostosCiudades.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

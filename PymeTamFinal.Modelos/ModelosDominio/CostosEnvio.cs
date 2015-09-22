@@ -20,5 +20,8 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public decimal costo { get; set; }
         [Required(ErrorMessage = "Detalle requerido")]
         public string detalle { get; set; }
+        public virtual ICollection<Ciudad> ciudades { get; set; }
+        //Ciudades > CostosEnvio
+        //CostosEnvio < Ciudades
     }
 }

@@ -1,0 +1,155 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Pais>
+@{
+    ViewBag.Title = "Areas de servicio";
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Areas de servicio <small>Administración de areas de servicio</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Areas de servicio
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        @{ Html.RenderPartial("_listaPaises", Model);}
+        <div class="col-lg-4" id="estados"></div>
+        <div class="col-lg-4" id="ciudades"></div>
+    </div>
+
+</div>
+@section Scripts{
+    <script>
+        
+        $(function () {
+            $(".agregaPais").click(function () {
+                $("#modalAreas").load("/Administrador/AreasServicio/AgregarPais", function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $("body").on("click", ".agregaEstado", function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/AgregarEstado/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $("body").on("click", ".checkEnvio", function () {
+                var idEnvio = $(this).data("envio");
+                var idCiudad = $(this).data("ciudad");
+                var checado = $(this).is(":checked");
+                if (checado) {
+                    $.get("/Administrador/AreasServicio/AgregarRelacion/?idEnvio=" + idEnvio + "&idCiudad=" + idCiudad, function (d) {
+                   
+                        notif({
+                            type: "success",
+                            msg: "<span>" + d.mensaje + "</span>",
+                            //width: 'all',
+                            //position: 'bottom',
+                            //bgcolor: 'rgba(39, 174, 96, 1.0)',
+                            position: 'right',
+                            fade: true
+                        });
+                    });
+                }
+                else {
+                    $.get("/Administrador/AreasServicio/EliminarRelacion/?idEnvio=" + idEnvio + "&idCiudad=" + idCiudad, function (d) {
+                        notif({
+                            type: "success",
+                            msg: "<span>" + d.mensaje + "</span>",
+                            //width: 'all',
+                            //position: 'bottom',
+                            //bgcolor: 'rgba(39, 174, 96, 1.0)',
+                            position: 'right',
+                            fade: true
+                        });
+                    });
+                }
+            });
+            $("body").on("click", ".envioEstado", function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/AgregarEnvioEstado/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $("body").on("click", ".agregarEnvio", function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/AgregarEnvio/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $("body").on("click", ".agregaEnvioAEstado", function () {
+                var idEnvio = $(this).data("envio");
+                var idEstado = $(this).data("estado");
+                $.get("/Administrador/AreasServicio/AgregarEnvioSeleccionado/?idEnvio=" + idEnvio + "&idEstado=" + idEstado, function (d) {
+
+                    notif({
+                        type: "success",
+                        msg: "<span>" + d.mensaje + "</span>",
+                        //width: 'all',
+                        //position: 'bottom',
+                        //bgcolor: 'rgba(39, 174, 96, 1.0)',
+                        position: 'right',
+                        fade: true
+                    });
+                });
+            });
+            $("body").on("click", ".agregaCiudad", function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/AgregarCiudad/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $("body").on("click", ".verEstados", function () {
+                var id = $(this).data("id");
+                verEstados(id);
+                $("#ciudades").text("");
+            });
+            
+            $("body").on("click", ".verCiudades", function () {
+                var id = $(this).data("id");
+                verCiudades(id);
+            });
+        });
+        var recargaEstados = function (id) {
+            verEstados(id);
+        }
+        var recargaEstadosServer = function (data) {
+            console.log(data.data.idPais);
+            $("#modalAreas").text("");
+            $("#modalAreas").modal("hide");
+            verEstados(data.data.idPais);
+        }
+        var recargaCiudadesServer = function (data) {
+            console.log(data.data.idPais);
+            $("#modalAreas").text("");
+            $("#modalAreas").modal("hide");
+            verCiudades(data.data.idEstado);
+        }
+        var verCiudades = function (id) {
+            $("#ciudades").load("/Administrador/AreasServicio/Ciudades/" + id, function () {
+
+            }).error(function () {
+                alert("Error");
+            });
+        }
+        var verEstados = function (id) {
+            $("#estados").load("/Administrador/AreasServicio/Estados/" + id, function () {
+
+            }).error(function () {
+                alert("Error");
+            });
+        }
+    </script>
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
+@section final{
+    <div class="modal fade" id="modalAreas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}

@@ -25,6 +25,8 @@ namespace PymeTamFinal.Contratos.Repositorio
         T CargarPorId(object id, string[] tablasOp);
         T AsignarA(object src, object dest);
         void DesAsociar(T entidad);
+        void AgregarRelacion(int entidad0, int entidad1);
+        void EliminarRelacion(int entidad0, int entidad1);
         #endregion
         #region Async
         Task AgregarAsync(T entidad);

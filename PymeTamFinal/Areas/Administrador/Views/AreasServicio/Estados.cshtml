@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Estados>
+@{
+    Layout = null;
+}
+<a data-id="@ViewBag.id" class="btn btn-success agregaEstado">Agregar Estado</a>
+<hr />
+<ul class="nav nav-stacked">
+    @foreach (var item in Model)
+            {
+        <li>
+            <a href="#" id="@item.idEstado" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">@item.nombreEstado <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="@item.idEstado">
+                <li>
+                    <a class="verCiudades" data-id="@item.idEstado" href="#">Ver ciudades</a>
+                </li>
+                <li>
+                    <a class="envioEstado" data-id="@item.idEstado" href="#">Agregar servicio de envio</a>
+                </li>
+                <li>
+                    <a href="#">Editar</a>
+                </li>
+                <li>
+                    <a href="#">Eliminar</a>
+                </li>
+            </ul>
+        </li>
+    }
+</ul>
