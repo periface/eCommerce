@@ -10,8 +10,8 @@
             @foreach (var metodo in Model)
             {
                 <div class="row">
-                    <div class="col-lg-4 form-group">
-                        <a href="#" data-envio="@metodo.idEnvio" data-estado="@ViewBag.id" class="btn btn-primary agregaEnvioAEstado">@metodo.nombreMetodoEnvio</a>
+                    <div class="col-lg-12 form-group">
+                        <a href="#" data-envio="@metodo.idEnvio" data-estado="@ViewBag.id" class="btn btn-primary agregaEnvioAEstado">@metodo.nombreMetodoEnvio</a> <a href="#" data-envio="@metodo.idEnvio" data-estado="@ViewBag.id" class="btn btn-warning remueveEnvioAEstado">Remover</a>
                         <p class="help-block">
                             @metodo.detalle
                         </p>

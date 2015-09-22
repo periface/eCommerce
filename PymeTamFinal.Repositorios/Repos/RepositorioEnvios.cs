@@ -42,7 +42,7 @@ namespace PymeTamFinal.Repositorios.Repos
         public override void EliminarRelacion(int entidad0, int entidad1)
         {
             var ciudad = context.Ciudad.Find(entidad1);
-            var envio = context.CostosEnvio.Find(entidad0);
+            var envio = context.CostosEnvio.Include("Ciudades").SingleOrDefault(a => a.idEnvio == entidad0);
             envio.ciudades.Remove(ciudad);
             context.SaveChanges();
         }
