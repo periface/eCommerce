@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminHelper\CategoriasHelper.cs" />
+    <Compile Include="AdminHelper\ComentariosHelper.cs" />
     <Compile Include="AdminHelper\EmpresaHelpers.cs" />
     <Compile Include="AdminHelper\ProductosHelper.cs" />
     <Compile Include="BasicHelper\Basic.cs" />

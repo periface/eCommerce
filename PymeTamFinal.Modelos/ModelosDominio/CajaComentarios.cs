@@ -18,6 +18,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public int idProducto { get; set; }
         public int calificacion { get; set; }
         public bool revisado { get; set; }
+        public bool habilitado { get; set; }
         [Required(ErrorMessage ="Comentario requerido")]
         public string comentario { get; set; }
         [ForeignKey("idProducto")]

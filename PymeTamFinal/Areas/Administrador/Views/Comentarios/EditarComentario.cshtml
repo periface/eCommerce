@@ -1,0 +1,68 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.CajaComentarios
+@{
+    Layout = null;
+
+}
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(a=>a.calificacion)
+    @Html.HiddenFor(a=>a.idCliente)
+    @Html.HiddenFor(a => a.idComentario)
+    @Html.HiddenFor(a => a.idProducto)
+    @Html.HiddenFor(a=>a.nombreCliente)
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Editar comentario</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-lg-5">
+                        <label class="control-label">
+                            Usuario
+                        </label>
+                        @Html.TextBoxFor(a => a.nombreCliente, new { @class = "form-control", disabled = "disabled" })
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="control-label">Calificación</label><br />
+                        @Html.generarEstrellasCalif(Model.calificacion)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 form-group">
+                        <label class="control-label">Comentario</label>
+                        @Html.TextAreaFor(a => a.comentario, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(a=>a.comentario)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 form-group">
+                        <div class="checkbox">
+                            <label>
+                                @Html.EditorFor(a => a.revisado) Comentario revisado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <div class="checkbox">
+                            <label>
+                                @Html.EditorFor(a => a.habilitado) Comentario habilitado
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}
+@Scripts.Render("~/bundles/jqueryval")

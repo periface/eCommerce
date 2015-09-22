@@ -1,5 +1,6 @@
 ﻿using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Controles;
+using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Modelos.ModelosVista;
 using System;
@@ -24,7 +25,71 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         // GET: Administrador/Comentarios
         public ActionResult Index()
         {
+            ServicioDeMensajes.obtieneMensaje(ControllerContext.Controller);
             return View();
+        }
+        public ActionResult EditarComentario(int? id)
+        {
+            if (!id.HasValue)
+            {
+                if (Request.IsAjaxRequest())
+                {
+                    return error404Parcial;
+                }
+                return HttpNotFound();
+            }
+            var comentario = _comentarios.CargarPorId(id);
+            if (comentario == null)
+            {
+                if (Request.IsAjaxRequest())
+                {
+                    return error404Parcial;
+                }
+                return HttpNotFound();
+            }
+            return View(comentario);
+        }
+        [HttpPost]
+        public ActionResult EditarComentario(CajaComentarios model)
+        {
+            if (ModelState.IsValid)
+            {
+                _comentarios.Editar(model);
+
+                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                return RedirectToAction("Index");
+            }
+            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.ErrorBasico, ControllerContext.Controller);
+
+            return RedirectToAction("Index");
+        }
+        public ActionResult EliminarComentarioVentana(int? id) {
+            if (!id.HasValue) {
+                if (Request.IsAjaxRequest()) {
+                    return error404Parcial;
+
+                }
+                return HttpNotFound();
+            }
+            var comentario = _comentarios.CargarPorId(id);
+            if (comentario == null) {
+                if (Request.IsAjaxRequest())
+                {
+                    return error404Parcial;
+                }
+                return HttpNotFound();
+            }
+            return View(comentario);
+        }
+        public ActionResult EliminarComentario(int? id) {
+            if (!id.HasValue)
+                return HttpNotFound();
+            var comentario = _comentarios.CargarPorId(id);
+            if (comentario == null)
+                return HttpNotFound();
+            _comentarios.Eliminar(comentario);
+            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado, ControllerContext.Controller);
+            return RedirectToAction("Index");
         }
         public ActionResult CargaComentarios()
         {
@@ -40,7 +105,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                     cliente = generaCliente(item.idCliente)
                 });
             }
-            return Json(tabla,JsonRequestBehavior.AllowGet);
+            return Json(tabla, JsonRequestBehavior.AllowGet);
         }
 
         private string generaCliente(int? idCliente)
@@ -69,26 +134,25 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         private string generarOpciones(int idComentario)
         {
             Dictionary<string, string> attrCompartidos = new Dictionary<string, string>();
-            attrCompartidos.Add("href","#");
+            attrCompartidos.Add("href", "#");
             attrCompartidos.Add("data-id", idComentario.ToString());
             TagBuilder aEliminar = new TagBuilder("a");
             aEliminar.MergeAttributes(attrCompartidos);
             aEliminar.SetInnerText("Eliminar");
-            aEliminar.MergeAttribute("class","eliminar");
+            aEliminar.MergeAttribute("class", "eliminar");
             TagBuilder aVer = new TagBuilder("a");
             aVer.SetInnerText("Ver comentario");
-            aVer.MergeAttribute("class","ver");
+            aVer.MergeAttribute("class", "ver");
             aVer.MergeAttributes(attrCompartidos);
             TagBuilder aEditar = new TagBuilder("a");
             aEditar.SetInnerText("Editar");
-            aEditar.MergeAttribute("class","editar");
+            aEditar.MergeAttribute("class", "editar");
             aEditar.MergeAttributes(attrCompartidos);
 
 
-            string botones = aVer+ " | " + aEditar + " | " + aEliminar;
+            string botones = aEditar + " | " + aEliminar;
             return botones;
         }
-
         private string generarCalificacion(int calificacion)
         {
             string elm = string.Empty;
@@ -96,7 +160,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             {
                 TagBuilder span = new TagBuilder("span");
                 span.MergeAttribute("class", "glyphicon glyphicon-star");
-                
+
                 elm += span.ToString();
             }
             return elm;

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.CajaComentarios>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Comentarios";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Scripts/datatables/datatables.min.css" rel="stylesheet" />
@@ -22,6 +22,7 @@
 </div>
 @section Scripts{
     <script>
+       
         var table = $('#comentarios').DataTable({
             //"bProcessing": true,
             //"bServerSide": true,
@@ -87,5 +88,24 @@
                 }
             },
         });
+        $(function () {
+            $("body").on("click", ".editar", function () {
+                var id = $(this).data("id");
+                $("#modalComentario").load("/Administrador/Comentarios/EditarComentario/" + id, function () {
+                    $("#modalComentario").modal("show");
+                });
+            });
+            $("body").on("click", ".eliminar", function () {
+                var id = $(this).data("id");
+                $("#modalComentario").load("/Administrador/Comentarios/EliminarComentarioVentana/" + id, function () {
+                    $("#modalComentario").modal("show");
+                });
+            });
+        });
     </script>
     }
+@section final{
+    <div class="modal fade" id="modalComentario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}

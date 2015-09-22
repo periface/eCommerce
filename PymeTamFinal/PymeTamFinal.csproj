@@ -356,6 +356,9 @@
     <Content Include="Areas\Administrador\Views\Shared\_error404ParcialModal.cshtml" />
     <Content Include="Areas\Administrador\Views\Productos\EliminarProductoVentana.cshtml" />
     <Content Include="Areas\Administrador\Views\Shared\_listaComentarios.cshtml" />
+    <Content Include="Areas\Administrador\Views\Comentarios\EditarComentario.cshtml" />
+    <Content Include="Areas\Administrador\Views\Shared\_Error500.cshtml" />
+    <Content Include="Areas\Administrador\Views\Comentarios\EliminarComentarioVentana.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />

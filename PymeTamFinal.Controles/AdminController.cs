@@ -9,24 +9,39 @@ namespace PymeTamFinal.Controles
 {
     public class AdminController : Controller
     {
-        public string error404Parcial {
-            get { return "_error404ParcialModal"; }
-        }
-        public string error500Parcial
+        /// <summary>
+        /// Modals
+        /// </summary>
+        public ViewResult error500Parcial
         {
-            get { return "_error500Parcial"; }
+            get {
+                return View("_error500Parcial");
+            }
         }
+        public ViewResult error500
+        {
+            get
+            {
+                return View("_error500Parcial");
+            }
+        }
+        /// <summary>
+        /// Modals
+        /// </summary>
+        public ViewResult error404Parcial
+        {
+            get
+            {
+                return View("_error404ParcialModal");
+            }
+        }
+
         protected override void OnException(ExceptionContext filterContext)
         {
             if (filterContext.ExceptionHandled)
                 return;
-
-            if (filterContext.Exception.HResult == 500) {
-
-            }
-            filterContext.Result = new ViewResult() {
-                ViewName = error500Parcial
-            };
+            filterContext.Result = error500;
+            base.OnException(filterContext);
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {

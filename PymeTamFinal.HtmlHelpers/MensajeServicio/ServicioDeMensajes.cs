@@ -15,7 +15,8 @@ namespace PymeTamFinal.HtmlHelpers.MensajeServicio
             Editado,
             Eliminado,
             ErrorRecurrencia,
-            Habilitado
+            Habilitado,
+            ErrorBasico
         }
         public static void obtieneMensaje(ControllerBase controller) {
             var mensaje = controller.TempData["mensaje"];
@@ -43,6 +44,10 @@ namespace PymeTamFinal.HtmlHelpers.MensajeServicio
                 case enumMensaje.Habilitado:
                     controller.ViewBag.mensajeSituacion = "El elemento se ha habilitado correctamente.";
                     controller.ViewBag.tipoMensaje = "success";
+                    break;
+                case enumMensaje.ErrorBasico:
+                    controller.ViewBag.mensajeSituacion = "Ocurrio un error durante la operación.";
+                    controller.ViewBag.tipoMensaje = "error";
                     break;
                 default:
                     break;

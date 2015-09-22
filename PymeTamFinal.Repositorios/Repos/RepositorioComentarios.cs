@@ -35,5 +35,9 @@ namespace PymeTamFinal.Repositorios.Repos
             context.Entry(entidad).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
         }
+        public override CajaComentarios CargarPorId(object id)
+        {
+            return context.CajaComentarios.Find(id);
+        }
     }
 }
