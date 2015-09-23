@@ -1,4 +1,5 @@
-﻿using PymeTamFinal.Contratos.Repositorio;
+﻿using PymeTamFinal.Attributos;
+using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Controles;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
@@ -107,6 +108,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             ViewBag.categorias = cargaCategorias;
             return View(model);
         }
+        [AdminAutorizacionParcialAttr(Roles = "Administrador")]
         public ActionResult AdministrarPrecio(int id)
         {
             var producto = _producto.CargarPorId(id);
@@ -151,6 +153,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             }
             return HttpNotFound();
         }
+        [AdminAutorizacionParcialAttr(Roles = "Administrador")]
         public ActionResult EditarPrecio(int id)
         {
             ViewBag.tipos = cargaTipos;
@@ -194,6 +197,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
 
             return RedirectToAction("Index");
         }
+        [AdminAutorizacionParcialAttr(Roles = "Administrador")]
         public ActionResult EliminarProductoVentana(int? id) {
             if (!id.HasValue) {
                 if (!Request.IsAjaxRequest()) {
@@ -204,6 +208,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             var producto = _producto.CargarPorId(id);
             return View(producto);
         }
+        [Authorize(Roles ="Administrador")]
         public ActionResult EliminarProducto(int id) {
             
             var producto = _producto.CargarPorId(id);
@@ -214,7 +219,6 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado,ControllerContext.Controller);
             return RedirectToAction("Index");
         }
-
         private void eliminarPrecio(int idProducto)
         {
             var precio = _precios.CargarPorId(idProducto);
@@ -223,7 +227,6 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             }
             return;
         }
-
         [HttpPost]
         public ActionResult SubirImagen()
         {

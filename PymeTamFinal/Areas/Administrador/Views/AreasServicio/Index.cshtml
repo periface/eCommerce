@@ -25,16 +25,39 @@
 </div>
 @section Scripts{
     <script>
-        
         $(function () {
             $(".agregaPais").click(function () {
                 $("#modalAreas").load("/Administrador/AreasServicio/AgregarPais", function () {
                     $("#modalAreas").modal("show");
                 });
             });
+            $(".editarPais").click(function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/EditarPais/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $(".eliminarPais").click(function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/EliminarPaisVentana/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
             $("body").on("click", ".agregaEstado", function () {
                 var id = $(this).data("id");
                 $("#modalAreas").load("/Administrador/AreasServicio/AgregarEstado/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $("body").on("click", ".editarEstado", function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/EditarEstado/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $("body").on("click", ".eliminarEstado", function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/EliminarEstadoVentana/" + id, function () {
                     $("#modalAreas").modal("show");
                 });
             });
@@ -104,6 +127,18 @@
                     $("#modalAreas").modal("show");
                 });
             });
+            $("body").on("click", ".editarCiudad", function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/EditarCiudad/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
+            $("body").on("click", ".eliminarCiudad", function () {
+                var id = $(this).data("id");
+                $("#modalAreas").load("/Administrador/AreasServicio/EliminarCiudadVentana/" + id, function () {
+                    $("#modalAreas").modal("show");
+                });
+            });
             $("body").on("click", ".verEstados", function () {
                 var id = $(this).data("id");
                 verEstados(id);
@@ -125,7 +160,6 @@
             verEstados(data.data.idPais);
         }
         var recargaCiudadesServer = function (data) {
-            console.log(data.data.idPais);
             $("#modalAreas").text("");
             $("#modalAreas").modal("hide");
             verCiudades(data.data.idEstado);

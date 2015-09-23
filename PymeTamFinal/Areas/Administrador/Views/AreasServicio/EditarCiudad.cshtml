@@ -1,0 +1,33 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Ciudad
+@{Layout = null;}
+@using (Ajax.BeginForm("EditarCiudad", "AreasServicio", new AjaxOptions
+{
+    HttpMethod = "Post",
+    OnSuccess = "recargaCiudadesServer(data)"
+}))
+{
+    @Html.Hidden("idCiudad", Model.idCiudad)
+    @Html.HiddenFor(a=>a.idEstado)
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Nueva Ciudad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 form-group">
+                        <label class="control-label">Ciudad</label>
+                        @Html.TextBoxFor(a => a.nombreCiudad, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(a => a.nombreCiudad)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}
+

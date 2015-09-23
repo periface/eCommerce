@@ -285,6 +285,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ScriptSql\script.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Administrador\Views\web.config" />
@@ -369,6 +370,13 @@
     <Content Include="Areas\Administrador\Views\AreasServicio\AgregarCiudad.cshtml" />
     <Content Include="Areas\Administrador\Views\AreasServicio\AgregarEnvio.cshtml" />
     <Content Include="Areas\Administrador\Views\AreasServicio\AgregarEnvioEstado.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\EditarPais.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\EliminarPaisVentana.cshtml" />
+    <Content Include="Areas\Administrador\Views\Shared\_NoAutorizadoParcialModal.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\EditarEstado.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\EliminarEstadoVentana.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\EditarCiudad.cshtml" />
+    <Content Include="Areas\Administrador\Views\AreasServicio\EliminarCiudadVentana.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -408,6 +416,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="ScriptSql\Leéme.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -474,6 +483,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PymeTamFinal.Attributos\PymeTamFinal.Attributos.csproj">
+      <Project>{11d4055d-855d-4ebb-837e-8acb6533c733}</Project>
+      <Name>PymeTamFinal.Attributos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PymeTamFinal.CapaDatos\PymeTamFinal.CapaDatos.csproj">
       <Project>{1a3ed0a6-e1f1-4a3b-a7f8-a2217c121968}</Project>
       <Name>PymeTamFinal.CapaDatos</Name>

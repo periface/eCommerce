@@ -1,0 +1,6 @@
+﻿Conexión al archivo:
+Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=C:\Users\{USUARIO}\Documents\GitHub\eCommerce\PymeTamFinal\App_Data\aspnet-PymeTamFinal-20150916030315.mdf;Initial Catalog=aspnet-PymeTamFinal-20150916030315;Integrated Security=True;MultipleActiveResultSets=True
+Conexión a sql:
+(LocalDb)\MSSQLLocalDB
+
+*Posiblemente sera necesario ejecutar el script y modificar la cadena de la conexión en el server explorer

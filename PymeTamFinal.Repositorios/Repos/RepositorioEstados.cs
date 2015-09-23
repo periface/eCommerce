@@ -34,5 +34,15 @@ namespace PymeTamFinal.Repositorios.Repos
             context.Estados.Add(entidad);
             context.SaveChanges();
         }
+        public override void Editar(Estados entidad)
+        {
+            context.Entry(entidad).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+        }
+        public override void Eliminar(Estados entidad)
+        {
+            context.Entry(entidad).State = System.Data.Entity.EntityState.Deleted;
+            context.SaveChanges();
+        }
     }
 }

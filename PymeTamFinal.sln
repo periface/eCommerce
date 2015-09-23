@@ -19,9 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppServer", "AppServer", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppWeb", "AppWeb", "{BB23E7A5-3927-4EEF-A4BD-247EAA9A9C2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PymeTamFinal.MetodosPago", "MetodosPago\PymeTamFinal.MetodosPago.csproj", "{F82D6089-EB0D-4796-91AB-8551080E32FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PymeTamFinal.MetodosPago", "PymeTamFinal.MetodosPago\PymeTamFinal.MetodosPago.csproj", "{F82D6089-EB0D-4796-91AB-8551080E32FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PymeTamFinal.Controles", "PymeTamFinal.Controles\PymeTamFinal.Controles.csproj", "{6ECF8219-97EB-46F1-A630-24B4001D71AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PymeTamFinal.Attributos", "PymeTamFinal.Attributos\PymeTamFinal.Attributos.csproj", "{11D4055D-855D-4EBB-837E-8ACB6533C733}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{6ECF8219-97EB-46F1-A630-24B4001D71AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ECF8219-97EB-46F1-A630-24B4001D71AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ECF8219-97EB-46F1-A630-24B4001D71AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11D4055D-855D-4EBB-837E-8ACB6533C733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11D4055D-855D-4EBB-837E-8ACB6533C733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11D4055D-855D-4EBB-837E-8ACB6533C733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11D4055D-855D-4EBB-837E-8ACB6533C733}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,5 +80,6 @@ Global
 		{0E1BF5B2-11F9-419F-8E93-D158CDA2C407} = {47625A1A-27AB-4B57-8BF6-20B1FABDE67E}
 		{F82D6089-EB0D-4796-91AB-8551080E32FD} = {47625A1A-27AB-4B57-8BF6-20B1FABDE67E}
 		{6ECF8219-97EB-46F1-A630-24B4001D71AB} = {47625A1A-27AB-4B57-8BF6-20B1FABDE67E}
+		{11D4055D-855D-4EBB-837E-8ACB6533C733} = {47625A1A-27AB-4B57-8BF6-20B1FABDE67E}
 	EndGlobalSection
 EndGlobal

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web;
+using System.Web.Routing;
 
 namespace PymeTamFinal.Controles
 {
@@ -35,17 +37,30 @@ namespace PymeTamFinal.Controles
                 return View("_error404ParcialModal");
             }
         }
-
         protected override void OnException(ExceptionContext filterContext)
         {
             if (filterContext.ExceptionHandled)
                 return;
-            filterContext.Result = error500;
+            if (HttpContext.Request.IsAjaxRequest())
+            {
+                filterContext.Result = error500Parcial;
+            }
+            else {
+                filterContext.Result = error500;
+            }
             base.OnException(filterContext);
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
+        }
+        protected override void Execute(RequestContext requestContext)
+        {
+            base.Execute(requestContext);
+        }
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
         }
     }
 }

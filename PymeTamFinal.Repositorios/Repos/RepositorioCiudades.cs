@@ -29,11 +29,20 @@ namespace PymeTamFinal.Repositorios.Repos
         public override IQueryable<Ciudad> Cargar(Expression<Func<Ciudad, bool>> lambda)
         {
             return context.Ciudad.Where(lambda);
-
         }
         public override void Agregar(Ciudad entidad)
         {
             context.Ciudad.Add(entidad);
+            context.SaveChanges();
+        }
+        public override void Editar(Ciudad entidad)
+        {
+            context.Entry(entidad).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+        public override void Eliminar(Ciudad entidad)
+        {
+            context.Entry(entidad).State = EntityState.Deleted;
             context.SaveChanges();
         }
     }

@@ -8,6 +8,8 @@ using System.Data.Entity;
 using System.Web.Mvc;
 using PymeTamFinal.Modelos.ModelosVista;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
+using PymeTamFinal.Attributos;
+
 namespace PymeTamFinal.Areas.Administrador.Controllers
 {
     public class CategoriasController : Controller
@@ -96,6 +98,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             var padres = _categorias.Cargar(a => a.idPadre == 0);
             return View(padres);
         }
+        [AdminAutorizacionParcialAttr(Roles = "Administrador")]
         public ActionResult EliminarVentana(int id) {
             CategoriaAdminEliminaViewModel model = new CategoriaAdminEliminaViewModel();
             var categoria = _categorias.CargarPorId(id);

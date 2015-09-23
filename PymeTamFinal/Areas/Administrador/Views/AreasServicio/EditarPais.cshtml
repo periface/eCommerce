@@ -1,0 +1,35 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Pais
+@{Layout = null;}
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(a=>a.idPais)
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Nuevo País</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 form-group">
+                        <label class="control-label">País</label>
+                        @Html.TextBoxFor(a => a.nombrePais, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(a => a.nombrePais)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 form-group">
+                        <label class="control-label">Codigo de Idioma</label>
+                        @Html.TextBoxFor(a => a.langCode, new { @class = "form-control", placeHolder = "es-MX" })
+                        @Html.ValidationMessageFor(a => a.langCode)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}
+
