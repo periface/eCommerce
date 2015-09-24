@@ -39,6 +39,7 @@ namespace PymeTamFinal.Controles
         }
         protected override void OnException(ExceptionContext filterContext)
         {
+            //Log de errores en el modulo de administración
             if (filterContext.ExceptionHandled)
                 return;
             if (HttpContext.Request.IsAjaxRequest())
@@ -46,6 +47,7 @@ namespace PymeTamFinal.Controles
                 filterContext.Result = error500Parcial;
             }
             else {
+                
                 filterContext.Result = error500;
             }
             base.OnException(filterContext);
@@ -57,10 +59,12 @@ namespace PymeTamFinal.Controles
         protected override void Execute(RequestContext requestContext)
         {
             base.Execute(requestContext);
+            //A partir de aqui se tiene acceso al controllercontext
         }
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
+            //A partir de aqui se tiene acceso al controllercontext
         }
     }
 }

@@ -15,6 +15,6 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public int idPais { get; set; }
         public string nombrePais { get; set; }
         public string langCode { get; set; }
-        public ICollection<Estados> estados { get; set; }
+        public virtual ICollection<Estados> estados { get; set; }
     }
 }

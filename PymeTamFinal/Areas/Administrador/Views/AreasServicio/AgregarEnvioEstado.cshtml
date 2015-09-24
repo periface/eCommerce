@@ -1,23 +1,33 @@
 ﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.CostosEnvio>
 @{ Layout = null;}
-<div class="modal-dialog" role="document">
+<div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="exampleModalLabel">Agregar metodo de envio</h4>
         </div>
         <div class="modal-body">
-            @foreach (var metodo in Model)
+            <div class="row">
+                @foreach (var metodo in Model)
             {
-                <div class="row">
-                    <div class="col-lg-12 form-group">
-                        <a href="#" data-envio="@metodo.idEnvio" data-estado="@ViewBag.id" class="btn btn-primary agregaEnvioAEstado">@metodo.nombreMetodoEnvio</a> <a href="#" data-envio="@metodo.idEnvio" data-estado="@ViewBag.id" class="btn btn-warning remueveEnvioAEstado">Remover</a>
-                        <p class="help-block">
+                    <div class="col-lg-6 form-group">
+                        <div class="checkbox">
+                            <label style=" white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;">
+                                @Html.envioCiudadChk(metodo.idEnvio, (int)ViewBag.id) @metodo.nombreMetodoEnvio
+
+                            </label>
+                        </div>
+                        <p class="help-block" style=" white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;">
                             @metodo.detalle
                         </p>
                     </div>
-                </div>
-            }
+                }
+
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

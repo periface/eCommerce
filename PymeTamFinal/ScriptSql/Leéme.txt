@@ -4,3 +4,4 @@ Conexión a sql:
 (LocalDb)\MSSQLLocalDB
 
 *Posiblemente sera necesario ejecutar el script y modificar la cadena de la conexión en el server explorer
+*Actualización: Abre la conexión y si hay una abse de datos con el mismo nombre eliminarla

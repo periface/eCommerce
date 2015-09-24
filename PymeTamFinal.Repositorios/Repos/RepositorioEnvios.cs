@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace PymeTamFinal.Repositorios.Repos
 {
@@ -21,16 +22,26 @@ namespace PymeTamFinal.Repositorios.Repos
         {
             return context.CostosEnvio;
         }
-        public override CostosEnvio CargarPorId(object id)
+        public override IQueryable<CostosEnvio> Cargar(Expression<Func<CostosEnvio, bool>> lambda)
         {
-            var idEnvio = (int)id;
-            var envio = context.CostosEnvio.Include("Ciudades").SingleOrDefault(a=>a.idEnvio==idEnvio);
-            return envio;
+            return context.CostosEnvio.Where(lambda);
+
+        }
+        public override void Agregar(CostosEnvio entidad)
+        {
+            context.CostosEnvio.Add(entidad);
+            context.SaveChanges();
         }
         public override void Editar(CostosEnvio entidad)
         {
             context.Entry(entidad).State = EntityState.Modified;
             context.SaveChanges();
+        }
+        public override CostosEnvio CargarPorId(object id)
+        {
+            var idEnvio = (int)id;
+            var envio = context.CostosEnvio.Include("Ciudades").SingleOrDefault(a=>a.idEnvio==idEnvio);
+            return envio;
         }
         public override void AgregarRelacion(int entidad0, int entidad1)
         {

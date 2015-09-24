@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.CostosEnvio>
+@{
+    Layout = null;
+}
+<div class="row">
+    @foreach (var costo in Model)
+    {
+        <div class="col-lg-3">
+            <h3>
+                @costo.nombreMetodoEnvio
+            </h3>
+            <p>
+               $ @costo.costo MXN
+            </p>
+            <p style=" white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;">
+                @costo.detalle
+            </p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <a data-id="@costo.idEnvio" class="btn btn-default detalle">Detalle</a>
+                        <a data-id="@costo.idEnvio" class="btn btn-primary editar">Editar</a>
+                            <a data-id="@costo.idEnvio" class="btn btn-danger eliminar">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

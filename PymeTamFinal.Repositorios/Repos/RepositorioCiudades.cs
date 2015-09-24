@@ -28,7 +28,7 @@ namespace PymeTamFinal.Repositorios.Repos
         }
         public override IQueryable<Ciudad> Cargar(Expression<Func<Ciudad, bool>> lambda)
         {
-            return context.Ciudad.Where(lambda);
+            return context.Ciudad.Include("estado").Include("estado.pais").Where(lambda);
         }
         public override void Agregar(Ciudad entidad)
         {

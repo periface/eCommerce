@@ -108,7 +108,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             ViewBag.categorias = cargaCategorias;
             return View(model);
         }
-        [AdminAutorizacionParcialAttr(Roles = "Administrador")]
+        //[AdminAutorizacionParcialAttr(Roles = "Administrador")]
         public ActionResult AdministrarPrecio(int id)
         {
             var producto = _producto.CargarPorId(id);
@@ -153,7 +153,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             }
             return HttpNotFound();
         }
-        [AdminAutorizacionParcialAttr(Roles = "Administrador")]
+        //[AdminAutorizacionParcialAttr(Roles = "Administrador")]
         public ActionResult EditarPrecio(int id)
         {
             ViewBag.tipos = cargaTipos;
