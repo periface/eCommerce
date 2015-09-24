@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201509221811112_many2manyCostosCiudades.Designer.cs">
       <DependentUpon>201509221811112_many2manyCostosCiudades.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509241759062_aplicaCuponPromociones.cs" />
+    <Compile Include="Migrations\201509241759062_aplicaCuponPromociones.Designer.cs">
+      <DependentUpon>201509241759062_aplicaCuponPromociones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509221811112_many2manyCostosCiudades.resx">
       <DependentUpon>201509221811112_many2manyCostosCiudades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509241759062_aplicaCuponPromociones.resx">
+      <DependentUpon>201509241759062_aplicaCuponPromociones.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,6 +19,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public decimal descuento { get; set; }
         public bool usado { get; set; }
         public int cantidadesUso { get; set; }
+        public bool usoEnDescuentos { get; set; }
         public DateTime fechaCaducidad { get; set; }
         public decimal minimoRequerido { get; set; }
         [ForeignKey("idCliente")]

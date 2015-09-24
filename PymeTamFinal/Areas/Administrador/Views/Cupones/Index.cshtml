@@ -3,15 +3,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">
-            Cupones <small>Administración de cupones</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li class="active">
-                <i class="fa fa-dashboard"></i> Cupones
-            </li>
-        </ol>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Cupones <small>Administración de cupones</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Cupones
+                </li>
+            </ol>
+        </div>
     </div>
+    @{Html.RenderPartial("_listaCupones",Model);}
 </div>

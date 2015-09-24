@@ -73,7 +73,9 @@
     <Compile Include="ModelosVista\CategoriaAdminEliminaViewModel.cs" />
     <Compile Include="ModelosVista\CategoriaAdminViewModel.cs" />
     <Compile Include="ModelosVista\ComentarioTablaViewModel.cs" />
+    <Compile Include="ModelosVista\CuponTablaViewModel.cs" />
     <Compile Include="ModelosVista\DetalleEnvioViewModel.cs" />
+    <Compile Include="ModelosVista\ModeloJson.cs" />
     <Compile Include="ModelosVista\ProductoTablaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -37,6 +37,11 @@ namespace PymeTamFinal.Repositorios.Repos
             context.Entry(entidad).State = EntityState.Modified;
             context.SaveChanges();
         }
+        public override void Eliminar(CostosEnvio entidad)
+        {
+            context.Entry(entidad).State = EntityState.Deleted;
+            context.SaveChanges();
+        }
         public override CostosEnvio CargarPorId(object id)
         {
             var idEnvio = (int)id;

@@ -25,15 +25,46 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             var model = _envios.Cargar();
             return View(model);
         }
+        public ActionResult CargaEnviosCAjax() {
+            var model = _envios.Cargar();
+            return View(model);
+        }
         public ActionResult AgregarEnvio()
         {
             return View();
         }
-        public ActionResult VerDetalle(int? id) {
-            var model = new DetalleEnvioViewModel();
-            model.costoEnvio = _envios.CargarPorId(id);
-            model.ciudades = _ciudades.Cargar(a=>a.costosEnvio.Any(e=>e.idEnvio==id.Value));
-            return View(model);
+        [HttpPost]
+        public ActionResult AgregarEnvio(CostosEnvio model) {
+            if (Request.IsAjaxRequest()) {
+                if (ModelState.IsValid)
+                {
+                    _envios.Agregar(model);
+                    return Json(jsonResult(ModelState, true, model), JsonRequestBehavior.AllowGet);
+                }
+                else {
+                    ModeloJson json = new ModeloJson();
+                    return Json(jsonResult(ModelState, null, model), JsonRequestBehavior.AllowGet);
+                }
+            }
+            return HttpNotFound();
+        }
+        public ActionResult VerDetalle(int? id)
+        {
+            if (Request.IsAjaxRequest())
+            {
+
+                if (!id.HasValue)
+                {
+                    return error404Parcial;
+                }
+                var model = new DetalleEnvioViewModel();
+                model.costoEnvio = _envios.CargarPorId(id);
+                if (model.costoEnvio == null)
+                    return error404Parcial;
+                model.ciudades = _ciudades.Cargar(a => a.costosEnvio.Any(e => e.idEnvio == id.Value));
+                return View(model);
+            }
+            return HttpNotFound();
         }
         public ActionResult EditarEnvio(int? id)
         {
@@ -48,18 +79,52 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             }
             return HttpNotFound();
         }
+        [HttpPost]
+        public ActionResult EditarEnvio(CostosEnvio model) {
+            if (Request.IsAjaxRequest())
+            {
+                if (ModelState.IsValid)
+                {
+                    _envios.Editar(model);
+                    return Json(jsonResult(ModelState, true, model), JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ModeloJson json = new ModeloJson();
+                    return Json(jsonResult(ModelState, null, model), JsonRequestBehavior.AllowGet);
+                }
+            }
+            return HttpNotFound();
+        }
         public ActionResult EliminarEnvio(int? id)
         {
             if (Request.IsAjaxRequest())
             {
+
                 if (!id.HasValue)
+                {
                     return error404Parcial;
-                var envio = _envios.CargarPorId(id);
-                if (envio == null)
+                }
+                var model = new DetalleEnvioViewModel();
+                model.costoEnvio = _envios.CargarPorId(id);
+                if (model.costoEnvio == null)
                     return error404Parcial;
-                return View(envio);
+                model.ciudades = _ciudades.Cargar(a => a.costosEnvio.Any(e => e.idEnvio == id.Value));
+                return View(model);
             }
             return HttpNotFound();
+        }
+        public ActionResult Eliminar(int? id) {
+            if (Request.IsAjaxRequest()) {
+                if (!id.HasValue)
+                    return HttpNotFound();
+                var envio = _envios.CargarPorId(id);
+                if (envio == null)
+                    return HttpNotFound();
+                _envios.Eliminar(envio);
+                return Json(jsonResult(null, true, envio),JsonRequestBehavior.AllowGet);
+            }
+            return error404Parcial;
         }
     }
 }

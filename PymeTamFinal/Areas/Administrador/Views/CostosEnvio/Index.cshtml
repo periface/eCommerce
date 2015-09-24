@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.CostosEnvio>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Costos de envio";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
@@ -24,9 +24,13 @@
             </a>
         </div>
     </div>
-    @{Html.RenderPartial("_listaEnvios", Model);}
+    <div id="listaEnvios">
+        @{Html.RenderPartial("_listaEnvios", Model);}
+    </div>
+   
 </div>
 @section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
         $(function () {
             $("body").on("click", ".detalle", function () {
@@ -61,10 +65,45 @@
                     });
                 });
             });
+            $("body").on("click", ".nuevoEnvio", function () {
+                $("#modalEnvio").load("/Administrador/CostosEnvio/AgregarEnvio/", function () {
+                    $("#modalEnvio").modal("show");
+                });
+            });
+            $("body").on("click", ".editar", function () {
+                var id = $(this).data("id");
+                $("#modalEnvio").load("/Administrador/CostosEnvio/EditarEnvio/"+id, function () {
+                    $("#modalEnvio").modal("show");
+                });
+            });
+            $("body").on("click", ".eliminar", function () {
+                var id = $(this).data("id");
+                $("#modalEnvio").load("/Administrador/CostosEnvio/EliminarEnvio/" + id, function () {
+                    $("#modalEnvio").modal("show");
+                });
+            });
         });
+        var metodoGuardado = function (data) {
+            if (data.ok) {
+                console.log(data);
+                $("#modalEnvio").modal("hide");
+                cargaMetodos();
+            }
+            else {
+                for (var i = 0; i < data.retorno; i++) {
+                    alert(i);
+                }
+            }
+
+        }
+        var cargaMetodos = function () {
+            $("#listaEnvios").load("/Administrador/CostosEnvio/CargaEnviosCAjax").error(function () {
+                alert("Error!");
+            });
+        }
     </script>
-    
-    }
+
+}
 @section final{
     <div class="modal fade" id="modalEnvio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 
