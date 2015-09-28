@@ -1,0 +1,67 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.CuponDescuento
+@{
+    Layout = null;
+}
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-lg-12">
+            @Html.ValidationSummary()
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 form-group">
+            <label class="control-label">Codigo del cupon</label>
+            @Html.TextBoxFor(a => a.codigoCupon, new { @class = "form-control" })
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6 form-group">
+            <label class="control-label">Tipo de descuento</label>
+            @Html.DropDownList("tipoDesc", (IEnumerable<SelectListItem>)ViewBag.tipos, new { @class = "form-control" })
+        </div>
+        <div class="col-lg-6 form-group">
+            <label class="control-label">Descuento</label>
+            @Html.TextBoxFor(a => a.descuento, new { @class = "form-control", type = "number" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 form-group">
+            <label class="control-label">Estado del cupon</label>
+            <div class="checkbox">
+                <label>
+                    @Html.EditorFor(a => a.usado) Cupon ya usado
+                </label>
+            </div>
+
+        </div>
+        <div class="col-lg-2 form-group">
+            <label class="control-label">Uso en promociones</label>
+            <div class="checkbox">
+                <label>
+                    @Html.EditorFor(a => a.usoEnDescuentos) Usar en otras promociones
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 form-group">
+            <label class="control-label">Cantidades maximas de uso</label>
+            @Html.TextBoxFor(a => a.cantidadesUso, new { @class = "form-control", type = "number" })
+        </div>
+        <div class="col-lg-3 form-group">
+            <label class="control-label">Fecha de caducidad</label>
+            @Html.TextBoxFor(a => a.fechaCaducidad, new { @class = "form-control", type = "date" })
+        </div>
+        <div class="col-lg-3 form-group">
+            <label class="control-label">Minimo de compra requerido</label>
+            @Html.TextBoxFor(a => a.minimoRequerido, new { @class = "form-control", type = "number" })
+        </div>
+    </div>
+    Html.RenderPartial("_seleccionUsuario", (IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Cliente>)ViewBag.usuarios);
+
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+    </div>
+}

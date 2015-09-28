@@ -53,7 +53,9 @@
     <Compile Include="RepoBase\RepositorioBase.cs" />
     <Compile Include="Repos\RepositorioCategorias.cs" />
     <Compile Include="Repos\RepositorioCiudades.cs" />
+    <Compile Include="Repos\RepositorioClientes.cs" />
     <Compile Include="Repos\RepositorioComentarios.cs" />
+    <Compile Include="Repos\RepositorioCupones.cs" />
     <Compile Include="Repos\RepositorioEmpresa.cs" />
     <Compile Include="Repos\RepositorioEnvios.cs" />
     <Compile Include="Repos\RepositorioEstados.cs" />
@@ -62,7 +64,6 @@
     <Compile Include="Repos\RepositorioPrecios.cs" />
     <Compile Include="Repos\RepositorioProductos.cs" />
     <Compile Include="Repos\RepositorioSecciones.cs" />
-    <Compile Include="Repos\RepositorioCliente.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

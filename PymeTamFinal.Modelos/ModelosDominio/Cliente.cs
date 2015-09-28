@@ -37,5 +37,12 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         [Required(ErrorMessage = "Edad requerida")]
         public int edad { get; set; }
         public virtual ICollection<Orden> ordenes { get; set; }
+        /// <summary>
+        /// Solo si el usuario fue encontrado
+        /// </summary>
+        [NotMapped]
+        public string nombreCliente {
+            get { return string.Format("{0} {1} {2}",nombre,apPaterno,apMaterno); }
+        }
     }
 }

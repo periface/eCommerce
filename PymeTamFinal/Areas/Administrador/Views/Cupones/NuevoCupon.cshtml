@@ -1,6 +1,6 @@
-﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosVista.CuponTablaViewModel>
+﻿
 @{
-    ViewBag.Title = "Cupones";
+    ViewBag.Title = "Nuevo Cupon";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
@@ -9,28 +9,25 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Cupones <small>Administración de cupones</small>
+                Nuevo cupón <small>Agregar nuevo cupón</small>
             </h1>
             <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="@Url.Action("Index","Cupones")">Cupones</a>
+                </li>
                 <li class="active">
-                    <i class="fa fa-dashboard"></i> Cupones
+                    <i class="fa fa-dashboard"></i> Nuevo Cupon
                 </li>
             </ol>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <a id="agregarCupon" href="@Url.Action("NuevoCupon","Cupones")" class="btn btn-success sinborde">
-                <i class="fa fa-plus-square-o"></i> Agregar Cupón
-            </a>
-        </div>
-    </div>
-    <br />
-    @{Html.RenderPartial("_listaCupones", Model);}
+    @{Html.RenderPartial("_formularioCapturaCupon");}
+    
 </div>
 @section Scripts{
+
     <script>
-        $('#tablaCupones').DataTable({
+        $('#clientes').DataTable({
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -57,5 +54,5 @@
             },
             "bAutoWidth": false
         });
-    </script>
+</script>
     }

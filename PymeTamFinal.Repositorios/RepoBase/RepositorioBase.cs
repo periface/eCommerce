@@ -24,7 +24,8 @@ namespace PymeTamFinal.Repositorios.RepoBase
         #region Sync
         public virtual void Agregar(T entidad)
         {
-            throw new NotImplementedException();
+            context.Entry(entidad).State= EntityState.Added;
+            context.SaveChanges();
         }
 
         public virtual void Agregar(T entidad, object opt0)
@@ -44,12 +45,12 @@ namespace PymeTamFinal.Repositorios.RepoBase
 
         public virtual IQueryable<T> Cargar()
         {
-            throw new NotImplementedException();
+            return dbSet;
         }
 
         public virtual IQueryable<T> Cargar(Expression<Func<T, bool>> lambda)
         {
-            throw new NotImplementedException();
+            return dbSet.Where(lambda);
         }
 
         public virtual IQueryable<T> Cargar(object filtroPersonal)
@@ -59,12 +60,13 @@ namespace PymeTamFinal.Repositorios.RepoBase
 
         public virtual T CargarPorId(object id)
         {
-            throw new NotImplementedException();
+            return dbSet.Find(id);
         }
 
         public virtual void Editar(T entidad)
         {
-            throw new NotImplementedException();
+            context.Entry(entidad).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public virtual void Editar(T entidad, object opt0)
@@ -79,7 +81,8 @@ namespace PymeTamFinal.Repositorios.RepoBase
 
         public virtual void Eliminar(T entidad)
         {
-            throw new NotImplementedException();
+            context.Entry(entidad).State = EntityState.Deleted;
+            context.SaveChanges();
         }
         #endregion
         #region Async

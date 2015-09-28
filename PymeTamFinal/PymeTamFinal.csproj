@@ -383,6 +383,10 @@
     <Content Include="Areas\Administrador\Views\CostosEnvio\CargaEnviosCAjax.cshtml" />
     <Content Include="Areas\Administrador\Views\CostosEnvio\EditarEnvio.cshtml" />
     <Content Include="Areas\Administrador\Views\CostosEnvio\EliminarEnvio.cshtml" />
+    <Content Include="Areas\Administrador\Views\Shared\_listaCupones.cshtml" />
+    <Content Include="Areas\Administrador\Views\Cupones\NuevoCupon.cshtml" />
+    <Content Include="Areas\Administrador\Views\Shared\_formularioCapturaCupon.cshtml" />
+    <Content Include="Areas\Administrador\Views\Shared\_seleccionUsuario.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />

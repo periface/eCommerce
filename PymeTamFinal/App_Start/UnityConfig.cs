@@ -52,11 +52,13 @@ namespace PymeTamFinal.App_Start
             container.RegisterType<IRepositorioBase<GaleriaProducto>, RepositorioGaleria>();
             container.RegisterType<IRepositorioBase<Precios>, RepositorioPrecios>();
             container.RegisterType<IRepositorioBase<CajaComentarios>, RepositorioComentarios>();
-            container.RegisterType<IRepositorioBase<Cliente>, RepositorioCliente>();
+            container.RegisterType<IRepositorioBase<Cliente>, RepositorioClientes>();
             container.RegisterType<IRepositorioBase<Pais>, RepositorioPaises>();
             container.RegisterType<IRepositorioBase<Estados>, RepositorioEstados>();
             container.RegisterType<IRepositorioBase<Ciudad>, RepositorioCiudades>();
             container.RegisterType<IRepositorioBase<CostosEnvio>, RepositorioEnvios>();
+            container.RegisterType<IRepositorioBase<CuponDescuento>, RepositorioCupones>();
+            container.RegisterType<IRepositorioBase<Cliente>, RepositorioClientes>();
             //Para user el accountController
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());

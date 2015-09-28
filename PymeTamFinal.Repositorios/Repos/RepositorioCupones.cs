@@ -6,23 +6,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace PymeTamFinal.Repositorios.Repos
 {
-    public class RepositorioCliente : RepositorioBase<Cliente>
+    public class RepositorioCupones : RepositorioBase<CuponDescuento>
     {
-        public RepositorioCliente(DataContext context): base(context)
+        public RepositorioCupones(DataContext context) :base(context)
         {
             if (context == null)
                 throw new ArgumentNullException();
         }
-        public override Cliente CargarPorId(object id)
+        public override IQueryable<CuponDescuento> Cargar()
         {
-            return context.Cliente.Find(id);
+            return context.CuponDescuento;
         }
-        public override IQueryable<Cliente> Cargar()
+        public override IQueryable<CuponDescuento> Cargar(Expression<Func<CuponDescuento, bool>> lambda)
         {
-            return context.Cliente;
+            return context.CuponDescuento.Where(lambda);
         }
+
     }
 }
