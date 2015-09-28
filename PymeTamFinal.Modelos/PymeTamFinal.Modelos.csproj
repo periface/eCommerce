@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelosDominio\archivosEstilo.cs" />
     <Compile Include="ModelosDominio\CajaComentarios.cs" />
     <Compile Include="ModelosDominio\CarritoDeCompra.cs" />
     <Compile Include="ModelosDominio\Categoria.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="ModelosDominio\CostosEnvio.cs" />
     <Compile Include="ModelosDominio\CuponDescuento.cs" />
     <Compile Include="ModelosDominio\Diferenciadores.cs" />
+    <Compile Include="ModelosDominio\DisenoSitio.cs" />
     <Compile Include="ModelosDominio\Empresa.cs" />
     <Compile Include="ModelosDominio\Estados.cs" />
     <Compile Include="ModelosDominio\GaleriaProducto.cs" />

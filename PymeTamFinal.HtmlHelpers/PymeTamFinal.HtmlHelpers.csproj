@@ -75,12 +75,11 @@
     <Compile Include="AdminHelper\EmpresaHelpers.cs" />
     <Compile Include="AdminHelper\ProductosHelper.cs" />
     <Compile Include="BasicHelper\Basic.cs" />
+    <Compile Include="ClientesHelper\Header.cs" />
     <Compile Include="MensajeServicio\ServicioDeMensajes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ClientesHelper\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\PymeTamFinal.CapaDatos\PymeTamFinal.CapaDatos.csproj">
       <Project>{1a3ed0a6-e1f1-4a3b-a7f8-a2217c121968}</Project>

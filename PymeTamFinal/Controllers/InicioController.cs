@@ -10,7 +10,7 @@ namespace PymeTamFinal.Controllers
     public class InicioController : Controller
     {
         // GET: Inicio-LandingPage
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             EmailService em = new EmailService();
             //await em.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage());

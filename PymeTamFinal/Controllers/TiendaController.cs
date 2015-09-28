@@ -8,21 +8,18 @@ namespace PymeTamFinal.Controllers
 {
     public class TiendaController : Controller
     {
-        // GET: Tienda
+        // Inicio de la tienda
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Productos() {
+        public ActionResult Detalle(int id,string slug) {
             return View();
         }
-        public ActionResult Producto() {
+        public ActionResult Productos(string slugCategoria,string orden,string busqueda, int? max, int? min,int? pagina=1) {
             return View();
         }
-        public ActionResult AgregarAlCarro() {
-            return View();
-        }
-        public ActionResult EliminarDelCarro() {
+        public ActionResult Ayuda() {
             return View();
         }
     }
