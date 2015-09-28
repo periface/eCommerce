@@ -258,6 +258,25 @@
     <Content Include="Areas\Administrador\PlugIns\tree.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Temas\Eshopper\css\animate.css" />
+    <Content Include="Content\Temas\Eshopper\css\bootstrap.min.css" />
+    <Content Include="Content\Temas\Eshopper\css\font-awesome.css" />
+    <Content Include="Content\Temas\Eshopper\css\font-awesome.min.css" />
+    <Content Include="Content\Temas\Eshopper\css\main.css" />
+    <Content Include="Content\Temas\Eshopper\css\prettyPhoto.css" />
+    <Content Include="Content\Temas\Eshopper\css\price-range.css" />
+    <Content Include="Content\Temas\Eshopper\css\responsive.css" />
+    <Content Include="Content\Temas\Eshopper\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Temas\Eshopper\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Temas\Eshopper\js\bootstrap.min.js" />
+    <Content Include="Content\Temas\Eshopper\js\contact.js" />
+    <Content Include="Content\Temas\Eshopper\js\gmaps.js" />
+    <Content Include="Content\Temas\Eshopper\js\html5shiv.js" />
+    <Content Include="Content\Temas\Eshopper\js\jquery.js" />
+    <Content Include="Content\Temas\Eshopper\js\jquery.prettyPhoto.js" />
+    <Content Include="Content\Temas\Eshopper\js\jquery.scrollUp.min.js" />
+    <Content Include="Content\Temas\Eshopper\js\main.js" />
+    <Content Include="Content\Temas\Eshopper\js\price-range.js" />
     <Content Include="Content\Temas\SbAdmin\css\bootstrap-rtl.css" />
     <Content Include="Content\Temas\SbAdmin\css\bootstrap-rtl.min.css" />
     <Content Include="Content\Temas\SbAdmin\css\bootstrap.css" />
@@ -387,6 +406,12 @@
     <Content Include="Areas\Administrador\Views\Cupones\NuevoCupon.cshtml" />
     <Content Include="Areas\Administrador\Views\Shared\_formularioCapturaCupon.cshtml" />
     <Content Include="Areas\Administrador\Views\Shared\_seleccionUsuario.cshtml" />
+    <Content Include="Content\Temas\Eshopper\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Temas\Eshopper\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Temas\Eshopper\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Temas\Eshopper\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\Temas\Eshopper\fonts\FontAwesome.otf" />
+    <Content Include="Content\Temas\Eshopper\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -472,6 +497,11 @@
     <Content Include="Views\TiendaWidgets\_listaProductosEshopper.cshtml" />
     <Content Include="Views\TiendaWidgets\_contenidoCabeceraEshopper.cshtml" />
     <Content Include="Views\TiendaWidgets\_contenidoPieEshopper.cshtml" />
+    <Content Include="Views\TiendaWidgets\ScriptsSociales.cshtml" />
+    <Content Include="Views\TiendaWidgets\_SliderNovedades.cshtml" />
+    <Content Include="Views\TiendaWidgets\_productosNuevosSlider.cshtml" />
+    <Content Include="Views\TiendaWidgets\_listaCategorias.cshtml" />
+    <Content Include="Views\TiendaWidgets\_productosRecomendadosSlider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
@@ -485,7 +515,7 @@
     <Folder Include="Content\Imagenes\Productos\" />
     <Folder Include="Content\Imagenes\Secciones\" />
     <Folder Include="Content\Images\" />
-    <Folder Include="Content\Temas\Eshopper\" />
+    <Folder Include="Content\Temas\Eshopper\images\" />
     <Folder Include="Content\Temas\LandingPage\" />
     <Folder Include="Content\Temas\SbAdmin\fonts\" />
   </ItemGroup>

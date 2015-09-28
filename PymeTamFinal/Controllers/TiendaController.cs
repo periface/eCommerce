@@ -16,7 +16,8 @@ namespace PymeTamFinal.Controllers
         public ActionResult Detalle(int id,string slug) {
             return View();
         }
-        public ActionResult Productos(string slugCategoria,string orden,string busqueda, int? max, int? min,int? pagina=1) {
+        public ActionResult Productos(int? idCategoria, int? pagina, string orden, string busquedaString, string busqueda, int? min, int? max) {
+
             return View();
         }
         public ActionResult Ayuda() {

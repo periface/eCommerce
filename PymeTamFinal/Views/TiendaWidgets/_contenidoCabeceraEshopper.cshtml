@@ -1,17 +1,66 @@
-﻿
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Empresa
 @{
     Layout = null;
 }
+<header id="header">
+    <!--header-->
+    <div class="header_top">
+        <!--header_top-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="contactinfo">
+                        <ul class="nav nav-pills">
+                            <li><a href="#"><i class="fa fa-phone"></i> @Model.telefonoEmpresa</a></li>
+                            <li><a href="mailto:@Model.correoOficialEmpresa"><i class="fa fa-envelope"></i> @Model.correoOficialEmpresa</a></li>
+                        </ul>
 
-<!DOCTYPE html>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="social-icons pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a target="_blank" href="@Model.facebookEmpresa"><i class="fa fa-facebook"></i></a></li>
+                            <li><a target="_blank" href="@Model.twitterEmpresa"><i class="fa fa-twitter"></i></a></li>
+                            @*<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header_top-->
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>_contenidoCabeceraEshopper</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+    <div class="header-middle">
+        <!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="logo pull-left">
+                        <h3><a href="@Url.Action("Index", "Inicio", new {  Area="Inicio"})">@Model.nombreEmpresa</a></h3>
+                        <p class="help-block"><i> @Model.slogan</i></p>
+                        <div id="google_translate_element"></div>
+                        <script type="text/javascript">
+                                function googleTranslateElementInit() {
+                                    new google.translate.TranslateElement({ pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+                                }
+                        </script>
+                        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+                    </div>
+
+                </div>
+                <div class="col-sm-8">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="@Url.Action("Comprar", "Carrito", new { Area="Tienda" })"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            @{Html.RenderPartial("_LoginPartial");}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+
+</header><!--/header-->

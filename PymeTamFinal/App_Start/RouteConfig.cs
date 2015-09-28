@@ -18,6 +18,11 @@ namespace PymeTamFinal
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Inicio", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                "Tienda_Detalle",
+                "{controller}/{action}/{id}/{slug}",
+                new { action = "Index", id = UrlParameter.Optional, slug = UrlParameter.Optional }
+            );
         }
     }
 }

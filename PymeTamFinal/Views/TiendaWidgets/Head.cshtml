@@ -2,10 +2,9 @@
 @{
     Layout = null;
 }
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-@Html.MetaTags()
-<title>@ViewBag.Title</title>
-@Styles.Render("~/Content/css")
+
+@*@Styles.Render("~/Content/css")*@
 @Scripts.Render("~/bundles/modernizr")
-@Html.ArchivosCss()
+@Styles.Render("~/bundles/TiendaCss")
+<link href="~/Content/Temas/Eshopper/css/main.css" rel="stylesheet" />
+@*@Html.ArchivosCss()*@

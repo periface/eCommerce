@@ -2,16 +2,70 @@
 @{
     Layout = null;
 }
+<footer id="footer">
+    <!--Footer-->
+    <div class="footer-widget">
+        <div class="container">
+            <div class="row">
 
-<!DOCTYPE html>
+                <div class="col-sm-2">
+                    <div class="single-widget">
+                        <h2>Tienda Rapida</h2>
+                        <ul class="nav nav-pills nav-stacked">
+                            @*Categorias Padre*@
+                            <li><a href="@Url.Action("Productos","Inicio", new { Area="Tienda" })">Productos</a></li>
+                            <li><a href="@Url.Action("DetalleCarro","Carrito", new { Area="Tienda" })">Carrito de Compras</a></li>
+                            @*@{ Html.RenderAction("MenuInferiorCategorias", "InfoEmpresa", new { Area = "Tienda" });}*@
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="single-widget">
+                        <h2>Politicas</h2>
+                        <ul class="nav nav-pills nav-stacked">
+                          @*  @{ Html.RenderAction("MenuInferiorPoliticas", "InfoEmpresa", new { Area = "Tienda" });}*@
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="single-widget">
+                        <h2>Acerca de Adabelle</h2>
+                        <ul class="nav nav-pills nav-stacked">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>_contenidoPieEshopper</title>
-</head>
-<body>
-    <div> 
+                            <li>
+                                <a href="@Url.Action("MisionVision","InfoEmpresa",new{Area="Tienda"})">Misión y Visión</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Secciones","InfoEmpresa",new{Area="Tienda"})">Otros Servicios</a>
+                            </li>
+                            @*<li><a href="#">Company </a></li>
+                                <li><a href="#">Careers</a></li>
+                                <li><a href="#">Store Location</a></li>
+                                <li><a href="#">Affillate Program</a></li>
+                                <li><a href="#">Copyright</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="address">
+                        @*@{Html.RenderAction("MenuInferior", "InfoEmpresa", new { Area = "Tienda" });}*@
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <p class="pull-left">Lógicas de negocio y código fuente estan bajo licencia de Cinotam.</p>
+                @if (User.IsInRole("Administrador") || User.IsInRole("Gestor de Contenidos"))
+                {
+                    <p class="pull-right"><span><a target="_blank" href="@Url.Action("Index", "PanelControl", new { Area="Administrador" })">Panel de Control</a></span></p>
+                }
+                <p class="pull-right"><span><a target="_blank" href="http://www.themeum.com">Cinotam</a></span></p>
+            </div>
+        </div>
+    </div>
+
+</footer><!--/Footer-->

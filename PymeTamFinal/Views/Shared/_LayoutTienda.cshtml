@@ -2,21 +2,49 @@
 <html>
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Html.MetaTags()
+    <title>@ViewBag.Title</title>
     @{Html.RenderAction("Head", "TiendaWidgets");}
     @RenderSection("head", required: false)
 </head>
 <body>
+    @{Html.RenderAction("ScriptsSociales", "TiendaWidgets");}
     @{Html.RenderAction("ContenidoCabecera", "TiendaWidgets");}
-    @{Html.RenderAction("MenuTienda","TiendaWidgets");}
-    <div class="container-fluid body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    @{Html.RenderAction("MenuTienda", "TiendaWidgets");}
+    @RenderBody()
+    @{Html.RenderAction("Footer", "TiendaWidgets"); }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/layoutEshop")
     @RenderSection("scripts", required: false)
+    <script>
+        $("body").on("click", "._colapse", function () {
+
+            var _self = this;
+            var tog = $(_self).data("toggled");
+            var id = $(this).data("id");
+            console.log("Click" + id);
+            $.get("/TiendaWidgets/CargaHijo/" + id, function (data) {
+                var panel = $("#panel_" + id);
+                panel.append('<div id="' + id + '" class="panel-collapse collapse"></div>');
+                var panelHijo = $("#" + id);
+                var contenedor = $("#contenedor_" + id);
+                contenedor.text("");
+                contenedor.append("<ul class='hijos_" + id + "'></ul>");
+                if (data != "") {
+                    var hijosContenedor = $(".hijos_" + id);
+                    $.each(data, function (i, d) {
+                        hijosContenedor.append("<li><a href='/Tienda/Productos?idCategoria=" + d.idCategoria + "'  data-toggled='false' data-parent='#accordian' data-id='" + d.idCategoria + "'><span class='badge pull-right'></span>" + d.nombreCategoria + " </a></li>");
+                    });
+                    panelHijo.append(contenedor);
+                    $("#" + id).collapse();
+                }
+            });
+
+            $(_self).attr("data-toggled", true);
+        });
+    </script>
 </body>
 </html>

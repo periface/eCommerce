@@ -1,24 +1,59 @@
-﻿
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosVista.CategoriasMenuRapido>
 @{
     Layout = null;
 }
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="header-bottom">
+    <!--header-bottom-->
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
-            @Html.Partial("_LoginPartial")
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="mainmenu pull-left">
+                    <ul class="nav navbar-nav collapse navbar-collapse">
+                        <li><a href="@Url.Action("Index", "Tienda")" class="active">Inicio</a></li>
+                        <li class="dropdown">
+                            <a href="@Url.Action("Productos", "Tienda")">Productos<i class="fa fa-angle-down"></i></a>
+                            @*@{Html.RenderAction("CategoriasListaSimple", "Inicio", new { clasePadre = "sub-menu", claseHijos = "", Area = "Tienda" });}*@
+                            <ul role="menu" class="sub-menu">
+                                @foreach (var item in Model)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Productos", "Tienda", new { categoria = item.idCategoria })">
+                                        @item.nombreCategoria
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+
+                        </li>
+                        <li class="dropdown">
+                            <a href="@Url.Action("Index", "AyudaPoliticas")">Ayuda<i class="fa fa-angle-down"></i></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="@Url.Action("ComoComprar", "AyudaPoliticas")">¿Como comprar?</a></li>
+                                <li><a href="@Url.Action("Envios", "AyudaPoliticas")">Envios</a></li>
+                                <li><a href="@Url.Action("Politicas", "AyudaPoliticas")">Politicas</a></li>
+                                <li><a href="@Url.Action("Faq", "AyudaPoliticas")">Preguntas frecuentes</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="@Url.Action("Contacto", "Inicio")">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                @using (Html.BeginForm("BuscarProducto", "Inicio", FormMethod.Post, new { @class = "navbar-form navbar-left" }))
+                {
+                    <div class="search_box pull-right">
+                        <input name="consulta" type="search" placeholder="Buscar" />
+                    </div>
+                }
+            </div>
         </div>
     </div>
-</div>
+</div><!--/header-bottom-->

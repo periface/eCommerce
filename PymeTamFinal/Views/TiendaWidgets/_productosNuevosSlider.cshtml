@@ -1,0 +1,35 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosVista.ProductoListaViewModel>
+@{ Layout = null;}
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">Productos</h2>
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            @Html.imagen(item.imagen,null,350,350)
+                            @*<img src="@Url.Content(item.imagen + "?w=350&h=350")" alt="">*@
+                            <h2>$@item.precio</h2>
+                            <p>
+                                @Html.generarEstrellasCalif(item.calificacionProm)
+                            </p>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
+                            <a href="@Url.Action("DetalleProducto", "Inicio", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                        </div>
+                        <div class="product-overlay">
+                            <div class="overlay-content">
+                                <h1>@item.nombreProducto</h1>
+                                <h2>$@item.precio</h2>
+                                <p>@item.descCorta</p>
+                                <a href="@Url.Action("AgregarAlCarro","Carrito", new { id=item.idProducto })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
+                                <a href="@Url.Action("DetalleProducto", "Inicio", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div><!--features_items-->
+

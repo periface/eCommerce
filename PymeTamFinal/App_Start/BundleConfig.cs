@@ -13,7 +13,20 @@ namespace PymeTamFinal
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
-
+            bundles.Add(new ScriptBundle("~/bundles/layoutEshop").Include(
+                "~/Content/Temas/Eshopper/js/jquery.scrollUp.min.js",
+    "~/Content/Temas/Eshopper/js/price-range.js",
+    "~/Content/Temas/Eshopper/js/jquery.scrollUp.min.js",
+    "~/Content/Temas/Eshopper/js/main.js"
+                ));
+            bundles.Add(new StyleBundle("~/bundles/TiendaCss").Include(
+                "~/Content/Temas/Eshopper/css/bootstrap.min.css",
+                "~/Content/Temas/Eshopper/css/font-awesome.min.css",
+                "~/Content/Temas/Eshopper/cssprettyPhoto.css",
+                "~/Content/Temas/Eshopper/css/price-range.css",
+                "~/Content/Temas/Eshopper/css/animate.css",
+                "~/Content/Temas/Eshopper/css/responsive.css"
+                ));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

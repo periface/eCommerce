@@ -75,6 +75,7 @@
     <Compile Include="AdminHelper\EmpresaHelpers.cs" />
     <Compile Include="AdminHelper\ProductosHelper.cs" />
     <Compile Include="BasicHelper\Basic.cs" />
+    <Compile Include="ClientesHelper\ComentariosHelper.cs" />
     <Compile Include="ClientesHelper\Header.cs" />
     <Compile Include="MensajeServicio\ServicioDeMensajes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
