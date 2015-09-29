@@ -502,6 +502,7 @@
     <Content Include="Views\TiendaWidgets\_productosNuevosSlider.cshtml" />
     <Content Include="Views\TiendaWidgets\_listaCategorias.cshtml" />
     <Content Include="Views\TiendaWidgets\_productosRecomendadosSlider.cshtml" />
+    <Content Include="Views\Tienda\Productos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
