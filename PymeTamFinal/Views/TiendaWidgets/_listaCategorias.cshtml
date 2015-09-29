@@ -21,7 +21,7 @@
                                 @categoria.nombreCategoria
                             </a>
                         </h4>
-                        <a href="@Url.Action("Productos", "Inicio", new { idCategoria=categoria.idCategoria})">Ver Productos </a>
+                        <a href="@Url.Action("Productos", "Tienda", new { idCategoria=categoria.idCategoria})">Ver Productos </a>
                     </div>
                     <div id="@categoria.idCategoria" class="panel-collapse collapse">
                         <div id="contenedor_@categoria.idCategoria" class="panel-body">

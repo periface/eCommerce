@@ -1,8 +1,59 @@
-﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Producto>
+﻿@model PymeTamFinal.Modelos.ModelosVista.PaginaProductosViewModel
 @{
-    ViewBag.Title = "Productos";
+    ViewBag.Title = Html.CargaNombre("Productos", (string)ViewBag.nombre);
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
 }
+<input type="hidden" id="ordenActual" value="@ViewBag.ordenActual" />
+<input type="hidden" id="categoriaActual" value="@ViewBag.categoriaActual" />
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                @{Html.RenderPartial("~/Views/TiendaWidgets/_listaCategorias.cshtml", Model._categorias);}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <a href="@Url.Action("Productos", "Tienda", new { orden = ViewBag.ordenNombre, idCategoria=ViewBag.categoriaActual })">Ordenar por nombre</a><br />
+                                </li>
+                                <li class="list-group-item">
 
-<h2>Productos</h2>
+                                    <a href="@Url.Action("Productos", "Tienda", new { orden = ViewBag.ordenPrecio, idCategoria = ViewBag.categoriaActual })">Ordenar por precio</a><br />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="price-range">
+                                <!--price-range-->
+                                <h2>Rango de precios</h2>
+                                <div class="well">
+                                    <input type="hidden" id="max" value="@ViewBag.actMax.ToString("#.##")" />
+                                    <input type="hidden" id="min" value="@ViewBag.actMin.ToString("#.##")" />
+                                    <input type="text" class="span2" value="" data-slider-min="@ViewBag.min.ToString("#.##")" data-slider-max="@ViewBag.max.ToString("#.##")" data-slider-step="5" data-slider-value="[@ViewBag.actMin.ToString("#.##"),@ViewBag.actMax.ToString("#.##")]" id="sl2"><br />
+                                    <b>$ @ViewBag.min.ToString("#.##")</b> <b class="pull-right">$ @ViewBag.max.ToString("#.##")</b>
+                                </div>
+                            </div><!--/price-range-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <!--features_items-->
+                    <h2 class="title text-center">Productos @ViewBag.nombre</h2>
+                    <div id="listaProductos">
+                        @{Html.RenderPartial("~/Views/TiendaWidgets/_ListaProductosEshopper.cshtml", Model._productos);}
+                    </div>
+                </div><!--features_items-->
+
+                <a id="mas" class="btn btn-lg btn-success btn-block">Cargar mas</a>
+            </div>
+        </div>
+    </div>
+</div>
 

@@ -4,7 +4,7 @@
     }
 <div class="recommended_items">
     <!--recommended_items-->
-    <h2 class="title text-center">Recomendados</h2>
+    <h2 class="title text-center">Productos Recomendados</h2>
     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             @for (var i = 0; i < Model.Count(); i += 3)
@@ -28,7 +28,7 @@
                                         <p>
                                            @Html.generarEstrellasCalif(pro.calificacionProm)
                                         </p>
-                                        <a href="@Url.Action("DetalleProducto","Inicio", new { id=pro.idProducto,slug = pro.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                                        <a href="@Url.Action("DetalleProducto","Tienda", new { id=pro.idProducto,slug = pro.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
                                         <a href="@Url.Action("AgregarAlCarro","Carrito", new { id=pro.idProducto })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
                                     </div>
                                 </div>

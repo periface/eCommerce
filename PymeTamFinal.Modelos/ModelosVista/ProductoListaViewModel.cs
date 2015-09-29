@@ -13,7 +13,10 @@ namespace PymeTamFinal.Modelos.ModelosVista
         public string descCorta { get; set; }
         public string imagen { get; set; }
         public string slug { get; set; }
-        public string precio { get; set; }
+        public decimal precio { get; set; }
         public int calificacionProm { get; set; }
+        public int idCategoria { get; set; }
+        public string descLarga { get; set; }
+        public DateTime fechaCreacion { get; set; }
     }
 }

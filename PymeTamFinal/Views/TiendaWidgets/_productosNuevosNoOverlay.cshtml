@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosVista.ProductoListaViewModel>
+@{ bool activo = true;
+    Layout = null;
+}
+<div class="recommended_items">
+    <!--recommended_items-->
+    <h2 class="title text-center">Productos Recomendados</h2>
+    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @for (var i = 0; i < Model.Count(); i += 3)
+            {
+                string clas = "";
+                if (activo)
+                {
+                    clas = "active";
+                }
+                <div class="item @clas">
+                    @foreach (var pro in Model.Skip(i).Take(3))
+                    {
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products ">
+                                    <div class="productinfo text-center ">
+                                        @Html.imagen(pro.imagen, new string[] { }, 350, 350)
+                                        @*<img src="@Url.Content(pro.imagen)" alt="">*@
+                                        <h2>$@pro.precio</h2>
+                                        <p>@pro.nombreProducto</p>
+                                        <p>
+                                            @Html.generarEstrellasCalif(pro.calificacionProm)
+                                        </p>
+                                        <a href="@Url.Action("DetalleProducto","Tienda", new { id=pro.idProducto,slug = pro.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                                        <a href="@Url.Action("AgregarAlCarro","Carrito", new { id=pro.idProducto })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                activo = false;
+            }
+        </div>
+        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+        </a>
+        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </div>
+</div><!--/recommended_items-->

@@ -79,6 +79,8 @@
     <Compile Include="ModelosVista\CuponTablaViewModel.cs" />
     <Compile Include="ModelosVista\DetalleEnvioViewModel.cs" />
     <Compile Include="ModelosVista\ModeloJson.cs" />
+    <Compile Include="ModelosVista\PaginaProductosViewModel.cs" />
+    <Compile Include="ModelosVista\ProductoDetalleViewModel.cs" />
     <Compile Include="ModelosVista\ProductoListaViewModel.cs" />
     <Compile Include="ModelosVista\ProductoTablaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -69,6 +69,14 @@
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -221,6 +229,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="PlugIns\PlugInUrl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -258,6 +267,29 @@
     <Content Include="Areas\Administrador\PlugIns\tree.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\lightBox\css\lightbox.css" />
+    <Content Include="Content\lightBox\css\screen.css" />
+    <Content Include="Content\lightBox\img\close.png" />
+    <Content Include="Content\lightBox\img\demopage\favicon.png" />
+    <Content Include="Content\lightBox\img\demopage\image-1.jpg" />
+    <Content Include="Content\lightBox\img\demopage\image-2.jpg" />
+    <Content Include="Content\lightBox\img\demopage\image-3.jpg" />
+    <Content Include="Content\lightBox\img\demopage\image-4.jpg" />
+    <Content Include="Content\lightBox\img\demopage\image-5.jpg" />
+    <Content Include="Content\lightBox\img\demopage\image-6.jpg" />
+    <Content Include="Content\lightBox\img\demopage\thumb-1.jpg" />
+    <Content Include="Content\lightBox\img\demopage\thumb-2.jpg" />
+    <Content Include="Content\lightBox\img\demopage\thumb-3.jpg" />
+    <Content Include="Content\lightBox\img\demopage\thumb-4.jpg" />
+    <Content Include="Content\lightBox\img\demopage\thumb-5.jpg" />
+    <Content Include="Content\lightBox\img\demopage\thumb-6.jpg" />
+    <Content Include="Content\lightBox\img\loading.gif" />
+    <Content Include="Content\lightBox\img\next.png" />
+    <Content Include="Content\lightBox\img\prev.png" />
+    <Content Include="Content\lightBox\js\jquery-1.11.0.min.js" />
+    <Content Include="Content\lightBox\js\lightbox.js" />
+    <Content Include="Content\lightBox\js\lightbox.min.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Temas\Eshopper\css\animate.css" />
     <Content Include="Content\Temas\Eshopper\css\bootstrap.min.css" />
     <Content Include="Content\Temas\Eshopper\css\font-awesome.css" />
@@ -412,6 +444,11 @@
     <Content Include="Content\Temas\Eshopper\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\Temas\Eshopper\fonts\FontAwesome.otf" />
     <Content Include="Content\Temas\Eshopper\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\lightBox\img\demopage\.DS_Store" />
+    <Content Include="Content\lightBox\img\Thumbs.db" />
+    <Content Include="Content\lightBox\js\.DS_Store" />
+    <Content Include="Content\lightBox\js\jquery-1.11.0.min.map" />
+    <Content Include="Content\lightBox\js\lightbox.min.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -503,6 +540,11 @@
     <Content Include="Views\TiendaWidgets\_listaCategorias.cshtml" />
     <Content Include="Views\TiendaWidgets\_productosRecomendadosSlider.cshtml" />
     <Content Include="Views\Tienda\Productos.cshtml" />
+    <Content Include="Views\Tienda\DetalleProducto.cshtml" />
+    <Content Include="Views\TiendaWidgets\_cajaComentarios.cshtml" />
+    <Content Include="Views\TiendaWidgets\_noHabilitada.cshtml" />
+    <Content Include="Views\TiendaWidgets\_sliderProducto.cshtml" />
+    <Content Include="Views\TiendaWidgets\_productosNuevosNoOverlay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />

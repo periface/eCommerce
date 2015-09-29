@@ -136,6 +136,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                     model.imgProducto = PlugIns.AdministradorDeArchivos.guardarArchivo(imagen, carpetaProductos, model.idProducto.ToString());
                 }
                 model.fechaModificacion = DateTime.Now;
+                model.slugs = PlugIns.AdministradorTexto.GeneradorSlugs(model.nombreProducto);
                 _producto.Editar(model);
                 ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
                 return RedirectToAction("Index");

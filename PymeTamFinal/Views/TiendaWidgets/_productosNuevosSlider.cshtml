@@ -2,7 +2,7 @@
 @{ Layout = null;}
     <div class="features_items">
         <!--features_items-->
-        <h2 class="title text-center">Productos</h2>
+        <h2 class="title text-center">Más Productos</h2>
         @foreach (var item in Model)
         {
             <div class="col-sm-4">
@@ -16,7 +16,7 @@
                                 @Html.generarEstrellasCalif(item.calificacionProm)
                             </p>
                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
-                            <a href="@Url.Action("DetalleProducto", "Inicio", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                            <a href="@Url.Action("DetalleProducto", "Tienda", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
                         </div>
                         <div class="product-overlay">
                             <div class="overlay-content">
@@ -24,7 +24,7 @@
                                 <h2>$@item.precio</h2>
                                 <p>@item.descCorta</p>
                                 <a href="@Url.Action("AgregarAlCarro","Carrito", new { id=item.idProducto })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
-                                <a href="@Url.Action("DetalleProducto", "Inicio", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                                <a href="@Url.Action("DetalleProducto", "Tienda", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
                             </div>
                         </div>
                     </div>

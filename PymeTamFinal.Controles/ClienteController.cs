@@ -9,6 +9,12 @@ namespace PymeTamFinal.Controles
 {
     public class ClienteController : Controller
     {
-
+        public ViewResult error404Tienda
+        {
+            get
+            {
+                return View("_error404Tienda");
+            }
+        }
     }
 }

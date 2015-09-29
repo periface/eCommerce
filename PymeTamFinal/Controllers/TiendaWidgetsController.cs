@@ -16,13 +16,15 @@ namespace PymeTamFinal.Controllers
         IRepositorioBase<Categoria> _categorias;
         IRepositorioBase<Precios> _precios;
         IRepositorioBase<CajaComentarios> _comentarios;
-        public TiendaWidgetsController(IRepositorioBase<Empresa> _empresa, IRepositorioBase<Producto> _productos, IRepositorioBase<Categoria> _categorias, IRepositorioBase<Precios> _precios, IRepositorioBase<CajaComentarios> _comentarios)
+        IRepositorioBase<GaleriaProducto> _galeria;
+        public TiendaWidgetsController(IRepositorioBase<Empresa> _empresa, IRepositorioBase<Producto> _productos, IRepositorioBase<Categoria> _categorias, IRepositorioBase<Precios> _precios, IRepositorioBase<CajaComentarios> _comentarios,IRepositorioBase<GaleriaProducto>_galeria)
         {
             this._empresa = _empresa;
             this._productos = _productos;
             this._categorias = _categorias;
             this._precios = _precios;
             this._comentarios = _comentarios;
+            this._galeria = _galeria;
         }
         // GET: TiendaWidgets
         //Solo 2 temas por ahora. Eshopper y Bootstrap basico (Este ultimo podra ser modificable)
@@ -41,23 +43,59 @@ namespace PymeTamFinal.Controllers
         }
         public ActionResult NovedadesSlider()
         {
-            return View("_SliderNovedades");
+            var modelo = cargaProductosNuevos();
+            return View("_SliderNovedades",modelo);
         }
-        public ActionResult ProductosNuevos()
+        public ActionResult ProductosRandom()
         {
             var modelo = cargaProductosNuevos();
-            return View("_productosNuevosSlider", modelo);
+            return View("_productosNuevosNoOverlay", modelo);
         }
         public ActionResult ProductosRecomendados()
         {
             var modelo = cargaProductosNuevos();
             return View("_productosRecomendadosSlider", modelo);
         }
+        public ActionResult CargaComentarios(int id,bool habilitados) {
+            ViewBag.id = id;
+            if (habilitados) {
+                var comentarios = _comentarios.Cargar(a=>a.idProducto == id);
+                return View("_cajaComentarios",comentarios);
+            }
+            return View("_noHabilitada");
+        }
+        public ActionResult SliderProducto(int id) {
+            var slides = _galeria.Cargar(a=>a.idProducto==id);
+            return View("_sliderProducto",slides);
+        }
+        private List<ProductoListaViewModel> cargaProductosRandom()
+        {
+            List<ProductoListaViewModel> lista = new List<ProductoListaViewModel>();
+            foreach (var item in _productos.Cargar(a => a.stock > 0 || a.mostrarSinStock == true && a.habilitado == true).OrderByDescending(a => Guid.NewGuid()).Take(6))
+            {
+                var precio = _precios.CargarPorId(item.idProducto);
+                //Ignora productos sin precio definido
+                if (precio != null)
+                {
+                    lista.Add(new ProductoListaViewModel()
+                    {
+                        descCorta = item.descripcionCorta,
+                        idProducto = item.idProducto,
+                        imagen = item.imgProducto,
+                        slug = item.slugs,
+                        nombreProducto = item.nombreProducto,
+                        precio = cargaPrecio(precio),
+                        calificacionProm = cargaProm(item.idProducto)
+                    });
+                }
 
+            }
+            return lista;
+        }
         private List<ProductoListaViewModel> cargaProductosNuevos()
         {
             List<ProductoListaViewModel> lista = new List<ProductoListaViewModel>();
-            foreach (var item in _productos.Cargar(a => a.stock > 0 || a.mostrarSinStock == true && a.habilitado == true).OrderByDescending(a => a.fechaCreacion))
+            foreach (var item in _productos.Cargar(a => a.stock > 0 || a.mostrarSinStock == true && a.habilitado == true).OrderByDescending(a => a.fechaCreacion).Take(6))
             {
                 var precio = _precios.CargarPorId(item.idProducto);
                 //Ignora productos sin precio definido
@@ -90,15 +128,15 @@ namespace PymeTamFinal.Controllers
             }
             return Convert.ToInt32(promedio);
         }
-        private string cargaPrecio(Precios precio)
+        private decimal cargaPrecio(Precios precio)
         {
             if (precio.descuentoActivo && precio.fechaInicio < DateTime.Now && precio.fechaVencimiento > DateTime.Now)
             {
-                return precio.precioEsp.ToString("#.##") + " MXN";
+                return precio.precioEsp;
             }
             else
             {
-                return precio.precio.ToString("#.##") + " MXN";
+                return precio.precio;
             }
         }
 

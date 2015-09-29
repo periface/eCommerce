@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.GaleriaProducto>
+@{
+    Layout = null;
+    bool activo0 = true;
+}
+<div id="similar-product" class="carousel slide" data-ride="carousel">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        @for (int i = 0; i < Model.Count(); i += 3)
+        {
+
+            string classe = "";
+            if (activo0)
+            {
+                classe = "active";
+            }
+            else
+            {
+                classe = "";
+            }
+            <div class="item @classe">
+                @foreach (var item in Model.Skip(i).Take(3))
+                {
+
+                    <a href="@Url.Content(item.imagen)" data-lightbox="image-1" data-title="@item.fechaRegistro">
+                      @Html.imagen(item.imagen,null,85,85)
+                    </a>
+                }
+
+            </div>
+            activo0 = false;
+        }
+
+    </div>
+    <!-- Controls -->
+    <a class="left item-control" href="#similar-product" data-slide="prev">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    <a class="right item-control" href="#similar-product" data-slide="next">
+        <i class="fa fa-angle-right"></i>
+    </a>
+</div>

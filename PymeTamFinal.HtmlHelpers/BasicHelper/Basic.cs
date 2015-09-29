@@ -139,5 +139,14 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             return "style=display:none;";
 
         }
+        public static string CargaNombre(this HtmlHelper helper, string nombre, string viewBagVal) {
+            if (string.IsNullOrEmpty(viewBagVal))
+            {
+                return nombre;
+            }
+            else {
+                return string.Format("{0} {1}",nombre,viewBagVal);
+            }
+        }
     }
 }

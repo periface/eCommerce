@@ -1,4 +1,8 @@
-﻿@{ Layout = null;}
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosVista.ProductoListaViewModel>
+@{ Layout = null;
+    string _c = string.Empty;
+    int c = 0;
+}
 <section id="slider">
     <!--slider-->
     <div class="container">
@@ -12,7 +16,7 @@
                             <li data-target="#slider-carousel" data-slide-to="2"></li>
                         </ol>*@
                     <div class="carousel-inner">
-                        @*@foreach (var p in Model)
+                        @foreach (var p in Model)
                         {
                             if (c == 0)
                             {
@@ -22,15 +26,16 @@
                             <div class="item @_c">
                                 <div class="col-sm-6">
                                     <h1>@p.nombreProducto</h1>
-                                    <p>@p.descripcionProducto</p>
+                                    <p>@p.descCorta</p>
                                     <a href="@Url.Action("DetalleProducto", "Inicio", new { id=p.idProducto,slug=p.slug})" class="btn btn-default get">Ver Producto</a>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="@Url.Content(p.imgProducto+"?w=400&h=400")" class="girl img-responsive" alt="" />
+                                    @Html.imagen(p.imagen, null, 400, 400)
+                                    @*<img src="@Url.Content(p.imgProducto+"?w=400&h=400")" class="girl img-responsive" alt="" />*@
                                 </div>
                             </div>
                             c = c + 1;
-                        }*@
+                        }
                     </div>
 
                     <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
