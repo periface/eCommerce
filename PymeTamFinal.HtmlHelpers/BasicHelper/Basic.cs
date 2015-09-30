@@ -33,6 +33,15 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             }
             return new HtmlString(img.ToString(TagRenderMode.SelfClosing));
         }
+        public static string Disponibilidad(this HtmlHelper helper, int stock) {
+            if (stock > 0)
+            {
+                return "En stock ("+ stock+")";
+            }
+            else {
+                return "Agotado";
+            }
+        }
         public static IHtmlString imagen(this HtmlHelper helper, string imagen, string[] clasesAdicionales, int w, int h)
         {
             TagBuilder img = new TagBuilder("img");

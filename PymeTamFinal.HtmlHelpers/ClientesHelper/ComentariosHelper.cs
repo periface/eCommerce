@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace PymeTamFinal.HtmlHelpers.ClientesHelper
 {
-    public static class ComentariosHelper
+    public static class ComentariosHelper 
     {
         public static IHtmlString generarEstrellasCalif(this HtmlHelper helper, int calif)
         {

@@ -98,7 +98,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             var padres = _categorias.Cargar(a => a.idPadre == 0);
             return View(padres);
         }
-        [AdminAutorizacionParcialAttr(Roles = "Administrador")]
+        //[AdminAutorizacionParcialAttr(Roles = "Administrador")]
         public ActionResult EliminarVentana(int id) {
             CategoriaAdminEliminaViewModel model = new CategoriaAdminEliminaViewModel();
             var categoria = _categorias.CargarPorId(id);
