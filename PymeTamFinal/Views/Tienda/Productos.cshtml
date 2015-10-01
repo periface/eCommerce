@@ -57,3 +57,52 @@
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        $(function () {
+            var ordenActual = $("#ordenActual").val();
+            var categoriaActual = $("#categoriaActual").val();
+            var valorMaxAct = $("#max").val();
+            var valorMinAct = $("#min").val();
+            var urlCat = "";
+            var urlOrden = "";
+            var urlMaxMin = "";
+            if (categoriaActual != "") {
+                urlCat = "&idCategoria=" + categoriaActual;
+            }
+            if (ordenActual != "") {
+                urlOrden = "&orden=" + ordenActual;
+            }
+            if (valorMaxAct != "" && valorMinAct != "") {
+                urlMaxMin = "&min=" + valorMinAct + "&max=" + valorMaxAct;
+            }
+            var valor = $("#sl2").slider().on("slideStop", function (evt) {
+                var min = evt.value[0];
+                var max = evt.value[1];
+                console.log("Min " + min);
+                console.log("Max " + max);
+                window.location.assign("/Tienda/Productos/?min=" + min + "&max=" + max + urlCat + urlOrden);
+            });
+            var pagina = 1;
+            var _callback = false;
+            function CargaProductos() {
+                if (pagina > -1 && !_callback) {
+                    _callback = true;
+                    pagina++;
+                    $.get("/Tienda/Productos/?pagina=" + pagina + urlCat + urlOrden + urlMaxMin, function (data) {
+                        if (data != "") {
+                            $("#listaProductos").append(data);
+                        }
+                        else {
+                            pagina = -1;
+                        }
+                        _callback = false;
+                    });
+                }
+            }
+            $("#mas").click(function () {
+                CargaProductos();
+            });
+        })
+    </script>
+    }

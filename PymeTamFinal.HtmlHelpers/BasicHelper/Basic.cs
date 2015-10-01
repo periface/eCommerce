@@ -157,5 +157,26 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
                 return string.Format("{0} {1}",nombre,viewBagVal);
             }
         }
+        /// <summary>
+        /// Genera el codigo de google necesario para mostrar el formulario de validacion de captcha
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <returns></returns>
+        public static IHtmlString Recaptcha(this HtmlHelper helper) {
+            //
+            //<div class="g-recaptcha" data-sitekey="6Lco7g0TAAAAAPXI_PHY0uoHPRgOQAZFq2wOStk9"></div>
+            //<script src = 'https://www.google.com/recaptcha/api.js' ></ script >
+            //
+            StringBuilder sb = new StringBuilder();
+            TagBuilder div = new TagBuilder("div");
+            div.MergeAttribute("class","g-recaptcha");
+            div.MergeAttribute("data-sitekey", "6Lco7g0TAAAAAPXI_PHY0uoHPRgOQAZFq2wOStk9");
+            sb.Append(div.ToString());
+            TagBuilder script = new TagBuilder("script");
+            script.MergeAttribute("src", "https://www.google.com/recaptcha/api.js");
+            sb.Append(script.ToString());
+            sb.Append("<p class='help-block'>"+helper.ViewBag.Message+"</p>");
+            return new HtmlString(sb.ToString());
+        }
     }
 }

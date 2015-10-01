@@ -14,6 +14,7 @@
                         <ul class="nav nav-pills nav-stacked">
                             @*Categorias Padre*@
                             <li><a href="@Url.Action("Productos","Inicio", new { Area="Tienda" })">Productos</a></li>
+                            
                             <li><a href="@Url.Action("DetalleCarro","Carrito", new { Area="Tienda" })">Carrito de Compras</a></li>
                             @*@{ Html.RenderAction("MenuInferiorCategorias", "InfoEmpresa", new { Area = "Tienda" });}*@
                         </ul>

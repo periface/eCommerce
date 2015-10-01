@@ -69,6 +69,10 @@
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
@@ -144,9 +148,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -291,6 +292,7 @@
     <Content Include="Content\lightBox\js\lightbox.min.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Temas\Eshopper\css\animate.css" />
+    <Content Include="Content\Temas\Eshopper\css\bootstrap-social.css" />
     <Content Include="Content\Temas\Eshopper\css\bootstrap.min.css" />
     <Content Include="Content\Temas\Eshopper\css\font-awesome.css" />
     <Content Include="Content\Temas\Eshopper\css\font-awesome.min.css" />
@@ -545,6 +547,8 @@
     <Content Include="Views\TiendaWidgets\_noHabilitada.cshtml" />
     <Content Include="Views\TiendaWidgets\_sliderProducto.cshtml" />
     <Content Include="Views\TiendaWidgets\_productosNuevosNoOverlay.cshtml" />
+    <Content Include="Views\Shared\_error404Tienda.cshtml" />
+    <Content Include="Views\Tienda\DejarComentario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />

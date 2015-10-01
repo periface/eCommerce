@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using PymeTamFinal.Attributos;
 using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Controles;
 using PymeTamFinal.Modelos.ModelosDominio;
@@ -34,16 +35,26 @@ namespace PymeTamFinal.Controllers
         [Route("DetalleProducto/{id}/{slug}")]
         public ActionResult DetalleProducto(int? id, string slug)
         {
+            Producto producto = new Producto();
             if (!id.HasValue)
                 return error404Tienda;
-            var producto = _productos.Cargar(a=>a.idProducto==id && a.slugs == slug).SingleOrDefault();
+            if (string.IsNullOrEmpty(slug))
+            {
+                producto = _productos.Cargar(a => a.idProducto == id && a.slugs == slug).SingleOrDefault();
+            }
+            else
+            {
+                producto = _productos.Cargar(a => a.idProducto == id).SingleOrDefault();
+            }
             if (producto == null)
                 return error404Tienda;
             var precio = _precios.CargarPorId(id);
-            if (precio == null) {
+            if (precio == null)
+            {
                 return error404Tienda;
             }
-            ProductoDetalleViewModel model = new ProductoDetalleViewModel() {
+            ProductoDetalleViewModel model = new ProductoDetalleViewModel()
+            {
                 imagen = producto.imgProducto,
                 cajaComentarios = producto.habilitarComentarios,
                 idProducto = producto.idProducto,
@@ -56,13 +67,20 @@ namespace PymeTamFinal.Controllers
                 slug = producto.slugs,
                 stock = producto.stock,
                 tags = producto.tags,
-                totalComents = 0,
+                totalComents = cargaComentarios(producto.idProducto),
                 nombreProducto = producto.nombreProducto,
-                urlImg = PlugIns.PlugInUrl.ResolveServerUrl(producto.imgProducto,false),
-                
+                urlImg = PlugIns.PlugInUrl.ResolveServerUrl(producto.imgProducto, false),
+
             };
             return View(model);
         }
+
+        private int cargaComentarios(int idProducto)
+        {
+            var total = _comentarios.Cargar(a=>a.idProducto==idProducto && a.habilitado == true).Count();
+            return total;
+        }
+
         public ActionResult Productos(int? idCategoria, int? pagina, string orden, string busquedaString, string busqueda, int? min, int? max)
         {
             var productos = _productos.Cargar(a => a.stock > 0 || a.mostrarSinStock == true && a.habilitado == true);
@@ -71,7 +89,26 @@ namespace PymeTamFinal.Controllers
             //model._categorias = cargaCategorias();
             return View(model);
         }
-
+        public ActionResult DejarComentario(int id, string slug)
+        {
+            ViewBag.idProducto = id;
+            ViewBag.slug = slug;
+            return View();
+        }
+        [HttpPost]
+        [RecaptchaAttr("DetalleProducto", "Tienda")]
+        public ActionResult DejarComentario(CajaComentarios model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.habilitado = false;
+                model.fechaCreacion = DateTime.Now;
+                model.idCliente = 1;
+                _comentarios.Agregar(model);
+            }
+            var producto = _productos.CargarPorId(model.idProducto);
+            return RedirectToAction("DetalleProducto", new { id= producto.idProducto,slug = producto.slugs });
+        }
         private List<CategoriasMenuRapido> cargaCategorias()
         {
             List<CategoriasMenuRapido> menu = new List<CategoriasMenuRapido>();

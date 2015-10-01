@@ -56,10 +56,11 @@ namespace PymeTamFinal.Controllers
             var modelo = cargaProductosNuevos();
             return View("_productosRecomendadosSlider", modelo);
         }
-        public ActionResult CargaComentarios(int id,bool habilitados) {
+        public ActionResult CargaComentarios(int id,bool habilitados,string slug) {
+            ViewBag.slug = slug;
             ViewBag.id = id;
             if (habilitados) {
-                var comentarios = _comentarios.Cargar(a=>a.idProducto == id);
+                var comentarios = _comentarios.Cargar(a=>a.idProducto == id && a.habilitado == true);
                 return View("_cajaComentarios",comentarios);
             }
             return View("_noHabilitada");

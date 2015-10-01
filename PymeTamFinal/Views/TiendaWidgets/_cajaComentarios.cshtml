@@ -4,32 +4,38 @@
     Layout = null;
 }
 <div class="col-sm-12">
-        @foreach (var comentarios in Model)
-        {
 
-            <ul>
-                <li><a href=""><i class="fa fa-user"></i>@comentarios.nombreCliente</a></li>
-                @*<li><a href=""><i class="fa fa-clock-o"></i>@comentarios.</a></li>*@
-                @*<li><a href=""><i class="fa fa-calendar-o"></i>@comentarios.fechaPublicacion.Value.ToShortDateString()</a></li>*@
-                @Html.generarEstrellasCalif(comentarios.calificacion)
-            </ul>
+    @foreach (var comentarios in Model)
+    {
 
-            <p>@comentarios.comentario</p>
-        }
-        <hr />
-        <h3><b>Deja tu comentario</b></h3>
-        @if (User.Identity.IsAuthenticated)
-        {
-            Html.RenderAction("DejarComentario", new { id = (int)ViewBag.id });
+        <ul>
+            <li><a href=""><i class="fa fa-user"></i>@comentarios.nombreCliente</a></li>
+            <li><a href=""><i class="fa fa-clock-o"></i>@comentarios.fechaCreacion.ToShortTimeString()</a></li>
+            <li><a href=""><i class="fa fa-calendar-o"></i>@comentarios.fechaCreacion.ToShortDateString()</a></li>
+            @Html.generarEstrellasCalif(comentarios.calificacion)
+        </ul>
 
-        }
-        else
-        {
-            <div class="row">
-                <div class="col-lg-12">
-                    <h5><a href="@Url.Action("Login", "Account", new { Area="" })"> Inicia sesión</a> para poder dejar comentarios</h5>
-                </div>
+        <p>@comentarios.comentario</p>
+    }
+
+    @if (!Model.Any())
+    {
+        <h3>Sin comentarios...</h3>
+    }
+    <hr />
+    <h3><b>Deja tu comentario</b></h3>
+    @if (User.Identity.IsAuthenticated)
+    {
+
+        Html.RenderAction("DejarComentario", "Tienda", new { id = (int)ViewBag.id, slug = ViewBag.slug });
+
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <h5><a href="@Url.Action("Login", "Account", new { Area="" })"> Inicia sesión</a> para poder dejar comentarios</h5>
             </div>
-        }
-    </div>
-
+        </div>
+    }
+</div>

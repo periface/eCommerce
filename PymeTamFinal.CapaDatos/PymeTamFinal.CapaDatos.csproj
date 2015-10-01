@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201509241759062_aplicaCuponPromociones.Designer.cs">
       <DependentUpon>201509241759062_aplicaCuponPromociones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510011508268_fechaCreacionComentarios.cs" />
+    <Compile Include="Migrations\201510011508268_fechaCreacionComentarios.Designer.cs">
+      <DependentUpon>201510011508268_fechaCreacionComentarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -140,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509241759062_aplicaCuponPromociones.resx">
       <DependentUpon>201509241759062_aplicaCuponPromociones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510011508268_fechaCreacionComentarios.resx">
+      <DependentUpon>201510011508268_fechaCreacionComentarios.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

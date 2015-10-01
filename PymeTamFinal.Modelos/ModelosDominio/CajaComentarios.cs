@@ -25,6 +25,6 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public virtual Producto producto { get; set; }
         [ForeignKey("idCliente")]
         public virtual Cliente cliente { get; set; }
-
+        public DateTime fechaCreacion { get; set; }
     }
 }

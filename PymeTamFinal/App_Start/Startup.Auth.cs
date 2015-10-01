@@ -54,19 +54,19 @@ namespace PymeTamFinal
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "9BnSGCRLA17VDBg7hVqAF3kkx",
+               consumerSecret: "GjublcJHcCE8zg9bXpjpSHhlIKDQthGkzekXqeKjQ7hoWJaKvE");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1616327265291028",
+               appSecret: "fed51c5f1a19b6fdf633b3f5a2a70a1d");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "asdasd",
+                ClientSecret = "asdasd"
+            });
         }
     }
 }
