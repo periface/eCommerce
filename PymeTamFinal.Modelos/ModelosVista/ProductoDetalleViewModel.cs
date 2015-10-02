@@ -23,5 +23,6 @@ namespace PymeTamFinal.Modelos.ModelosVista
         public int totalComents { get; set; }
         public string urlImg { get; set; }
         public string nombreProducto { get; set; }
+        public bool mostrarSinStock { get; set; }
     }
 }

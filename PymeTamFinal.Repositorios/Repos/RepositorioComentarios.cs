@@ -23,7 +23,7 @@ namespace PymeTamFinal.Repositorios.Repos
         }
         public override IQueryable<CajaComentarios> Cargar(Expression<Func<CajaComentarios, bool>> lambda)
         {
-            return context.CajaComentarios.Where(lambda);
+            return context.CajaComentarios.Include("producto").Where(lambda);
         }
         public override void Eliminar(CajaComentarios entidad)
         {

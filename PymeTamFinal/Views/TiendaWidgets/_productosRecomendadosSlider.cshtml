@@ -23,7 +23,7 @@
                                     <div class="productinfo text-center ">
                                         @Html.imagen(pro.imagen, new string[] {  }, 350, 350)
                                         @*<img src="@Url.Content(pro.imagen)" alt="">*@
-                                        <h2>$@pro.precio</h2>
+                                        <h2>@Html.formatoPrecio(pro.precio)</h2>
                                         <p>@pro.nombreProducto</p>
                                         <p>
                                            @Html.generarEstrellasCalif(pro.calificacionProm)

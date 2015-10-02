@@ -8,40 +8,40 @@
     <meta name="keywords" content="@Model.tags" />
     <meta property="og:title" content="@Model.nombreProducto a un super precio" />
     <meta property="og:site_name" content="@Model.nombreProducto" />
-    <meta property="og:url" content="@Url.Action("DetalleProducto", "Tienda", new { id = Model.idProducto, slug = Model.slug },Request.Url.Scheme)" />
-    <link rel="canonical" href="@Url.Action("DetalleProducto", "Tienda", new { id = Model.idProducto, slug = Model.slug },Request.Url.Scheme)" />
+    <meta property="og:url" content="@Url.Action("DetalleProducto", "Tienda", new { id = Model.idProducto, slug = Model.slug }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.Action("DetalleProducto", "Tienda", new { id = Model.idProducto, slug = Model.slug }, Request.Url.Scheme)" />
     <meta property="og:description" content="@Model.descripcionCorta" />
     <meta property="og:type" content="Producto" />
     <meta property="og:image" content="@Model.urlImg" />
-    <style>
-        .btn-facebook {
-            background: blue;
-            border: 0 none;
-            border-radius: 0;
-            margin-top: 16px;
-            color: white;
-        }
-
-            .btn-facebook:hover {
-                color: whitesmoke;
+    @*<style>
+            .btn-facebook {
+                background: blue;
+                border: 0 none;
+                border-radius: 0;
+                margin-top: 16px;
+                color: white;
             }
 
-        .btn-twitter {
-            background: lightBlue;
-            border: 0 none;
-            border-radius: 0;
-            margin-top: 16px;
-            color: white;
-        }
+                .btn-facebook:hover {
+                    color: whitesmoke;
+                }
 
-            .btn-twitter:hover {
-                color: whitesmoke;
+            .btn-twitter {
+                background: lightBlue;
+                border: 0 none;
+                border-radius: 0;
+                margin-top: 16px;
+                color: white;
             }
 
-        .calif {
-            display: inline !important;
-        }
-    </style>
+                .btn-twitter:hover {
+                    color: whitesmoke;
+                }
+
+            .calif {
+                display: inline !important;
+            }
+        </style>*@
     <link href="~/Content/lightBox/css/lightbox.css" rel="stylesheet" />
 }
 <div class="section">
@@ -49,6 +49,7 @@
         <div class="row">
             <div class="col-sm-3">
                 @{Html.RenderAction("ListaCategorias", "TiendaWidgets");}
+                
             </div>
             <div class="col-sm-9 padding-right">
                 <div class="product-details">
@@ -78,62 +79,51 @@
   margin-top: 0px;">
                                 <span>@Html.formatoPrecio(Model.precio)</span>
                             </p>
-                            <span>
-                                <!--Condicionar boton-->
-                                @*
-                                    Html.RenderAction("OpcionesCompra",Model);
-                                    *@
-                                <label>Cantidad:</label>
-                                <input type="number" id="cantidad" min="1" value="1" max="@Model.stock">
-                                <button type="button" data-id="@Model.idProducto" class="btn btn-sm btn-fefault cart _cart">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    Agregar al carro
-                                </button>
-                                <!--Condicionar boton-->
-                            </span>
-                            <p>
-                                <b>
-                                    Disponibilidad: @Html.Disponibilidad(Model.stock)
-                            </b>
-                        </p>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div data-layout="button_count" class="fb-like"></div>
-                                <a class="twitter-share-button">
-                                    Tweet
-                                </a>
+
+                            <!--Condicionar boton-->
+
+                            @{Html.RenderAction("BotonComprarDetalle", "TiendaWidgets", Model); }
+                            <!--Condicionar boton-->
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div data-layout="button_count" class="fb-like"></div>
+                                    <a class="twitter-share-button">
+                                        Tweet
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div><!--/product-information-->
+                    </div>
+                </div>
+                <div class="category-tab shop-details-tab">
+                    <!--category-tab-->
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li><a href="#details" data-toggle="tab">Detalles</a></li>
+                            <li class="active"><a href="#reviews" data-toggle="tab">Comentarios (@Model.totalComents)</a></li>
+                            
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="details">
+                            <div id="principal" class="col-lg-12">
+                                @Html.Raw(Model.detalle)
                             </div>
                         </div>
-
-                    </div><!--/product-information-->
-                </div>
-            </div>
-            <div class="category-tab shop-details-tab">
-                <!--category-tab-->
-                <div class="col-sm-12">
-                    <ul class="nav nav-tabs">
-                        <li><a href="#details" data-toggle="tab">Detalles</a></li>
-                        <li class="active"><a href="#reviews" data-toggle="tab">Comentarios (@Model.totalComents)</a></li>
-                    </ul>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane fade" id="details">
-                        <div id="principal" class="col-lg-12">
-                            @Html.Raw(Model.detalle)
+                        <div class="tab-pane fade active in" id="reviews">
+                            @{Html.RenderAction("CargaComentarios", "TiendaWidgets", new { id = Model.idProducto, habilitados = Model.cajaComentarios, slug = Model.slug });}
                         </div>
-                    </div>
-                    <div class="tab-pane fade active in" id="reviews">
-                        @{Html.RenderAction("CargaComentarios", "TiendaWidgets", new { id = Model.idProducto, habilitados = Model.cajaComentarios,slug = Model.slug });}
-                    </div>
 
+                    </div>
                 </div>
+                @{Html.RenderAction("ProductosRecomendados", "TiendaWidgets");}
+                @{Html.RenderAction("ProductosRandom", "TiendaWidgets");}
             </div>
-            @{Html.RenderAction("ProductosRecomendados", "TiendaWidgets");}
-            @{Html.RenderAction("ProductosRandom", "TiendaWidgets");}
         </div>
+        @*@{Html.RenderPartial("_DetalleProducto", Model);}*@
     </div>
-    @*@{Html.RenderPartial("_DetalleProducto", Model);}*@
-</div>
 </div>
 @*<div class="section">
         <div class="container">

@@ -29,6 +29,7 @@
 
         Html.RenderAction("DejarComentario", "Tienda", new { id = (int)ViewBag.id, slug = ViewBag.slug });
 
+        <hr />
     }
     else
     {
@@ -38,4 +39,12 @@
             </div>
         </div>
     }
+    <div class="col-sm-12">
+        <h3>
+            <b>
+                Deja tu comentario con Facebook
+            </b>
+        </h3>
+        <div class="fb-comments" data-href="@Url.Action("DetalleProducto","Tienda", new { id = (int)ViewBag.id, slug = ViewBag.slug },Request.Url.Scheme)" data-numposts="3"></div>
+    </div>
 </div>

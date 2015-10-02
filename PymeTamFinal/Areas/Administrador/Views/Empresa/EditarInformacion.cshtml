@@ -96,6 +96,13 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label col-md-2">Correo envios</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.correoAyudaEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.correoAyudaEmpresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-md-2">Link de facebook</label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.facebookEmpresa, new { htmlAttributes = new { @class = "form-control" } })

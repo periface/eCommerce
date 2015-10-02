@@ -26,6 +26,10 @@ namespace PymeTamFinal.Controllers
             this._comentarios = _comentarios;
             this._galeria = _galeria;
         }
+        public ActionResult RedesSociales() {
+            var empresa = _empresa.Cargar(a => a.infoActiva == true).SingleOrDefault();
+            return View("_redesSociales",empresa);
+        }
         // GET: TiendaWidgets
         //Solo 2 temas por ahora. Eshopper y Bootstrap basico (Este ultimo podra ser modificable)
         public ActionResult MenuTienda()
@@ -41,10 +45,23 @@ namespace PymeTamFinal.Controllers
             }
             return View("_menuTiendaEshopper", menu);
         }
+        public ActionResult BotonComprarDetalle(ProductoDetalleViewModel producto) {
+            //Si el producto permite mostrar el stock y puede ser comprado sin stock
+            if (producto.mostrarStock)
+            {
+
+                return View("_mostrarStock", producto);
+            }
+            else {
+
+
+                return View("_mostrarSinStock",producto);
+            }
+        }
         public ActionResult NovedadesSlider()
         {
             var modelo = cargaProductosNuevos();
-            return View("_SliderNovedades",modelo);
+            return View("_sliderNovedades",modelo);
         }
         public ActionResult ProductosRandom()
         {
@@ -184,7 +201,7 @@ namespace PymeTamFinal.Controllers
         //Se encarga de cargar el tema predefinido
         public ActionResult Head()
         {
-            return View();
+            return View("_head");
         }
         public ActionResult Footer()
         {
@@ -199,7 +216,7 @@ namespace PymeTamFinal.Controllers
         }
         public ActionResult ScriptsSociales()
         {
-            return View();
+            return View("_scriptsSociales");
         }
     }
 }

@@ -529,15 +529,15 @@
     <Content Include="Views\Parciales\_Productos.cshtml" />
     <Content Include="Views\Parciales\_Contactanos.cshtml" />
     <Content Include="Views\Shared\_LayoutTienda.cshtml" />
-    <Content Include="Views\TiendaWidgets\Head.cshtml" />
+    <Content Include="Views\TiendaWidgets\_head.cshtml" />
     <Content Include="Views\Tienda\Index.cshtml" />
     <Content Include="Views\TiendaWidgets\_menuTiendaEshopper.cshtml" />
     <Content Include="Views\TiendaWidgets\_menuCategoriasEshopper.cshtml" />
     <Content Include="Views\TiendaWidgets\_listaProductosEshopper.cshtml" />
     <Content Include="Views\TiendaWidgets\_contenidoCabeceraEshopper.cshtml" />
     <Content Include="Views\TiendaWidgets\_contenidoPieEshopper.cshtml" />
-    <Content Include="Views\TiendaWidgets\ScriptsSociales.cshtml" />
-    <Content Include="Views\TiendaWidgets\_SliderNovedades.cshtml" />
+    <Content Include="Views\TiendaWidgets\_scriptsSociales.cshtml" />
+    <Content Include="Views\TiendaWidgets\_sliderNovedades.cshtml" />
     <Content Include="Views\TiendaWidgets\_productosNuevosSlider.cshtml" />
     <Content Include="Views\TiendaWidgets\_listaCategorias.cshtml" />
     <Content Include="Views\TiendaWidgets\_productosRecomendadosSlider.cshtml" />
@@ -549,6 +549,9 @@
     <Content Include="Views\TiendaWidgets\_productosNuevosNoOverlay.cshtml" />
     <Content Include="Views\Shared\_error404Tienda.cshtml" />
     <Content Include="Views\Tienda\DejarComentario.cshtml" />
+    <Content Include="Views\TiendaWidgets\_mostrarStock.cshtml" />
+    <Content Include="Views\TiendaWidgets\_mostrarSinStock.cshtml" />
+    <Content Include="Views\TiendaWidgets\_redesSociales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />

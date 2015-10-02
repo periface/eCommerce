@@ -11,7 +11,7 @@
                         <div class="productinfo text-center">
                             @Html.imagen(item.imagen,null,350,350)
                             @*<img src="@Url.Content(item.imagen + "?w=350&h=350")" alt="">*@
-                            <h2>$@item.precio</h2>
+                            <h2>@Html.formatoPrecio(item.precio)</h2>
                             <p>
                                 @Html.generarEstrellasCalif(item.calificacionProm)
                             </p>

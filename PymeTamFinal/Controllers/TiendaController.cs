@@ -40,11 +40,14 @@ namespace PymeTamFinal.Controllers
                 return error404Tienda;
             if (string.IsNullOrEmpty(slug))
             {
-                producto = _productos.Cargar(a => a.idProducto == id && a.slugs == slug).SingleOrDefault();
+                producto = _productos.Cargar(a =>a.habilitado == true 
+                && a.idProducto == id  
+                && a.slugs == slug).SingleOrDefault();
             }
             else
             {
-                producto = _productos.Cargar(a => a.idProducto == id).SingleOrDefault();
+                producto = _productos.Cargar(a =>a.habilitado == true 
+                && a.idProducto == id).SingleOrDefault();
             }
             if (producto == null)
                 return error404Tienda;
@@ -70,8 +73,14 @@ namespace PymeTamFinal.Controllers
                 totalComents = cargaComentarios(producto.idProducto),
                 nombreProducto = producto.nombreProducto,
                 urlImg = PlugIns.PlugInUrl.ResolveServerUrl(producto.imgProducto, false),
-
+                mostrarSinStock = producto.mostrarSinStock
             };
+            if (model.stock == 0 && model.mostrarSinStock) {
+                return View(model);
+            }
+            if (model.stock == 0 && !model.mostrarSinStock) {
+                return error404Tienda;
+            }
             return View(model);
         }
 
