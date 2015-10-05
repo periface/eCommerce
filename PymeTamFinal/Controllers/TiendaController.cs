@@ -28,8 +28,8 @@ namespace PymeTamFinal.Controllers
             this._precios = _precios;
             this._clientes = _clientes;
         }
-        private List<ProductoListaViewModel> _productosLst = new List<ProductoListaViewModel>();
         // Inicio de la tienda
+        #region TiendaOpBasicas
         public ActionResult Index()
         {
             return View();
@@ -42,13 +42,13 @@ namespace PymeTamFinal.Controllers
                 return error404Tienda;
             if (string.IsNullOrEmpty(slug))
             {
-                producto = _productos.Cargar(a =>a.habilitado == true 
-                && a.idProducto == id  
+                producto = _productos.Cargar(a => a.habilitado == true
+                && a.idProducto == id
                 && a.slugs == slug).SingleOrDefault();
             }
             else
             {
-                producto = _productos.Cargar(a =>a.habilitado == true 
+                producto = _productos.Cargar(a => a.habilitado == true
                 && a.idProducto == id).SingleOrDefault();
             }
             if (producto == null)
@@ -77,19 +77,15 @@ namespace PymeTamFinal.Controllers
                 urlImg = PlugIns.PlugInUrl.ResolveServerUrl(producto.imgProducto, false),
                 mostrarSinStock = producto.mostrarSinStock
             };
-            if (model.stock == 0 && model.mostrarSinStock) {
+            if (model.stock == 0 && model.mostrarSinStock)
+            {
                 return View(model);
             }
-            if (model.stock == 0 && !model.mostrarSinStock) {
+            if (model.stock == 0 && !model.mostrarSinStock)
+            {
                 return error404Tienda;
             }
             return View(model);
-        }
-
-        private int cargaComentarios(int idProducto)
-        {
-            var total = _comentarios.Cargar(a=>a.idProducto==idProducto && a.habilitado == true).Count();
-            return total;
         }
 
         public ActionResult Productos(int? idCategoria, int? pagina, string orden, string busquedaString, string busqueda, int? min, int? max)
@@ -116,15 +112,59 @@ namespace PymeTamFinal.Controllers
                 var cliente = _clientes.Cargar(a => a.idAsp == userId).SingleOrDefault();
                 model.habilitado = false;
                 model.fechaCreacion = DateTime.Now;
+                //Error al cargar cliente
                 model.idCliente = cliente.idCliente;
                 model.nombreCliente = cliente.nombreCliente;
                 _comentarios.Agregar(model);
             }
             var producto = _productos.CargarPorId(model.idProducto);
-            return RedirectToAction("DetalleProducto", new { id= producto.idProducto,slug = producto.slugs });
+            return RedirectToAction("DetalleProducto", new { id = producto.idProducto, slug = producto.slugs });
         }
-        private string userId {
-            get {
+        public ActionResult Ayuda()
+        {
+            return View();
+        }
+        #endregion
+        #region Helpers
+        private List<ProductoListaViewModel> _productosLst = new List<ProductoListaViewModel>();
+
+        private int cargaComentarios(int idProducto)
+        {
+            var total = _comentarios.Cargar(a => a.idProducto == idProducto && a.habilitado == true).Count();
+            return total;
+        }
+        private void cargaProductos(Categoria item)
+        {
+            foreach (var p in _productos.Cargar(a => a.idCategoria == item.idCategoria))
+            {
+                var precio = _precios.CargarPorId(p.idProducto);
+                if (precio != null)
+                {
+                    _productosLst.Add(new ProductoListaViewModel
+                    {
+                        calificacionProm = cargaProm(p.idProducto),
+                        descCorta = p.descripcionCorta,
+                        fechaCreacion = p.fechaCreacion,
+                        descLarga = p.descripcionProducto,
+                        idCategoria = p.idCategoria.HasValue ? p.idCategoria.Value : 0,
+                        idProducto = p.idProducto,
+                        imagen = p.imgProducto,
+                        nombreProducto = p.nombreProducto,
+                        precio = cargaPrecio(precio),
+                        slug = p.slugs
+                    });
+                }
+
+            }
+            foreach (var cat in _categorias.Cargar(a => a.idPadre == item.idCategoria))
+            {
+                cargaProductos(cat);
+            }
+        }
+        private string userId
+        {
+            get
+            {
                 return User.Identity.GetUserId();
             }
         }
@@ -348,42 +388,8 @@ namespace PymeTamFinal.Controllers
                 return model;
             }
         }
-        public ActionResult AgregarAlCarro(int id) {
 
-            return View();
-        }
-        private void cargaProductos(Categoria item)
-        {
-            foreach (var p in _productos.Cargar(a => a.idCategoria == item.idCategoria))
-            {
-                var precio = _precios.CargarPorId(p.idProducto);
-                if (precio != null)
-                {
-                    _productosLst.Add(new ProductoListaViewModel
-                    {
-                        calificacionProm = cargaProm(p.idProducto),
-                        descCorta = p.descripcionCorta,
-                        fechaCreacion = p.fechaCreacion,
-                        descLarga = p.descripcionProducto,
-                        idCategoria = p.idCategoria.HasValue ? p.idCategoria.Value : 0,
-                        idProducto = p.idProducto,
-                        imagen = p.imgProducto,
-                        nombreProducto = p.nombreProducto,
-                        precio = cargaPrecio(precio),
-                        slug = p.slugs
-                    });
-                }
 
-            }
-            foreach (var cat in _categorias.Cargar(a => a.idPadre == item.idCategoria))
-            {
-                cargaProductos(cat);
-            }
-        }
-
-        public ActionResult Ayuda()
-        {
-            return View();
-        }
+        #endregion
     }
 }

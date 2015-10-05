@@ -49,7 +49,7 @@
         <div class="row">
             <div class="col-sm-3">
                 @{Html.RenderAction("ListaCategorias", "TiendaWidgets");}
-                
+
             </div>
             <div class="col-sm-9 padding-right">
                 <div class="product-details">
@@ -103,7 +103,7 @@
                         <ul class="nav nav-tabs">
                             <li><a href="#details" data-toggle="tab">Detalles</a></li>
                             <li class="active"><a href="#reviews" data-toggle="tab">Comentarios (@Model.totalComents)</a></li>
-                            
+
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -148,4 +148,19 @@
 
 @section Scripts{
     <script src="~/Content/lightBox/js/lightbox.min.js"></script>
+    <script>
+        $(function () {
+            var $agregar = $("._cart");
+            var $cant = $("#cantidad").val();
+            $agregar.click(function () {
+                
+                var $id = $(this).data("id");
+                $.get("/MiCarro/AgregarAlCarro/?id=" + $id + "&cantidad=" + $cant, function (d) {
+                    //Modal (Seguir comprando - ir a mi carrito)
+                    window.location.reload();
+                })
+            });
+            
+        });
+    </script>
 }

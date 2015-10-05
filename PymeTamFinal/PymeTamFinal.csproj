@@ -220,6 +220,7 @@
     <Compile Include="Areas\Administrador\PlugIns\AdministradorTexto.cs" />
     <Compile Include="Areas\CheckOut\CheckOutAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\MiCarroController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TiendaController.cs" />
@@ -552,6 +553,7 @@
     <Content Include="Views\TiendaWidgets\_mostrarStock.cshtml" />
     <Content Include="Views\TiendaWidgets\_mostrarSinStock.cshtml" />
     <Content Include="Views\TiendaWidgets\_redesSociales.cshtml" />
+    <Content Include="Views\MiCarro\CarritoDetalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
@@ -568,6 +570,7 @@
     <Folder Include="Content\Temas\Eshopper\images\" />
     <Folder Include="Content\Temas\LandingPage\" />
     <Folder Include="Content\Temas\SbAdmin\fonts\" />
+    <Folder Include="Views\CarroCompras\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -597,6 +600,10 @@
     <ProjectReference Include="..\PymeTamFinal.HtmlHelpers\PymeTamFinal.HtmlHelpers.csproj">
       <Project>{6b67c991-4ee4-496f-bc3a-a00afac332d7}</Project>
       <Name>PymeTamFinal.HtmlHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PymeTamFinal.MetodosPago\PymeTamFinal.MetodosPago.csproj">
+      <Project>{f82d6089-eb0d-4796-91ab-8551080e32fd}</Project>
+      <Name>PymeTamFinal.MetodosPago</Name>
     </ProjectReference>
     <ProjectReference Include="..\PymeTamFinal.Modelos\PymeTamFinal.Modelos.csproj">
       <Project>{88d0d52d-9478-4e09-bd44-7da181ce4d69}</Project>

@@ -26,14 +26,16 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
         }
         public void AgregaUno(int id)
         {
-            var record = db.CarritoCompra.SingleOrDefault(a => a.idRecord == id);
+            var record = db.CarritoCompra.Include("producto").SingleOrDefault(a => a.idRecord == id);
             record.contadorCarro++;
+            record.producto.stock--;
             db.SaveChanges();
         }
         public void EliminaUno(int id)
         {
-            var record = db.CarritoCompra.SingleOrDefault(a => a.idRecord == id);
+            var record = db.CarritoCompra.Include("producto").SingleOrDefault(a => a.idRecord == id);
             record.contadorCarro--;
+            record.producto.stock++;
             if (record.contadorCarro <= 0)
             {
                 db.CarritoCompra.Remove(record);
@@ -43,10 +45,12 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
         {
             var record = db.CarritoCompra.SingleOrDefault(a => a.idProducto == id);
             db.CarritoCompra.Remove(record);
+
             db.SaveChanges();
         }
-        public void AgregarAlCarro(Producto producto, int cantidad = 1)
+        public void AgregarAlCarro(int idProducto, int cantidad = 1)
         {
+            var producto = db.Producto.SingleOrDefault(a => a.idProducto == idProducto);
             var item = db.CarritoCompra.SingleOrDefault(a => a.idCarro == idCarro && a.idProducto == producto.idProducto);
             if (item == null)
             {
@@ -57,30 +61,37 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
                     idCarro = idCarro,
                     idProducto = producto.idProducto
                 };
+                producto.stock--;
                 db.CarritoCompra.Add(item);
             }
             else {
                 if (cantidad > 1)
                 {
+
+                    producto.stock = producto.stock - cantidad;
                     item.contadorCarro = item.contadorCarro + cantidad;
                 }
                 else {
                     item.contadorCarro++;
+                    producto.stock--;
                 }
             }
             db.SaveChanges();
         }
         public int RemoverDelCarro(int id) {
-            var item = db.CarritoCompra.SingleOrDefault(a => a.idCarro == idCarro && a.idRecord == id);
+            var item = db.CarritoCompra.Include("producto").SingleOrDefault(a => a.idCarro == idCarro && a.idRecord == id);
             int conteoItem = 0;
             if (item != null) {
                 if (item.contadorCarro > 1)
                 {
                     item.contadorCarro--;
                     conteoItem = item.contadorCarro;
+                    item.producto.stock++;
                 }
                 else {
+                    item.producto.stock++;
                     db.CarritoCompra.Remove(item);
+                    
                 }
             }
             db.SaveChanges();
@@ -97,9 +108,9 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
                 }
                 else
                 {
-                    // Generate a new random GUID using System.Guid class
+                    // Genera un id aleatorio
                     Guid tempCartId = Guid.NewGuid();
-                    // Send tempCartId back to client as a cookie
+                    // Envia el id como cookie
                     context.Session[llaveSesion] = tempCartId.ToString();
                 }
             }
