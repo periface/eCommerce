@@ -1,5 +1,6 @@
 ﻿using PymeTamFinal.Areas.Administrador.PlugIns;
 using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
 using System;
@@ -36,7 +37,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 if (imagen != null) {
                     asignarImagen(model,imagen);
                 }
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Agregado,ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Agregado,ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -53,7 +54,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             info.infoActiva = true;
             _empresa.Editar(info);
             desactivarOtros(info.idEmpresa);
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Habilitado, ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.Habilitado, ControllerContext.Controller);
             return RedirectToAction("Index");
         }
         private void desactivarOtros(int idEmpresa)
@@ -81,7 +82,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                     model.imgPrincipalEmpresa = AdministradorDeArchivos.guardarArchivo(imagen,carpetaEmpresa,model.idEmpresa.ToString());
                 }
                 _empresa.Editar(model);
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -92,7 +93,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 activaOtro(id);
             }
             _empresa.Eliminar(empresa);
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado, ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.Eliminado, ControllerContext.Controller);
             return RedirectToAction("Index");
         }
 

@@ -151,13 +151,15 @@
     <script>
         $(function () {
             var $agregar = $("._cart");
-            var $cant = $("#cantidad").val();
+            var $cant = 1;
             $agregar.click(function () {
                 
                 var $id = $(this).data("id");
                 $.get("/MiCarro/AgregarAlCarro/?id=" + $id + "&cantidad=" + $cant, function (d) {
                     //Modal (Seguir comprando - ir a mi carrito)
-                    window.location.reload();
+                    if (d.ok) {
+                        window.location.href = "/MiCarro/CarritoDetalle/";
+                    }
                 })
             });
             

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PymeTamFinal.HtmlHelpers.Abstraccion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,15 +15,6 @@ namespace PymeTamFinal.HtmlHelpers.MensajeServicio
     /// </summary>
     public static class ServicioDeMensajes
     {
-        public enum enumMensaje
-        {
-            Agregado,
-            Editado,
-            Eliminado,
-            ErrorRecurrencia,
-            Habilitado,
-            ErrorBasico
-        }
         public static void obtieneMensaje(ControllerBase controller) {
             var mensaje = controller.TempData["mensaje"];
             if (mensaje == null)
@@ -63,10 +55,19 @@ namespace PymeTamFinal.HtmlHelpers.MensajeServicio
             controller.TempData["mensaje"] = mensaje;
         }
     }
+    public static class ServicioDeMensajesCliente {
+        
+        public static void obtieneMensaje(ControllerBase controller) {
+
+        }
+        public static void darMensaje(enumMensajeCliente mensaje, ControllerBase controller) {
+
+        }
+    }
     /// <summary>
     /// Servicio no estatico, requiere instanciacion y el controllerContext
     /// </summary>
-    public class ServicioMensajes {
+    public class ServicioMensajes : IServicioMensajes {
      
         private ControllerBase controller;
         public ServicioMensajes(ControllerBase controller)
@@ -122,6 +123,16 @@ namespace PymeTamFinal.HtmlHelpers.MensajeServicio
         public void darMensaje(enumMensaje mensaje)
         {
             controller.TempData["mensaje"] = mensaje;
+        }
+
+        public void obtieneMensaje(ControllerBase controller)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void darMensaje(Abstraccion.enumMensaje mensaje, ControllerBase controller)
+        {
+            throw new NotImplementedException();
         }
     }
 }

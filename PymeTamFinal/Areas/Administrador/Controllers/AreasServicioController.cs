@@ -1,6 +1,7 @@
 ﻿using PymeTamFinal.Attributos;
 using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Controles;
+using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
 using System;
@@ -51,7 +52,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             if (ModelState.IsValid)
             {
                 _pais.Agregar(model);
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Agregado, ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Agregado, ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -111,10 +112,10 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             if (ModelState.IsValid)
             {
                 _pais.Editar(model);
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.ErrorBasico, ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.ErrorBasico, ControllerContext.Controller);
             return RedirectToAction("Index");
         }
         //[AdminAutorizacionParcialAttr(Roles = "Administrador")]
@@ -141,7 +142,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             if (pais == null)
                 return HttpNotFound();
             _pais.Eliminar(pais);
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado, ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.Eliminado, ControllerContext.Controller);
             return RedirectToAction("Index");
 
         }

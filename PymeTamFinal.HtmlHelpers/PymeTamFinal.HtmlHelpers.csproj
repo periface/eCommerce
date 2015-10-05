@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstraccion\IServicioMensajes.cs" />
     <Compile Include="AdminHelper\AreasServicioHelper.cs" />
     <Compile Include="AdminHelper\CategoriasHelper.cs" />
     <Compile Include="AdminHelper\ComentariosHelper.cs" />

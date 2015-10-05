@@ -554,6 +554,7 @@
     <Content Include="Views\TiendaWidgets\_mostrarSinStock.cshtml" />
     <Content Include="Views\TiendaWidgets\_redesSociales.cshtml" />
     <Content Include="Views\MiCarro\CarritoDetalle.cshtml" />
+    <Content Include="Views\MiCarro\Comprar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />

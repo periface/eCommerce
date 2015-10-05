@@ -110,6 +110,9 @@ namespace PymeTamFinal.Controllers
             {
 
                 var cliente = _clientes.Cargar(a => a.idAsp == userId).SingleOrDefault();
+                if (cliente == null) {
+                    return RedirectToAction("MiCuenta","Clientes");
+                }
                 model.habilitado = false;
                 model.fechaCreacion = DateTime.Now;
                 //Error al cargar cliente

@@ -1,8 +1,9 @@
-﻿@{ Layout = null;}
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Empresa
+@{ Layout = null;}
 <script>
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '1616327265291028',
+                appId: @Model.facebookId,
                 xfbml: true,
                 version: 'v2.3'
             });

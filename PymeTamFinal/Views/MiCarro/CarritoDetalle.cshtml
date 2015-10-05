@@ -1,12 +1,176 @@
-﻿
+﻿@model PymeTamFinal.Modelos.ModelosVista.CarroDetalleViewModel
 @{
-    ViewBag.Title = "CarritoDetalle";
+    ViewBag.Title = "Mi Carro";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
 }
-<div class="section">
+<section id="cart_items">
     <div class="container">
-        <div class="col-sm-12">
-            <h3>Mi Carrito</h3>
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Carrito de Compras</h3>
+                @if (ViewBag.estadoCupon != null)
+                {
+                    <div class="alert alert-info">
+                        @ViewBag.estadoCupon
+                    </div>
+                }
+                <div class="table-responsive cart_info">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr class="cart_menu">
+                                <td class="image"><span class="hidden-sm hidden-xs">Producto</span></td>
+                                <td class="description"></td>
+                                <td class="price">Precio</td>
+                                <td class="quantity">Cantidad</td>
+                                <td class="total">Total</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var record in Model.items)
+                            {
+                                <tr id="fila_@record.idRecord">
+                                    <td class="cart_product">
+                                        <a class="hidden-sm hidden-xs" href="@Url.Action("DetalleProducto","Inicio", new {id=record.producto.idProducto,slug=record.producto.slugs})">@Html.imagen(record.producto.imgProducto,null,110,110)</a>
+                                    </td>
+                                    <td class="cart_description">
+                                        <h4>@record.producto.nombreProducto</h4>
+                                        <p>Sku: @record.producto.sku</p>
+                                    </td>
+                                    <td class="cart_price">
+                                        <p>@Html.atinaleAlPrecio(record.producto)</p>
+                                    </td>
+                                    <td class="cart_quantity">
+                                        <div class="cart_quantity_button">
+                                            <a class="cart_quantity_up cantidad_mas" data-id="@record.idRecord"> + </a>
+                                            <input class="cart_quantity_input" disabled type="text" id="cantidad_@record.idRecord" name="quantity" value="@record.contadorCarro" autocomplete="off" size="2">
+                                            <a class="cart_quantity_down cantidad_menos" data-id="@record.idRecord"> - </a>
+                                        </div>
+                                    </td>
+                                    <td class="cart_total">
+                                        <p class="cart_total_price" id="totalRecord_@record.idRecord">@Html.atinaleAlPrecioTotal(record.producto,record.contadorCarro)</p>
+                                    </td>
+
+                                    <td class="cart_delete">
+                                        <a class="cart_quantity_delete" href="#" data-id="@record.idRecord"><i class="fa fa-times"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="cart_total"><p class="cart_total_price" id="subTotal">Sub Total: @Html.formatoPrecio(Model.subTotal)</p> </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="do_action">
+    <div class="container">
+        
+        <div class="heading">
+            <h3>Opciones</h3>
+            <p>Si cuenta con un cupón de descuento puede utilizarlo en este formulario.</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="chose_area">
+                    <ul class="user_option">
+                        <li>
+                            <label>Usar cupón de descuento</label>
+                            @using (Html.BeginForm("AgregarCupon", "MiCarro", FormMethod.Post))
+                            {
+                                <input type="text" name="cupon" class="form-control col-lg-6"><br />
+                                <input class="btn btn-primary" value="Aplicar Cupón" type="submit" />
+                                <p class="help-block">*Algunos de los cupones de descuento son de un solo uso</p>
+                                <p class="help-block">*Solo se puede aplicar un cupón de descuento por compra</p>
+                                <p class="help-block">*Los cupones no afectan el costo del envio</p>
+                            }
+
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="total_area">
+                    <ul>
+                        <li>Descuento 
+                        @if (ViewBag.descuento != null)
+                        {
+                            <span>@Html.determinaDescuento((decimal)ViewBag.descuento)</span>
+                        }
+                        else {
+                            <span>
+                                Sin descuento.
+                            </span>
+                        }
+                        </li>
+                        <li>Sub Total (Carrito) <span>@Html.formatoPrecio(Model.subTotal)</span></li>
+                        @if (ViewBag.descuento != null)
+                        {
+                            <li>Total (Carrito) <span>@Html.formatoPrecioTotal(Model.total, (decimal)ViewBag.descuento)</span></li>
+                        }
+                        else
+                        {
+                            <li>Total (Carrito) <span>@Html.formatoPrecio(Model.total)</span></li>
+                        }
+                        
+                    </ul>
+                    <a class="btn btn-default update" href="@Url.Action("Index","Tienda")">Seguir comprando</a>
+                    <a class="btn btn-default check_out" href="@Url.Action("Comprar","MiCarro", new { cupon = ViewBag.cupon })">Confirmar orden</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="metodos" class="row" style="display:none;">
+            <div class="col-lg-12">
+                <h3 class="text-center">Seleccione el metodo de pago</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <a class="btn btn-info btn-block btn-lg pull-right text-center paypal"><span class="fa fa-adjust fa-cc-paypal"></span> PayPal</a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="btn btn-success btn-block btn-lg pull-right text-center deposito"><span class="fa fa-adjust fa-credit-card"></span> Deposito bancario</a>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+
+</section>
+@*<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="collapse" id="colapse">
+            </div>
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            @if (Model.items.Any())
+            {
+                <div class="pull-right">
+                    <h3 id="totalAll">Total: $@Model.total.ToString("#.##") MXN</h3>
+                    @if (ViewBag.descuento < 0)
+                    { <span id="desc">Cupon aplicado: @ViewBag.descuento MXN</span> }
+                </div>
+
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-default pull-right btn-lg disabled" id="btnPago" href="@Url.Action("Comprar","Carrito", new { Area="Tienda" })">Comprar</a>
+        </div>
+    </div>
+</div>*@

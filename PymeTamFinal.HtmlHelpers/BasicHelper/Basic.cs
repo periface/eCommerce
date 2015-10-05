@@ -1,4 +1,7 @@
-﻿using PymeTamFinal.Modelos.ModelosDominio;
+﻿using PymeTamFinal.CapaDatos;
+using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.Modelos.ModelosDominio;
+using PymeTamFinal.Repositorios.Repos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,12 +36,14 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             }
             return new HtmlString(img.ToString(TagRenderMode.SelfClosing));
         }
-        public static string Disponibilidad(this HtmlHelper helper, int stock) {
+        public static string Disponibilidad(this HtmlHelper helper, int stock)
+        {
             if (stock > 0)
             {
-                return "En stock ("+ stock+")";
+                return "En stock (" + stock + ")";
             }
-            else {
+            else
+            {
                 return "Agotado";
             }
         }
@@ -131,6 +136,54 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
         {
             return "$ " + precio.ToString("#.##") + " MXN";
         }
+        public static string determinaDescuento(this HtmlHelper helper, decimal? descuento) {
+            if (!descuento.HasValue || descuento == 0)
+            {
+                return "Sin descuento.";
+            }
+            else {
+                return string.Format(" $ {0} MXN",descuento);
+            }
+        }
+        public static string formatoPrecioTotal(this HtmlHelper helper, decimal precio, decimal? descuento) {
+            if (!descuento.HasValue)
+            {
+                return "$ " + precio.ToString("#.##") + " MXN";
+            }
+            else {
+                var precioFinal = precio + descuento;
+                return "$ " + precioFinal.Value.ToString("#.##") + " MXN";
+            }
+        }
+        public static string atinaleAlPrecio(this HtmlHelper helper, Producto producto)
+        {
+            //$@producto.catProducto.prPrecio1.ToString("#.##") MXN
+            IRepositorioBase<Precios> precios = new RepositorioPrecios(new DataContext());
+            var precio = precios.CargarPorId(producto.idProducto);
+            if (precio.descuentoActivo)
+            {
+                return string.Format("$ {0} MXN", precio.precioEsp);
+            }
+            else
+            {
+                return string.Format("$ {0} MXN", precio.precio);
+            }
+        }
+        public static string atinaleAlPrecioTotal(this HtmlHelper helper, Producto producto, int total)
+        {
+            //$@((record.CartCount * producto.catProducto.prPrecio1).Value.ToString("#.##")) MXN
+            IRepositorioBase<Precios> precios = new RepositorioPrecios(new DataContext());
+            var precio = precios.CargarPorId(producto.idProducto);
+            if (precio.descuentoActivo)
+            {
+                var pr = total * precio.precioEsp;
+                return string.Format("$ {0} MXN",pr.ToString("#.##"));
+            }
+            else {
+                var pr = total * precio.precio;
+                return string.Format("$ {0} MXN", pr.ToString("#.##"));
+            }
+        }
         public static string displayEstilo(this HtmlHelper helper, Precios model)
         {
             if (model != null)
@@ -148,13 +201,15 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             return "style=display:none;";
 
         }
-        public static string CargaNombre(this HtmlHelper helper, string nombre, string viewBagVal) {
+        public static string CargaNombre(this HtmlHelper helper, string nombre, string viewBagVal)
+        {
             if (string.IsNullOrEmpty(viewBagVal))
             {
                 return nombre;
             }
-            else {
-                return string.Format("{0} {1}",nombre,viewBagVal);
+            else
+            {
+                return string.Format("{0} {1}", nombre, viewBagVal);
             }
         }
         /// <summary>
@@ -162,20 +217,21 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
         /// </summary>
         /// <param name="helper"></param>
         /// <returns></returns>
-        public static IHtmlString Recaptcha(this HtmlHelper helper) {
+        public static IHtmlString Recaptcha(this HtmlHelper helper)
+        {
             //
             //<div class="g-recaptcha" data-sitekey="6Lco7g0TAAAAAPXI_PHY0uoHPRgOQAZFq2wOStk9"></div>
             //<script src = 'https://www.google.com/recaptcha/api.js' ></ script >
             //
             StringBuilder sb = new StringBuilder();
             TagBuilder div = new TagBuilder("div");
-            div.MergeAttribute("class","g-recaptcha");
+            div.MergeAttribute("class", "g-recaptcha");
             div.MergeAttribute("data-sitekey", "6Lco7g0TAAAAAPXI_PHY0uoHPRgOQAZFq2wOStk9");
             sb.Append(div.ToString());
             TagBuilder script = new TagBuilder("script");
             script.MergeAttribute("src", "https://www.google.com/recaptcha/api.js");
             sb.Append(script.ToString());
-            sb.Append("<p class='help-block'>"+helper.ViewBag.Message+"</p>");
+            sb.Append("<p class='help-block'>" + helper.ViewBag.Message + "</p>");
             return new HtmlString(sb.ToString());
         }
     }

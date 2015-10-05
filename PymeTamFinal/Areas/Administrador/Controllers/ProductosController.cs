@@ -1,6 +1,7 @@
 ﻿using PymeTamFinal.Attributos;
 using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Controles;
+using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Modelos.ModelosVista;
@@ -102,7 +103,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 model.slugs = PlugIns.AdministradorTexto.GeneradorSlugs(model.nombreProducto);
                 _producto.Agregar(model);
                 asignarImagenPrecio(model, imagen);
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Agregado, ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Agregado, ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
             ViewBag.categorias = cargaCategorias;
@@ -138,7 +139,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 model.fechaModificacion = DateTime.Now;
                 model.slugs = PlugIns.AdministradorTexto.GeneradorSlugs(model.nombreProducto);
                 _producto.Editar(model);
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
             ViewBag.categorias = cargaCategorias;
@@ -187,12 +188,12 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                     _precios.DesAsociar(precioOrigial);
                     model.idPrecio = precioOrigial.idPrecio;
                     _precios.Editar(model);
-                    ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                    ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                 }
                 else
                 {
                     _precios.Agregar(model);
-                    ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Agregado, ControllerContext.Controller);
+                    ServicioDeMensajes.darMensaje(enumMensaje.Agregado, ControllerContext.Controller);
                 }
             }
 
@@ -217,7 +218,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             eliminarGaleria(idProducto);
             eliminarPrecio(idProducto);
             _producto.Eliminar(producto);
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado,ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.Eliminado,ControllerContext.Controller);
             return RedirectToAction("Index");
         }
         private void eliminarPrecio(int idProducto)

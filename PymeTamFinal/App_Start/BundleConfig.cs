@@ -21,10 +21,11 @@ namespace PymeTamFinal
                 ));
             bundles.Add(new StyleBundle("~/bundles/TiendaCss").Include(
                 "~/Content/Temas/Eshopper/css/bootstrap.min.css",
-                "~/Content/Temas/Eshopper/css/font-awesome.min.css",
-                "~/Content/Temas/Eshopper/cssprettyPhoto.css",
+                "~/Content/Temas/Eshopper/css/font-awesome.css",
+                "~/Content/Temas/Eshopper/css/prettyPhoto.css",
                 "~/Content/Temas/Eshopper/css/price-range.css",
                 "~/Content/Temas/Eshopper/css/animate.css",
+                "~/Content/Temas/Eshopper/css/main.css",
                 "~/Content/Temas/Eshopper/css/responsive.css"
                 ));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

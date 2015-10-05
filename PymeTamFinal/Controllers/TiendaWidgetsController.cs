@@ -216,7 +216,8 @@ namespace PymeTamFinal.Controllers
         }
         public ActionResult ScriptsSociales()
         {
-            return View("_scriptsSociales");
+            var empresa = _empresa.Cargar(a => a.infoActiva == true).SingleOrDefault();
+            return View("_scriptsSociales",empresa);
         }
     }
 }

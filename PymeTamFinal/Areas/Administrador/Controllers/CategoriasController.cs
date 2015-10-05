@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using PymeTamFinal.Modelos.ModelosVista;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Attributos;
+using PymeTamFinal.HtmlHelpers.Abstraccion;
 
 namespace PymeTamFinal.Areas.Administrador.Controllers
 {
@@ -38,7 +39,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             if (ModelState.IsValid)
             {
                 _categorias.Agregar(model);
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Agregado,ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Agregado,ControllerContext.Controller);
             }
             return RedirectToAction("Index");
         }
@@ -60,14 +61,14 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                     model.idPadre = 0;
                     if (model.idCategoria != 0)
                     {
-                        ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                        ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
 
                         //Si el modelo es un hijo editamos para que sea padre
                         _categorias.Editar(model);
                     }
                     else
                     {
-                        ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                        ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                         //Guardar como nuevo padre ignorar edicion
                         _categorias.Agregar(model);
 
@@ -75,17 +76,17 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 }
                 if (model.idCategoria == model.idPadre)
                 {
-                    ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.ErrorRecurrencia, ControllerContext.Controller);
+                    ServicioDeMensajes.darMensaje(enumMensaje.ErrorRecurrencia, ControllerContext.Controller);
                     return RedirectToAction("Index");
                 }
                 if (model.idCategoria != 0)
                 {
-                    ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                    ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                     _categorias.Editar(model);
                 }
                 else
                 {
-                    ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                    ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                     _categorias.Agregar(model);
                 }
                 return RedirectToAction("Index");
@@ -119,7 +120,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         public ActionResult EliminarCategoria(int id) {
             var categoria = _categorias.CargarPorId(id);
             _categorias.Eliminar(categoria);
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado,ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.Eliminado,ControllerContext.Controller);
             return RedirectToAction("Index");
         }
         public ActionResult CargaHijos(int id)

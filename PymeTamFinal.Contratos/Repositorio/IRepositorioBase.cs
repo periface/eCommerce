@@ -10,7 +10,6 @@ namespace PymeTamFinal.Contratos.Repositorio
     public interface IRepositorioBase<T> where T:class
     {
         #region Sync
-
         void Agregar(T entidad);
         void Agregar(T entidad, object opt0);
         void Agregar(T entidad, object opt0, object opt1);

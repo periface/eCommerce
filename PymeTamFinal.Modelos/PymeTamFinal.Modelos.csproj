@@ -72,6 +72,7 @@
     <Compile Include="ModelosDominio\Producto.cs" />
     <Compile Include="ModelosDominio\RegistroActividadProducto.cs" />
     <Compile Include="ModelosDominio\Seccion.cs" />
+    <Compile Include="ModelosVista\CarroDetalleViewModel.cs" />
     <Compile Include="ModelosVista\CategoriaAdminEliminaViewModel.cs" />
     <Compile Include="ModelosVista\CategoriaAdminViewModel.cs" />
     <Compile Include="ModelosVista\CategoriasMenuRapido.cs" />

@@ -1,4 +1,5 @@
 ﻿using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Modelos.ModelosVista;
@@ -86,7 +87,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             }
             if (ModelState.IsValid) {
                 _descuentos.Agregar(model);
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Agregado,ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Agregado,ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
             ViewBag.usuarios = _clientes.Cargar();

@@ -1,5 +1,6 @@
 ﻿using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Controles;
+using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Modelos.ModelosVista;
@@ -56,10 +57,10 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             {
                 _comentarios.Editar(model);
 
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.ErrorBasico, ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.ErrorBasico, ControllerContext.Controller);
 
             return RedirectToAction("Index");
         }
@@ -88,7 +89,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             if (comentario == null)
                 return HttpNotFound();
             _comentarios.Eliminar(comentario);
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado, ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.Eliminado, ControllerContext.Controller);
             return RedirectToAction("Index");
         }
         public ActionResult CargaComentarios()

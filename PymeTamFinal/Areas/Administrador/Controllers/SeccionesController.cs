@@ -1,5 +1,6 @@
 ﻿using PymeTamFinal.Areas.Administrador.PlugIns;
 using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
 using System;
@@ -40,7 +41,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                     asignarImagen(model, imagen);
 
                 }
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Agregado,ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Agregado,ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -63,7 +64,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
 
                 }
                 _secciones.Editar(model);
-                ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Editado, ControllerContext.Controller);
+                ServicioDeMensajes.darMensaje(enumMensaje.Editado, ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -76,7 +77,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         {
             var seccion = _secciones.CargarPorId(id);
             _secciones.Eliminar(seccion);
-            ServicioDeMensajes.darMensaje(ServicioDeMensajes.enumMensaje.Eliminado, ControllerContext.Controller);
+            ServicioDeMensajes.darMensaje(enumMensaje.Eliminado, ControllerContext.Controller);
             return RedirectToAction("Index");
         }
         private void asignarImagen(Seccion model, HttpPostedFileBase imagen)
