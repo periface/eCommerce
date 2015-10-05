@@ -23,7 +23,7 @@
         <h3>Sin comentarios...</h3>
     }
     <hr />
-    <h3><b>Deja tu comentario</b></h3>
+    <h3><b>Califica el producto y deja tu comentario</b></h3>
     @if (User.Identity.IsAuthenticated)
     {
 
@@ -35,7 +35,7 @@
     {
         <div class="row">
             <div class="col-lg-12">
-                <h5><a href="@Url.Action("Login", "Account", new { Area="" })"> Inicia sesión</a> para poder dejar comentarios</h5>
+                <h5><a href="@Url.Action("Login", "Account", new { Area="",returnUrl = Url.Action("DetalleProducto","Tienda", new { id=(int)ViewBag.id,slug = ViewBag.slug }) })"> Inicia sesión</a> para poder dejar comentarios</h5>
             </div>
         </div>
     }

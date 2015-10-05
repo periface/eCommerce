@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-@if (Model.disponibleSinStock && Model.stock == 0)
+@if (!Model.disponibleSinStock && Model.stock > 0)
 {
     <span>
         <label>Cantidad:</label>
@@ -17,23 +17,58 @@
             Disponibilidad: @Html.Disponibilidad(Model.stock)
         </b>
     </p>
-    <p class="help-block">
-        Este producto siempre esta disponible
-    </p>
 }
 else
 {
-    <span>
-        <label>Cantidad:</label>
-        <input type="number" id="cantidad" min="1" value="0" max="@Model.stock">
-        <button type="button" disabled  class="btn btn-sm btn-fefault cart _cart disabled">
-            <i class="fa fa-shopping-cart"></i>
-            Agregar al carro
-        </button>
-    </span>
-    <p>
-        <b>
-            Disponibilidad: @Html.Disponibilidad(Model.stock)
-        </b>
-    </p>
+    if (!Model.disponibleSinStock && Model.stock <= 0)
+    {
+        <span>
+            <label>Cantidad:</label>
+            <input type="number" id="cantidad" min="1" value="0" max="@Model.stock">
+            <button type="button" disabled class="btn btn-sm btn-fefault cart _cart disabled">
+                <i class="fa fa-shopping-cart"></i>
+                Agregar al carro
+            </button>
+        </span>
+        <p>
+            <b>
+                Disponibilidad: @Html.Disponibilidad(Model.stock)
+            </b>
+        </p>
+    }
+    if (Model.disponibleSinStock && Model.stock == 0)
+    {
+        <span>
+            <label>Cantidad:</label>
+            <input type="number" id="cantidad" min="1" value="1">
+            <button type="button" data-id="@Model.idProducto" class="btn btn-sm btn-fefault cart _cart">
+                <i class="fa fa-shopping-cart"></i>
+                Agregar al carro
+            </button>
+        </span>
+        <p>
+            <b>
+                Disponibilidad: @Html.Disponibilidad(Model.stock)
+            </b>
+        </p>
+        <p class="help-block">
+            Este producto siempre esta disponible
+        </p>
+    }
+    else
+    {
+        <span>
+            <label>Cantidad:</label>
+            <input type="number" id="cantidad" min="1" value="0" max="@Model.stock">
+            <button type="button" disabled class="btn btn-sm btn-fefault cart _cart disabled">
+                <i class="fa fa-shopping-cart"></i>
+                Agregar al carro
+            </button>
+        </span>
+        <p>
+            <b>
+                Disponibilidad: @Html.Disponibilidad(Model.stock)
+            </b>
+        </p>
+    }
 }
