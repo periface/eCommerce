@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201510011508268_fechaCreacionComentarios.Designer.cs">
       <DependentUpon>201510011508268_fechaCreacionComentarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510021508314_aspId.cs" />
+    <Compile Include="Migrations\201510021508314_aspId.Designer.cs">
+      <DependentUpon>201510021508314_aspId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -147,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510011508268_fechaCreacionComentarios.resx">
       <DependentUpon>201510011508268_fechaCreacionComentarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510021508314_aspId.resx">
+      <DependentUpon>201510021508314_aspId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

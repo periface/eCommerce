@@ -13,6 +13,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
     {
         [Key]
         public int idCliente { get; set; }
+        public string idAsp { get; set; }
         [Required(ErrorMessage = "Usuario requerido")]
         public string nombreUsuario { get; set; }
         [Required(ErrorMessage = "Nombre requerido")]

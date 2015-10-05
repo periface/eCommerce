@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using Microsoft.AspNet.Identity;
+using PagedList;
 using PymeTamFinal.Attributos;
 using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Controles;
@@ -18,13 +19,14 @@ namespace PymeTamFinal.Controllers
         IRepositorioBase<Categoria> _categorias;
         IRepositorioBase<Precios> _precios;
         IRepositorioBase<CajaComentarios> _comentarios;
-
-        public TiendaController(IRepositorioBase<Producto> _productos, IRepositorioBase<Categoria> _categorias, IRepositorioBase<CajaComentarios> _comentarios, IRepositorioBase<Precios> _precios)
+        IRepositorioBase<Cliente> _clientes;
+        public TiendaController(IRepositorioBase<Cliente> _clientes,IRepositorioBase<Producto> _productos, IRepositorioBase<Categoria> _categorias, IRepositorioBase<CajaComentarios> _comentarios, IRepositorioBase<Precios> _precios)
         {
             this._productos = _productos;
             this._categorias = _categorias;
             this._comentarios = _comentarios;
             this._precios = _precios;
+            this._clientes = _clientes;
         }
         private List<ProductoListaViewModel> _productosLst = new List<ProductoListaViewModel>();
         // Inicio de la tienda
@@ -110,13 +112,21 @@ namespace PymeTamFinal.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var cliente = _clientes.Cargar(a => a.idAsp == userId).SingleOrDefault();
                 model.habilitado = false;
                 model.fechaCreacion = DateTime.Now;
-                model.idCliente = 1;
+                model.idCliente = cliente.idCliente;
+                model.nombreCliente = cliente.nombreCliente;
                 _comentarios.Agregar(model);
             }
             var producto = _productos.CargarPorId(model.idProducto);
             return RedirectToAction("DetalleProducto", new { id= producto.idProducto,slug = producto.slugs });
+        }
+        private string userId {
+            get {
+                return User.Identity.GetUserId();
+            }
         }
         private List<CategoriasMenuRapido> cargaCategorias()
         {
@@ -338,7 +348,10 @@ namespace PymeTamFinal.Controllers
                 return model;
             }
         }
+        public ActionResult AgregarAlCarro(int id) {
 
+            return View();
+        }
         private void cargaProductos(Categoria item)
         {
             foreach (var p in _productos.Cargar(a => a.idCategoria == item.idCategoria))
