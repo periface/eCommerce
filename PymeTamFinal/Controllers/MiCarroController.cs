@@ -69,6 +69,7 @@ namespace PymeTamFinal.Controllers
 
                 }
             }
+            ViewBag.cupon = cupon;
             var carro = CarroCompras._CarroCompras(HttpContext);
             var model = new CarroDetalleViewModel();
             model.subTotal = carro.cargaTotal();

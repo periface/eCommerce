@@ -22,6 +22,7 @@ namespace PymeTamFinal.Attributos
     /// Attributo para validar el recaptcha de google
     /// <para>Esto tiene efecto en la misma accion donde esta el captcha</para>
     /// <para>se necesita resolver el problema cuando las acciones post son llamadas desde _partials</para>
+    /// <para>Tambien funcióna para llamadas hechas con ajax, lo cual podria ser la respuesta para el error de los partials</para>
     /// </summary>
     public class RecaptchaAttr : ActionFilterAttribute, IActionFilter
     {

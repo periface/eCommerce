@@ -1,15 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Comprar";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
 }
 <section id="cart_items">
     <div class="container">
         @*<div class="breadcrumbs">
-                <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Check out</li>
-                </ol>
+            <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Check out</li>
+            </ol>
             </div>*@
 
         <div class="step-one">
@@ -26,7 +25,7 @@
                         @User.Identity.Name
                     </li>
                     @*<li>
-                            <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-times"></i>Usar otra cuenta</a>
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-times"></i>Usar otra cuenta</a>
                         </li>*@
                     <li>
                         <a href=""><i class="fa fa-times"></i>Cancelar compra</a>
@@ -71,20 +70,20 @@
         <div class="shopper-informations">
             <div class="row">
                 @*<div class="col-sm-3">
-                        <div class="shopper-info">
-                            <p>Shopper Information</p>
-                            <form>
-                                <input type="text" placeholder="Display Name">
-                                <input type="text" placeholder="User Name">
-                                <input type="password" placeholder="Password">
-                                <input type="password" placeholder="Confirm password">
-                            </form>
-                            <a class="btn btn-primary" href="">Get Quotes</a>
-                            <a class="btn btn-primary" href="">Continue</a>
-                        </div>
+                    <div class="shopper-info">
+                    <p>Shopper Information</p>
+                    <form>
+                    <input type="text" placeholder="Display Name">
+                    <input type="text" placeholder="User Name">
+                    <input type="password" placeholder="Password">
+                    <input type="password" placeholder="Confirm password">
+                    </form>
+                    <a class="btn btn-primary" href="">Get Quotes</a>
+                    <a class="btn btn-primary" href="">Continue</a>
+                    </div>
                     </div>*@
                 <div class="col-sm-6 clearfix">
-                    <div class="bill-to">
+                    <div id="fomulario" class="bill-to">
                         <p>Información para el envió</p>
                         <div class="form-one">
                             <form>
@@ -290,16 +289,17 @@
     </div>
 </section>
 @section Scripts{
-@Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
         var callbackLogin = function (data) {
             if (data.ok) {
                 window.location.reload();
             }
             else {
-                alert(data.mensaje);
-                $("#modalLogin").modal("hide");
+                $(".error").text("");
+                $(".error").append("<p class='alert alert-danger'>" + data.mensaje + "</p>");
+                grecaptcha.reset();
             }
         };
         $(function () {
@@ -313,14 +313,17 @@
             $funcionModal = function (d) {
                 $modal.modal("show");
             };
-            $("body").on("change", $btn, function () {
+            $("body").on("change", ".tipo", function () {
                 var $tipo = $('input[name="tipo"]:checked').val();
+                var $returnUrl = "?returnUrl=" + window.location.pathname.toString();
+                var $rtParam = "";
 
                 if ($tipo == "login") {
-                    $modal.load($servicioUrl, $funcionModal);
+
+                    $modal.load($servicioUrl + $returnUrl, $funcionModal);
                 }
                 if ($tipo == "registro") {
-                    $modal.load($servicioUrlRegistro, $funcionModal);
+                    $modal.load($servicioUrlRegistro + $returnUrl, $funcionModal);
                 }
             });
         });
