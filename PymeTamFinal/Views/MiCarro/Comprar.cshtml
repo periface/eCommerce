@@ -40,13 +40,21 @@
                         @*
                             Usar el formulario para comprar como invitado
                         *@
-                        <label><input type="radio" checked="checked" name="tipo"> Comprar como invitado</label>
+                        <label><input type="radio" checked="checked" class="tipo" value="invitado" name="tipo"> Comprar como invitado</label>
                     </li>
+                    <li>
+                        @*
+                            login
+                        *@
+                        <label><input type="radio" class="tipo" value="login" name="tipo"> Usar mi cuenta</label>
+                    </li>
+
+
                     <li>
                         @*
                             Registrar al usuario en la misma ventana
                         *@
-                        <label><input type="radio" name="tipo"> Registrar cuenta</label>
+                        <label><input type="radio" class="tipo" value="registro" name="tipo"> Registrar cuenta</label>
                     </li>
 
                     <li>
@@ -281,3 +289,45 @@
         </div>
     </div>
 </section>
+@section Scripts{
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        var callbackLogin = function (data) {
+            if (data.ok) {
+                window.location.reload();
+            }
+            else {
+                alert(data.mensaje);
+                $("#modalLogin").modal("hide");
+            }
+        };
+        $(function () {
+            //invitado
+            //login
+            //registro
+            $modal = $("#modalLogin");
+            $btn = $(".tipo");
+            $servicioUrl = "/Account/LoginModal/";
+            $servicioUrlRegistro = "/Account/RegistroModal/";
+            $funcionModal = function (d) {
+                $modal.modal("show");
+            };
+            $("body").on("change", $btn, function () {
+                var $tipo = $('input[name="tipo"]:checked').val();
+
+                if ($tipo == "login") {
+                    $modal.load($servicioUrl, $funcionModal);
+                }
+                if ($tipo == "registro") {
+                    $modal.load($servicioUrlRegistro, $funcionModal);
+                }
+            });
+        });
+    </script>
+}
+@section Fin{
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}

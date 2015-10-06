@@ -1,0 +1,84 @@
+﻿@using PymeTamFinal.Models
+@model LoginViewModel
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">Iniciar sesión</h4>
+        </div>
+        <div class="modal-body">
+            <link href="~/Content/Temas/Eshopper/css/bootstrap-social.css" rel="stylesheet" />
+            <div class="row">
+                <div class="col-sm-12">
+                    <section id="loginForm">
+                        <div class="form-group">
+                            @using (Ajax.BeginForm("Login", "Account", new { Area = "", ReturnUrl = ViewBag.ReturnUrl },new AjaxOptions { HttpMethod = "Post",OnSuccess= "callbackLogin" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <h4>Inicie sesión con su cuenta.</h4>
+                                @Html.TextBoxFor(m => m.Email, new { placeHolder = "Email", @class = "form-control col-lg-6" })
+                                <br />
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                
+                                @Html.PasswordFor(m => m.Password, new { placeHolder = "Contraseña", @class = "form-control col-lg-6" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                <span>
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </span>
+                                <br />
+                                @Html.Recaptcha()
+                                <br />
+                                <p>
+                                    @Html.ActionLink("¿Olvidaste tu contraseña?", "ForgotPassword")
+                                </p>
+
+                                <button type="submit" class="btn btn-default">Iniciar Sesión</button>
+                            }
+                        </div>
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <section id="socialLoginForm">
+                                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-sm-1">
+                        <h2 class="or">Ó</h2>
+                    </div>
+                    <div class="col-sm-4">
+                        @{Html.RenderAction("Register", "Account", new { Area = "" });}
+                    </div>*@
+
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        $("form :input").on("keypress", function (e) {
+            return e.keyCode != 13;
+        });
+    </script>*@
+<script>
+    $("#Facebook").addClass("btn btn-facebook");
+    $("#Facebook").text("");
+    $("#Facebook").append("<i class='fa fa-facebook'></i> Facebook");
+    $("#Twitter").addClass("btn btn-twitter");
+    $("#Twitter").text("");
+    $("#Twitter").append("<i class='fa fa-twitter'></i> Twitter");
+    $("#Google").addClass("btn btn-google");
+    $("#Google").text("");
+    $("#Google").append("<i class='fa fa-google'></i> Google");
+</script>

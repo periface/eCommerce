@@ -555,6 +555,7 @@
     <Content Include="Views\TiendaWidgets\_redesSociales.cshtml" />
     <Content Include="Views\MiCarro\CarritoDetalle.cshtml" />
     <Content Include="Views\MiCarro\Comprar.cshtml" />
+    <Content Include="Views\Account\LoginModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />

@@ -15,6 +15,7 @@
     @{Html.RenderAction("MenuTienda", "TiendaWidgets");}
     @RenderBody()
     @{Html.RenderAction("Footer", "TiendaWidgets"); }
+    @RenderSection("Fin",required:false)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/layoutEshop")

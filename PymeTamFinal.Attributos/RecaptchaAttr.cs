@@ -193,57 +193,116 @@ namespace PymeTamFinal.Attributos
                 switch (error)
                 {
                     case ("missing-input-secret"):
-                        filterContext.Controller.ViewBag.Message = "Respuesta no valida.";
-
-                        filterContext.Result = new ViewResult()
+                        if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
                         {
-                            ViewName = filterContext.ActionDescriptor.ActionName,
-                            TempData = filterContext.Controller.TempData,
-                            ViewData = filterContext.Controller.ViewData,
+                            filterContext.Result = new JsonResult()
+                            {
+                                Data = new { mensaje = "Respuesta no valida" },
+                                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                            };
+                        }
+                        else
+                        {
+                            filterContext.Controller.ViewBag.Message = "Respuesta no valida.";
 
-                        };
+                            filterContext.Result = new ViewResult()
+                            {
+                                ViewName = filterContext.ActionDescriptor.ActionName,
+                                TempData = filterContext.Controller.TempData,
+                                ViewData = filterContext.Controller.ViewData,
+
+                            };
+                        }
                         break;
                     case ("invalid-input-secret"):
                         filterContext.Controller.ViewBag.Message = "Respuesta no valida.";
-                        filterContext.Result = new ViewResult()
+                        if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
                         {
-                            ViewName = filterContext.ActionDescriptor.ActionName,
-                            TempData = filterContext.Controller.TempData,
-                            ViewData = filterContext.Controller.ViewData,
+                            filterContext.Result = new JsonResult()
+                            {
+                                Data = new { mensaje = "Respuesta no valida" },
+                                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                            };
+                        }
+                        else
+                        {
+                            filterContext.Result = new ViewResult()
+                            {
+                                ViewName = filterContext.ActionDescriptor.ActionName,
+                                TempData = filterContext.Controller.TempData,
+                                ViewData = filterContext.Controller.ViewData,
 
-                        };
+                            };
+                        }
+
                         break;
 
                     case ("missing-input-response"):
                         filterContext.Controller.ViewBag.Message = "Respuesta no valida.";
-                        filterContext.Result = new ViewResult()
+                        if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
                         {
-                            ViewName = filterContext.ActionDescriptor.ActionName,
-                            TempData = filterContext.Controller.TempData,
-                            ViewData = filterContext.Controller.ViewData,
+                            filterContext.Result = new JsonResult()
+                            {
+                                Data = new { mensaje = "Respuesta no valida" },
+                                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                            };
+                        }
+                        else
+                        {
+                            filterContext.Result = new ViewResult()
+                            {
+                                ViewName = filterContext.ActionDescriptor.ActionName,
+                                TempData = filterContext.Controller.TempData,
+                                ViewData = filterContext.Controller.ViewData,
 
-                        };
+                            };
+                        }
+
                         break;
                     case ("invalid-input-response"):
                         filterContext.Controller.ViewBag.Message = "Respuesta no valida.";
-                        filterContext.Result = new ViewResult()
+                        if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
                         {
-                            ViewName = filterContext.ActionDescriptor.ActionName,
-                            TempData = filterContext.Controller.TempData,
-                            ViewData = filterContext.Controller.ViewData,
+                            filterContext.Result = new JsonResult()
+                            {
+                                Data = new { mensaje = "Respuesta no valida" },
+                                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                            };
+                        }
+                        else
+                        {
+                            filterContext.Result = new ViewResult()
+                            {
+                                ViewName = filterContext.ActionDescriptor.ActionName,
+                                TempData = filterContext.Controller.TempData,
+                                ViewData = filterContext.Controller.ViewData,
 
-                        };
+                            };
+                        }
+
                         break;
 
                     default:
                         filterContext.Controller.ViewBag.Message = "Ocurrio un error, intentelo de nuevo";
-                        filterContext.Result = new ViewResult()
+                        if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
                         {
-                            ViewName = filterContext.ActionDescriptor.ActionName,
-                            TempData = filterContext.Controller.TempData,
-                            ViewData = filterContext.Controller.ViewData,
+                            filterContext.Result = new JsonResult()
+                            {
+                                Data = new { mensaje = "Respuesta no valida" },
+                                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                            };
+                        }
+                        else
+                        {
+                            filterContext.Result = new ViewResult()
+                            {
+                                ViewName = filterContext.ActionDescriptor.ActionName,
+                                TempData = filterContext.Controller.TempData,
+                                ViewData = filterContext.Controller.ViewData,
 
-                        };
+                            };
+                        }
+
                         break;
                 }
 
