@@ -21,10 +21,12 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         [Required(ErrorMessage = "Primer apellido requerido")]
         public string apPaterno { get; set; }
         public string apMaterno { get; set; }
-        public int idCiudad { get; set; }
+        public string ciudad { get; set; }
+        public int idEstado { get; set; }
         [Required(ErrorMessage = "Linea 1 requerida")]
         public string direccionEnvioLinea1 { get; set; }
         public string direccionEnvioLinea2 { get; set; }
+        public string razonSocial { get; set; }
         public string direccionFacturacionLinea1 { get; set; }
         public string direccionFacturacionLinea2 { get; set; }
         public string rfc { get; set; }

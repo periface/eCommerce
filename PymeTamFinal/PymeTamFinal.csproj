@@ -44,6 +44,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ImageResizer, Version=3.4.3.103, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.3.4.3\lib\ImageResizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageResizer.Mvc, Version=3.4.3.103, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.Mvc.3.4.3\lib\ImageResizer.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageResizer.Plugins.DiskCache, Version=3.4.3.103, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.Plugins.DiskCache.3.4.3\lib\ImageResizer.Plugins.DiskCache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageResizer.Plugins.PrettyGifs, Version=3.4.3.103, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.Plugins.PrettyGifs.3.4.3\lib\ImageResizer.Plugins.PrettyGifs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -219,7 +235,9 @@
     <Compile Include="Areas\Administrador\PlugIns\AdministradorDeArchivos.cs" />
     <Compile Include="Areas\Administrador\PlugIns\AdministradorTexto.cs" />
     <Compile Include="Areas\CheckOut\CheckOutAreaRegistration.cs" />
+    <Compile Include="Areas\CheckOut\Controllers\ComprarController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\MiCarroController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -556,13 +574,18 @@
     <Content Include="Views\MiCarro\CarritoDetalle.cshtml" />
     <Content Include="Views\MiCarro\Comprar.cshtml" />
     <Content Include="Views\Account\LoginModal.cshtml" />
+    <Content Include="Views\Clientes\MisDatos.cshtml" />
+    <Content Include="Views\TiendaWidgets\MenuAdmCliente.cshtml" />
+    <Content Include="Views\Clientes\MisPedidos.cshtml" />
+    <Content Include="Views\Clientes\_formularioCapturaEdicion.cshtml" />
+    <Content Include="Views\MiCarro\ResumenCarro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
     <Folder Include="Areas\Administrador\Views\CostosEnvioCupon\" />
-    <Folder Include="Areas\CheckOut\Controllers\" />
     <Folder Include="Areas\CheckOut\Models\" />
+    <Folder Include="Areas\CheckOut\Views\Comprar\" />
     <Folder Include="Areas\CheckOut\Views\Shared\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />
@@ -573,6 +596,7 @@
     <Folder Include="Content\Temas\LandingPage\" />
     <Folder Include="Content\Temas\SbAdmin\fonts\" />
     <Folder Include="Views\CarroCompras\" />
+    <Folder Include="Views\MisDatos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

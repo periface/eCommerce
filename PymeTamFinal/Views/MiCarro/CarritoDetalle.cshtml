@@ -18,18 +18,52 @@
                     <table class="table table-condensed">
                         <thead>
                             <tr class="cart_menu">
-                                <td class="image"><span class="hidden-sm hidden-xs">Producto</span></td>
-                                <td class="description"></td>
+                                <td class="image"><span class="hidden-sm hidden-xs"></span></td>
+                                <td class="description">Producto</td>
                                 <td class="price">Precio</td>
                                 <td class="quantity">Cantidad</td>
                                 <td class="total">Total</td>
-                                <td></td>
+                                <td>
+
+                                </td>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var record in Model.items)
                             {
                                 <tr id="fila_@record.idRecord">
+                                    <td class="cart_product">
+                                       @* <a class="hidden-sm hidden-xs" href="@Url.Action("DetalleProducto","Inicio", new {id=record.producto.idProducto,slug=record.producto.slugs})">@Html.imagen(record.producto.imgProducto, null, 100,0,true)</a>*@
+                                    </td>
+                                    <td class="cart_description">
+                                        <h4><a class="hoverP" data-id="@record.idRecord" href="@Url.Action("DetalleProducto","Tienda", new {id=record.producto.idProducto,slug=record.producto.slugs})">@record.producto.nombreProducto</a> </h4>
+                                        <p>Sku: @record.producto.sku</p>
+                                    </td>
+                                    <td class="cart_price">
+                                        <p>@Html.atinaleAlPrecio(record.producto)</p>
+                                    </td>
+                                    <td class="cart_quantity">
+                                        <div class="cart_quantity_button">
+                                            <a class="cart_quantity_up cantidad_mas" data-id="@record.idRecord"> + </a>
+                                            <input class="cart_quantity_input" disabled type="text" id="cantidad_@record.idRecord" name="quantity" value="@record.contadorCarro" autocomplete="off" size="2">
+                                            <a class="cart_quantity_down cantidad_menos" data-id="@record.idRecord"> - </a>
+                                            @*<a class="cart_quantity_up" href=""> + </a>
+                                            <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+                                            <a class="cart_quantity_down" href=""> - </a>*@
+                                        </div>
+                                    </td>
+                                    <td class="cart_total">
+                                        <p class="cart_total_price" id="totalRecord_@record.idRecord">@Html.atinaleAlPrecioTotal(record.producto, record.contadorCarro)</p>
+                                    </td>
+                                    <td class="cart_delete">
+                                        <a class="cart_quantity_delete" href="#" data-id="@record.idRecord"><i class="fa fa-times"></i></a>
+                                    </td>
+                                </tr>
+
+
+
+
+                                @*<tr id="fila_@record.idRecord">
                                     <td class="cart_product">
                                         <a class="hidden-sm hidden-xs" href="@Url.Action("DetalleProducto","Inicio", new {id=record.producto.idProducto,slug=record.producto.slugs})">@Html.imagen(record.producto.imgProducto,null,110,110)</a>
                                     </td>
@@ -54,14 +88,15 @@
                                     <td class="cart_delete">
                                         <a class="cart_quantity_delete" href="#" data-id="@record.idRecord"><i class="fa fa-times"></i></a>
                                     </td>
-                                </tr>
+                                </tr>*@
+                                
                             }
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="cart_total"><p class="cart_total_price" id="subTotal">Sub Total: @Html.formatoPrecio(Model.subTotal)</p> </td>
+                                <td class="cart_total"><p class="cart_total_price subTotal">Sub Total (Carrito) @Html.formatoPrecio(Model.subTotal)</p> </td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -101,7 +136,7 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Descuento 
+                        <li id="desc">Descuento 
                         @if (ViewBag.descuento != null)
                         {
                             <span>@Html.determinaDescuento((decimal)ViewBag.descuento)</span>
@@ -112,19 +147,19 @@
                             </span>
                         }
                         </li>
-                        <li>Sub Total (Carrito) <span>@Html.formatoPrecio(Model.subTotal)</span></li>
+                        <li class="subTotal" id="subTotal">Sub Total (Carrito) <span>@Html.formatoPrecio(Model.subTotal)</span></li>
                         @if (ViewBag.descuento != null)
                         {
-                            <li>Total (Carrito) <span>@Html.formatoPrecioTotal(Model.total, (decimal)ViewBag.descuento)</span></li>
+                            <li id="totalAll">Total (Carrito) <span>@Html.formatoPrecioTotal(Model.total, (decimal)ViewBag.descuento)</span></li>
                         }
                         else
                         {
-                            <li>Total (Carrito) <span>@Html.formatoPrecio(Model.total)</span></li>
+                            <li id="totalAll">Total (Carrito) <span>@Html.formatoPrecio(Model.total)</span></li>
                         }
                         
                     </ul>
                     <a class="btn btn-default update" href="@Url.Action("Index","Tienda")">Seguir comprando</a>
-                    <a class="btn btn-default check_out" href="@Url.Action("Comprar","MiCarro", new { cupon = ViewBag.cupon })">Confirmar orden</a>
+                    <a class="btn btn-default check_out" href="@Url.Action("Comprar","MiCarro", new { cupon = ViewBag.cupon })">Ver resumen del pedido y comprar</a>
                 </div>
             </div>
         </div>
@@ -174,3 +209,80 @@
         </div>
     </div>
 </div>*@
+@section Scripts{
+    <script>
+        $(function () {
+            //$("#envio").change(function () {
+            //    var id = $(this).val();
+            //    if (id == 0) {
+            //        $("#metodos").fadeOut();
+            //        return false;
+            //    }
+            //    $.post("/Tienda/Carrito/AplicaEnvio", { envio: id }, function (d) {
+            //        $("#totalAll").text("Total: $" + d.totalCompleto + " MXN");
+            //        $(".detalles").text("");
+            //        $(".detalles").append("<h3>Detalles</h3>" + "<p>" + d.detalles + "</p>");
+            //        if (id > 0) {
+            //            $("#metodos").fadeIn();
+            //        }
+            //        else {
+            //            $("#metodos").fadeOut();
+            //        }
+            //    }).error(function () {
+            //        $("#metodos").fadeOut();
+            //    });
+
+            //});
+            var agregarMas = function (id) {
+                $.get("/MiCarro/Agregar/" + id, function (d) {
+                    var cantidad = $("#cantidad_" + id);
+                    $("#desc").text("");
+                    $("#desc").append(d.descuento);
+                    $("#totalAll").text("");
+                    $("#totalAll").append("Total (Carrito) <span>" + d.totalCompleto + "</span>");
+                    $("#totalRecord_" + id).text(d.totalRecord);
+                    $(".subTotal").text("");
+                    $(".subTotal").append("Sub Total (Carrito) <span>" + d.subTotal + "</span>");
+                    cantidad.val(d.total);
+                });
+            }
+            var quitar = function (id) {
+                $.get("/MiCarro/Eliminar/" + id, function (d) {
+                    $("#totalAll").text("Total: " + d.totalCompleto + " MXN");
+                    $("#totalRecord_" + id).text("$" + d.totalRecord + " MXN");
+                    $("#desc").text("Cupon aplicado: " + d.descuento + " MXN");
+                    $("#subTotal").text("SubTotal: $" + d.subTotal + " MXN");
+                    var cantidad = $("#cantidad_" + id);
+                    if (d.total == 0) {
+                        var tr = $("#fila_" + id);
+                        tr.fadeOut();
+                    }
+                    else {
+                        cantidad.val(d.total);
+                    }
+
+                });
+            }
+            var eliminarTodo = function (id) {
+                $.get("/Carrito/EliminarRecord/" + id, function (d) {
+                    var tr = $("#fila_" + id);
+                    $("#totalAll").text("Total: " + d.total + " MXN");
+                    tr.fadeOut();
+                    $("#subTotal").text("SubTotal: $" + d.total + " MXN");
+                })
+            }
+            $("body").on("click", ".cantidad_mas", function () {
+                var id = $(this).data("id");
+                agregarMas(id);
+            });
+            $("body").on("click", ".cart_quantity_delete", function () {
+                var id = $(this).data("id");
+                eliminarTodo(id);
+            });
+            $("body").on("click", ".cantidad_menos", function () {
+                var id = $(this).data("id");
+                quitar(id);
+            });
+        })
+    </script>
+    }

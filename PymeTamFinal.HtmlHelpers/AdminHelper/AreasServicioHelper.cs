@@ -14,18 +14,18 @@ namespace PymeTamFinal.HtmlHelpers.AdminHelper
     public static class AreasServicioHelper
     {
         //<input type="checkbox" data-envio="@metodo.idEnvio" data-ciudad="@ViewBag.id" /> 
-        public static IHtmlString envioCiudadChk(this HtmlHelper helper,int idEnvio,int idCiudad) {
+        public static IHtmlString envioEstadoChk(this HtmlHelper helper,int idEnvio,int idEstado) {
             
             TagBuilder input = new TagBuilder("input");
             input.MergeAttribute("type","checkbox");
             input.MergeAttribute("class", "checkEnvio");
-            input.MergeAttribute("data-ciudad",idCiudad.ToString());
+            input.MergeAttribute("data-estado",idEstado.ToString());
             input.MergeAttribute("data-envio", idEnvio.ToString());
             IRepositorioBase<CostosEnvio> _envios = new RepositorioEnvios(new CapaDatos.DataContext());
             //Cargamos el envio
             var envio = _envios.CargarPorId(idEnvio);
             //Primer paso, revisar que exista la relación entre los 2 elementos envio y ciudad
-            if (envio.ciudades.Any(a => a.idCiudad == idCiudad)) {
+            if (envio.estados.Any(a => a.idEstado== idEstado)) {
                 //La ciudad ya esta relacionada con este envio
                 input.MergeAttribute("checked","checked");
             }

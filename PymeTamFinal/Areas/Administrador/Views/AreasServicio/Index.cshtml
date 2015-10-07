@@ -18,8 +18,7 @@
     </div>
     <div class="row">
         @{ Html.RenderPartial("_listaPaises", Model);}
-        <div class="col-lg-4" id="estados"></div>
-        <div class="col-lg-4" id="ciudades"></div>
+        <div class="col-lg-6" id="estados"></div>
     </div>
 
 </div>
@@ -63,10 +62,10 @@
             });
             $("body").on("click", ".checkEnvio", function () {
                 var idEnvio = $(this).data("envio");
-                var idCiudad = $(this).data("ciudad");
+                var idEstado = $(this).data("estado");
                 var checado = $(this).is(":checked");
                 if (checado) {
-                    $.get("/Administrador/AreasServicio/AgregarRelacion/?idEnvio=" + idEnvio + "&idCiudad=" + idCiudad, function (d) {
+                    $.get("/Administrador/AreasServicio/AgregarRelacion/?idEnvio=" + idEnvio + "&idEstado=" + idEstado, function (d) {
                    
                         notif({
                             type: "success",
@@ -80,7 +79,7 @@
                     });
                 }
                 else {
-                    $.get("/Administrador/AreasServicio/EliminarRelacion/?idEnvio=" + idEnvio + "&idCiudad=" + idCiudad, function (d) {
+                    $.get("/Administrador/AreasServicio/EliminarRelacion/?idEnvio=" + idEnvio + "&idEstado=" + idEstado, function (d) {
                         notif({
                             type: "success",
                             msg: "<span>" + d.mensaje + "</span>",
@@ -93,62 +92,62 @@
                     });
                 }
             });
+            //$("body").on("click", ".envioEstado", function () {
+            //    var id = $(this).data("id");
+            //    $("#modalAreas").load("/Administrador/AreasServicio/AgregarEnvioEstado/" + id, function () {
+            //        $("#modalAreas").modal("show");
+            //    });
+            //});
             $("body").on("click", ".envioEstado", function () {
-                var id = $(this).data("id");
-                $("#modalAreas").load("/Administrador/AreasServicio/AgregarEnvioEstado/" + id, function () {
-                    $("#modalAreas").modal("show");
-                });
-            });
-            $("body").on("click", ".agregarEnvio", function () {
                 var id = $(this).data("id");
                 $("#modalAreas").load("/Administrador/AreasServicio/AgregarEnvio/" + id, function () {
                     $("#modalAreas").modal("show");
                 });
             });
-            $("body").on("click", ".agregaEnvioAEstado", function () {
-                var idEnvio = $(this).data("envio");
-                var idEstado = $(this).data("estado");
-                $.get("/Administrador/AreasServicio/AgregarEnvioSeleccionado/?idEnvio=" + idEnvio + "&idEstado=" + idEstado, function (d) {
+            //$("body").on("click", ".agregaEnvioAEstado", function () {
+            //    var idEnvio = $(this).data("envio");
+            //    var idEstado = $(this).data("estado");
+            //    $.get("/Administrador/AreasServicio/AgregarEnvioSeleccionado/?idEnvio=" + idEnvio + "&idEstado=" + idEstado, function (d) {
 
-                    notif({
-                        type: "success",
-                        msg: "<span>" + d.mensaje + "</span>",
-                        //width: 'all',
-                        //position: 'bottom',
-                        //bgcolor: 'rgba(39, 174, 96, 1.0)',
-                        position: 'right',
-                        fade: true
-                    });
-                });
-            });
-            $("body").on("click", ".agregaCiudad", function () {
-                var id = $(this).data("id");
-                $("#modalAreas").load("/Administrador/AreasServicio/AgregarCiudad/" + id, function () {
-                    $("#modalAreas").modal("show");
-                });
-            });
-            $("body").on("click", ".editarCiudad", function () {
-                var id = $(this).data("id");
-                $("#modalAreas").load("/Administrador/AreasServicio/EditarCiudad/" + id, function () {
-                    $("#modalAreas").modal("show");
-                });
-            });
-            $("body").on("click", ".eliminarCiudad", function () {
-                var id = $(this).data("id");
-                $("#modalAreas").load("/Administrador/AreasServicio/EliminarCiudadVentana/" + id, function () {
-                    $("#modalAreas").modal("show");
-                });
-            });
+            //        notif({
+            //            type: "success",
+            //            msg: "<span>" + d.mensaje + "</span>",
+            //            //width: 'all',
+            //            //position: 'bottom',
+            //            //bgcolor: 'rgba(39, 174, 96, 1.0)',
+            //            position: 'right',
+            //            fade: true
+            //        });
+            //    });
+            //});
+            //$("body").on("click", ".agregaCiudad", function () {
+            //    var id = $(this).data("id");
+            //    $("#modalAreas").load("/Administrador/AreasServicio/AgregarCiudad/" + id, function () {
+            //        $("#modalAreas").modal("show");
+            //    });
+            //});
+            //$("body").on("click", ".editarCiudad", function () {
+            //    var id = $(this).data("id");
+            //    $("#modalAreas").load("/Administrador/AreasServicio/EditarCiudad/" + id, function () {
+            //        $("#modalAreas").modal("show");
+            //    });
+            //});
+            //$("body").on("click", ".eliminarCiudad", function () {
+            //    var id = $(this).data("id");
+            //    $("#modalAreas").load("/Administrador/AreasServicio/EliminarCiudadVentana/" + id, function () {
+            //        $("#modalAreas").modal("show");
+            //    });
+            //});
             $("body").on("click", ".verEstados", function () {
                 var id = $(this).data("id");
                 verEstados(id);
                 $("#ciudades").text("");
             });
             
-            $("body").on("click", ".verCiudades", function () {
-                var id = $(this).data("id");
-                verCiudades(id);
-            });
+            //$("body").on("click", ".verCiudades", function () {
+            //    var id = $(this).data("id");
+            //    verCiudades(id);
+            //});
         });
         var recargaEstados = function (id) {
             verEstados(id);
@@ -159,18 +158,18 @@
             $("#modalAreas").modal("hide");
             verEstados(data.data.idPais);
         }
-        var recargaCiudadesServer = function (data) {
-            $("#modalAreas").text("");
-            $("#modalAreas").modal("hide");
-            verCiudades(data.data.idEstado);
-        }
-        var verCiudades = function (id) {
-            $("#ciudades").load("/Administrador/AreasServicio/Ciudades/" + id, function () {
+        //var recargaCiudadesServer = function (data) {
+        //    $("#modalAreas").text("");
+        //    $("#modalAreas").modal("hide");
+        //    verCiudades(data.data.idEstado);
+        //}
+        //var verCiudades = function (id) {
+        //    $("#ciudades").load("/Administrador/AreasServicio/Ciudades/" + id, function () {
 
-            }).error(function () {
-                alert("Error");
-            });
-        }
+        //    }).error(function () {
+        //        alert("Error");
+        //    });
+        //}
         var verEstados = function (id) {
             $("#estados").load("/Administrador/AreasServicio/Estados/" + id, function () {
 

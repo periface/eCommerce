@@ -13,10 +13,10 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
     public class CostosEnvioController : AdminController
     {
         IRepositorioBase<CostosEnvio> _envios;
-        IRepositorioBase<Ciudad> _ciudades;
-        public CostosEnvioController(IRepositorioBase<CostosEnvio> _envios, IRepositorioBase<Ciudad> _ciudades)
+        IRepositorioBase<Estados> _estados;
+        public CostosEnvioController(IRepositorioBase<CostosEnvio> _envios, IRepositorioBase<Estados> _estados)
         {
-            this._ciudades = _ciudades;
+            this._estados = _estados;
             this._envios = _envios;
         }
         // GET: Administrador/CostosEnvio
@@ -61,10 +61,17 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 model.costoEnvio = _envios.CargarPorId(id);
                 if (model.costoEnvio == null)
                     return error404Parcial;
-                model.ciudades = _ciudades.Cargar(a => a.costosEnvio.Any(e => e.idEnvio == id.Value));
+                model.estados = _estados.Cargar(a => a.costosEnvio.Any(e => e.idEnvio == id.Value));
                 return View(model);
             }
-            return HttpNotFound();
+            else {
+                var model = new DetalleEnvioViewModel();
+                model.costoEnvio = _envios.CargarPorId(id);
+                if (model.costoEnvio == null)
+                    return error404Parcial;
+                model.estados = _estados.Cargar(a => a.costosEnvio.Any(e => e.idEnvio == id.Value));
+                return View(model);
+            }
         }
         public ActionResult EditarEnvio(int? id)
         {
@@ -109,7 +116,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 model.costoEnvio = _envios.CargarPorId(id);
                 if (model.costoEnvio == null)
                     return error404Parcial;
-                model.ciudades = _ciudades.Cargar(a => a.costosEnvio.Any(e => e.idEnvio == id.Value));
+                model.estados = _estados.Cargar(a => a.costosEnvio.Any(e => e.idEnvio == id.Value));
                 return View(model);
             }
             return HttpNotFound();

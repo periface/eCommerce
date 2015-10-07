@@ -45,21 +45,21 @@ namespace PymeTamFinal.Repositorios.Repos
         public override CostosEnvio CargarPorId(object id)
         {
             var idEnvio = (int)id;
-            var envio = context.CostosEnvio.Include("Ciudades").SingleOrDefault(a=>a.idEnvio==idEnvio);
+            var envio = context.CostosEnvio.Include("estados").SingleOrDefault(a=>a.idEnvio==idEnvio);
             return envio;
         }
         public override void AgregarRelacion(int entidad0, int entidad1)
         {
-            var ciudad = context.Ciudad.Find(entidad1);
-            var envio = context.CostosEnvio.Include("Ciudades").SingleOrDefault(a => a.idEnvio == entidad0);
-            envio.ciudades.Add(ciudad);
+            var estado = context.Estados.Find(entidad1);
+            var envio = context.CostosEnvio.Include("estados").SingleOrDefault(a => a.idEnvio == entidad0);
+            envio.estados.Add(estado);
             context.SaveChanges();
         }
         public override void EliminarRelacion(int entidad0, int entidad1)
         {
-            var ciudad = context.Ciudad.Find(entidad1);
-            var envio = context.CostosEnvio.Include("Ciudades").SingleOrDefault(a => a.idEnvio == entidad0);
-            envio.ciudades.Remove(ciudad);
+            var estado = context.Estados.Find(entidad1);
+            var envio = context.CostosEnvio.Include("estados").SingleOrDefault(a => a.idEnvio == entidad0);
+            envio.estados.Remove(estado);
             context.SaveChanges();
         }
     }

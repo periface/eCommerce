@@ -26,57 +26,57 @@ namespace PymeTamFinal.CapaDatos.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            context.Categoria.AddOrUpdate(a => a.nombreCategoria,
-                new Modelos.ModelosDominio.Categoria
-                {
-                    nombreCategoria = "Cremas",
-                    idPadre = 0,
+            //context.Categoria.AddOrUpdate(a => a.nombreCategoria,
+            //    new Modelos.ModelosDominio.Categoria
+            //    {
+            //        nombreCategoria = "Cremas",
+            //        idPadre = 0,
                    
 
-                },
-                new Modelos.ModelosDominio.Categoria()
-                {
-                    nombreCategoria = "Ropa",
-                    idPadre = 0,
-                });
-            context.Producto.AddOrUpdate(a => a.nombreProducto,
-                new Modelos.ModelosDominio.Producto
-                {
-                    descripcionCorta = "Contenido del producto",
-                    nombreProducto = "Producto nuevo",
-                    fechaCreacion = DateTime.Now,
-                    habilitado = true,
-                    imgProducto = "http://cdn-images.bundlestars.com/_images/_products/l/planetary-annihilation-new-cover-1.jpg",
-                    descripcionProducto = "Contenido web",
-                    tags = "Tag1,tag2,tag3",
-                    habilitarComentarios = true,
-                    fechaModificacion = DateTime.Now,
-                    habilitarCompraSinStock = false,
-                    mostrarSinStock = true,
-                    mostrarStock = true,
-                    slugs = "Slug",
-                    stock = 100,
-                    sku = "ASD-12345",
-                },
-                new Modelos.ModelosDominio.Producto
-                {
-                    descripcionCorta = "Contenido del producto",
-                    nombreProducto = "Producto nuevo 2",
-                    fechaCreacion = DateTime.Now,
-                    habilitado = true,
-                    imgProducto = "http://cdn-images.bundlestars.com/_images/_products/l/planetary-annihilation-new-cover-1.jpg",
-                    descripcionProducto = "Contenido web",
-                    tags = "Tag1,tag2,tag3",
-                    habilitarComentarios = true,
-                    fechaModificacion = DateTime.Now,
-                    habilitarCompraSinStock = false,
-                    mostrarSinStock = true,
-                    mostrarStock = true,
-                    slugs = "Slug",
-                    stock = 100,
-                    sku = "ASD-12345"
-                }
-             );
+            //    },
+            //    new Modelos.ModelosDominio.Categoria()
+            //    {
+            //        nombreCategoria = "Ropa",
+            //        idPadre = 0,
+            //    });
+            //context.Producto.AddOrUpdate(a => a.nombreProducto,
+            //    new Modelos.ModelosDominio.Producto
+            //    {
+            //        descripcionCorta = "Contenido del producto",
+            //        nombreProducto = "Producto nuevo",
+            //        fechaCreacion = DateTime.Now,
+            //        habilitado = true,
+            //        imgProducto = "http://cdn-images.bundlestars.com/_images/_products/l/planetary-annihilation-new-cover-1.jpg",
+            //        descripcionProducto = "Contenido web",
+            //        tags = "Tag1,tag2,tag3",
+            //        habilitarComentarios = true,
+            //        fechaModificacion = DateTime.Now,
+            //        habilitarCompraSinStock = false,
+            //        mostrarSinStock = true,
+            //        mostrarStock = true,
+            //        slugs = "Slug",
+            //        stock = 100,
+            //        sku = "ASD-12345",
+            //    },
+            //    new Modelos.ModelosDominio.Producto
+            //    {
+            //        descripcionCorta = "Contenido del producto",
+            //        nombreProducto = "Producto nuevo 2",
+            //        fechaCreacion = DateTime.Now,
+            //        habilitado = true,
+            //        imgProducto = "http://cdn-images.bundlestars.com/_images/_products/l/planetary-annihilation-new-cover-1.jpg",
+            //        descripcionProducto = "Contenido web",
+            //        tags = "Tag1,tag2,tag3",
+            //        habilitarComentarios = true,
+            //        fechaModificacion = DateTime.Now,
+            //        habilitarCompraSinStock = false,
+            //        mostrarSinStock = true,
+            //        mostrarStock = true,
+            //        slugs = "Slug",
+            //        stock = 100,
+            //        sku = "ASD-12345"
+            //    }
+            // );
         }
     }
 }

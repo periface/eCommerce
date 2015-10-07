@@ -18,9 +18,6 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public int idEstado { get; set; }
         [ForeignKey("idEstado")]
         public virtual Estados estado { get; set; }
-        public virtual ICollection<CostosEnvio> costosEnvio
-        {
-            get; set;
-        }
+        
     }
 }

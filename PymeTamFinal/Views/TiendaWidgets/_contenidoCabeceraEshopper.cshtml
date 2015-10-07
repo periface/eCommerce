@@ -23,8 +23,8 @@
                             <li><a target="_blank" href="@Model.facebookEmpresa"><i class="fa fa-facebook"></i></a></li>
                             <li><a target="_blank" href="@Model.twitterEmpresa"><i class="fa fa-twitter"></i></a></li>
                             @*<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>*@
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>*@
                         </ul>
                     </div>
                 </div>
@@ -38,13 +38,13 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <h3><a href="@Url.Action("Index", "Inicio", new {  Area="Inicio"})">@Model.nombreEmpresa</a></h3>
+                        <h3><a href="@Url.Action("Index", "Inicio", new { Area = "Inicio" })">@Model.nombreEmpresa</a></h3>
                         <p class="help-block"><i> @Model.slogan</i></p>
                         <div id="google_translate_element"></div>
                         <script type="text/javascript">
-                                function googleTranslateElementInit() {
-                                    new google.translate.TranslateElement({ pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
-                                }
+                            function googleTranslateElementInit() {
+                                new google.translate.TranslateElement({ pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+                            }
                         </script>
                         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
@@ -54,7 +54,8 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="@Url.Action("Comprar", "Carrito", new { Area="Tienda" })"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            @{Html.RenderAction("ResumenCarro", "MiCarro");}
+                            @*<li><a href="@Url.Action("Comprar", "Carrito", new { Area="Tienda" })"><i class="fa fa-crosshairs"></i> Checkout</a></li>*@
                             @{Html.RenderPartial("_LoginPartial");}
                         </ul>
                     </div>

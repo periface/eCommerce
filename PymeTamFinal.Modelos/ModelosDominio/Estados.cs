@@ -15,6 +15,10 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public int idPais { get; set; }
         [ForeignKey("idPais")]
         public virtual Pais pais { get; set; }
-        public virtual ICollection<Ciudad> ciudades {get;set;}
+        //public virtual ICollection<Ciudad> ciudades {get;set;}
+        public virtual ICollection<CostosEnvio> costosEnvio
+        {
+            get; set;
+        }
     }
 }

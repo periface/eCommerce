@@ -102,6 +102,18 @@
     <Compile Include="Migrations\201510021508314_aspId.Designer.cs">
       <DependentUpon>201510021508314_aspId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510071835034_razonSocialCliente.cs" />
+    <Compile Include="Migrations\201510071835034_razonSocialCliente.Designer.cs">
+      <DependentUpon>201510071835034_razonSocialCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510071930153_redefinicionEnvios.cs" />
+    <Compile Include="Migrations\201510071930153_redefinicionEnvios.Designer.cs">
+      <DependentUpon>201510071930153_redefinicionEnvios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510071956048_idEstadoAgregado.cs" />
+    <Compile Include="Migrations\201510071956048_idEstadoAgregado.Designer.cs">
+      <DependentUpon>201510071956048_idEstadoAgregado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -154,6 +166,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510021508314_aspId.resx">
       <DependentUpon>201510021508314_aspId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510071835034_razonSocialCliente.resx">
+      <DependentUpon>201510071835034_razonSocialCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510071930153_redefinicionEnvios.resx">
+      <DependentUpon>201510071930153_redefinicionEnvios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510071956048_idEstadoAgregado.resx">
+      <DependentUpon>201510071956048_idEstadoAgregado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

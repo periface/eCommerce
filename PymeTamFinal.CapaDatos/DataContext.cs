@@ -17,7 +17,7 @@ namespace PymeTamFinal.CapaDatos
         public DbSet<CajaComentarios> CajaComentarios { get; set; }
         public DbSet<CarritoDeCompra> CarritoCompra { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
-        public DbSet<Ciudad> Ciudad { get; set; }
+        //public DbSet<Ciudad> Ciudad { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<CostosEnvio> CostosEnvio { get; set; }
         public DbSet<CuponDescuento> CuponDescuento { get; set; }

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosVista.MenuCliente>
+@{
+    Layout = null;
+}
+<style>
+    .activa {
+        background-color: orange !important;
+        color: white !important;
+    }
+</style>
+<ul class="nav nav-pills nav-stacked">
+    @foreach (var item in Model)
+    {
+        string activa = "";
+        if (item.seleccionado) {
+            activa = "activa";
+        }
+        <li><a class="@activa" href=@Url.Action(item.accion,item.control)> @item.texto</a></li>
+    }
+</ul>
+

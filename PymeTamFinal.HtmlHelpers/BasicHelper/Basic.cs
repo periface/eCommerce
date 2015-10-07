@@ -74,7 +74,14 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             Dictionary<string, string> attr = new Dictionary<string, string>();
             if (usarresizer)
             {
-                attr.Add("src", imagen + "?w=" + w + "&h=" + h);
+                if (h == 0)
+                {
+                    attr.Add("src", imagen + "?w=" + w);
+                }
+                else {
+                    attr.Add("src", imagen + "?w=" + w + "&h=" + h);
+                }
+                
             }
             else
             {

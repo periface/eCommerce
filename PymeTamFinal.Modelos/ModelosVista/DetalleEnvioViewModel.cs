@@ -10,6 +10,6 @@ namespace PymeTamFinal.Modelos.ModelosVista
     public class DetalleEnvioViewModel
     {
         public CostosEnvio costoEnvio { get; set; }
-        public IEnumerable<Ciudad> ciudades{ get; set; }
+        public IEnumerable<Estados> estados{ get; set; }
     }
 }

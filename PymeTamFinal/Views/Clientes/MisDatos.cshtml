@@ -1,0 +1,77 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Cliente
+@{
+    ViewBag.Title = "Mis Datos";
+    Layout = "~/Views/Shared/_LayoutTienda.cshtml";
+}
+
+<div class="section">
+    <div class="container">
+        <div class="col-sm-3">
+            <div class="left-sidebar">
+                <div class="brands_products">
+                    <!--brands_products-->
+                    <h2>Menu</h2>
+                    <div class="brands-name">
+                        @{Html.RenderAction("MenuAdmCliente", "TiendaWidgets");}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+
+                <div class="form-completo">
+                    @using (Html.BeginForm("CapturaCliente", "Clientes", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post))
+                    {
+                        if (Model.idCliente != 0)
+                        {
+                            @Html.HiddenFor(a => a.idCliente)
+                        }
+                        @Html.HiddenFor(a => a.idAsp)
+                        @Html.HiddenFor(a => a.idEstado)
+                        @Html.HiddenFor(a => a.datosCapturados)
+                        @Html.HiddenFor(a => a.facturacionCapturada)
+
+                        <div class="bill-to">
+                            <p>Datos de cliente</p>
+                        </div>
+                        @Html.TextBoxFor(a => a.nombreUsuario, new { placeHolder = "Nombre de usuario *" })
+                        @Html.TextBoxFor(a=>a.nombre , new { placeHolder = "Nombre *" })
+                        @Html.TextBoxFor(a => a.apPaterno, new { placeholder = "Primer Apellido *" })
+                        @Html.TextBoxFor(a => a.apMaterno, new { placeholder = "Segundo Apellido" })
+                        @Html.TextBoxFor(a => a.direccionEnvioLinea1, new { placeholder = "Dirección linea 1 *" })
+                        @Html.TextBoxFor(a => a.direccionEnvioLinea2, new { placeholder = "Dirección linea 2" })
+                        @Html.TextBoxFor(a => a.cp, new { placeholder = "Codigo postal" })
+                        @Html.TextBoxFor(a => a.telefono, new { placeholder = "Telefono *" })
+                        @Html.TextBoxFor(a => a.edad, new { placeholder = "Edad", type="number" })
+                        
+                        <select>
+                            <option>-- Pais --</option>
+                            <option>United States</option>
+                            <option>Bangladesh</option>
+                            <option>UK</option>
+                            <option>India</option>
+                            <option>Pakistan</option>
+                            <option>Ucrane</option>
+                            <option>Canada</option>
+                            <option>Dubai</option>
+                        </select>
+                        <select>
+                            <option>-- Estado --</option>
+                        </select>
+                        @Html.TextBoxFor(a => a.ciudad, new { placeHolder = "Ciudad o Provincia" })
+                        <div class="bill-to">
+                            <p>Información de facturación (Opcional)</p>
+                        </div>
+                        @Html.TextBoxFor(a=>a.razonSocial, new { placeHolder = "Razón social" })
+                        @Html.TextBoxFor(a=>a.direccionFacturacionLinea1, new { placeHolder="Dirección de facturación linea 1" })
+                        @Html.TextBoxFor(a => a.direccionFacturacionLinea2, new { placeHolder = "Dirección de facturación linea 2" })
+                        @Html.TextBoxFor(a => a.rfc, new { placeHolder = "RFC" })
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,32 +18,32 @@ namespace PymeTamFinal.Repositorios.Repos
             if (context == null)
                 throw new ArgumentNullException();
         }
-        public override IQueryable<Ciudad> Cargar()
-        {
-            return context.Ciudad;
-        }
-        public override Ciudad CargarPorId(object id)
-        {
-            return context.Ciudad.Find(id);
-        }
-        public override IQueryable<Ciudad> Cargar(Expression<Func<Ciudad, bool>> lambda)
-        {
-            return context.Ciudad.Include("estado").Include("estado.pais").Where(lambda);
-        }
-        public override void Agregar(Ciudad entidad)
-        {
-            context.Ciudad.Add(entidad);
-            context.SaveChanges();
-        }
-        public override void Editar(Ciudad entidad)
-        {
-            context.Entry(entidad).State = EntityState.Modified;
-            context.SaveChanges();
-        }
-        public override void Eliminar(Ciudad entidad)
-        {
-            context.Entry(entidad).State = EntityState.Deleted;
-            context.SaveChanges();
-        }
+        //public override IQueryable<Ciudad> Cargar()
+        //{
+        //    return context.Ciudad;
+        //}
+        //public override Ciudad CargarPorId(object id)
+        //{
+        //    return context.Ciudad.Find(id);
+        //}
+        //public override IQueryable<Ciudad> Cargar(Expression<Func<Ciudad, bool>> lambda)
+        //{
+        //    return context.Ciudad.Include("estado").Include("estado.pais").Where(lambda);
+        //}
+        //public override void Agregar(Ciudad entidad)
+        //{
+        //    context.Ciudad.Add(entidad);
+        //    context.SaveChanges();
+        //}
+        //public override void Editar(Ciudad entidad)
+        //{
+        //    context.Entry(entidad).State = EntityState.Modified;
+        //    context.SaveChanges();
+        //}
+        //public override void Eliminar(Ciudad entidad)
+        //{
+        //    context.Entry(entidad).State = EntityState.Deleted;
+        //    context.SaveChanges();
+        //}
     }
 }

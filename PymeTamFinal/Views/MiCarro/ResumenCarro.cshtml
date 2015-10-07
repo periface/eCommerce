@@ -1,0 +1,16 @@
+﻿@model PymeTamFinal.Modelos.ModelosVista.CarroResumenViewModel
+@{
+    Layout = null;
+}
+<li>
+
+    <a href="@Url.Action("CarritoDetalle","MiCarro")">
+        <i class="fa fa-shopping-cart"></i> Carrito (@Model.totalItems)
+        @if (Model.totalItems>0)
+        {
+            <b>
+                Total: @Html.formatoPrecio(Model.total)
+            </b>
+        }
+    </a>
+</li>

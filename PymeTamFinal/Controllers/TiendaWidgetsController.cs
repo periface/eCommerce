@@ -53,8 +53,6 @@ namespace PymeTamFinal.Controllers
                 return View("_mostrarStock", producto);
             }
             else {
-
-
                 return View("_mostrarSinStock",producto);
             }
         }
@@ -85,6 +83,33 @@ namespace PymeTamFinal.Controllers
         public ActionResult SliderProducto(int id) {
             var slides = _galeria.Cargar(a=>a.idProducto==id);
             return View("_sliderProducto",slides);
+        }
+        [ChildActionOnly]
+        public ActionResult MenuAdmCliente() {
+            /*
+            <ul class="nav nav-pills nav-stacked">
+                            <li><a href=""> Mis Datos</a></li>
+                            <li><a href=""> Mis Pedidos</a></li>
+                            <li><a href=""> Mi Lista de Deseos</a></li>
+                            <li><a href=""> Mi Cuenta</a></li>
+                        </ul>
+            */
+            List<MenuCliente> menu = new List<MenuCliente>() {
+                new MenuCliente { texto = "Mis Datos",accion = "MisDatos",control="Clientes" },
+                new MenuCliente { texto = "Mis Pedidos",accion = "MisPedidos",control="Clientes" },
+                new MenuCliente { texto = "Mis Cuenta",accion = "MiCuenta",control="Clientes" }
+            };
+
+            string accion = ControllerContext.ParentActionViewContext.RouteData.Values["action"].ToString();
+            string controller = ControllerContext.ParentActionViewContext.RouteData.Values["controller"].ToString();
+            foreach (var item in menu)
+            {
+                if (item.control == controller && item.accion == accion) {
+                    item.seleccionado = true;
+                }
+
+            }
+            return View(menu);
         }
         private List<ProductoListaViewModel> cargaProductosRandom()
         {

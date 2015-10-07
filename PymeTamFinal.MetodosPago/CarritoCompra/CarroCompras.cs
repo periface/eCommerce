@@ -10,6 +10,9 @@ using Microsoft.AspNet.Identity;
 
 namespace PymeTamFinal.MetodosPago.CarritoCompra
 {
+    /// <summary>
+    /// Todas las operaciónes de disminución de stock son efectuadas aqui
+    /// </summary>
     public class CarroCompras
     {
         public enum mensajes
@@ -176,9 +179,9 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
         private bool CuponCaducado(CuponDescuento cupondb)
         {
             if (cupondb.fechaCaducidad > DateTime.Now) {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         private bool CuponDisponible(CuponDescuento cupondb)

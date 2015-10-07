@@ -27,22 +27,23 @@
                                     #Id
                                 </th>
                                 <th>
-                                    Estado
+                                    País
                                 </th>
                                 <th>
-                                    Ciudad
+                                    Estado
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.ciudades)
+                            @foreach (var item in Model.estados)
                             {
                                 <tr>
                                     <td>
-                                        @item.idCiudad
+                                        @item.idEstado
                                     </td>
-                                    <td>@item.estado.nombreEstado</td>
-                                    <td>@item.nombreCiudad</td>
+                                    <td>@item.pais.nombrePais</td>
+
+                                    <td>@item.nombreEstado</td>
                                 </tr>
                             }
                         </tbody>
