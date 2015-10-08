@@ -13,13 +13,47 @@ using Microsoft.Owin.Security;
 using PymeTamFinal.Models;
 using System.Net.Mail;
 using System.Net;
+using System.Web.Configuration;
 
 namespace PymeTamFinal
 {
     public class EmailService : IIdentityMessageService
     {
+        
         public async Task SendAsync(IdentityMessage message)
         {
+
+            try
+            {
+                using (var cliente = new SmtpClient())
+                {
+                    var webMensaje = new MailMessage();
+                    var credencial = new NetworkCredential()
+                    {
+                        UserName = WebConfigurationManager.AppSettings["usuario"],
+                        Password = WebConfigurationManager.AppSettings["contrasena"],
+                        Domain = WebConfigurationManager.AppSettings["dominio"] == null ? null : WebConfigurationManager.AppSettings["dominio"],
+                    };
+                    cliente.Credentials = credencial;
+                    cliente.Host = "smtp-mail.outlook.com";
+                    cliente.Port = 587;
+                    cliente.EnableSsl = true;
+                    try
+                    {
+                        await cliente.SendMailAsync(webMensaje);
+                    }
+                    catch (Exception)
+                    {
+                        return;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             // Plug in your email service here to send an email.
             //message.Destination = "aats91@outlook.com";
             //message.Body = "Mensaje de prueba";
@@ -61,7 +95,6 @@ namespace PymeTamFinal
             : base(store)
         {
         }
-
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));

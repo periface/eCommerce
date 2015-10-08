@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PymeTamFinal.Controles", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PymeTamFinal.Attributos", "PymeTamFinal.Attributos\PymeTamFinal.Attributos.csproj", "{11D4055D-855D-4EBB-837E-8ACB6533C733}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PymeTamFinal.Servicios", "PymeTamFinal.Servicios\PymeTamFinal.Servicios.csproj", "{2240A551-81F4-4C0D-BE8D-FFD9321B3745}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{11D4055D-855D-4EBB-837E-8ACB6533C733}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11D4055D-855D-4EBB-837E-8ACB6533C733}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11D4055D-855D-4EBB-837E-8ACB6533C733}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2240A551-81F4-4C0D-BE8D-FFD9321B3745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2240A551-81F4-4C0D-BE8D-FFD9321B3745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2240A551-81F4-4C0D-BE8D-FFD9321B3745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2240A551-81F4-4C0D-BE8D-FFD9321B3745}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +87,6 @@ Global
 		{F82D6089-EB0D-4796-91AB-8551080E32FD} = {47625A1A-27AB-4B57-8BF6-20B1FABDE67E}
 		{6ECF8219-97EB-46F1-A630-24B4001D71AB} = {47625A1A-27AB-4B57-8BF6-20B1FABDE67E}
 		{11D4055D-855D-4EBB-837E-8ACB6533C733} = {47625A1A-27AB-4B57-8BF6-20B1FABDE67E}
+		{2240A551-81F4-4C0D-BE8D-FFD9321B3745} = {47625A1A-27AB-4B57-8BF6-20B1FABDE67E}
 	EndGlobalSection
 EndGlobal

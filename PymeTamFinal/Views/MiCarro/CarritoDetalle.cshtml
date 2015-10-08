@@ -14,9 +14,7 @@
                         @ViewBag.estadoCupon
                     </div>
                 }
-                <div class="table-responsive cart_info">
-                    @{Html.RenderPartial("_carrito", Model);}
-                </div>
+                @{Html.RenderPartial("_carrito", Model);}
             </div>
         </div>
     </div>
@@ -190,11 +188,18 @@
                 });
             }
             var eliminarTodo = function (id) {
-                $.get("/Carrito/EliminarRecord/" + id, function (d) {
+                $.get("/MiCarro/EliminarRecord/" + id, function (d) {
                     var tr = $("#fila_" + id);
-                    $("#totalAll").text("Total: " + d.total + " MXN");
+                    var cantidad = $("#cantidad_" + id);
+                    $("#desc").text("");
+                    $("#desc").append(d.descuento);
+                    $("#totalAll").text("");
+                    $("#totalAll").append("Total (Carrito) <span>" + d.totalCompleto + "</span>");
+                    $("#totalRecord_" + id).text(d.totalRecord);
+                    $(".subTotal").text("");
+                    $(".subTotal").append("Sub Total (Carrito) <span>" + d.subTotal + "</span>");
+                    cantidad.val(d.total);
                     tr.fadeOut();
-                    $("#subTotal").text("SubTotal: $" + d.total + " MXN");
                 })
             }
             $("body").on("click", ".cantidad_mas", function () {

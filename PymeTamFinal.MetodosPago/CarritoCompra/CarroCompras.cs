@@ -33,6 +33,15 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
             carro.idCarro = carro.cargaId(context);
             return carro;
         }
+        public void migrarCarrito(string usuario,HttpContextBase context) {
+            var carrito = db.CarritoCompra.Where(a => a.idCarro == idCarro);
+            foreach (var item in carrito)
+            {
+                item.idCarro = usuario;
+            }
+            context.Session[llaveSesion] = usuario;
+            db.SaveChanges();
+        }
         public static CarroCompras _CarroCompras(Controller controller)
         {
             return _CarroCompras(controller);
@@ -85,8 +94,11 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
                 var id = aspIdCliente(controller);
                 var cliente = db.Cliente.SingleOrDefault(a => a.idAsp == id);
                 //Sabemos si tiene o no tiene un usuario
-                if (cupondb.idCliente.HasValue)
-                {
+                if (cupondb.idCliente.HasValue) {
+
+                    if (cliente == null) {
+                        return mensajes.cuponNoEncontrado;
+                    }
                     //Valida que sea del usuario
                     if (cupondb.idCliente == cliente.idCliente)
                     {
@@ -220,9 +232,9 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
         }
         public void EliminarRecord(int id)
         {
-            var record = db.CarritoCompra.SingleOrDefault(a => a.idProducto == id);
+            var record = db.CarritoCompra.Include("producto").SingleOrDefault(a => a.idRecord == id);
+            record.producto.stock += record.contadorCarro;
             db.CarritoCompra.Remove(record);
-
             db.SaveChanges();
         }
         public void AgregarAlCarro(int idProducto, int cantidad = 1)

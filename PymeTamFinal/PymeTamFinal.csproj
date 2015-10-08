@@ -510,7 +510,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="ScriptSql\Leéme.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -580,6 +582,7 @@
     <Content Include="Views\Clientes\_formularioCapturaEdicion.cshtml" />
     <Content Include="Views\MiCarro\ResumenCarro.cshtml" />
     <Content Include="Views\MiCarro\_carrito.cshtml" />
+    <Content Include="Views\MiCarro\_carritoDetalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
@@ -602,7 +605,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
@@ -638,6 +643,10 @@
     <ProjectReference Include="..\PymeTamFinal.Repositorios\PymeTamFinal.Repositorios.csproj">
       <Project>{aa533283-c728-488a-b705-138671a72bf2}</Project>
       <Name>PymeTamFinal.Repositorios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PymeTamFinal.Servicios\PymeTamFinal.Servicios.csproj">
+      <Project>{2240a551-81f4-4c0d-be8d-ffd9321b3745}</Project>
+      <Name>PymeTamFinal.Servicios</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

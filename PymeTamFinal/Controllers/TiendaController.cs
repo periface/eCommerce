@@ -90,10 +90,15 @@ namespace PymeTamFinal.Controllers
 
         public ActionResult Productos(int? idCategoria, int? pagina, string orden, string busquedaString, string busqueda, int? min, int? max)
         {
+            
             var productos = _productos.Cargar(a => a.stock > 0 || a.mostrarSinStock == true && a.habilitado == true);
             PaginaProductosViewModel model = new PaginaProductosViewModel();
             model = cargaProductos(idCategoria, pagina, orden, busquedaString, busqueda, min, max);
             //model._categorias = cargaCategorias();
+            if (Request.IsAjaxRequest())
+            {
+                return View("~/Views/TiendaWidgets/_ListaProductosEshopper.cshtml", model._productos);
+            }
             return View(model);
         }
         public ActionResult DejarComentario(int id, string slug)
@@ -340,7 +345,7 @@ namespace PymeTamFinal.Controllers
                     ViewBag.max = model._productos.OrderByDescending(a => a.precio).Any() ? model._productos.OrderByDescending(a => a.precio).First().precio : 0;
                     ViewBag.min = model._productos.OrderBy(a => a.precio).Any() ? model._productos.OrderBy(a => a.precio).First().precio : 0;
                 }
-                model._productos.ToPagedList(pageNumber, pageSize).ToList();
+                model._productos = model._productos.ToPagedList(pageNumber, pageSize).ToList();
                 return model;
             }
             else
@@ -388,6 +393,7 @@ namespace PymeTamFinal.Controllers
                 ViewBag.max = _max;
                 ViewBag.min = _min;
                 model._productos.AddRange(productoConversion);
+                model._productos =  model._productos.ToPagedList(pageNumber, pageSize).ToList();
                 return model;
             }
         }

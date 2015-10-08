@@ -1,293 +1,144 @@
-﻿@{
+﻿@model PymeTamFinal.Modelos.ModelosAuxiliares.ModeloGuardadoCompra
+@{
     ViewBag.Title = "Comprar";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
 }
-<section id="cart_items">
-    <div class="container">
-        @*<div class="breadcrumbs">
-            <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li class="active">Check out</li>
-            </ol>
-            </div>*@
+@using (Html.BeginForm())
+{
+    <section id="cart_items">
+        <div class="container">
+            @*<div class="breadcrumbs">
+                <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Check out</li>
+                </ol>
+                </div>*@
 
-        <div class="step-one">
-            <h2 class="heading">Comprar</h2>
-        </div>
-        <div class="checkout-options">
-            <h3>Usuario</h3>
-            <br />
-            @if (User.Identity.IsAuthenticated)
-            {
+            <div class="step-one">
+                <h2 class="heading">Comprar</h2>
+            </div>
+            <div class="checkout-options">
+                <h3>Usuario</h3>
+                <br />
+                @if (User.Identity.IsAuthenticated)
+                {
 
-                <ul class="nav">
-                    <li>
-                        @User.Identity.Name
-                    </li>
-                    @*<li>
-                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-times"></i>Usar otra cuenta</a>
-                        </li>*@
-                    <li>
-                        <a href=""><i class="fa fa-times"></i>Cancelar compra</a>
-                    </li>
-                </ul>
-            }
-            else
-            {
-                <ul class="nav">
-                    <li>
-                        @*
-                            Usar el formulario para comprar como invitado
-                        *@
-                        <label><input type="radio" checked="checked" class="tipo" value="invitado" name="tipo"> Comprar como invitado</label>
-                    </li>
-                    <li>
-                        @*
-                            login
-                        *@
-                        <label><input type="radio" class="tipo" value="login" name="tipo"> Usar mi cuenta</label>
-                    </li>
+                    <ul class="nav">
+                        <li>
+                            @User.Identity.Name
+                        </li>
+                        @*<li>
+                            <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-times"></i>Usar otra cuenta</a>
+                            </li>*@
+                        <li>
+                            <a href=""><i class="fa fa-times"></i>Cancelar compra</a>
+                        </li>
+                    </ul>
+                }
+            </div><!--/checkout-options-->
+
+            <div class="register-req">
+                <p></p>
+            </div><!--/register-req-->
+
+            <div class="shopper-informations">
+                <div class="row">
+                    @*<div class="col-sm-3">
+                        <div class="shopper-info">
+                        <p>Shopper Information</p>
+                        <form>
+                        <input type="text" placeholder="Display Name">
+                        <input type="text" placeholder="User Name">
+                        <input type="password" placeholder="Password">
+                        <input type="password" placeholder="Confirm password">
+                        </form>
+                        <a class="btn btn-primary" href="">Get Quotes</a>
+                        <a class="btn btn-primary" href="">Continue</a>
+                        </div>
+                        </div>*@
+                    <div class="col-sm-6 clearfix">
 
 
-                    <li>
-                        @*
-                            Registrar al usuario en la misma ventana
-                        *@
-                        <label><input type="radio" class="tipo" value="registro" name="tipo"> Registrar cuenta</label>
-                    </li>
+                        <div class="formularioUno">
+                            <div class="bill-to">
+                                <p>Información del cliente</p>
+                            </div>
+                            <label>Nombre</label>
+                            @Html.TextBoxFor(a => a.ordenNombre)
+                            <label>Primer Apellido</label>
+                            @Html.TextBoxFor(a => a.ordenApPaterno)
+                            <label>Segundo Apellido</label>
+                            @Html.TextBoxFor(a => a.ordenApMaterno)
+                            <label>Correo electronico</label>
+                            @Html.TextBox("ordenMail", User.Identity.Name)
+                            <label>Telefono</label>
+                            @Html.TextBoxFor(a => a.ordenTelefono)
 
-                    <li>
-                        <a href=""><i class="fa fa-times"></i>Cancelar compra</a>
-                    </li>
-                </ul>
-            }
-        </div><!--/checkout-options-->
+                        </div>
 
-        <div class="register-req">
-            <p></p>
-        </div><!--/register-req-->
 
-        <div class="shopper-informations">
+                        <div class="formularioDos">
+
+                            <div class="bill-to">
+                                <p>Información para el envió</p>
+                            </div>
+                            <label>Dirección de envio</label>
+                            @Html.TextBoxFor(a=>a.ordenDireccion)
+
+                            <label>Codigo postal</label>
+                            @Html.TextBoxFor(a=>a.ordenCodigoPostal)
+                            <label>País</label>
+                            @Html.DropDownList("idPais", (IEnumerable<SelectListItem>)ViewBag.paises, new { @class = "idPais" })
+                            <label>Estado</label>
+                            @Html.DropDownList("idEstado", (IEnumerable<SelectListItem>)ViewBag.estados)
+                            <label>Ciudad, municipio o delegación</label>
+                            @Html.TextBoxFor(a => a.ordenCiudad, new { placeHolder = "Ciudad o Provincia" })
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="order-message">
+                            <p>Mas información</p>
+                            @Html.TextAreaFor(a=>a.ordenClienteComentarios, new { rows= "16" })
+                            <label>@Html.EditorFor(a=>a.enviarADirFac) Enviar a dirección de facturación</label>
+                            <label>@Html.EditorFor(a => a.requiereFactura) Requiere factura</label>
+                         
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr />
+                        <a class="btn btn-warning" href="@Url.Action("MisDatos", "Clientes", new { returnUrl = Url.Action("Comprar", "MiCarro", new { cupon = ViewBag.cupon }).ToString() })">Editar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="review-payment">
+                <h2>Resumen &amp; Pago</h2>
+            </div>
+
+            @{Html.RenderAction("CarritoDetalle");}
+            <div class="payment-options">
+                <span>
+                    <label><input type="radio" name="pago"> Direct Bank Transfer</label>
+                </span>
+                <span>
+                    <label><input type="radio" name="pago"> Check Payment</label>
+                </span>
+                <span>
+                    <label><input type="radio" name="pago"> Paypal</label>
+                </span>
+            </div>
             <div class="row">
-                @*<div class="col-sm-3">
-                    <div class="shopper-info">
-                    <p>Shopper Information</p>
-                    <form>
-                    <input type="text" placeholder="Display Name">
-                    <input type="text" placeholder="User Name">
-                    <input type="password" placeholder="Password">
-                    <input type="password" placeholder="Confirm password">
-                    </form>
-                    <a class="btn btn-primary" href="">Get Quotes</a>
-                    <a class="btn btn-primary" href="">Continue</a>
-                    </div>
-                    </div>*@
-                <div class="col-sm-6 clearfix">
-                    <div id="fomulario" class="bill-to">
-                        <p>Información para el envió</p>
-                        <div class="form-one">
-                            <form>
-                                <input type="text" placeholder="Email*">
-                                <input type="text" placeholder="Nombre *">
-                                <input type="text" placeholder="Primer Apellido *">
-                                <input type="text" placeholder="Segundo Apellido">
-                                <input type="text" placeholder="Dirección linea 1 *">
-                                <input type="text" placeholder="Dirección linea 2">
-                                <input type="text" placeholder="Telefono *">
-                                <input type="text" placeholder="Celular">
-                            </form>
-                        </div>
-                        <div class="form-two">
-                            <form>
-                                <input type="text" placeholder="Codigo Postal *">
-                                <select>
-                                    <option>-- Pais --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <select>
-                                    <option>-- Estado --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <select>
-                                    <option>-- Metodos de envió disponibles --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="order-message">
-                        <p>Mas información</p>
-                        <textarea name="message" placeholder="Notas sobre su pedido o referencias" rows="16"></textarea>
-                        <label><input type="checkbox"> Enviar a dirección de facturación</label>
-                        <p class="help-block">
-                            Para facturar se requiere de una cuenta registrada
-                        </p>
-                    </div>
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary">Confirmar compra</button>
                 </div>
             </div>
         </div>
-        <div class="review-payment">
-            <h2>Review &amp; Payment</h2>
-        </div>
+    </section>
+                }
 
-        <div class="table-responsive cart_info">
-            <table class="table table-condensed">
-                <thead>
-                    <tr class="cart_menu">
-                        <td class="image">Item</td>
-                        <td class="description"></td>
-                        <td class="price">Price</td>
-                        <td class="quantity">Quantity</td>
-                        <td class="total">Total</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/one.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/two.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/three.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">&nbsp;</td>
-                        <td colspan="2">
-                            <table class="table table-condensed total-result">
-                                <tbody>
-                                    <tr>
-                                        <td>Cart Sub Total</td>
-                                        <td>$59</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Exo Tax</td>
-                                        <td>$2</td>
-                                    </tr>
-                                    <tr class="shipping-cost">
-                                        <td>Shipping Cost</td>
-                                        <td>Free</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td><span>$61</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="payment-options">
-            <span>
-                <label><input type="radio" name="pago"> Direct Bank Transfer</label>
-            </span>
-            <span>
-                <label><input type="radio" name="pago"> Check Payment</label>
-            </span>
-            <span>
-                <label><input type="radio" name="pago"> Paypal</label>
-            </span>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary">Confirmar compra</button>
-            </div>
-        </div>
-    </div>
-</section>
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
@@ -325,6 +176,23 @@
                 if ($tipo == "registro") {
                     $modal.load($servicioUrlRegistro + $returnUrl, $funcionModal);
                 }
+            });
+        });
+        $("body").on("change", ".idPais", function () {
+            var id = $(this).val();
+            var $estados = $("#idEstado");
+            $.get("/Clientes/cargaEstados/" + id, function (data) {
+                $estados.empty();
+                console.log(data);
+                $.each(data, function (i, d) {
+                    console.log(d);
+                    $estados.append("<option value=" + d.idEstado + ">" + d.nombreEstado + "<option>");
+                });
+                //Limpia los valores vacios
+                $("#idEstado option").filter(function () {
+                    return !this.value || $.trim(this.value).length == 0;
+                })
+                .remove();
             });
         });
     </script>

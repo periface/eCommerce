@@ -1915,8 +1915,17 @@ h2.title {
     width: 100%;
     font-weight: 300;
 }
-
-.form-completo > form > select {
+.formularioUno, .formularioDos {
+    float: left;
+    width: 47%;
+}
+.formularioUno > input,
+.formularioUno > select,
+.formularioDos > input,
+.formularioDos > select,
+.formularioUno > textarea,
+.formularioDos > textarea
+ {
     background: #F0F0E9;
     border: 0 none;
     margin-bottom: 10px;
@@ -1924,8 +1933,18 @@ h2.title {
     width: 100%;
     font-weight: 300;
 }
-
-.form-completo > form > input {
+.form-completo  > select {
+    background: #F0F0E9;
+    border: 0 none;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    font-weight: 300;
+}
+.formularioDos {
+margin-left: 5%;
+}
+.form-completo > input {
     background: #F0F0E9;
     border: 0 none;
     margin-bottom: 10px;

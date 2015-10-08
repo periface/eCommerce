@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Repositorios.RepoBase;
 using PymeTamFinal.Controles;
+using PymeTamFinal.Modelos.ModelosAuxiliares;
 
 namespace PymeTamFinal.Controllers
 {
@@ -17,10 +18,19 @@ namespace PymeTamFinal.Controllers
     {
         IRepositorioBase<Cliente> _clientes;
         IRepositorioBase<Precios> _precios;
-        public MiCarroController(IRepositorioBase<Cliente> _clientes, IRepositorioBase<Precios> _precios)
+        IRepositorioBase<Pais> _paises;
+        IRepositorioBase<Estados> _estados;
+        IRepositorioBase<CuponDescuento> _descuento;
+        public MiCarroController(IRepositorioBase<Cliente> _clientes,
+            IRepositorioBase<Precios> _precios,
+            IRepositorioBase<Pais>_paises,
+            IRepositorioBase<Estados>_estados,IRepositorioBase<CuponDescuento>_descuento)
         {
             this._clientes = _clientes;
             this._precios = _precios;
+            this._paises = _paises;
+            this._estados = _estados;
+            this._descuento = _descuento;
         }
         // GET: CarroCompras
         public ViewResult ResumenCarro()
@@ -75,6 +85,9 @@ namespace PymeTamFinal.Controllers
             {
                 ViewBag.descuento = descuento;
             }
+            if (ControllerContext.IsChildAction) {
+                return View("_carritoDetalle",model);
+            }
             return View(model);
         }
         public ActionResult AgregarAlCarro(int id, int cantidad = 1)
@@ -88,27 +101,135 @@ namespace PymeTamFinal.Controllers
         {
             var carro = CarroCompras._CarroCompras(HttpContext);
             decimal descuento = 0;
-            if (!TieneDatos(User.Identity.GetUserId()))
+            if (!TieneDatos(userId))
             {
                 return RedirectToAction("MisDatos", "Clientes", new { returnUrl = Url.Action("Comprar", "MiCarro").ToString() });
             }
-            if (Session["cupon"] != null)
+            if (!string.IsNullOrEmpty(cupon))
             {
-                if (Session["cupon"].ToString() == cupon)
+                var resultado = carro.AgregarCupon(cupon, HttpContext, out descuento);
+                switch (resultado)
                 {
-                    carro.AgregarCupon(cupon, HttpContext, out descuento);
+                    case CarroCompras.mensajes.noMinCumplido:
+                        ViewBag.estadoCupon = "No cumple con el minimo de compra requerido";
+                        break;
+                    case CarroCompras.mensajes.cuponCaducado:
+                        ViewBag.estadoCupon = "El cupon ha caducado";
+                        break;
+                    case CarroCompras.mensajes.cuponUsado:
+                        ViewBag.estadoCupon = "El cupon ya fue usado";
+                        break;
+                    case CarroCompras.mensajes.cuponSoloUsuario:
+                        ViewBag.estadoCupon = "Cupon no disponible";
+                        break;
+                    case CarroCompras.mensajes.cuponNoEncontrado:
+                        ViewBag.estadoCupon = "Cupon no encontrado";
+                        break;
+                    case CarroCompras.mensajes.cuponOk:
+                        ViewBag.estadoCupon = "Cupon agregado";
+                        ViewBag.cupon = cupon;
+                        break;
+                    default:
+                        ViewBag.estadoCupon = "Cupon no encontrado";
+                        break;
                 }
             }
             ViewBag.cupon = cupon;
-            var model = new CarroDetalleViewModel();
-            model.subTotal = carro.cargaTotal();
-            model.total = carro.cargaTotal();
-            model.items = carro.cargaItems();
-            if (!model.items.Any())
+            var carrito = new CarroDetalleViewModel();
+            carrito.subTotal = carro.cargaTotal();
+            carrito.total = carro.cargaTotal();
+            carrito.items = carro.cargaItems();
+            if (!carrito.items.Any())
             {
                 return RedirectToAction("CarritoDetalle", "MiCarro");
             }
+            var cliente = _clientes.Cargar(a => a.idAsp == userId).SingleOrDefault();
+            ModeloGuardadoCompra model = new ModeloGuardadoCompra();
+            model = mapeaBaseCliente(cliente,descuento);
+            ViewBag.paises = paises;
+            ViewBag.estados = estados;
             return View(model);
+        }
+
+        private ModeloGuardadoCompra mapeaBaseCliente(Cliente cliente,decimal descuento)
+        {
+            var carro = CarroCompras._CarroCompras(HttpContext);
+            ModeloGuardadoCompra model = new ModeloGuardadoCompra();
+            model.ordenNombre = cliente.nombre;
+            model.ordenApMaterno = cliente.apMaterno;
+            model.ordenApPaterno = cliente.apPaterno;
+            model.ordenDireccion = string.Format("Linea 1: {0} Linea 2: {1}", cliente.direccionEnvioLinea1, cliente.direccionEnvioLinea2);
+            model.ordenPais = _paises.CargarPorId(cliente.idPais).nombrePais;
+            model.ordenEstado = _estados.CargarPorId(cliente.idEstado).nombreEstado;
+            model.ordenCiudad = cliente.ciudad;
+            model.ordenCodigoPostal = cliente.cp;
+            model.ordenTelefono = cliente.telefono;
+            model.ordenMail = User.Identity.Name;
+            model.subTotal= carro.cargaTotal();
+            if (descuento < 0) {
+                var cupondb = _descuento.Cargar(a => a.codigoCupon == cupon).SingleOrDefault();
+                model.descuentoCupon = cupondb.tipoDesc == "Porcentual" ? "-%" + cupondb.descuento.ToString() : "-$" + cupondb.descuento.ToString();
+                model.valorDescuento = descuento;
+                model.ordenCupon = cupon;
+            }
+            return model;
+        }
+        private string userId {
+            get {
+                return User.Identity.GetUserId();
+            }
+        }
+        public ActionResult EliminarRecord(int id) {
+            var model = new CarroEdicionViewModel();
+            var carro = CarroCompras._CarroCompras(HttpContext);
+            carro.EliminarRecord(id);
+            decimal descuento = 0;
+            if (!string.IsNullOrEmpty(cupon))
+            {
+                var resultado = carro.AgregarCupon(cupon, HttpContext, out descuento);
+                switch (resultado)
+                {
+                    case CarroCompras.mensajes.noMinCumplido:
+                        ViewBag.estadoCupon = "No cumple con el minimo de compra requerido";
+                        break;
+                    case CarroCompras.mensajes.cuponCaducado:
+                        ViewBag.estadoCupon = "El cupon ha caducado";
+                        break;
+                    case CarroCompras.mensajes.cuponUsado:
+                        ViewBag.estadoCupon = "El cupon ya fue usado";
+                        break;
+                    case CarroCompras.mensajes.cuponSoloUsuario:
+                        ViewBag.estadoCupon = "Cupon no disponible";
+                        break;
+                    case CarroCompras.mensajes.cuponNoEncontrado:
+                        ViewBag.estadoCupon = "Cupon no encontrado";
+                        break;
+                    case CarroCompras.mensajes.cuponOk:
+                        ViewBag.estadoCupon = "Cupon agregado";
+                        ViewBag.cupon = cupon;
+                        break;
+                    default:
+                        ViewBag.estadoCupon = "Cupon no encontrado";
+                        break;
+                }
+            }
+            var items = carro.cargaRecord(id);
+            model.total = items != null ? items.contadorCarro : 0;
+            decimal totalOrden = carro.cargaTotal();
+            model.subTotal = "$ " + (carro.cargaTotal().ToString() != "0" ? carro.cargaTotal().ToString("#.##") : "0") + " MXN";
+            if (descuento < 0)
+            {
+                totalOrden += descuento;
+
+                model.descuento = "Descuento <span> $ " + descuento.ToString("#.##") + " MXN </span>";
+            }
+            else
+            {
+                model.descuento = "Descuento <span> Sin descuento </span>";
+            }
+            model.totalRecord = "$ " + calcularPrecio(items) + " MXN";
+            model.totalCompleto = "$ " + totalOrden + " MXN";
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
         public bool TieneDatos(string idusuario)
         {

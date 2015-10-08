@@ -1,0 +1,107 @@
+﻿@model PymeTamFinal.Modelos.ModelosVista.CarroDetalleViewModel
+@{
+    Layout = null;
+}
+@if (Model.items.Any())
+{
+    <div class="table-responsive cart_info">
+        <table class="table table-condensed">
+            <thead>
+                <tr class="cart_menu">
+                    <td class="image"><span class="hidden-sm hidden-xs"></span></td>
+                    <td class="description">Producto</td>
+                    <td class="price">Precio</td>
+                    <td class="quantity">Cantidad</td>
+                    <td class="total">Total</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model.items)
+                {
+                    <tr id="fila_@record.idRecord">
+                        <td class="cart_product">
+                            @* <a class="hidden-sm hidden-xs" href="@Url.Action("DetalleProducto","Inicio", new {id=record.producto.idProducto,slug=record.producto.slugs})">@Html.imagen(record.producto.imgProducto, null, 100,0,true)</a>*@
+                        </td>
+                        <td class="cart_description">
+                            <h4><a class="hoverP" data-id="@record.idRecord" href="@Url.Action("DetalleProducto", "Tienda", new { id = record.producto.idProducto, slug = record.producto.slugs })">@record.producto.nombreProducto</a> </h4>
+                            <p>Sku: @record.producto.sku</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>@Html.atinaleAlPrecio(record.producto)</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up cantidad_mas" data-id="@record.idRecord"> + </a>
+                                <input class="cart_quantity_input" disabled type="text" id="cantidad_@record.idRecord" name="quantity" value="@record.contadorCarro" autocomplete="off" size="2">
+                                <a class="cart_quantity_down cantidad_menos" data-id="@record.idRecord"> - </a>
+                                @*<a class="cart_quantity_up" href=""> + </a>
+                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+                                    <a class="cart_quantity_down" href=""> - </a>*@
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price" id="totalRecord_@record.idRecord">@Html.atinaleAlPrecioTotal(record.producto, record.contadorCarro)</p>
+                        </td>
+                       
+                    </tr>
+
+
+
+
+                    @*<tr id="fila_@record.idRecord">
+                            <td class="cart_product">
+                                <a class="hidden-sm hidden-xs" href="@Url.Action("DetalleProducto","Inicio", new {id=record.producto.idProducto,slug=record.producto.slugs})">@Html.imagen(record.producto.imgProducto,null,110,110)</a>
+                            </td>
+                            <td class="cart_description">
+                                <h4>@record.producto.nombreProducto</h4>
+                                <p>Sku: @record.producto.sku</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>@Html.atinaleAlPrecio(record.producto)</p>
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <a class="cart_quantity_up cantidad_mas" data-id="@record.idRecord"> + </a>
+                                    <input class="cart_quantity_input" disabled type="text" id="cantidad_@record.idRecord" name="quantity" value="@record.contadorCarro" autocomplete="off" size="2">
+                                    <a class="cart_quantity_down cantidad_menos" data-id="@record.idRecord"> - </a>
+                                </div>
+                            </td>
+                            <td class="cart_total">
+                                <p class="cart_total_price" id="totalRecord_@record.idRecord">@Html.atinaleAlPrecioTotal(record.producto,record.contadorCarro)</p>
+                            </td>
+
+                            <td class="cart_delete">
+                                <a class="cart_quantity_delete" href="#" data-id="@record.idRecord"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>*@
+
+                }
+                <tr>
+                    <tr>
+							<td colspan="4">&nbsp;</td>
+							<td colspan="2">
+								<table class="table table-condensed total-result">
+									<tbody><tr>
+										<td>Sub Total</td>
+										<td> @Html.formatoPrecio(Model.subTotal)</td>
+									</tr>
+									@*<tr>
+										<td>Exo Tax</td>
+										<td>$2</td>
+									</tr>*@
+									<tr class="shipping-cost">
+										<td>Costo de envio</td>
+										<td><input type="hidden" name="costoEnvio" /><span id="envio"></span></td>										
+									</tr>
+									<tr>
+										<td>Total</td>
+										<td><span>@Html.formatoPrecio(Model.total)</span></td>
+									</tr>
+								</tbody></table>
+							</td>
+						</tr>
+            </tbody>
+        </table>
+    </div>
+}
+

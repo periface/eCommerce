@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PymeTamFinal.Models;
 using PymeTamFinal.Attributos;
+using PymeTamFinal.MetodosPago.CarritoCompra;
 
 namespace PymeTamFinal.Controllers
 {
@@ -18,7 +19,10 @@ namespace PymeTamFinal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private void migrarCarrito(string usuario) {
+            var carro = CarroCompras._CarroCompras(HttpContext);
+            carro.migrarCarrito(usuario,HttpContext);
+        }
         public AccountController()
         {
         }
@@ -81,6 +85,7 @@ namespace PymeTamFinal.Controllers
                 switch (jsonresult)
                 {
                     case SignInStatus.Success:
+                        migrarCarrito(User.Identity.GetUserName());
                         return Json(new { ok=true },JsonRequestBehavior.AllowGet);
                     case SignInStatus.LockedOut:
                         return View("Lockout");
@@ -102,6 +107,7 @@ namespace PymeTamFinal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    migrarCarrito(model.Email);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -147,6 +153,7 @@ namespace PymeTamFinal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    migrarCarrito(User.Identity.GetUserName());
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -180,12 +187,12 @@ namespace PymeTamFinal.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
+
+                    //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    //Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Tienda");
                 }
@@ -358,6 +365,7 @@ namespace PymeTamFinal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    migrarCarrito(User.Identity.GetUserName());
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -400,6 +408,7 @@ namespace PymeTamFinal.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        migrarCarrito(User.Identity.GetUserName());
                         return RedirectToLocal(returnUrl);
                     }
                 }
