@@ -40,6 +40,7 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
         public void AgregaUno(int id)
         {
             var record = db.CarritoCompra.Include("producto").SingleOrDefault(a => a.idRecord == id);
+            //Revisa que el producto no tenga stock, si no tiene stock pero esta permitido comprar sin stock entonces continuamos
             if (record.producto.stock <= 0) {
                 if (!record.producto.habilitarCompraSinStock) {
                     return;
