@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.Controles;
 using PymeTamFinal.Modelos.ModelosDominio;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,23 @@ using System.Web.Mvc;
 namespace PymeTamFinal.Controllers
 {
     [Authorize]
-    public class ClientesController : Controller
+    public class ClientesController : ClienteController
     {
         IRepositorioBase<Cliente> _clientes;
-        public ClientesController(IRepositorioBase<Cliente> _clientes)
+        IRepositorioBase<Pais> _paises;
+        IRepositorioBase<Estados> _estados;
+        public ClientesController(IRepositorioBase<Cliente> _clientes, IRepositorioBase<Pais> _paises, IRepositorioBase<Estados> _estados)
         {
             this._clientes = _clientes;
+            this._paises=_paises;
+            this._estados = _estados;
         }
         // GET: Clientes
         public ActionResult MisDatos(string returnUrl)
         {
             ViewBag.returnUrl = returnUrl;
+            ViewBag.paises = paises;
+            ViewBag.estados = estados;
             var cliente = _clientes.Cargar(a=>a.idAsp==userId).SingleOrDefault();
             if (cliente == null) {
                 var _cliente = new Cliente();
@@ -28,25 +35,46 @@ namespace PymeTamFinal.Controllers
             }
             return View(cliente);
         }
-        [HttpPost]
-        public ActionResult CapturaCliente(Cliente cliente,string returnUrl) {
-            if (cliente.idCliente != 0)
+        public JsonResult cargaEstados(int id) {
+            return cargaEstadosPorId(id);
+        }
+        public JsonResult nombreDisponible(Cliente cliente) {
+            var usuario = _clientes.Cargar(a=>a.nombreUsuario==cliente.nombreUsuario && a.idAsp!=userId).SingleOrDefault();
+            if (usuario!=null)
             {
-                //Edicion
-                cliente.datosCapturados = capturoDatos(cliente);
-                cliente.facturacionCapturada = capturoDatosFac(cliente);
-                _clientes.Editar(cliente);
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
             else {
-                //Nuevo
-                cliente.datosCapturados = capturoDatos(cliente);
-                cliente.facturacionCapturada = capturoDatosFac(cliente);
-                _clientes.Agregar(cliente);
+                return Json(true,JsonRequestBehavior.AllowGet);
             }
-            if (!string.IsNullOrEmpty(returnUrl)) {
-                return RedirectToRoute(returnUrl);
+        }
+        [HttpPost]
+        public ActionResult CapturaCliente(Cliente cliente,string returnUrl) {
+            if (ModelState.IsValid) {
+                if (cliente.idCliente != 0)
+                {
+                    //Edicion
+                    cliente.idAsp = userId;
+                    cliente.datosCapturados = capturoDatos(cliente);
+                    cliente.facturacionCapturada = capturoDatosFac(cliente);
+                    _clientes.Editar(cliente);
+                }
+                else
+                {
+                    //Nuevo
+                    cliente.datosCapturados = capturoDatos(cliente);
+                    cliente.idAsp = userId;
+                    cliente.facturacionCapturada = capturoDatosFac(cliente);
+                    _clientes.Agregar(cliente);
+                }
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                return RedirectToAction("MisDatos");
             }
-            return RedirectToAction("MisDatos");
+            return View(cliente);
+            
         }
 
         private bool capturoDatos(Cliente cliente)

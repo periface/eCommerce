@@ -15,92 +15,7 @@
                     </div>
                 }
                 <div class="table-responsive cart_info">
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr class="cart_menu">
-                                <td class="image"><span class="hidden-sm hidden-xs"></span></td>
-                                <td class="description">Producto</td>
-                                <td class="price">Precio</td>
-                                <td class="quantity">Cantidad</td>
-                                <td class="total">Total</td>
-                                <td>
-
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var record in Model.items)
-                            {
-                                <tr id="fila_@record.idRecord">
-                                    <td class="cart_product">
-                                       @* <a class="hidden-sm hidden-xs" href="@Url.Action("DetalleProducto","Inicio", new {id=record.producto.idProducto,slug=record.producto.slugs})">@Html.imagen(record.producto.imgProducto, null, 100,0,true)</a>*@
-                                    </td>
-                                    <td class="cart_description">
-                                        <h4><a class="hoverP" data-id="@record.idRecord" href="@Url.Action("DetalleProducto","Tienda", new {id=record.producto.idProducto,slug=record.producto.slugs})">@record.producto.nombreProducto</a> </h4>
-                                        <p>Sku: @record.producto.sku</p>
-                                    </td>
-                                    <td class="cart_price">
-                                        <p>@Html.atinaleAlPrecio(record.producto)</p>
-                                    </td>
-                                    <td class="cart_quantity">
-                                        <div class="cart_quantity_button">
-                                            <a class="cart_quantity_up cantidad_mas" data-id="@record.idRecord"> + </a>
-                                            <input class="cart_quantity_input" disabled type="text" id="cantidad_@record.idRecord" name="quantity" value="@record.contadorCarro" autocomplete="off" size="2">
-                                            <a class="cart_quantity_down cantidad_menos" data-id="@record.idRecord"> - </a>
-                                            @*<a class="cart_quantity_up" href=""> + </a>
-                                            <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                            <a class="cart_quantity_down" href=""> - </a>*@
-                                        </div>
-                                    </td>
-                                    <td class="cart_total">
-                                        <p class="cart_total_price" id="totalRecord_@record.idRecord">@Html.atinaleAlPrecioTotal(record.producto, record.contadorCarro)</p>
-                                    </td>
-                                    <td class="cart_delete">
-                                        <a class="cart_quantity_delete" href="#" data-id="@record.idRecord"><i class="fa fa-times"></i></a>
-                                    </td>
-                                </tr>
-
-
-
-
-                                @*<tr id="fila_@record.idRecord">
-                                    <td class="cart_product">
-                                        <a class="hidden-sm hidden-xs" href="@Url.Action("DetalleProducto","Inicio", new {id=record.producto.idProducto,slug=record.producto.slugs})">@Html.imagen(record.producto.imgProducto,null,110,110)</a>
-                                    </td>
-                                    <td class="cart_description">
-                                        <h4>@record.producto.nombreProducto</h4>
-                                        <p>Sku: @record.producto.sku</p>
-                                    </td>
-                                    <td class="cart_price">
-                                        <p>@Html.atinaleAlPrecio(record.producto)</p>
-                                    </td>
-                                    <td class="cart_quantity">
-                                        <div class="cart_quantity_button">
-                                            <a class="cart_quantity_up cantidad_mas" data-id="@record.idRecord"> + </a>
-                                            <input class="cart_quantity_input" disabled type="text" id="cantidad_@record.idRecord" name="quantity" value="@record.contadorCarro" autocomplete="off" size="2">
-                                            <a class="cart_quantity_down cantidad_menos" data-id="@record.idRecord"> - </a>
-                                        </div>
-                                    </td>
-                                    <td class="cart_total">
-                                        <p class="cart_total_price" id="totalRecord_@record.idRecord">@Html.atinaleAlPrecioTotal(record.producto,record.contadorCarro)</p>
-                                    </td>
-
-                                    <td class="cart_delete">
-                                        <a class="cart_quantity_delete" href="#" data-id="@record.idRecord"><i class="fa fa-times"></i></a>
-                                    </td>
-                                </tr>*@
-                                
-                            }
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="cart_total"><p class="cart_total_price subTotal">Sub Total (Carrito) @Html.formatoPrecio(Model.subTotal)</p> </td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    @{Html.RenderPartial("_carrito", Model);}
                 </div>
             </div>
         </div>
@@ -108,7 +23,7 @@
 </section>
 <section id="do_action">
     <div class="container">
-        
+
         <div class="heading">
             <h3>Opciones</h3>
             <p>Si cuenta con un cupón de descuento puede utilizarlo en este formulario.</p>
@@ -136,16 +51,18 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li id="desc">Descuento 
-                        @if (ViewBag.descuento != null)
-                        {
-                            <span>@Html.determinaDescuento((decimal)ViewBag.descuento)</span>
-                        }
-                        else {
-                            <span>
-                                Sin descuento.
-                            </span>
-                        }
+                        <li id="desc">
+                            Descuento
+                            @if (ViewBag.descuento != null)
+                            {
+                                <span>@Html.determinaDescuento((decimal)ViewBag.descuento)</span>
+                            }
+                            else
+                            {
+                                <span>
+                                    Sin descuento.
+                                </span>
+                            }
                         </li>
                         <li class="subTotal" id="subTotal">Sub Total (Carrito) <span>@Html.formatoPrecio(Model.subTotal)</span></li>
                         @if (ViewBag.descuento != null)
@@ -156,14 +73,14 @@
                         {
                             <li id="totalAll">Total (Carrito) <span>@Html.formatoPrecio(Model.total)</span></li>
                         }
-                        
+
                     </ul>
                     <a class="btn btn-default update" href="@Url.Action("Index","Tienda")">Seguir comprando</a>
                     <a class="btn btn-default check_out" href="@Url.Action("Comprar","MiCarro", new { cupon = ViewBag.cupon })">Ver resumen del pedido y comprar</a>
                 </div>
             </div>
         </div>
-        
+
         <div id="metodos" class="row" style="display:none;">
             <div class="col-lg-12">
                 <h3 class="text-center">Seleccione el metodo de pago</h3>
@@ -182,33 +99,33 @@
 
 </section>
 @*<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="collapse" id="colapse">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="collapse" id="colapse">
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            @if (Model.items.Any())
-            {
-                <div class="pull-right">
-                    <h3 id="totalAll">Total: $@Model.total.ToString("#.##") MXN</h3>
-                    @if (ViewBag.descuento < 0)
-                    { <span id="desc">Cupon aplicado: @ViewBag.descuento MXN</span> }
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @if (Model.items.Any())
+                {
+                    <div class="pull-right">
+                        <h3 id="totalAll">Total: $@Model.total.ToString("#.##") MXN</h3>
+                        @if (ViewBag.descuento < 0)
+                        { <span id="desc">Cupon aplicado: @ViewBag.descuento MXN</span> }
+                    </div>
 
-            }
+                }
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-default pull-right btn-lg disabled" id="btnPago" href="@Url.Action("Comprar","Carrito", new { Area="Tienda" })">Comprar</a>
+        <div class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-default pull-right btn-lg disabled" id="btnPago" href="@Url.Action("Comprar","Carrito", new { Area="Tienda" })">Comprar</a>
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 @section Scripts{
     <script>
         $(function () {
@@ -248,11 +165,20 @@
             }
             var quitar = function (id) {
                 $.get("/MiCarro/Eliminar/" + id, function (d) {
-                    $("#totalAll").text("Total: " + d.totalCompleto + " MXN");
-                    $("#totalRecord_" + id).text("$" + d.totalRecord + " MXN");
-                    $("#desc").text("Cupon aplicado: " + d.descuento + " MXN");
-                    $("#subTotal").text("SubTotal: $" + d.subTotal + " MXN");
                     var cantidad = $("#cantidad_" + id);
+                    $("#desc").text("");
+                    $("#desc").append(d.descuento);
+                    $("#totalAll").text("");
+                    $("#totalAll").append("Total (Carrito) <span>" + d.totalCompleto + "</span>");
+                    $("#totalRecord_" + id).text(d.totalRecord);
+                    $(".subTotal").text("");
+                    $(".subTotal").append("Sub Total (Carrito) <span>" + d.subTotal + "</span>");
+                    cantidad.val(d.total);
+                    //$("#totalAll").text("Total: " + d.totalCompleto + " MXN");
+                    //$("#totalRecord_" + id).text("$" + d.totalRecord + " MXN");
+                    //$("#desc").text("Cupon aplicado: " + d.descuento + " MXN");
+                    //$("#subTotal").text("SubTotal: $" + d.subTotal + " MXN");
+                    //var cantidad = $("#cantidad_" + id);
                     if (d.total == 0) {
                         var tr = $("#fila_" + id);
                         tr.fadeOut();
@@ -285,4 +211,4 @@
             });
         })
     </script>
-    }
+}

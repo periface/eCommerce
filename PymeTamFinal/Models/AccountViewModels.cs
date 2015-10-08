@@ -7,6 +7,7 @@ namespace PymeTamFinal.Models
     {
         [Required]
         [Display(Name = "Email")]
+        
         public string Email { get; set; }
     }
 

@@ -21,7 +21,7 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products ">
                                     <div class="productinfo text-center ">
-                                        @Html.imagen(pro.imagen, new string[] {  }, 350, 350)
+                                        @Html.imagen(pro.imagen, null, 350, 350, true)
                                         @*<img src="@Url.Content(pro.imagen)" alt="">*@
                                         <h2>@Html.formatoPrecio(pro.precio)</h2>
                                         <p>@pro.nombreProducto</p>

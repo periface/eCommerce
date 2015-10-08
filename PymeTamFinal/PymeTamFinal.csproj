@@ -579,6 +579,7 @@
     <Content Include="Views\Clientes\MisPedidos.cshtml" />
     <Content Include="Views\Clientes\_formularioCapturaEdicion.cshtml" />
     <Content Include="Views\MiCarro\ResumenCarro.cshtml" />
+    <Content Include="Views\MiCarro\_carrito.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
@@ -595,7 +596,6 @@
     <Folder Include="Content\Temas\Eshopper\images\" />
     <Folder Include="Content\Temas\LandingPage\" />
     <Folder Include="Content\Temas\SbAdmin\fonts\" />
-    <Folder Include="Views\CarroCompras\" />
     <Folder Include="Views\MisDatos\" />
   </ItemGroup>
   <ItemGroup>

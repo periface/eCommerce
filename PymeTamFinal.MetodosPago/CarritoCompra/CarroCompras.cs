@@ -40,6 +40,12 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
         public void AgregaUno(int id)
         {
             var record = db.CarritoCompra.Include("producto").SingleOrDefault(a => a.idRecord == id);
+            if (record.producto.stock <= 0) {
+                if (!record.producto.habilitarCompraSinStock) {
+                    return;
+
+                }
+            }
             record.contadorCarro++;
             record.producto.stock--;
             db.SaveChanges();
@@ -53,6 +59,7 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
             {
                 db.CarritoCompra.Remove(record);
             }
+            db.SaveChanges();
         }
 
         public mensajes AgregarCupon(string cupon, HttpContextBase controller, out decimal descuento)
@@ -220,6 +227,14 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
         public void AgregarAlCarro(int idProducto, int cantidad = 1)
         {
             var producto = db.Producto.SingleOrDefault(a => a.idProducto == idProducto);
+            if (producto.stock <= 0)
+            {
+                if (!producto.habilitarCompraSinStock)
+                {
+                    return;
+
+                }
+            }
             var item = db.CarritoCompra.SingleOrDefault(a => a.idCarro == idCarro && a.idProducto == producto.idProducto);
             if (item == null)
             {

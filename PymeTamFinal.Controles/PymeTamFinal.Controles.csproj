@@ -82,9 +82,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PymeTamFinal.CapaDatos\PymeTamFinal.CapaDatos.csproj">
+      <Project>{1a3ed0a6-e1f1-4a3b-a7f8-a2217c121968}</Project>
+      <Name>PymeTamFinal.CapaDatos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PymeTamFinal.Contratos\PymeTamFinal.Contratos.csproj">
+      <Project>{0e1bf5b2-11f9-419f-8e93-d158cda2c407}</Project>
+      <Name>PymeTamFinal.Contratos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PymeTamFinal.Modelos\PymeTamFinal.Modelos.csproj">
       <Project>{88d0d52d-9478-4e09-bd44-7da181ce4d69}</Project>
       <Name>PymeTamFinal.Modelos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PymeTamFinal.Repositorios\PymeTamFinal.Repositorios.csproj">
+      <Project>{aa533283-c728-488a-b705-138671a72bf2}</Project>
+      <Name>PymeTamFinal.Repositorios</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

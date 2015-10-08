@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace PymeTamFinal.Modelos.ModelosDominio
 {
@@ -15,6 +17,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public int idCliente { get; set; }
         public string idAsp { get; set; }
         [Required(ErrorMessage = "Usuario requerido")]
+        [Remote("nombreDisponible","Clientes",ErrorMessage ="Nombre de usuario no disponible")]
         public string nombreUsuario { get; set; }
         [Required(ErrorMessage = "Nombre requerido")]
         public string nombre { get; set; }
@@ -23,6 +26,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public string apMaterno { get; set; }
         public string ciudad { get; set; }
         public int idEstado { get; set; }
+        public int idPais { get; set; }
         [Required(ErrorMessage = "Linea 1 requerida")]
         public string direccionEnvioLinea1 { get; set; }
         public string direccionEnvioLinea2 { get; set; }

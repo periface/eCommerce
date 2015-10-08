@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201510071956048_idEstadoAgregado.Designer.cs">
       <DependentUpon>201510071956048_idEstadoAgregado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510080157247_idPaisAgregado.cs" />
+    <Compile Include="Migrations\201510080157247_idPaisAgregado.Designer.cs">
+      <DependentUpon>201510080157247_idPaisAgregado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -175,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510071956048_idEstadoAgregado.resx">
       <DependentUpon>201510071956048_idEstadoAgregado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510080157247_idPaisAgregado.resx">
+      <DependentUpon>201510080157247_idPaisAgregado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

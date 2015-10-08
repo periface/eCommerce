@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PymeTamFinal.Controles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 
 namespace PymeTamFinal.Controllers
 {
-    public class InicioController : Controller
+    public class InicioController : ClienteController
     {
         // GET: Inicio-LandingPage
         public ActionResult Index()
