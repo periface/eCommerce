@@ -218,7 +218,7 @@ namespace PymeTamFinal.Controllers
             var listaCategorias = new List<CategoriasMenuRapido>();
             bool multipleEncontrado = false;
             PaginaProductosViewModel model = new PaginaProductosViewModel();
-            IEnumerable<Producto> _productosDb = _productos.Cargar(a => a.habilitado == true);
+            IEnumerable<Producto> _productosDb = _productos.Cargar(a => a.stock > 0 || a.mostrarSinStock == true&& a.habilitado == true );
             List<ProductoListaViewModel> productoConversion = new List<ProductoListaViewModel>();
             foreach (var item in _productosDb)
             {
