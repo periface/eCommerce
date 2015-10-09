@@ -74,7 +74,7 @@
 
                     </ul>
                     <a class="btn btn-default update" href="@Url.Action("Index","Tienda")">Seguir comprando</a>
-                    <a class="btn btn-default check_out" href="@Url.Action("Comprar","MiCarro", new { cupon = ViewBag.cupon })">Ver resumen del pedido y comprar</a>
+                    <a class="btn btn-default check_out" href="@Url.Action("Resumen","Comprar", new { cupon = ViewBag.cupon,Area="CheckOut" })">Ver resumen del pedido y comprar</a>
                 </div>
             </div>
         </div>

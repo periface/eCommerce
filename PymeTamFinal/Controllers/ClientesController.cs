@@ -33,6 +33,9 @@ namespace PymeTamFinal.Controllers
                 var _cliente = new Cliente();
                 return View(_cliente);
             }
+            if (ControllerContext.IsChildAction) {
+                return View("_datosUsuario",cliente);
+            }
             return View(cliente);
         }
         public JsonResult cargaEstados(int id) {

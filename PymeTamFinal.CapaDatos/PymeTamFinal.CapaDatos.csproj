@@ -118,6 +118,14 @@
     <Compile Include="Migrations\201510080157247_idPaisAgregado.Designer.cs">
       <DependentUpon>201510080157247_idPaisAgregado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510090101390_modeloOrdenActualizado.cs" />
+    <Compile Include="Migrations\201510090101390_modeloOrdenActualizado.Designer.cs">
+      <DependentUpon>201510090101390_modeloOrdenActualizado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510090114235_facturaOrden.cs" />
+    <Compile Include="Migrations\201510090114235_facturaOrden.Designer.cs">
+      <DependentUpon>201510090114235_facturaOrden.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,6 +190,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510080157247_idPaisAgregado.resx">
       <DependentUpon>201510080157247_idPaisAgregado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510090101390_modeloOrdenActualizado.resx">
+      <DependentUpon>201510090101390_modeloOrdenActualizado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510090114235_facturaOrden.resx">
+      <DependentUpon>201510090114235_facturaOrden.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

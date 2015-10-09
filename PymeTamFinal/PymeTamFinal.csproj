@@ -470,6 +470,7 @@
     <Content Include="Content\lightBox\js\.DS_Store" />
     <Content Include="Content\lightBox\js\jquery-1.11.0.min.map" />
     <Content Include="Content\lightBox\js\lightbox.min.map" />
+    <Content Include="Areas\CheckOut\Views\Comprar\Resumen.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -583,13 +584,13 @@
     <Content Include="Views\MiCarro\ResumenCarro.cshtml" />
     <Content Include="Views\MiCarro\_carrito.cshtml" />
     <Content Include="Views\MiCarro\_carritoDetalle.cshtml" />
+    <Content Include="Views\Clientes\_datosUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
     <Folder Include="Areas\Administrador\Views\CostosEnvioCupon\" />
     <Folder Include="Areas\CheckOut\Models\" />
-    <Folder Include="Areas\CheckOut\Views\Comprar\" />
     <Folder Include="Areas\CheckOut\Views\Shared\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />

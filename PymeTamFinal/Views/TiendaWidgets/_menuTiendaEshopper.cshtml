@@ -17,15 +17,15 @@
                 </div>
                 <div class="mainmenu pull-left">
                     <ul class="nav navbar-nav collapse navbar-collapse">
-                        <li><a href="@Url.Action("Index", "Tienda")" class="active">Inicio</a></li>
+                        <li><a href="@Url.Action("Index", "Tienda", new { Area="" })" class="active">Inicio</a></li>
                         <li class="dropdown">
-                            <a href="@Url.Action("Productos", "Tienda")">Productos<i class="fa fa-angle-down"></i></a>
+                            <a href="@Url.Action("Productos", "Tienda", new { Area="" })">Productos<i class="fa fa-angle-down"></i></a>
                             @*@{Html.RenderAction("CategoriasListaSimple", "Inicio", new { clasePadre = "sub-menu", claseHijos = "", Area = "Tienda" });}*@
                             <ul role="menu" class="sub-menu">
                                 @foreach (var item in Model)
                                 {
                                     <li>
-                                        <a href="@Url.Action("Productos", "Tienda", new { categoria = item.idCategoria })">
+                                        <a href="@Url.Action("Productos", "Tienda", new { categoria = item.idCategoria,Area="" })">
                                         @item.nombreCategoria
                                         </a>
                                     </li>
@@ -34,15 +34,15 @@
 
                         </li>
                         <li class="dropdown">
-                            <a href="@Url.Action("Index", "AyudaPoliticas")">Ayuda<i class="fa fa-angle-down"></i></a>
+                            <a href="@Url.Action("Index", "AyudaPoliticas", new { Area="" })">Ayuda<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="@Url.Action("ComoComprar", "AyudaPoliticas")">¿Como comprar?</a></li>
-                                <li><a href="@Url.Action("Envios", "AyudaPoliticas")">Envios</a></li>
-                                <li><a href="@Url.Action("Politicas", "AyudaPoliticas")">Politicas</a></li>
-                                <li><a href="@Url.Action("Faq", "AyudaPoliticas")">Preguntas frecuentes</a></li>
+                                <li><a href="@Url.Action("ComoComprar", "AyudaPoliticas", new { Area="" })">¿Como comprar?</a></li>
+                                <li><a href="@Url.Action("Envios", "AyudaPoliticas", new { Area="" })">Envios</a></li>
+                                <li><a href="@Url.Action("Politicas", "AyudaPoliticas", new { Area="" })">Politicas</a></li>
+                                <li><a href="@Url.Action("Faq", "AyudaPoliticas", new { Area="" })">Preguntas frecuentes</a></li>
                             </ul>
                         </li>
-                        <li><a href="@Url.Action("Contacto", "Inicio")">Contacto</a></li>
+                        <li><a href="@Url.Action("Contacto", "Inicio", new { Area="" })">Contacto</a></li>
                     </ul>
                 </div>
             </div>

@@ -64,7 +64,6 @@
 
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     @*<script>
         $("form :input").on("keypress", function (e) {
             return e.keyCode != 13;
@@ -80,5 +79,11 @@
         $("#Google").addClass("btn btn-google");
         $("#Google").text("");
         $("#Google").append("<i class='fa fa-google'></i> Google");
+        $(function () {
+
+            $(".loginLink").attr("href", "/Account/Login");
+            $(".loginLink").removeClass("loginLink");
+
+        });
 </script>
 }

@@ -52,5 +52,11 @@
         $("#Google").addClass("btn btn-google");
         $("#Google").text("");
         $("#Google").append("<i class='fa fa-google'></i> Google");
+        $(function () {
+
+            $(".loginLink").attr("href", "/Account/Login");
+            $(".loginLink").removeClass("loginLink");
+
+        });
     </script>
 }

@@ -14,7 +14,7 @@
 else
 {
     <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: new { Area = "" }, htmlAttributes: new { id = "registerLink" })</li>
-    <li>@Html.ActionLink("Iniciar Sesión", "Login", "Account", routeValues: new { Area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+    <li><a href="#" class="loginLink" id="loginLink">Iniciar Sesión</a></li>
 }
 @*@{Html.RenderAction("Index", "Carrito");}*@
 @using (Html.BeginForm("LogOff", "Account", new { Area = "" }, FormMethod.Post, new { id = "logoutForm" }))

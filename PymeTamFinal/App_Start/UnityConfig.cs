@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using PymeTamFinal.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using PymeTamFinal.Servicios.ServicioMail;
 
 namespace PymeTamFinal.App_Start
 {
@@ -60,7 +59,6 @@ namespace PymeTamFinal.App_Start
             container.RegisterType<IRepositorioBase<CostosEnvio>, RepositorioEnvios>();
             container.RegisterType<IRepositorioBase<CuponDescuento>, RepositorioCupones>();
             container.RegisterType<IRepositorioBase<Cliente>, RepositorioClientes>();
-            container.RegisterType<IIdentityMessageService, ServicioMensajePersonalizado>();
             //Para user el accountController
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());

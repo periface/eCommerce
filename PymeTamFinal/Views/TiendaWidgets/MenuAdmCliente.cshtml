@@ -15,7 +15,7 @@
         if (item.seleccionado) {
             activa = "activa";
         }
-        <li><a class="@activa" href=@Url.Action(item.accion,item.control)> @item.texto</a></li>
+        <li><a class="@activa" href=@Url.Action(item.accion,item.control, new { Area="" })> @item.texto</a></li>
     }
 </ul>
 

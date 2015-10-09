@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Html.MetaTags()
     <title>@ViewBag.Title</title>
-    @{Html.RenderAction("Head", "TiendaWidgets");}
+    @{Html.RenderAction("Head", "TiendaWidgets", new { Area = "" });}
     @RenderSection("head", required: false)
     <style>
         .btn {
@@ -15,15 +15,44 @@
     </style>
 </head>
 <body>
-    @{Html.RenderAction("ScriptsSociales", "TiendaWidgets");}
-    @{Html.RenderAction("ContenidoCabecera", "TiendaWidgets");}
-    @{Html.RenderAction("MenuTienda", "TiendaWidgets");}
+    @{Html.RenderAction("ScriptsSociales", "TiendaWidgets", new { Area = "" });}
+    @{Html.RenderAction("ContenidoCabecera", "TiendaWidgets", new { Area = "" });}
+    @{Html.RenderAction("MenuTienda", "TiendaWidgets", new { Area = "" });}
     @RenderBody()
-    @{Html.RenderAction("Footer", "TiendaWidgets"); }
+    @{Html.RenderAction("Footer", "TiendaWidgets", new { Area = "" }); }
     @RenderSection("Fin", required: false)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/layoutEshop")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        var callbackLogin = function (data) {
+            if (data.ok) {
+                window.location.reload();
+            }
+            else {
+                $(".error").text("");
+                $(".error").append("<p class='alert alert-danger'>" + data.mensaje + "</p>");
+                grecaptcha.reset();
+            }
+        };
+        $(function () {
+            //invitado
+            //login
+            //registro
+            $modal = $("#modalLogin");
+            $btn = $(".tipo");
+            $servicioUrl = "/Account/LoginModal/";
+            $servicioUrlRegistro = "/Account/RegistroModal/";
+            $funcionModal = function (d) {
+                $modal.modal("show");
+            };
+            $("body").on("click", ".loginLink", function () {
+                $modal.load($servicioUrl, $funcionModal);
+            });
+        });
+    </script>
     @RenderSection("scripts", required: false)
     <script>
         $("body").on("click", "._colapse", function () {
@@ -51,6 +80,12 @@
 
             $(_self).attr("data-toggled", true);
         });
+        
     </script>
+
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+
 </body>
 </html>
