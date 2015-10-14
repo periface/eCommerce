@@ -177,8 +177,8 @@
                         <a href="@Url.Action("Index","Comentarios", new { Area="Administrador" })"><i class="fa fa-fw fa-wrench"></i> Promociones</a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Envios y Cupones<i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#ops1"><i class="fa fa-fw fa-arrows-v"></i> Envios y Cupones<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="ops1" class="collapse">
                             <li>
                                 <a href="@Url.Action("Index","AreasServicio", new { Area="Administrador" })">Areas de servicio</a>
                             </li>
@@ -188,11 +188,18 @@
                             <li>
                                 <a href="@Url.Action("Index","Cupones", new { Area="Administrador" })">Administrar cupones</a>
                             </li>
-                            
                         </ul>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index","Comentarios", new { Area="Administrador" })"><i class="fa fa-fw fa-wrench"></i> Metodos de pago</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#ops2"><i class="fa fa-fw fa-wrench"></i> Metodos de pago<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="ops2" class="collapse">
+                            <li>
+                                <a href="@Url.Action("Index","Bancos", new { Area="Administrador" })">Bancos</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index","PayPal", new { Area="Administrador" })">PayPal</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="@Url.Action("Index","Usuarios", new { Area="Administrador" })"><i class="fa fa-fw fa-file"></i> Administración de usuarios</a>

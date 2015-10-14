@@ -46,5 +46,9 @@ namespace PymeTamFinal.Modelos.ModelosAuxiliares
         public string detalles { get; set; }
         public int idEnvio { get; set; }
         public string pago { get; set; }
+        public decimal total { get; set; }
+        public int idPais { get; set; }
+        public int idEstado { get; set; }
+        public string email { get; set; }
     }
 }

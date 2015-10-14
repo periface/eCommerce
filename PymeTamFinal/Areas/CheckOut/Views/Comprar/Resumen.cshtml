@@ -31,7 +31,7 @@
                             <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-times"></i>Usar otra cuenta</a>
                             </li>*@
                         <li>
-                            <a href=""><i class="fa fa-times"></i>Cancelar compra</a>
+                            <a href="@Url.Action("CancelarCompra","Comprar", new { Area="CheckOut" })"><i class="fa fa-times"></i>Cancelar compra</a>
                         </li>
                     </ul>
                 }
@@ -66,9 +66,23 @@
                         <div class="order-message">
                             <p>Mas información</p>
                             @Html.TextAreaFor(a => a.detalles, new { rows = "16" })
+                            <label>
+                                Opciones
+                            </label><br />
                             <label>@Html.EditorFor(a => a.enviarDireccionEnvio) Enviar a dirección de facturación</label>
                             <label>@Html.EditorFor(a => a.requiereFactura) Requiere factura</label>
                             
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Seleccionar metodo de envio</label>
+                               @{Html.RenderAction("EnviosDisp");}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="display:none;" id="condiciones">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,17 +98,7 @@
             </div>
 
             @{Html.RenderAction("CarritoDetalle","MiCarro", new { Area="" });}
-            <div class="payment-options">
-                <span>
-                    <label><input type="radio" value="Deposito" name="pago"> Direct Bank Transfer</label>
-                </span>
-                <span>
-                    <label><input type="radio" value="Otro" name="pago"> Check Payment</label>
-                </span>
-                <span>
-                    <label><input type="radio" value="Paypal" name="pago"> Paypal</label>
-                </span>
-            </div>
+            @{ Html.RenderAction("MetodosDisponibles", "MiCarro", new { Area = "" });}
             <div class="row">
                 <div class="col-sm-12">
                     <button type="submit" class="btn btn-primary">Confirmar compra</button>
@@ -123,6 +127,15 @@
                     return !this.value || $.trim(this.value).length == 0;
                 })
                 .remove();
+            });
+        });
+        $("body").on("change", ".idEnvio", function (d) {
+            var $id = $(this).val();
+            var $condiciones = $("#condiciones");
+            $condiciones.load("/CheckOut/Comprar/Condiciones/" + $id, function () {
+                $condiciones.fadeIn();
+            }).error(function () {
+
             });
         });
     </script>

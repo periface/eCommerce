@@ -199,7 +199,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
 
             return RedirectToAction("Index");
         }
-        [AdminAutorizacionParcialAttr(Roles = "Administrador")]
+        [AdminAutorizacionParcialAttr/*(Roles = "Administrador")*/]
         public ActionResult EliminarProductoVentana(int? id) {
             if (!id.HasValue) {
                 if (!Request.IsAjaxRequest()) {

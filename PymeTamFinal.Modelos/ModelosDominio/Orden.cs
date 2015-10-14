@@ -32,7 +32,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public decimal ordenTotal { get; set; }
         public DateTime ordenFecha { get; set; }
         public bool ordenRevisado { get; set; }
-        public DateTime ordenFechaPago { get; set; }
+        public DateTime? ordenFechaPago { get; set; }
         public bool ordenPagado { get; set; }
         public string ordenCodigoRastreo { get; set; }
         public string ordenCodigoCupon { get; set; }
@@ -47,6 +47,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public string ordenBase64Imagen { get; set; }
         public string ordenComentarioEstado { get; set; }
         public string ordenClienteComentarios { get; set; }
+        public decimal costoEnvio { get; set; }
         public bool enviarADirFac { get; set; }
         public bool requiereFactura { get; set; }
         public virtual ICollection<OrdenDetalle> ordenDetalle { get; set; }

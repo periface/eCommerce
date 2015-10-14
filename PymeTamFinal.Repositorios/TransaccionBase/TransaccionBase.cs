@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PymeTamFinal.Repositorios.TransaccionBase
 {
-    public class TransaccionBase<T> : ITransaccionBase<T> where T : class
+    public class TransaccionBase<T> : IOrdenGeneradorBase<T> where T : class
     {
         #region Props
         internal DataContext context;
@@ -20,9 +20,15 @@ namespace PymeTamFinal.Repositorios.TransaccionBase
             this.context = context;
             dbSet = context.Set<T>();
         }
-        public virtual void guardarOrden(T orden, string cartId, string idUsuario)
+
+        public virtual int cargaContexto(object context)
         {
             throw new NotImplementedException();
         }
+        public virtual void guardarOrden(T orden, string cartId, string idUsuario, decimal descuento,object httpContext)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

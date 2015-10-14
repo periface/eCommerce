@@ -50,16 +50,16 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PayPal, Version=1.5.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PayPal.1.5.0\lib\net451\PayPal.dll</HintPath>
+    <Reference Include="PayPal, Version=1.6.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.6.0\lib\net451\PayPal.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PayPalCoreSDK, Version=1.6.2.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PayPalCoreSDK.1.6.2\lib\net451\PayPalCoreSDK.dll</HintPath>
+    <Reference Include="PayPalCoreSDK, Version=1.6.3.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPalCoreSDK.1.6.3\lib\net451\PayPalCoreSDK.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -99,16 +99,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CarritoCompra\CarroCompras.cs" />
+    <Compile Include="PayPal\ITransaccionExternaPayPalBase.cs" />
+    <Compile Include="PayPal\Servicios\PayPalImplementacionCliente.cs" />
+    <Compile Include="PayPal\Servicios\PayPalImplementacionServidor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PayPal\ApiContextGenerador\" />
-    <Folder Include="PayPal\Servicios\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\PymeTamFinal.CapaDatos\PymeTamFinal.CapaDatos.csproj">
       <Project>{1a3ed0a6-e1f1-4a3b-a7f8-a2217c121968}</Project>

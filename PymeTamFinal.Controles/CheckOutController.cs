@@ -9,31 +9,28 @@ namespace PymeTamFinal.Controles
 {
     public class CheckOutController : Controller
     {
-        public ViewResult paypalTransaccion {
+        public ActionResult paypalTransaccion {
             get {
-                return new ViewResult() {
-                    ViewName = "Paypal"
-                };
+                return RedirectToAction("PayPal","Comprar");
             }
         }
-        public ViewResult depositoInfo
+        public ActionResult DetalleCarro {
+            get {
+                return RedirectToAction("CarritoDetalle", "MiCarro", new { Area = "" }); 
+            }
+        }
+        public ActionResult depositoInfo
         {
             get
             {
-                return new ViewResult()
-                {
-                    ViewName = "Paypal"
-                };
+                return RedirectToAction("PayPal", "Comprar");
             }
         }
-        public ViewResult otroInfo
+        public ActionResult otroInfo
         {
             get
             {
-                return new ViewResult()
-                {
-                    ViewName = "Paypal"
-                };
+                return RedirectToAction("PayPal", "Comprar");
             }
         }
     }

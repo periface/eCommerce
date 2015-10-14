@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace PymeTamFinal.Contratos.Repositorio
 {
+    /// <summary>
+    /// Contiene todas las operaciones crud
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRepositorioBase<T> where T:class
     {
         #region Sync

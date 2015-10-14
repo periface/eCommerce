@@ -35,5 +35,7 @@ namespace PymeTamFinal.CapaDatos
         public DbSet<Precios> Precios { get; set; }
         public DbSet<Diferenciadores> Diferenciadores { get; set; }
         public DbSet<Mutadores> Mutadores { get; set; }
+        public DbSet<Banco> Bancos { get; set; }
+        public DbSet<PaypalConfig> Paypal { get; set; }
     }
 }

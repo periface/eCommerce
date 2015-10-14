@@ -126,6 +126,22 @@
     <Compile Include="Migrations\201510090114235_facturaOrden.Designer.cs">
       <DependentUpon>201510090114235_facturaOrden.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510141509461_costoEnvio.cs" />
+    <Compile Include="Migrations\201510141509461_costoEnvio.Designer.cs">
+      <DependentUpon>201510141509461_costoEnvio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510141540050_fechaNullable.cs" />
+    <Compile Include="Migrations\201510141540050_fechaNullable.Designer.cs">
+      <DependentUpon>201510141540050_fechaNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510141726020_bancos.cs" />
+    <Compile Include="Migrations\201510141726020_bancos.Designer.cs">
+      <DependentUpon>201510141726020_bancos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510142011300_paypalConfig.cs" />
+    <Compile Include="Migrations\201510142011300_paypalConfig.Designer.cs">
+      <DependentUpon>201510142011300_paypalConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -196,6 +212,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510090114235_facturaOrden.resx">
       <DependentUpon>201510090114235_facturaOrden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510141509461_costoEnvio.resx">
+      <DependentUpon>201510141509461_costoEnvio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510141540050_fechaNullable.resx">
+      <DependentUpon>201510141540050_fechaNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510141726020_bancos.resx">
+      <DependentUpon>201510141726020_bancos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510142011300_paypalConfig.resx">
+      <DependentUpon>201510142011300_paypalConfig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

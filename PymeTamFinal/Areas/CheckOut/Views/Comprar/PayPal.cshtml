@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "PayPal";
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Check", "Carrito", new { token = ViewBag.token }, FormMethod.Post, new { id = "frmPay" }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Redireccionando a PayPal</h2>
+                <input type="submit" class="btn btn-primary" value="Click aqui si no redirecciona" />
+            </div>
+        </div>
+    </div>
+
+}
+@section Scripts{
+    <script>
+        $(function () {
+            setTimeout(function () {
+                $("#frmPay").submit();
+            },3000);
+        })
+    </script>
+}

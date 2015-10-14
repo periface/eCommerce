@@ -11,7 +11,8 @@ using Microsoft.AspNet.Identity;
 namespace PymeTamFinal.MetodosPago.CarritoCompra
 {
     /// <summary>
-    /// Todas las operaciónes de disminución de stock son efectuadas aqui
+    /// Todas las operaciónes de disminución de stock son efectuadas aqui,
+    /// <para>Es necesario extraer todas estas funciones en una interface para poder reutilizarlas</para>
     /// </summary>
     public class CarroCompras
     {
@@ -33,7 +34,8 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
             carro.idCarro = carro.cargaId(context);
             return carro;
         }
-        public void migrarCarrito(string usuario,HttpContextBase context) {
+        public void migrarCarrito(string usuario, HttpContextBase context)
+        {
             var carrito = db.CarritoCompra.Where(a => a.idCarro == idCarro);
             foreach (var item in carrito)
             {
@@ -50,8 +52,10 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
         {
             var record = db.CarritoCompra.Include("producto").SingleOrDefault(a => a.idRecord == id);
             //Revisa que el producto no tenga stock, si no tiene stock pero esta permitido comprar sin stock entonces continuamos
-            if (record.producto.stock <= 0) {
-                if (!record.producto.habilitarCompraSinStock) {
+            if (record.producto.stock <= 0)
+            {
+                if (!record.producto.habilitarCompraSinStock)
+                {
                     return;
 
                 }
@@ -71,7 +75,26 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
             }
             db.SaveChanges();
         }
-
+        public void vaciarCarro()
+        {
+            var items = db.CarritoCompra.Where(a => a.idCarro == idCarro);
+            foreach (var item in items)
+            {
+                db.CarritoCompra.Remove(item);
+            }
+            db.SaveChanges();
+        }
+        public void cancelarCarro()
+        {
+            var items = db.CarritoCompra.Where(a => a.idCarro == idCarro);
+            foreach (var item in items)
+            {
+                db.CarritoCompra.Remove(item);
+                var p = db.Producto.SingleOrDefault(a=>a.idProducto==item.idProducto);
+                p.stock += item.contadorCarro;
+            }
+            db.SaveChanges();
+        }
         public mensajes AgregarCupon(string cupon, HttpContextBase controller, out decimal descuento)
         {
             /*
@@ -82,6 +105,11 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
                 VALIDA QUE NO ESTE CADUCADO
             */
             descuento = 0;
+
+            if (string.IsNullOrEmpty(cupon))
+            {
+                return mensajes.cuponNoEncontrado;
+            }
             var cupondb = db.CuponDescuento.Include("cliente").SingleOrDefault(a => a.codigoCupon == cupon);
             var carro = _CarroCompras(controller);
             //Valida que se encuentre
@@ -94,9 +122,11 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
                 var id = aspIdCliente(controller);
                 var cliente = db.Cliente.SingleOrDefault(a => a.idAsp == id);
                 //Sabemos si tiene o no tiene un usuario
-                if (cupondb.idCliente.HasValue) {
+                if (cupondb.idCliente.HasValue)
+                {
 
-                    if (cliente == null) {
+                    if (cliente == null)
+                    {
                         return mensajes.cuponNoEncontrado;
                     }
                     //Valida que sea del usuario
@@ -149,7 +179,8 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
                         return mensajes.cuponNoEncontrado;
                     }
                 }
-                else {
+                else
+                {
                     //El cupon no esta asignado a ningun usuario(es libre)
                     /*
                     Mismo proceso
@@ -162,10 +193,12 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
                     {
                         if (CuponDisponible(cupondb))
                         {
-                            if(CuponCaducado(cupondb)){
+                            if (CuponCaducado(cupondb))
+                            {
                                 return mensajes.cuponCaducado;
                             }
-                            else{
+                            else
+                            {
                                 //No se me ocurre una forma de refactorizarlo
                                 //Esta función es el objetivo final lo llamaremos princesa!
                                 //Canción de mario bross pliss
@@ -184,11 +217,13 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
                                 }
                             }
                         }
-                        else {
+                        else
+                        {
                             return mensajes.cuponUsado;
                         }
                     }
-                    else {
+                    else
+                    {
                         return mensajes.noMinCumplido;
                     }
                 }
@@ -198,7 +233,8 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
 
         private bool CuponCaducado(CuponDescuento cupondb)
         {
-            if (cupondb.fechaCaducidad > DateTime.Now) {
+            if (cupondb.fechaCaducidad > DateTime.Now)
+            {
                 return false;
             }
             return true;
@@ -206,22 +242,25 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
 
         private bool CuponDisponible(CuponDescuento cupondb)
         {
-            if (cupondb.cantidadesUso <= 0 && cupondb.usado) {
+            if (cupondb.cantidadesUso <= 0 && cupondb.usado)
+            {
                 return false;
             }
-            if (cupondb.cantidadesUso >= 1 && !cupondb.usado) {
+            if (cupondb.cantidadesUso >= 1 && !cupondb.usado)
+            {
                 return true;
             }
             return false;
         }
 
-        private bool CumpleConElMinimo(CuponDescuento cupondb,decimal total)
+        private bool CumpleConElMinimo(CuponDescuento cupondb, decimal total)
         {
             if (cupondb.minimoRequerido < total)
             {
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
         }

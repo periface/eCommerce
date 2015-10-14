@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace PymeTamFinal.Contratos.Repositorio
 {
-    public interface ITransaccionBase<T> where T :class
+    public interface IOrdenGeneradorBase<T> where T : class
     {
         /// <summary>
         /// Guarda la orden en persistencia
         /// </summary>
         /// <param name="orden"></param>
-        void guardarOrden(T orden, string cartId, string idUsuario);
-
+        void guardarOrden(T orden, string cartId, string idUsuario, decimal descuento, object httpContext);
+        int cargaContexto(object context);
     }
 }

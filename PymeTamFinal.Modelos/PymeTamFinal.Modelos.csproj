@@ -78,7 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelosAuxiliares\compraModel.cs" />
+    <Compile Include="ModelosAuxiliares\paypalModel.cs" />
+    <Compile Include="ModelosAuxiliares\paypalPagoClienteModel.cs" />
     <Compile Include="ModelosDominio\archivosEstilo.cs" />
+    <Compile Include="ModelosDominio\Banco.cs" />
     <Compile Include="ModelosDominio\CajaComentarios.cs" />
     <Compile Include="ModelosDominio\CarritoDeCompra.cs" />
     <Compile Include="ModelosDominio\Categoria.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="ModelosDominio\Orden.cs" />
     <Compile Include="ModelosDominio\OrdenDetalle.cs" />
     <Compile Include="ModelosDominio\Pais.cs" />
+    <Compile Include="ModelosDominio\PaypalConfig.cs" />
     <Compile Include="ModelosDominio\Politicas.cs" />
     <Compile Include="ModelosDominio\Precios.cs" />
     <Compile Include="ModelosDominio\PreguntasFrecuentes.cs" />

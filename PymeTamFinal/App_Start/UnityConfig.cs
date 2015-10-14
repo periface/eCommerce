@@ -10,6 +10,8 @@ using PymeTamFinal.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using PymeTamFinal.Modelos.ModelosAuxiliares;
+using PymeTamFinal.MetodosPago.PayPal.Servicios;
+using PymeTamFinal.Repositorios.Implementaciones;
 
 namespace PymeTamFinal.App_Start
 {
@@ -60,7 +62,10 @@ namespace PymeTamFinal.App_Start
             container.RegisterType<IRepositorioBase<CostosEnvio>, RepositorioEnvios>();
             container.RegisterType<IRepositorioBase<CuponDescuento>, RepositorioCupones>();
             container.RegisterType<IRepositorioBase<Cliente>, RepositorioClientes>();
-            container.RegisterType<ITransaccionBase<compraModel>, Repositorios.PedidoImplementacion.ManejadorDePedidos>();
+            container.RegisterType<IRepositorioBase<Banco>,RepositorioBancos>();
+            container.RegisterType<IOrdenGeneradorBase<compraModel>, ManejadorDePedidos>();
+            container.RegisterType<IPaypalCryptBase<PaypalConfig>, EncryptarPayPalECB>();
+            container.RegisterType<ITransaccionExterna<paypalPagoClienteModel>,PayPalImplementacionServidor>();
             //Para user el accountController
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());

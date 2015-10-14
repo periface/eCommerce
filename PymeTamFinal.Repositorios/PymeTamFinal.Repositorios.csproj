@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,9 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PedidoImplementacion\ManejadorDePedidos.cs" />
+    <Compile Include="Implementaciones\EncryptarPayPalECB.cs" />
+    <Compile Include="PayPalEncryptBase\PaypalEncryptBase.cs" />
+    <Compile Include="Implementaciones\ManejadorDePedidos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepoBase\RepositorioBase.cs" />
+    <Compile Include="Repos\RepositorioBancos.cs" />
     <Compile Include="Repos\RepositorioCategorias.cs" />
     <Compile Include="Repos\RepositorioCiudades.cs" />
     <Compile Include="Repos\RepositorioClientes.cs" />

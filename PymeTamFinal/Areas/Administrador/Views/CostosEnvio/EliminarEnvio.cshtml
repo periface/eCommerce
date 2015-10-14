@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <hr />
-                    <h3>Ciudades con el metodo de envió implementado</h3>
+                    <h3>Estados con el metodo de envió implementado</h3>
                     <table class="ciudades table table-responsive">
                         <thead>
                             <tr>
@@ -29,20 +29,17 @@
                                 <th>
                                     Estado
                                 </th>
-                                <th>
-                                    Ciudad
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.ciudades)
+                            @foreach (var item in Model.estados)
                             {
                                 <tr>
                                     <td>
-                                        @item.idCiudad
+                                        @item.idEstado
                                     </td>
-                                    <td>@item.estado.nombreEstado</td>
-                                    <td>@item.nombreCiudad</td>
+                                    <td>@item.nombreEstado</td>
+                                    
                                 </tr>
                             }
                         </tbody>

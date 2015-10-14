@@ -1,0 +1,157 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Banco>
+@{
+    ViewBag.Title = "Bancos";
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .box {
+        border-radius: 3px;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        padding: 10px 25px;
+        /*text-align: right;*/
+        display: block;
+        margin-top: 60px;
+    }
+
+    .box-icon {
+        /*background-color: #57a544;*/
+        /*border-radius: 50%;*/
+        display: table;
+        height: 100px;
+        /*margin: 0 auto;*/
+        width: 100px;
+        margin-top: -61px;
+    }
+
+        .box-icon span {
+            color: #fff;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    .info h4 {
+        font-size: 26px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .info > p {
+        color: #717171;
+        font-size: 16px;
+        padding-top: 10px;
+        text-align: justify;
+    }
+
+
+    .info > a {
+        background-color: #03a9f4;
+        border-radius: 2px;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        color: #fff;
+        transition: all 0.5s ease 0s;
+    }
+
+        .info > a:hover {
+            background-color: #0288d1;
+            box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.12);
+            color: #fff;
+            transition: all 0.5s ease 0s;
+        }
+
+    .texto {
+        text-align: center;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Bancos <small>Administración de Bancos</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Bancos
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("AgregarBanco","Bancos", new { Area="Administrador" })" class="btn btn-success sinborde">
+                <i class="fa fa-plus-square-o"></i> Agregar Banco
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <hr />
+        @foreach (var item in Model)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="box">
+                    <div class="box-icon">
+                        @if (string.IsNullOrEmpty(item.bancoImagen))
+                        {
+                            <div class="alert alert-danger" style="width:250%; height:100%">
+                                <span>Por el momento no tiene una imagen asignada.</span>
+                            </div>
+                        }
+                        else
+                        {
+                            @Html.imagen(item.bancoImagen,null,250,200,true)
+                            @*<img src="@Url.Content(item.bancoImagen)" style="width:250%; height:100%" />*@
+                        }
+                    </div>
+                    <div class="info texto">
+                        <br />
+                        <h4 class="text-center">@item.bancoNombre</h4>
+                        <hr />
+                        <span>No. de Convenio:</span>&nbsp;<span>@item.bancoNConvenio</span>
+                        <hr />
+                        <span>No. de Referencia:</span>&nbsp;<span>@item.bancoReferencia</span>
+                        <hr />
+                        <span>Estado actual del banco:</span>&nbsp;<span>
+                            @if (item.bancoActivo == true)
+                            {
+                                <label class="label label-success">Activado</label>
+                            }
+                            else
+                            {
+                                <label class="label label-danger">Desactivado</label>
+                            }
+                        </span>
+                        <hr />
+                    </div>
+                    <div class="text-center">
+                        <a href="@Url.Action("EditarBanco", "Bancos", new {Area = "Administrador", id = item.bancoId})" class="btn btn-success">
+                            <span class="fa fa-edit"></span>&nbsp;<span>Editar</span>
+                        </a>
+                        <a data-id="@item.bancoId" class="btn btn-warning eliminar">
+                            <span class="fa fa-trash-o"></span>&nbsp;<span>Eliminar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(function () {
+            $("body").on("click", ".eliminar", function () {
+                var id = $(this).data("id");
+                $("#modalBanco").load("/Administrador/Bancos/EliminarBanco/" + id, function () {
+                    $("#modalBanco").modal("show");
+                });
+            })
+        });
+    </script>
+    }
+@section final{
+    <div class="modal fade" id="modalBanco" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}

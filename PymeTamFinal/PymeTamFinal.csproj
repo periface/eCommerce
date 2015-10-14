@@ -97,6 +97,10 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PayPalCoreSDK, Version=1.6.3.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPalCoreSDK.1.6.3\lib\net451\PayPalCoreSDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -220,6 +224,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Areas\Administrador\AdministradorAreaRegistration.cs" />
     <Compile Include="Areas\Administrador\Controllers\AreasServicioController.cs" />
+    <Compile Include="Areas\Administrador\Controllers\BancosController.cs" />
     <Compile Include="Areas\Administrador\Controllers\CategoriasController.cs" />
     <Compile Include="Areas\Administrador\Controllers\ComentariosController.cs" />
     <Compile Include="Areas\Administrador\Controllers\CostosEnvioController.cs" />
@@ -227,6 +232,7 @@
     <Compile Include="Areas\Administrador\Controllers\DisenoPaginaController.cs" />
     <Compile Include="Areas\Administrador\Controllers\EmpresaController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PanelControlController.cs" />
+    <Compile Include="Areas\Administrador\Controllers\PayPalController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PoliticasController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PreguntasFrecuentesController.cs" />
     <Compile Include="Areas\Administrador\Controllers\ProductosController.cs" />
@@ -471,6 +477,15 @@
     <Content Include="Content\lightBox\js\jquery-1.11.0.min.map" />
     <Content Include="Content\lightBox\js\lightbox.min.map" />
     <Content Include="Areas\CheckOut\Views\Comprar\Resumen.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Comprar\EnviosDisp.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Comprar\Condiciones.cshtml" />
+    <Content Include="Areas\Administrador\Views\Bancos\Index.cshtml" />
+    <Content Include="Areas\Administrador\Views\Bancos\AgregarBanco.cshtml" />
+    <Content Include="Areas\Administrador\Views\Bancos\EditarBanco.cshtml" />
+    <Content Include="Areas\Administrador\Views\Bancos\EliminarBanco.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Comprar\MetodosDisponibles.cshtml" />
+    <Content Include="Areas\Administrador\Views\PayPal\Agregar.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Comprar\PayPal.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -591,9 +606,9 @@
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
-    <Folder Include="Areas\Administrador\Views\CostosEnvioCupon\" />
     <Folder Include="Areas\CheckOut\Models\" />
     <Folder Include="Areas\CheckOut\Views\Shared\" />
+    <Folder Include="Content\Imagenes\Bancos\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />
     <Folder Include="Content\Imagenes\Productos\" />

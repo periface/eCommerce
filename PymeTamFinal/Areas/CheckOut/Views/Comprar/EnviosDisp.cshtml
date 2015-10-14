@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.CostosEnvio>
+@{
+    Layout = null;
+}
+<br />
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+
+        No hay metodos de envio disponibles para tu región
+        <p><a href="#">Contacto</a></p>
+    </div>
+
+}
+else
+{
+    <select class="idEnvio" name="idEnvio">
+        <option value="0">
+            Seleccionar metodo de envio
+        </option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.idEnvio">
+                @item.nombreMetodoEnvio
+            </option>
+        }
+    </select>
+
+}

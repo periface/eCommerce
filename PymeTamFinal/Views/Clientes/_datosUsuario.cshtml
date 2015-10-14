@@ -2,6 +2,8 @@
 @{
     Layout = null;
 }
+@Html.HiddenFor(a=>a.idPais)
+@Html.HiddenFor(a=>a.idEstado)
 <div class="formularioUno">
     <div class="bill-to">
         <p>Datos de cliente</p>
@@ -33,6 +35,7 @@
     @Html.TextBoxFor(a => a.direccionEnvioLinea2, new { placeholder = "Dirección linea 2", disabled = "disabled" })
     <label>Codigo postal</label>
     @Html.TextBoxFor(a => a.cp, new { placeholder = "Codigo postal", disabled = "disabled" })
+
 </div>
 <div class="row">
     <div class="col-sm-12">
