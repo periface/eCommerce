@@ -11,16 +11,14 @@
                 <div class="productinfo text-center">
                     @Html.imagen(item.imagen,null,350,350,true)
                     <h2>@Html.formatoPrecio(item.precio)</h2>
-                    <a href="@Url.Action("AgregarAlCarro","Carrito", new { id=item.idProducto })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
-                    <a href="@Url.Action("DetalleProducto", "Tienda", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                    @{ Html.RenderPartial("_botonCompraRapido",item);}
                 </div>
                 <div class="product-overlay">
                     <div class="overlay-content">
                         <h1>@item.nombreProducto</h1>
                         <h2>@Html.formatoPrecio(item.precio)</h2>
                         <p>@item.descCorta</p>
-                        <a href="@Url.Action("AgregarAlCarro","Carrito", new { id=item.idProducto })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
-                        <a href="@Url.Action("DetalleProducto", "Tienda", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                        @{ Html.RenderPartial("_botonCompraRapido", item);}
                     </div>
                 </div>
             </div>

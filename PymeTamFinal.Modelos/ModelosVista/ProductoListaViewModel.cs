@@ -18,5 +18,7 @@ namespace PymeTamFinal.Modelos.ModelosVista
         public int idCategoria { get; set; }
         public string descLarga { get; set; }
         public DateTime fechaCreacion { get; set; }
+        public bool disponibleSinStock { get; set; }
+        public int stock { get; set; }
     }
 }

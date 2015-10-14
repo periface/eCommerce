@@ -77,7 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelosAuxiliares\ModeloGuardadoCompra.cs" />
+    <Compile Include="ModelosAuxiliares\compraModel.cs" />
     <Compile Include="ModelosDominio\archivosEstilo.cs" />
     <Compile Include="ModelosDominio\CajaComentarios.cs" />
     <Compile Include="ModelosDominio\CarritoDeCompra.cs" />

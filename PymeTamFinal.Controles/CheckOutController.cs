@@ -9,5 +9,32 @@ namespace PymeTamFinal.Controles
 {
     public class CheckOutController : Controller
     {
+        public ViewResult paypalTransaccion {
+            get {
+                return new ViewResult() {
+                    ViewName = "Paypal"
+                };
+            }
+        }
+        public ViewResult depositoInfo
+        {
+            get
+            {
+                return new ViewResult()
+                {
+                    ViewName = "Paypal"
+                };
+            }
+        }
+        public ViewResult otroInfo
+        {
+            get
+            {
+                return new ViewResult()
+                {
+                    ViewName = "Paypal"
+                };
+            }
+        }
     }
 }

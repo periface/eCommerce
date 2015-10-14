@@ -1,9 +1,9 @@
-﻿@model PymeTamFinal.Modelos.ModelosAuxiliares.ModeloGuardadoCompra
+﻿@model PymeTamFinal.Modelos.ModelosAuxiliares.compraModel
 @{
     ViewBag.Title = "Comprar";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
 }
-@using (Html.BeginForm())
+@using (Html.BeginForm("Comprar","Comprar", new { Area="CheckOut" }))
 {
     <section id="cart_items">
         <div class="container">
@@ -65,10 +65,10 @@
                     <div class="col-sm-6">
                         <div class="order-message">
                             <p>Mas información</p>
-                            @Html.TextAreaFor(a => a.ordenClienteComentarios, new { rows = "16" })
-                            <label>@Html.EditorFor(a => a.enviarADirFac) Enviar a dirección de facturación</label>
+                            @Html.TextAreaFor(a => a.detalles, new { rows = "16" })
+                            <label>@Html.EditorFor(a => a.enviarDireccionEnvio) Enviar a dirección de facturación</label>
                             <label>@Html.EditorFor(a => a.requiereFactura) Requiere factura</label>
-
+                            
                         </div>
                     </div>
                 </div>
@@ -86,13 +86,13 @@
             @{Html.RenderAction("CarritoDetalle","MiCarro", new { Area="" });}
             <div class="payment-options">
                 <span>
-                    <label><input type="radio" name="pago"> Direct Bank Transfer</label>
+                    <label><input type="radio" value="Deposito" name="pago"> Direct Bank Transfer</label>
                 </span>
                 <span>
-                    <label><input type="radio" name="pago"> Check Payment</label>
+                    <label><input type="radio" value="Otro" name="pago"> Check Payment</label>
                 </span>
                 <span>
-                    <label><input type="radio" name="pago"> Paypal</label>
+                    <label><input type="radio" value="Paypal" name="pago"> Paypal</label>
                 </span>
             </div>
             <div class="row">

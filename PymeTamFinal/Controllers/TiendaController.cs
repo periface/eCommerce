@@ -159,7 +159,9 @@ namespace PymeTamFinal.Controllers
                         imagen = p.imgProducto,
                         nombreProducto = p.nombreProducto,
                         precio = cargaPrecio(precio),
-                        slug = p.slugs
+                        slug = p.slugs,
+                        disponibleSinStock = p.habilitarCompraSinStock,
+                        stock = p.stock
                     });
                 }
 
@@ -236,7 +238,9 @@ namespace PymeTamFinal.Controllers
                         slug = item.slugs,
                         idCategoria = item.idCategoria.HasValue ? item.idCategoria.Value : 0,
                         descLarga = item.descripcionProducto,
-                        fechaCreacion = item.fechaCreacion
+                        fechaCreacion = item.fechaCreacion,
+                        disponibleSinStock = item.habilitarCompraSinStock,
+                        stock = item.stock
                     });
                 }
             }

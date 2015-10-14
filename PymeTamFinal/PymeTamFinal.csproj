@@ -585,6 +585,8 @@
     <Content Include="Views\MiCarro\_carrito.cshtml" />
     <Content Include="Views\MiCarro\_carritoDetalle.cshtml" />
     <Content Include="Views\Clientes\_datosUsuario.cshtml" />
+    <Content Include="Views\Shared\_botonCompraRapido.cshtml" />
+    <Content Include="Views\Shared\_modalCarro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
@@ -644,10 +646,6 @@
     <ProjectReference Include="..\PymeTamFinal.Repositorios\PymeTamFinal.Repositorios.csproj">
       <Project>{aa533283-c728-488a-b705-138671a72bf2}</Project>
       <Name>PymeTamFinal.Repositorios</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PymeTamFinal.Servicios\PymeTamFinal.Servicios.csproj">
-      <Project>{2240a551-81f4-4c0d-be8d-ffd9321b3745}</Project>
-      <Name>PymeTamFinal.Servicios</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

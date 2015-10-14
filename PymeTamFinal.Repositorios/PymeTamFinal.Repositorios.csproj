@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PedidoImplementacion\ManejadorDePedidos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepoBase\RepositorioBase.cs" />
     <Compile Include="Repos\RepositorioCategorias.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Repos\RepositorioPrecios.cs" />
     <Compile Include="Repos\RepositorioProductos.cs" />
     <Compile Include="Repos\RepositorioSecciones.cs" />
+    <Compile Include="TransaccionBase\TransaccionBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

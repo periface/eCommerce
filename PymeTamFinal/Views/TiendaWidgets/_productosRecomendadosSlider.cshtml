@@ -28,8 +28,7 @@
                                         <p>
                                            @Html.generarEstrellasCalif(pro.calificacionProm)
                                         </p>
-                                        <a href="@Url.Action("DetalleProducto","Tienda", new { id=pro.idProducto,slug = pro.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
-                                        <a href="@Url.Action("AgregarAlCarro","Carrito", new { id=pro.idProducto })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
+                                        @{ Html.RenderPartial("_botonCompraRapido",pro);}
                                     </div>
                                 </div>
                             </div>

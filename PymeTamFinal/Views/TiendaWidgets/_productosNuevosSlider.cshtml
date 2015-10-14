@@ -23,8 +23,7 @@
                                 <h1>@item.nombreProducto</h1>
                                 <h2>$@item.precio</h2>
                                 <p>@item.descCorta</p>
-                                <a href="@Url.Action("AgregarAlCarro","Carrito", new { id=item.idProducto })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
-                                <a href="@Url.Action("DetalleProducto", "Tienda", new { id=item.idProducto,slug=item.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+                                @{ Html.RenderPartial("_botonCompraRapido", item);}
                             </div>
                         </div>
                     </div>

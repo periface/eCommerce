@@ -1,0 +1,24 @@
+﻿@model PymeTamFinal.Modelos.ModelosVista.ProductoListaViewModel
+@{
+    Layout = null;
+}
+@if (Model.disponibleSinStock && Model.stock == 0)
+{
+    <a class="btn btn-default add-to-cart carroCarroRapido" data-id="@Model.idProducto"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
+    <a href="@Url.Action("DetalleProducto", "Tienda", new { id=Model.idProducto,slug=Model.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+}
+else
+{
+    if (!Model.disponibleSinStock && Model.stock == 0)
+    {
+        <a class="btn btn-default add-to-cart disabled"><i class="fa fa-shopping-cart"></i>No Disponible</a>
+        <a href="@Url.Action("DetalleProducto", "Tienda", new { id = Model.idProducto, slug = Model.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+
+    }
+    else
+    {
+        <a class="btn btn-default add-to-cart carroCarroRapido" data-id="@Model.idProducto"><i class="fa fa-shopping-cart"></i>Agregar al carro</a>
+        <a href="@Url.Action("DetalleProducto", "Tienda", new { id=Model.idProducto,slug=Model.slug })" class="btn btn-default add-to-cart"><i class="fa fa-search-plus"></i>Detalles</a>
+
+    }
+}

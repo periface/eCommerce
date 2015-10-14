@@ -128,7 +128,9 @@ namespace PymeTamFinal.Controllers
                         slug = item.slugs,
                         nombreProducto = item.nombreProducto,
                         precio = cargaPrecio(precio),
-                        calificacionProm = cargaProm(item.idProducto)
+                        calificacionProm = cargaProm(item.idProducto),
+                        disponibleSinStock = item.habilitarCompraSinStock,
+                        stock = item.stock,
                     });
                 }
 
@@ -152,7 +154,9 @@ namespace PymeTamFinal.Controllers
                         slug = item.slugs,
                         nombreProducto = item.nombreProducto,
                         precio = cargaPrecio(precio),
-                        calificacionProm = cargaProm(item.idProducto)
+                        calificacionProm = cargaProm(item.idProducto),
+                        disponibleSinStock = item.habilitarCompraSinStock,
+                        stock = item.stock,
                     });
                 }
 
@@ -243,6 +247,19 @@ namespace PymeTamFinal.Controllers
         {
             var empresa = _empresa.Cargar(a => a.infoActiva == true).SingleOrDefault();
             return View("_scriptsSociales",empresa);
+        }
+        public ActionResult ModalCarro(int? id) {
+            if (!id.HasValue) {
+                
+            }
+            var producto = _productos.CargarPorId(id);
+            var precio = _precios.CargarPorId(id);
+            var model = new ProductoDetalleViewModel() {
+                imagen  = producto.imgProducto,
+                nombreProducto = producto.nombreProducto,
+                precio = cargaPrecio(precio)
+            };
+            return View("_modalCarro",model);
         }
     }
 }
