@@ -33,5 +33,10 @@ namespace PymeTamFinal.Controles
                 return RedirectToAction("PayPal", "Comprar");
             }
         }
+        public string apikey {
+            get {
+                return"";
+            }
+        }
     }
 }

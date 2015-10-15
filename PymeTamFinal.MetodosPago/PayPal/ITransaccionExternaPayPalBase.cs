@@ -9,10 +9,6 @@ namespace PymeTamFinal.MetodosPago.PayPal
 {
     public class ITransaccionExternaPayPalBase<T> : ITransaccionExterna<T> where T :class
     {
-        public virtual string CargaToken()
-        {
-            throw new NotImplementedException();
-        }
 
         public virtual bool ComprobarConexion(string apiKey, string apiSecret, out string error)
         {
@@ -24,7 +20,7 @@ namespace PymeTamFinal.MetodosPago.PayPal
             throw new NotImplementedException();
         }
 
-        public virtual object GenerarContexto()
+        public virtual object GenerarContexto(string api, string secret)
         {
             throw new NotImplementedException();
         }

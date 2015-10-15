@@ -21,12 +21,11 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         IRepositorioBase<Pais> _pais;
         IRepositorioBase<Estados> _estado;
         ITransaccionExterna<paypalPagoClienteModel> _paypal;
-        public ComprarController(IRepositorioBase<Cliente> _clientes, 
-            IOrdenGeneradorBase<compraModel> 
-            _orden, IRepositorioBase<CostosEnvio> 
-            _envios, IRepositorioBase<Pais> 
-            _pais, IRepositorioBase<Estados> 
-            _estado,
+        public ComprarController(IRepositorioBase<Cliente> _clientes,
+            IOrdenGeneradorBase<compraModel>_orden,
+            IRepositorioBase<CostosEnvio>_envios,
+            IRepositorioBase<Pais>_pais,
+            IRepositorioBase<Estados>_estado,
             ITransaccionExterna<paypalPagoClienteModel> _paypal)
         {
             this._clientes = _clientes;

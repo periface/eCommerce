@@ -10,12 +10,9 @@ namespace PymeTamFinal.MetodosPago.PayPal.Servicios
 {
     public class PayPalImplementacionServidor:ITransaccionExternaPayPalBase<paypalPagoClienteModel>
     {
-        string secret;
-        string api;
-        public PayPalImplementacionServidor(string api,string secret)
+        public override string GenerarToken(paypalPagoClienteModel modeloRequerido)
         {
-            this.api = api;
-            this.secret = secret;
+            return base.GenerarToken(modeloRequerido);
         }
         public override bool ComprobarConexion(string apiKey, string apiSecret, out string error)
         {
@@ -40,18 +37,13 @@ namespace PymeTamFinal.MetodosPago.PayPal.Servicios
                 return false;
             }
         }
-        public override object GenerarContexto()
+        public override object GenerarContexto(string api,string secret)
         {
             var opciones = new Dictionary<string, string>();
             opciones.Add("mode", "sandbox");
             string tokenAcceso = new OAuthTokenCredential(api, secret, opciones).GetAccessToken();
             APIContext apiContext = new APIContext(tokenAcceso);
             return apiContext;
-        }
-        public override string GenerarToken(paypalPagoClienteModel modeloRequerido)
-        {
-            var apiContext = GenerarContexto();
-            return "";
         }
     }
 }
