@@ -65,6 +65,7 @@ namespace PymeTamFinal.App_Start
             container.RegisterType<IRepositorioBase<Banco>,RepositorioBancos>();
             container.RegisterType<IOrdenGeneradorBase<compraModel>, ManejadorDePedidos>();
             container.RegisterType<IPaypalCryptBase<PaypalConfig>, EncryptarPayPalECB>();
+            container.RegisterType<IRepositorioBase<PaypalConfig>, RepositorioPayPalConfig>();
             container.RegisterType<ITransaccionExterna<paypalPagoClienteModel>,PayPalImplementacionServidor>();
             //Para user el accountController
             container.RegisterType<AccountController>(new InjectionConstructor());

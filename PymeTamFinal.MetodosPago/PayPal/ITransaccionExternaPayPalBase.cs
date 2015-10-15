@@ -25,7 +25,7 @@ namespace PymeTamFinal.MetodosPago.PayPal
             throw new NotImplementedException();
         }
 
-        public virtual string GenerarToken(T modeloRequerido)
+        public virtual string GenerarToken(T modeloRequerido, string apiKey, string apiSecret)
         {
             throw new NotImplementedException();
         }

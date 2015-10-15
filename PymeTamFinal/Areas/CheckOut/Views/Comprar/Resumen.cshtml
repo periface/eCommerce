@@ -98,7 +98,7 @@
             </div>
 
             @{Html.RenderAction("CarritoDetalle","MiCarro", new { Area="" });}
-            @{ Html.RenderAction("MetodosDisponibles", "MiCarro", new { Area = "" });}
+            @{ Html.RenderAction("MetodosDisponibles", "Comprar", new { Area = "CheckOut" });}
             <div class="row">
                 <div class="col-sm-12">
                     <button type="submit" class="btn btn-primary">Confirmar compra</button>

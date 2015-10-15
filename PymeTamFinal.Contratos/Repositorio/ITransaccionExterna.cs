@@ -10,7 +10,7 @@ namespace PymeTamFinal.Contratos.Repositorio
     {
         object GenerarContexto(string api, string secret);
         bool ComprobarConexion(string apiKey, string apiSecret, out string error);
-        string GenerarToken(T modeloRequerido);
+        string GenerarToken(T modeloRequerido,string apiKey,string apiSecret);
         bool EjecutarPago(int idPago,int idOrden,int idComprador);
     }
 }

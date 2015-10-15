@@ -10,9 +10,10 @@ namespace PymeTamFinal.MetodosPago.PayPal.Servicios
 {
     public class PayPalImplementacionServidor:ITransaccionExternaPayPalBase<paypalPagoClienteModel>
     {
-        public override string GenerarToken(paypalPagoClienteModel modeloRequerido)
+        public override string GenerarToken(paypalPagoClienteModel modeloRequerido, string apiKey, string apiSecret)
         {
-            return base.GenerarToken(modeloRequerido);
+            var ctx =(APIContext)GenerarContexto(apiKey,apiSecret);
+            return "";
         }
         public override bool ComprobarConexion(string apiKey, string apiSecret, out string error)
         {

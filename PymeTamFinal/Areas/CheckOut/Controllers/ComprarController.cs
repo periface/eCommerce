@@ -22,11 +22,11 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         IRepositorioBase<Estados> _estado;
         ITransaccionExterna<paypalPagoClienteModel> _paypal;
         public ComprarController(IRepositorioBase<Cliente> _clientes,
-            IOrdenGeneradorBase<compraModel>_orden,
-            IRepositorioBase<CostosEnvio>_envios,
-            IRepositorioBase<Pais>_pais,
-            IRepositorioBase<Estados>_estado,
-            ITransaccionExterna<paypalPagoClienteModel> _paypal)
+            IOrdenGeneradorBase<compraModel> _orden,
+            IRepositorioBase<CostosEnvio> _envios,
+            IRepositorioBase<Pais> _pais,
+            IRepositorioBase<Estados> _estado,
+            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal,IPaypalCryptBase<PaypalConfig>_paypalEncrypService) : base(_configPaypal,_paypalEncrypService)
         {
             this._clientes = _clientes;
             this._orden = _orden;
@@ -35,7 +35,8 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             this._estado = _estado;
             this._paypal = _paypal;
         }
-        public ActionResult MetodosDisponibles() {
+        public ActionResult MetodosDisponibles()
+        {
             return View();
         }
         // GET: CheckOut/Comprar
@@ -49,9 +50,12 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
 
             return View();
         }
-        public ActionResult Condiciones(int id) {
-            if (id == 0) {
-                return View(new CostosEnvio() {
+        public ActionResult Condiciones(int id)
+        {
+            if (id == 0)
+            {
+                return View(new CostosEnvio()
+                {
                     detalle = "Seleccione un metodo de envió",
                 });
             }
@@ -73,8 +77,9 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         [HttpPost]
         public ActionResult Comprar(compraModel model)
         {
-            if (model.idEnvio == 0) {
-                return RedirectToAction("Resumen","Comprar", new { cupon = cupon });
+            if (model.idEnvio == 0)
+            {
+                return RedirectToAction("Resumen", "Comprar", new { cupon = cupon });
             }
             decimal descuento = 0;
             model.cupon = cupon;
@@ -104,18 +109,21 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         public ActionResult PayPal()
         {
             var contextId = _orden.cargaContexto(HttpContext);
-            var pagoClienteModel = new paypalPagoClienteModel() {
+            var pagoClienteModel = new paypalPagoClienteModel()
+            {
                 pedido = contextId,
                 tipoMoneda = "MXN",
                 cancelUrl = Url.Action("Cancelar", "Comprar", new { Area = "CheckOut" }, protocol: Request.Url.Scheme).ToString(),
                 returnUrl = Url.Action("Confirmar", "Comprar", new { Area = "CheckOut" }, protocol: Request.Url.Scheme).ToString()
             };
-            var tokenPayPal = _paypal.GenerarToken(pagoClienteModel);
+            var paypalServiceModel = activePayPalApi;
+             var tokenPayPal = _paypal.GenerarToken(pagoClienteModel,paypalServiceModel.decryptedId,paypalServiceModel.decryptedSecret);
             ViewBag.paypalToken = tokenPayPal;
             return View();
         }
         [HttpPost]
-        public ActionResult Check(string token) {
+        public ActionResult Check(string token)
+        {
             return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=" + token + "");
         }
         public bool TieneDatos(string idusuario)
