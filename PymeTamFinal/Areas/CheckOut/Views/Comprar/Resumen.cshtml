@@ -3,7 +3,7 @@
     ViewBag.Title = "Comprar";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
 }
-@using (Html.BeginForm("Comprar","Comprar", new { Area="CheckOut" }))
+@using (Html.BeginForm("Comprar", "Comprar", new { Area = "CheckOut" }))
 {
     <section id="cart_items">
         <div class="container">
@@ -58,7 +58,7 @@
                         </div>*@
                     <div class="col-sm-6 clearfix">
 
-                        @{Html.RenderAction("MisDatos","Clientes", new { Area="" });}
+                        @{Html.RenderAction("MisDatos", "Clientes", new { Area = "" });}
 
                     </div>
 
@@ -71,12 +71,12 @@
                             </label><br />
                             <label>@Html.EditorFor(a => a.enviarDireccionEnvio) Enviar a dirección de facturación</label>
                             <label>@Html.EditorFor(a => a.requiereFactura) Requiere factura</label>
-                            
+
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <label>Seleccionar metodo de envio</label>
-                               @{Html.RenderAction("EnviosDisp");}
+                                @{Html.RenderAction("EnviosDisp");}
                             </div>
                         </div>
                         <div class="row">
@@ -97,7 +97,7 @@
                 <h2>Resumen &amp; Pago</h2>
             </div>
 
-            @{Html.RenderAction("CarritoDetalle","MiCarro", new { Area="" });}
+            @{Html.RenderAction("CarritoDetalle", "MiCarro", new { Area = "", _descuento = ViewBag.descuento != null ? (decimal)ViewBag.descuento : 0 });}
             @{ Html.RenderAction("MetodosDisponibles", "Comprar", new { Area = "CheckOut" });}
             <div class="row">
                 <div class="col-sm-12">
@@ -111,7 +111,7 @@
 @section Scripts{
 
     <script>
-        
+
         $("body").on("change", ".idPais", function () {
             var id = $(this).val();
             var $estados = $("#idEstado");
@@ -135,7 +135,11 @@
             $condiciones.load("/CheckOut/Comprar/Condiciones/" + $id, function () {
                 $condiciones.fadeIn();
             }).error(function () {
-
+                alert("Error en el servicio");
+            });
+            $.get("/CheckOut/Comprar/EnvioCosto/" + $id, function (d) {
+                $("#envio").text(d.costoEnvio);
+                $("#total").text(d.total);
             });
         });
     </script>

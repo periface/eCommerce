@@ -13,5 +13,6 @@ namespace PymeTamFinal.Modelos.ModelosVista
         public string producto { get; set; }
         public string calificacion { get; set; }
         public string opciones { get; set; }
+        public string fecha { get; set; }
     }
 }

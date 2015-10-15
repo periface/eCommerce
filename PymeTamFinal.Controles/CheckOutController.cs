@@ -23,6 +23,11 @@ namespace PymeTamFinal.Controles
             this._paypal = _paypal;
             this._paypalEncrypService = _paypalEncrypService;
         }
+        public string paypalEndPoint {
+            get {
+                return "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token={0}";
+            }
+        }
         public paypalConfigModel activePayPalApi {
             get {
                 var model = new paypalConfigModel();
@@ -46,14 +51,14 @@ namespace PymeTamFinal.Controles
         {
             get
             {
-                return RedirectToAction("PayPal", "Comprar");
+                return RedirectToAction("Deposito", "Comprar");
             }
         }
-        public ActionResult otroInfo
+        public ActionResult credito
         {
             get
             {
-                return RedirectToAction("PayPal", "Comprar");
+                return RedirectToAction("Credito", "Comprar");
             }
         }
         public string apikey {

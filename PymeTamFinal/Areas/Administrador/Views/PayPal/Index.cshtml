@@ -1,0 +1,26 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.PaypalConfig>
+    @{
+        ViewBag.Title = "Cuentas de payal";
+        Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+    }
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Cuentas Paypal <small>Administración de cuentas</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-dashboard"></i> Mis cuentas
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="@Url.Action("Agregar","PayPal", new { Area="Administrador" })" class="btn btn-success sinborde nuevoEnvio">
+                    <i class="fa fa-plus-square-o"></i> Agregar Nueva
+                </a>
+            </div>
+        </div>
+    </div>

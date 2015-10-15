@@ -25,6 +25,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
 
         public override void guardarOrden(compraModel orden, string cartId, string idUsuario, decimal descuento,object httpContext)
         {
+            //Existe un error al agregar una orden con cupón
             var model = new Orden();
             var carroItems = context.CarritoCompra.Where(a => a.idCarro == cartId).ToList();
             var usuario = context.Cliente.Where(a => a.idAsp == idUsuario).SingleOrDefault();
@@ -44,6 +45,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
                     model.ordenTipoDescuento = descuentoDb.tipoDesc;
                     model.ordenCodigoCupon = descuentoDb.codigoCupon;
                     model.ordenSubTotal = orden.total;
+                    model.ordenTotal = orden.total;
                     //El descuento debe ser negativo para hacer efecto
                     model.ordenTotal += descuento;
                     model.ordenTotal += model.costoEnvio;

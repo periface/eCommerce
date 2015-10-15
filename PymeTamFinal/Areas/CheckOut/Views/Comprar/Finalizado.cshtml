@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Finalizado";
+    Layout = "~/Views/Shared/_LayoutTienda.cshtml";
+}
+<div class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>¡Gracias por su compra!</h2>
+            <h3>Su numero de orden es #@ViewBag.id</h3>
+            <p>Su pedido ha sido almacenado, se le enviara su información de envio con la brevedad posible.</p>
+        </div>
+        <a href="@Url.Action("Recibo","Comprar", new { Area="CheckOut",id = (int)ViewBag.id })" class="btn btn-primary">Imprimir Recibo</a>
+        <p class="help-block">Tambien puede imprimir su recibo desde el apartado de pedidos de su cuenta.</p>
+    </div>
+</div>
+

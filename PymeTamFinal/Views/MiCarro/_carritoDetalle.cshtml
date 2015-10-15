@@ -1,6 +1,7 @@
 ﻿@model PymeTamFinal.Modelos.ModelosVista.CarroDetalleViewModel
 @{
     Layout = null;
+
 }
 @if (Model.items.Any())
 {
@@ -42,7 +43,7 @@
                         <td class="cart_total">
                             <p class="cart_total_price" id="totalRecord_@record.idRecord">@Html.atinaleAlPrecioTotal(record.producto, record.contadorCarro)</p>
                         </td>
-                       
+
                     </tr>
 
 
@@ -77,29 +78,38 @@
 
                 }
                 <tr>
-                    <tr>
-							<td colspan="4">&nbsp;</td>
-							<td colspan="2">
-								<table class="table table-condensed total-result">
-									<tbody><tr>
-										<td>Sub Total</td>
-										<td> @Html.formatoPrecio(Model.subTotal)</td>
-									</tr>
-									@*<tr>
-										<td>Exo Tax</td>
-										<td>$2</td>
-									</tr>*@
-									<tr class="shipping-cost">
-										<td>Costo de envio</td>
-										<td><input type="hidden" name="costoEnvio" /><span id="envio"></span></td>										
-									</tr>
-									<tr>
-										<td>Total</td>
-										<td><span>@Html.formatoPrecio(Model.total)</span></td>
-									</tr>
-								</tbody></table>
-							</td>
-						</tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                    <td colspan="2">
+                        <table class="table table-condensed total-result">
+                            <tbody>
+                                <tr>
+                                    <td>Sub Total</td>
+                                    <td> @Html.formatoPrecio(Model.subTotal)</td>
+                                </tr>
+                                @if (ViewBag.descuento != null)
+                                {
+                                    <tr>
+                                        <td>Descuento</td>
+                                        <td>@Html.formatoPrecio((decimal)ViewBag.descuento)</td>
+                                    </tr>
+                                }
+                                @*<tr>
+                                        <td>Exo Tax</td>
+                                        <td>$2</td>
+                                    </tr>*@
+                                <tr class="shipping-cost">
+                                    <td>Costo de envio</td>
+                                    <td><span id="envio"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td><span id="total">@Html.formatoPrecio(ViewBag.descuento != null ? (Model.total + (decimal)ViewBag.descuento) : Model.total)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

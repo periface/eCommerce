@@ -5,6 +5,7 @@ using PymeTamFinal.MetodosPago.CarritoCompra;
 using PymeTamFinal.Modelos.ModelosAuxiliares;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Modelos.ModelosVista;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,15 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         IRepositorioBase<CostosEnvio> _envios;
         IRepositorioBase<Pais> _pais;
         IRepositorioBase<Estados> _estado;
+        IRepositorioBase<Empresa> _empresa;
         ITransaccionExterna<paypalPagoClienteModel> _paypal;
         public ComprarController(IRepositorioBase<Cliente> _clientes,
             IOrdenGeneradorBase<compraModel> _orden,
             IRepositorioBase<CostosEnvio> _envios,
             IRepositorioBase<Pais> _pais,
             IRepositorioBase<Estados> _estado,
-            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal,IPaypalCryptBase<PaypalConfig>_paypalEncrypService) : base(_configPaypal,_paypalEncrypService)
+            IRepositorioBase<Empresa>_empresa,
+            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService) : base(_configPaypal, _paypalEncrypService)
         {
             this._clientes = _clientes;
             this._orden = _orden;
@@ -34,6 +37,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             this._pais = _pais;
             this._estado = _estado;
             this._paypal = _paypal;
+            this._empresa = _empresa;
         }
         public ActionResult MetodosDisponibles()
         {
@@ -47,9 +51,52 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             if (!carro.cargaItems().Any())
                 return DetalleCarro;
             //No necesito nada solo voy a mostrarle los datos al usuario
-
+            resolverCupon(cupon, carro);
             return View();
         }
+        public ActionResult EnvioCosto(int id)
+        {
+            var envio = _envios.CargarPorId(id);
+            decimal total = calculaTotal(envio.costo);
+            return Json(new { total = "$ " + total.ToString("#.##") + " MXN", costoEnvio = "$ " + envio.costo.ToString("#.##") + " MXN" }, JsonRequestBehavior.AllowGet);
+        }
+
+        private decimal calculaTotal(decimal costo)
+        {
+            decimal descuento = 0;
+            decimal subTotal = 0;
+            var carro = CarroCompras._CarroCompras(HttpContext);
+            var total = carro.cargaTotal();
+            if (_cupon != null)
+            {
+                carro.AgregarCupon(_cupon, HttpContext, out descuento);
+            }
+            if (descuento < 0)
+            {
+                subTotal = total + descuento;
+            }
+            else
+            {
+                subTotal = total;
+            }
+            return subTotal + costo;
+        }
+
+        private void resolverCupon(string cupon, CarroCompras carro)
+        {
+            decimal descuento = 0;
+            if (!string.IsNullOrEmpty(_cupon) && cupon == _cupon)
+            {
+                carro.AgregarCupon(_cupon, HttpContext, out descuento);
+                ViewBag.descuento = descuento;
+            }
+            else
+            {
+                Session["cupon"] = null;
+                return;
+            }
+        }
+
         public ActionResult Condiciones(int id)
         {
             if (id == 0)
@@ -75,19 +122,20 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             return DetalleCarro;
         }
         [HttpPost]
+        [HandleError(View = "ErrorPayPal")]
         public ActionResult Comprar(compraModel model)
         {
             if (model.idEnvio == 0)
             {
-                return RedirectToAction("Resumen", "Comprar", new { cupon = cupon });
+                return RedirectToAction("Resumen", "Comprar", new { cupon = _cupon });
             }
             decimal descuento = 0;
-            model.cupon = cupon;
+            model.cupon = _cupon;
             model.email = User.Identity.Name;
             var carro = CarroCompras._CarroCompras(HttpContext);
             if (!carro.cargaItems().Any())
                 return DetalleCarro;
-            carro.AgregarCupon(cupon, HttpContext, out descuento);
+            carro.AgregarCupon(_cupon, HttpContext, out descuento);
             model.total = carro.cargaTotal();
             _orden.guardarOrden(model, carro.cargaId(HttpContext), userId, descuento, HttpContext);
             //El id de orden se ha almacenado de forma temporal 
@@ -99,8 +147,8 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
                     return paypalTransaccion;
                 case "Deposito":
                     return depositoInfo;
-                case "Otro":
-                    return otroInfo;
+                case "Credito":
+                    return credito;
                 default:
                     break;
             }
@@ -113,18 +161,77 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             {
                 pedido = contextId,
                 tipoMoneda = "MXN",
-                cancelUrl = Url.Action("Cancelar", "Comprar", new { Area = "CheckOut" }, protocol: Request.Url.Scheme).ToString(),
+                cancelUrl = Url.Action("Cancelar", "Comprar", new { Area = "CheckOut" }, protocol: Request.Url.Scheme).ToString() + "&cancel=true",
                 returnUrl = Url.Action("Confirmar", "Comprar", new { Area = "CheckOut" }, protocol: Request.Url.Scheme).ToString()
             };
             var paypalServiceModel = activePayPalApi;
-             var tokenPayPal = _paypal.GenerarToken(pagoClienteModel,paypalServiceModel.decryptedId,paypalServiceModel.decryptedSecret);
+            var tokenPayPal = _paypal.GenerarToken(pagoClienteModel, paypalServiceModel.decryptedId, paypalServiceModel.decryptedSecret);
             ViewBag.paypalToken = tokenPayPal;
+            return View();
+        }
+        public ActionResult Confirmar(string paymentId,string PayerID) {
+            var id = _orden.cargaContexto(HttpContext);
+            int idOrden;
+            ViewBag.paymentId = paymentId;
+            ViewBag.PayerID = PayerID;
+            bool ok = int.TryParse(id.ToString(),out idOrden);
+            if (ok) {
+                return View(_orden.cargaOrden(id));
+            }
+            return HttpNotFound();
+        }
+        [HttpPost]
+        public ActionResult Confirmar(FormCollection forms, string paymentId, string PayerID) {
+            var paypalServiceModel = activePayPalApi;
+            var id = _orden.cargaContexto(HttpContext);
+            int idOrden;
+            bool ok = int.TryParse(id.ToString(), out idOrden);
+            if (ok)
+            {
+                if (_paypal.EjecutarPago(paymentId, idOrden, PayerID,paypalServiceModel.decryptedId,paypalServiceModel.decryptedSecret))
+                {
+                    return RedirectToAction("Finalizado", new { id=idOrden });
+                }
+                else
+                {
+                    return View("ErrorPayPal");
+                }
+            }
+            else {
+                //La sesión esta terminada pero el usuario puede pagar la orden despues
+                return View("SesionTerminada");
+            }
+        }
+        public ActionResult Finalizado(int id) {
+            ViewBag.id = id;
+            return View();
+        }
+        public ActionResult Recibo(int id=1) {
+            ReciboViewModel model = new ReciboViewModel();
+            var orden = _orden.cargaOrden(id);
+            model.orden =(Orden)orden;
+            model.cliente = _clientes.CargarPorId(model.orden.idCliente);
+            var empresa = _empresa.Cargar(a=>a.infoActiva==true).SingleOrDefault();
+            model.direccionEmpresa = empresa.direccionEmpresa;
+            model.emailEmpresa = empresa.correoVentasEmpresa;
+            model.fecha = DateTime.Now.ToShortDateString();
+            model.idOrden = model.orden.idOrden;
+            model.logoEmpresa = empresa.imgPrincipalEmpresa;
+            model.telefonoEmpresa = empresa.telefonoEmpresa;
+            return new ViewAsPdf(model);
+        }
+        public ActionResult Credito()
+        {
+            return View();
+        }
+        public ActionResult Deposito()
+        {
             return View();
         }
         [HttpPost]
         public ActionResult Check(string token)
         {
-            return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=" + token + "");
+            return Redirect(string.Format(paypalEndPoint,token));
         }
         public bool TieneDatos(string idusuario)
         {
@@ -146,7 +253,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         {
             return _envios.Cargar(a => a.estados.Any(e => e.idEstado == idEstado)).ToList();
         }
-        private string cupon
+        private string _cupon
         {
             get
             {

@@ -1,0 +1,73 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Orden
+@{
+    ViewBag.Title = "Confirmar";
+    Layout = "~/Views/Shared/_LayoutTienda.cshtml";
+}
+@using (Html.BeginForm("Confirmar", "Comprar", new {Area="CheckOut", paymentId = ViewBag.paymentId, PayerID = ViewBag.PayerID }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Confirmación de Orden</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-responsive">
+                    <caption><h3>Detalle de Orden</h3></caption>
+                    <thead>
+                        <tr>
+                            <th>
+                                Producto
+                            </th>
+                            <th>
+                                Precio Unitario
+                            </th>
+                            <th>
+                                Cantidad
+                            </th>
+                            <th>
+                                Total
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ordenDetalle)
+                        {
+                            <tr>
+                                <td>@item.nombreProducto</td>
+                                <td>
+                                    @Html.formatoPrecio(item.precioUnitario)
+                                </td>
+                                <td>
+                                    @item.cantidad
+                                </td>
+                                <td>@Html.formatoPrecio(item.total)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                
+                <p>Subtotal : @Html.formatoPrecio(Model.ordenSubTotal)</p>
+                <p>Envio : @Model.ordenNombreEnvio @Html.formatoPrecio(Model.costoEnvio)</p>
+                @if (!string.IsNullOrEmpty(Model.ordenCodigoCupon))
+                {
+                    <p>
+                        <span>Codigo de descuento aplicado :@Model.ordenCodigoCupon</span>
+                    </p>
+                    <p>
+                        <span>Descuento total :@Model.ordenDescuento</span>
+                    </p>
+
+                }
+                <p>Total: @Html.formatoPrecio(Model.ordenTotal)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="submit" class="btn btn-success" value="Confirmar Compra" />
+            </div>
+        </div>
+    </div>
+
+}

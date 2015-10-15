@@ -100,8 +100,8 @@
   <ItemGroup>
     <Compile Include="CarritoCompra\CarroCompras.cs" />
     <Compile Include="PayPal\ITransaccionExternaPayPalBase.cs" />
-    <Compile Include="PayPal\Servicios\PayPalImplementacionCliente.cs" />
     <Compile Include="PayPal\Servicios\PayPalImplementacionServidor.cs" />
+    <Compile Include="PayPal\Servicios\PayPalImplementacionTarjetas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -101,6 +101,10 @@
       <HintPath>..\packages\PayPalCoreSDK.1.6.3\lib\net451\PayPalCoreSDK.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -363,6 +367,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="ScriptSql\script.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -486,6 +491,11 @@
     <Content Include="Areas\CheckOut\Views\Comprar\MetodosDisponibles.cshtml" />
     <Content Include="Areas\Administrador\Views\PayPal\Agregar.cshtml" />
     <Content Include="Areas\CheckOut\Views\Comprar\PayPal.cshtml" />
+    <Content Include="Areas\Administrador\Views\PayPal\Index.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Comprar\Confirmar.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Comprar\Finalizado.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\CheckOut\Views\Comprar\Recibo.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />

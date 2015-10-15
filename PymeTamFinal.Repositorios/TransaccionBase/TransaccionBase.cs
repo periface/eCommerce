@@ -25,6 +25,13 @@ namespace PymeTamFinal.Repositorios.TransaccionBase
         {
             throw new NotImplementedException();
         }
+
+        public object cargaOrden(object id)
+        {
+            var idOrden = (int)id;
+            return context.Orden.Include("ordenDetalle").SingleOrDefault(a=>a.idOrden==idOrden);
+        }
+
         public virtual void guardarOrden(T orden, string cartId, string idUsuario, decimal descuento,object httpContext)
         {
             throw new NotImplementedException();

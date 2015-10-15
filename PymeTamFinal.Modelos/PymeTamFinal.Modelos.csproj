@@ -100,12 +100,14 @@
     <Compile Include="ModelosDominio\OrdenDetalle.cs" />
     <Compile Include="ModelosDominio\Pais.cs" />
     <Compile Include="ModelosDominio\PaypalConfig.cs" />
+    <Compile Include="ModelosAuxiliares\payPalTarjetaModel.cs" />
     <Compile Include="ModelosDominio\Politicas.cs" />
     <Compile Include="ModelosDominio\Precios.cs" />
     <Compile Include="ModelosDominio\PreguntasFrecuentes.cs" />
     <Compile Include="ModelosDominio\Producto.cs" />
     <Compile Include="ModelosDominio\RegistroActividadProducto.cs" />
     <Compile Include="ModelosDominio\Seccion.cs" />
+    <Compile Include="ModelosDominio\Tarjetas.cs" />
     <Compile Include="ModelosVista\CarroDetalleViewModel.cs" />
     <Compile Include="ModelosVista\CarroEdicionViewModel.cs" />
     <Compile Include="ModelosVista\CarroResumenViewModel.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="ModelosVista\ProductoDetalleViewModel.cs" />
     <Compile Include="ModelosVista\ProductoListaViewModel.cs" />
     <Compile Include="ModelosVista\ProductoTablaViewModel.cs" />
+    <Compile Include="ModelosVista\ReciboViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

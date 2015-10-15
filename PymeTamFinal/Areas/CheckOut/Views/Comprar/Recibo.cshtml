@@ -1,0 +1,205 @@
+﻿@model PymeTamFinal.Modelos.ModelosVista.ReciboViewModel
+@{
+    ViewBag.Title = "Factura";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <h1>Recibo</h1>
+            <h2>@Model.nombreEmpresa</h2>
+            @Html.imagen(Model.logoEmpresa,null,200,200)
+        </div>
+        <div class="row">
+            <h3 style="text-align:center;">Orden #@Model.idOrden</h3>
+        </div>
+        <div class="row">
+            <div class="alineaDerecha">
+                <h4>Fecha: @Model.fecha</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Cliente
+                        </th>
+                        <th>
+                            Razón Social
+                        </th>
+                        <th >
+                            Metodo de envio
+                        </th>
+                        <th>Forma de pago</th>
+                        <th>
+                            Fecha de transacción
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="text-align:center;">
+                        <td>
+                            ALAN ANDRES TORRES.
+                        </td>
+                        <td>
+                            ALAN INC.
+                        </td>
+                        <td>
+                            REDPACK
+                        </td>
+                        <td>
+                            PAYPAL
+                        </td>
+                        <td>
+                            03/04/2015
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Articulo #
+                        </th>
+                        <th>Descripción</th>
+                        <th>
+                            Precio unitario
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            ASD12345
+                        </td>
+                        <td>
+                            Crema
+                        </td>
+                        <td>
+                            $.005
+                        </td>
+                        <td>
+                            $0.05
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            ASD12345
+                        </td>
+                        <td>
+                            Crema
+                        </td>
+                        <td>
+                            $.005
+                        </td>
+                        <td>
+                            $0.05
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            ASD12345
+                        </td>
+                        <td>
+                            Crema
+                        </td>
+                        <td>
+                            $.005
+                        </td>
+                        <td>
+                            $0.05
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="right">
+                            
+                        </td>
+                        <td align="right">
+                            Descuento 5%
+                        </td>
+                        <td>
+                            $0.05
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="right">
+                            Costo de envio
+                        </td>
+                        <td>
+                            1221
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="right">
+                            Sub Total
+                        </td>
+                        <td>
+                            1221
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="right">
+                            Total
+                        </td>
+                        <td>
+                            1221
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+                <div class="alert alert-info">
+                    <h4>Este recibo fue generado el dia @DateTime.Now</h4>
+                    <p>Para mas información ponerse en contacto al telefono: </p>
+                    <p>ó al correo: </p>
+                </div>
+        </div>
+        <div class="row">
+            <div class="alert alert-success">
+                <h4 class="text-center">¡GRACIAS POR SU COMPRA!</h4>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

@@ -103,7 +103,8 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                     idCliente = item.idCliente.Value,
                     opciones = generarOpciones(item.idComentario),
                     producto = generarInfoProducto(item.idProducto),
-                    cliente = generaCliente(item.idCliente)
+                    cliente = generaCliente(item.idCliente),
+                    fecha = item.fechaCreacion.ToShortDateString(),
                 });
             }
             return Json(tabla, JsonRequestBehavior.AllowGet);

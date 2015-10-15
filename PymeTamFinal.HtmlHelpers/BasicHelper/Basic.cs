@@ -78,10 +78,11 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
                 {
                     attr.Add("src", imagen + "?w=" + w);
                 }
-                else {
+                else
+                {
                     attr.Add("src", imagen + "?w=" + w + "&h=" + h);
                 }
-                
+
             }
             else
             {
@@ -143,21 +144,25 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
         {
             return "$ " + precio.ToString("#.##") + " MXN";
         }
-        public static string determinaDescuento(this HtmlHelper helper, decimal? descuento) {
+        public static string determinaDescuento(this HtmlHelper helper, decimal? descuento)
+        {
             if (!descuento.HasValue || descuento == 0)
             {
                 return "Sin descuento.";
             }
-            else {
-                return string.Format(" $ {0} MXN",descuento);
+            else
+            {
+                return string.Format(" $ {0} MXN", descuento);
             }
         }
-        public static string formatoPrecioTotal(this HtmlHelper helper, decimal precio, decimal? descuento) {
+        public static string formatoPrecioTotal(this HtmlHelper helper, decimal precio, decimal? descuento)
+        {
             if (!descuento.HasValue)
             {
                 return "$ " + precio.ToString("#.##") + " MXN";
             }
-            else {
+            else
+            {
                 var precioFinal = precio + descuento;
                 return "$ " + precioFinal.Value.ToString("#.##") + " MXN";
             }
@@ -184,9 +189,10 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             if (precio.descuentoActivo)
             {
                 var pr = total * precio.precioEsp;
-                return string.Format("$ {0} MXN",pr.ToString("#.##"));
+                return string.Format("$ {0} MXN", pr.ToString("#.##"));
             }
-            else {
+            else
+            {
                 var pr = total * precio.precio;
                 return string.Format("$ {0} MXN", pr.ToString("#.##"));
             }
@@ -207,6 +213,54 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             }
             return "style=display:none;";
 
+        }
+        public static string haceTiempo(this HtmlHelper helper, DateTime fecha)
+        {
+            const int SECOND = 1;
+            const int MINUTE = 60 * SECOND;
+            const int HOUR = 60 * MINUTE;
+            const int DAY = 24 * HOUR;
+            const int MONTH = 30 * DAY;
+            var ts = new TimeSpan(DateTime.Now.Ticks - fecha.Ticks);
+            double delta = Math.Abs(ts.TotalSeconds);
+            if (delta < 1 * MINUTE)
+            {
+                return ts.Seconds == 1 ? "hace un segundo" : "hace " + ts.Seconds + " segundos";
+            }
+            if (delta < 2 * MINUTE)
+            {
+                return "hace un minuto";
+            }
+            if (delta < 45 * MINUTE)
+            {
+                return "hace " + ts.Minutes + " minutos";
+            }
+            if (delta < 90 * MINUTE)
+            {
+                return "hace una hora";
+            }
+            if (delta < 24 * HOUR)
+            {
+                return "hace " + ts.Hours + " horas";
+            }
+            if (delta < 48 * HOUR)
+            {
+                return "ayer";
+            }
+            if (delta < 30 * DAY)
+            {
+                return "hace "+ts.Days + " dias";
+            }
+            if (delta < 12 * MONTH)
+            {
+                int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
+                return months <= 1 ? "hace un mes" : "hace "+months + " meses";
+            }
+            else
+            {
+                int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
+                return years <= 1 ? "hace un año" :"hace "+ years + " años";
+            }
         }
         public static string CargaNombre(this HtmlHelper helper, string nombre, string viewBagVal)
         {

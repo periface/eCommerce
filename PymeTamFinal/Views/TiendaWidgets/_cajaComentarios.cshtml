@@ -11,7 +11,7 @@
         <ul>
             <li><a href=""><i class="fa fa-user"></i>@comentarios.nombreCliente</a></li>
             <li><a href=""><i class="fa fa-clock-o"></i>@comentarios.fechaCreacion.ToShortTimeString()</a></li>
-            <li><a href=""><i class="fa fa-calendar-o"></i>@comentarios.fechaCreacion.ToShortDateString()</a></li>
+            <li><a href=""><i class="fa fa-calendar-o"></i>@Html.haceTiempo(comentarios.fechaCreacion)</a></li>
             @Html.generarEstrellasCalif(comentarios.calificacion)
         </ul>
 

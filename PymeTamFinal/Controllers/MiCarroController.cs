@@ -41,7 +41,7 @@ namespace PymeTamFinal.Controllers
             model.total = carro.cargaTotal();
             return View(model);
         }
-        public ActionResult CarritoDetalle()
+        public ActionResult CarritoDetalle(decimal? _descuento)
         {
 
             var carro = CarroCompras._CarroCompras(HttpContext);
@@ -86,6 +86,7 @@ namespace PymeTamFinal.Controllers
                 ViewBag.descuento = descuento;
             }
             if (ControllerContext.IsChildAction) {
+                ViewBag.descuento = _descuento;
                 return View("_carritoDetalle",model);
             }
             return View(model);
