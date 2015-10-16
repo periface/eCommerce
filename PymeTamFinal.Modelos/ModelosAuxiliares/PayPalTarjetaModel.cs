@@ -22,6 +22,5 @@ namespace PymeTamFinal.Modelos.ModelosAuxiliares
         public int idEstado { get; set; } 
         public string email { get; set; }
         public bool guardar { get; set; }
-        //Branch prueba
     }
 }
