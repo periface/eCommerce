@@ -1,8 +1,9 @@
-﻿
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Orden>
 @{
-    ViewBag.Title = "MisPedidos";
+    ViewBag.Title = "Mis Pedidos";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
 }
+<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <div class="section">
     <div class="container">
         <div class="col-sm-3">
@@ -16,6 +17,89 @@
                 </div>
             </div>
         </div>
-        
+        <div class="col-sm-9">
+            <table id="pedidos" class="table table-responsive table-condensed">
+                <thead>
+                    <tr>
+                        <td>
+                            #Pedido
+                        </td>
+                        <td>
+                            Fecha
+                        </td>
+                        <td>
+                            Estatus
+                        </td>
+                        <td>
+                            Tipo de pago
+                        </td>
+                        <td>
+                            Monto MXN
+                        </td>
+                        <td>Opciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.idOrden
+                            </td>
+                            <td>
+                                @item.ordenFecha.ToShortDateString() | @Html.haceTiempo(item.ordenFecha)
+                            </td>
+                            <td>
+                                @item.ordenEstadoPedido
+                            </td>
+                            <td>
+                                @item.ordenTipoPago
+                            </td>
+                            <td>
+                              <a class="btn btn-xs btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">@Html.formatoPrecio(item.ordenTotal)</a>  
+                            </td>
+                            <td>
+                                <a class="btn btn-xs btn-default" href="#">Detalle</a> @if (item.ordenPagado)
+                                {<span>| </span><a class="btn btn-xs btn-default" target="_blank" href="@Url.Action("Recibo", "Comprar", new { Area = "CheckOut", id = item.idOrden })">Recibo</a>}  @if (!item.ordenPagado) { <span>| </span><a   data-id="@item.idOrden" class="btn btn-xs btn-default pagar">Pagar</a>  }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        $("body").on("click", ".pagar", function () {
+            alert("Pago tardio");
+        });
+        $('#pedidos').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ pedidos",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "No hay pedidos en su cuenta. <a href='/Tienda/Productos'>¡Comprar Ahora!</a>",
+                "sInfo": "Mostrando pedidos del _START_ al _END_ de un total de _TOTAL_ pedidos",
+                "sInfoEmpty": "Mostrando pedidos del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "bAutoWidth": false
+        });
+</script>
+    }

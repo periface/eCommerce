@@ -23,13 +23,14 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         IRepositorioBase<Estados> _estado;
         IRepositorioBase<Empresa> _empresa;
         ITransaccionExterna<paypalPagoClienteModel> _paypal;
+        IRepositorioBase<Banco> _bancos;
         public ComprarController(IRepositorioBase<Cliente> _clientes,
             IOrdenGeneradorBase<compraModel> _orden,
             IRepositorioBase<CostosEnvio> _envios,
             IRepositorioBase<Pais> _pais,
             IRepositorioBase<Estados> _estado,
             IRepositorioBase<Empresa> _empresa,
-            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService) : base(_configPaypal, _paypalEncrypService)
+            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService,IRepositorioBase<Banco>_bancos) : base(_configPaypal, _paypalEncrypService)
         {
             this._clientes = _clientes;
             this._orden = _orden;
@@ -38,6 +39,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             this._estado = _estado;
             this._paypal = _paypal;
             this._empresa = _empresa;
+            this._bancos = _bancos;
         }
         public ActionResult MetodosDisponibles()
         {
@@ -140,7 +142,10 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             _orden.guardarOrden(model, carro.cargaId(HttpContext), userId, descuento, HttpContext);
             //El id de orden se ha almacenado de forma temporal 
             //Vaciar carro != cancelarCom
+
             carro.vaciarCarro();
+
+            limpiarCupon();
             switch (model.pago)
             {
                 case "Paypal":
@@ -214,6 +219,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
                 return View("SesionTerminada");
             }
             ViewBag.id = id;
+            _orden.limpiaContexto(HttpContext);
             return View();
         }
         public ActionResult Recibo(int id)
@@ -231,6 +237,9 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
                 return HttpNotFound();
             }
             model.orden = (Orden)orden;
+            if (!model.orden.ordenPagado) {
+                return HttpNotFound();
+            }
             if (model.orden.idCliente != cliente.idCliente)
             {
                 return HttpNotFound();
@@ -253,7 +262,14 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         }
         public ActionResult Deposito()
         {
-            return View();
+            var contexto = _orden.cargaContexto(HttpContext);
+            if (contexto <=0) {
+                return View("SesionTerminada");
+            }
+            ViewBag.id = contexto;
+            var bancos = _bancos.Cargar(a => a.bancoActivo == true);
+            _orden.limpiaContexto(HttpContext);
+            return View(bancos);
         }
         [HttpPost]
         public ActionResult Check(string token)
@@ -300,6 +316,9 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             {
                 return User.Identity.GetUserId();
             }
+        }
+        private void limpiarCupon() {
+            Session["cupon"] = null;
         }
     }
 }

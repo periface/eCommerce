@@ -14,6 +14,7 @@ namespace PymeTamFinal.Contratos.Repositorio
         /// <param name="orden"></param>
         void guardarOrden(T orden, string cartId, string idUsuario, decimal descuento, object httpContext);
         int cargaContexto(object context);
+        void limpiaContexto(object context);
         object cargaOrden(object id);
     }
 }

@@ -80,6 +80,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
             model.ordenRfc = usuario.rfc;
             model.ordenTelefono = usuario.telefono;
             model.ordenTipoPago = orden.pago;
+            model.ordenEstadoPedido = "Pendiente";
             model.razonSocial = usuario.razonSocial;
             model.requiereFactura = orden.requiereFactura;
             context.Orden.Add(model);
@@ -106,10 +107,12 @@ namespace PymeTamFinal.Repositorios.Implementaciones
         private void guardaContexto(object context, object contextId)
         {
             var ctx = (HttpContextBase)context;
-            if (ctx.Session[idContext] == null)
-            {
-                ctx.Session[idContext] = contextId;
-            }
+            ctx.Session[idContext] = contextId;
+        }
+        public override void limpiaContexto(object context)
+        {
+            var ctx = (HttpContextBase)context;
+            ctx.Session[idContext] = null;
         }
         public override int cargaContexto(object context)
         {

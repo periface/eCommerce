@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Banco>
+@{
+    ViewBag.Title = "Deposito";
+    Layout = "~/Views/Shared/_LayoutTienda.cshtml";
+}
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>Pedido guardado como pendiente de pago.</h3>
+                <p>Una vez hecho el pago escaneé su recibo de deposito y subalo a travez de la pagina de pedidos.</p>
+            </div>
+
+            <div class="col-lg-4">
+                <strong>
+                    ID de Operación: @ViewBag.id
+                </strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>Imprime y presenta este comprobante en el banco para realizar el pago de tu compra.</p>
+                <p>
+                    El presente recibo sólo es valido para el pago que estás efectuando, se acreditara en la cuenta del vendedor
+                    a las 24hr. hábiles de haberse realizado.
+                </p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-responsive">
+                    <tbody>
+                        @foreach (var banco in Model)
+                        {
+                            <tr>
+                                <td>
+                                   @Html.imagen(banco.bancoImagen,null,100,50) @banco.bancoNombre
+                                </td>
+                                <td valign="middle">
+                                    Convenio o No. de Servicio <strong>@banco.bancoNConvenio</strong> 
+                                </td>
+                                <td valign="middle">
+                                    Referencia <strong>@banco.bancoReferencia</strong> 
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

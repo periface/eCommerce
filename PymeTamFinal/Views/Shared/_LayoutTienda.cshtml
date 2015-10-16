@@ -21,7 +21,13 @@
     @RenderBody()
     @{Html.RenderAction("Footer", "TiendaWidgets", new { Area = "" }); }
     @RenderSection("Fin", required: false)
+
+
     @Scripts.Render("~/bundles/jquery")
+
+    <script src="~/Scripts/datatables/datatables.min.js"></script>
+
+    <script src="~/Scripts/datatables/DataTables-1.10.9/js/dataTables.bootstrap.min.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/layoutEshop")
     @Scripts.Render("~/bundles/jqueryval")
@@ -101,7 +107,6 @@
         });
         
     </script>
-
     <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 
     </div>

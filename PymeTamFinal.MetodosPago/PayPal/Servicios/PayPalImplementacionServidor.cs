@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace PymeTamFinal.MetodosPago.PayPal.Servicios
 {
     public class PayPalImplementacionServidor : ITransaccionExternaPayPalBase<paypalPagoClienteModel>
@@ -150,7 +150,9 @@ namespace PymeTamFinal.MetodosPago.PayPal.Servicios
             orden.ordenPagado = true;
             orden.ordenRevisado = false;
             orden.ordenCodigoPayPal = idPago;
-            orden.ordenEstadoPedido = "Pagada.";
+            orden.ordenEstadoPedido = "Pagado";
+            context.Entry(orden).State = EntityState.Modified;
+            context.SaveChanges();
         }
     }
 }

@@ -16,11 +16,13 @@ namespace PymeTamFinal.Controllers
         IRepositorioBase<Cliente> _clientes;
         IRepositorioBase<Pais> _paises;
         IRepositorioBase<Estados> _estados;
-        public ClientesController(IRepositorioBase<Cliente> _clientes, IRepositorioBase<Pais> _paises, IRepositorioBase<Estados> _estados)
+        IRepositorioBase<Orden>_pedidos;
+        public ClientesController(IRepositorioBase<Cliente> _clientes, IRepositorioBase<Pais> _paises, IRepositorioBase<Estados> _estados, IRepositorioBase<Orden> _pedidos)
         {
             this._clientes = _clientes;
             this._paises=_paises;
             this._estados = _estados;
+            this._pedidos = _pedidos;
         }
         // GET: Clientes
         public ActionResult MisDatos(string returnUrl)
@@ -108,7 +110,8 @@ namespace PymeTamFinal.Controllers
             }
         }
         public ActionResult MisPedidos() {
-            return View();
+            var pedidos = _pedidos.Cargar(a=>a.cliente.idAsp==userId);
+            return View(pedidos);
         }
         public ActionResult Seguridad() {
             return View();

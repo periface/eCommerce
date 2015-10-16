@@ -67,6 +67,7 @@
     <Compile Include="Repos\RepositorioGaleria.cs" />
     <Compile Include="Repos\RepositorioPaises.cs" />
     <Compile Include="Repos\RepositorioPayPalConfig.cs" />
+    <Compile Include="Repos\RepositorioPedidos.cs" />
     <Compile Include="Repos\RepositorioPrecios.cs" />
     <Compile Include="Repos\RepositorioProductos.cs" />
     <Compile Include="Repos\RepositorioSecciones.cs" />

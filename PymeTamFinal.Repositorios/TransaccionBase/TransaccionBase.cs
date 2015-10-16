@@ -37,5 +37,9 @@ namespace PymeTamFinal.Repositorios.TransaccionBase
             throw new NotImplementedException();
         }
 
+        public virtual void limpiaContexto(object context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
