@@ -142,6 +142,14 @@
     <Compile Include="Migrations\201510142011300_paypalConfig.Designer.cs">
       <DependentUpon>201510142011300_paypalConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510161509010_razonSocial.cs" />
+    <Compile Include="Migrations\201510161509010_razonSocial.Designer.cs">
+      <DependentUpon>201510161509010_razonSocial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510161539101_detalleSku.cs" />
+    <Compile Include="Migrations\201510161539101_detalleSku.Designer.cs">
+      <DependentUpon>201510161539101_detalleSku.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -224,6 +232,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510142011300_paypalConfig.resx">
       <DependentUpon>201510142011300_paypalConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510161509010_razonSocial.resx">
+      <DependentUpon>201510161509010_razonSocial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510161539101_detalleSku.resx">
+      <DependentUpon>201510161539101_detalleSku.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

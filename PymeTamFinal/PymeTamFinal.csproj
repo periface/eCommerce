@@ -353,16 +353,6 @@
     <Content Include="Content\Temas\SbAdmin\js\bootstrap.js" />
     <Content Include="Content\Temas\SbAdmin\js\bootstrap.min.js" />
     <Content Include="Content\Temas\SbAdmin\js\jquery.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\flot\excanvas.min.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\flot\flot-data.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\flot\jquery.flot.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\flot\jquery.flot.pie.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\flot\jquery.flot.resize.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\flot\jquery.flot.tooltip.min.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\morris\morris-data.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\morris\morris.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\morris\morris.min.js" />
-    <Content Include="Content\Temas\SbAdmin\js\plugins\morris\raphael.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -496,16 +486,11 @@
     <Content Include="Areas\CheckOut\Views\Comprar\Finalizado.cshtml" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Areas\CheckOut\Views\Comprar\Recibo.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Shared\ErrorPayPal.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Shared\SesionTerminada.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.foundation.css" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.foundation.min.css" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.jqueryui.css" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.jqueryui.min.css" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\css\jquery.dataTables.css" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\css\jquery.dataTables.min.css" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\css\jquery.dataTables_themeroller.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\images\sort_asc.png" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\images\sort_asc_disabled.png" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\images\sort_both.png" />
@@ -513,12 +498,6 @@
     <Content Include="Scripts\datatables\DataTables-1.10.9\images\sort_desc_disabled.png" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\js\dataTables.bootstrap.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\js\dataTables.bootstrap.min.js" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\js\dataTables.foundation.js" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\js\dataTables.foundation.min.js" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\js\dataTables.jqueryui.js" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\js\dataTables.jqueryui.min.js" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\js\jquery.dataTables.js" />
-    <Content Include="Scripts\datatables\DataTables-1.10.9\js\jquery.dataTables.min.js" />
     <Content Include="Scripts\datatables\datatables.min.css" />
     <Content Include="Scripts\datatables\datatables.min.js" />
     <Content Include="Scripts\gmaps.js" />
@@ -617,7 +596,6 @@
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
     <Folder Include="Areas\CheckOut\Models\" />
-    <Folder Include="Areas\CheckOut\Views\Shared\" />
     <Folder Include="Content\Imagenes\Bancos\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />
@@ -627,6 +605,7 @@
     <Folder Include="Content\Temas\Eshopper\images\" />
     <Folder Include="Content\Temas\LandingPage\" />
     <Folder Include="Content\Temas\SbAdmin\fonts\" />
+    <Folder Include="Content\Temas\SbAdmin\js\plugins\" />
     <Folder Include="Views\MisDatos\" />
   </ItemGroup>
   <ItemGroup>

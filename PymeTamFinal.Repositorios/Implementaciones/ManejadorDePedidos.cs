@@ -23,7 +23,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
                 throw new ArgumentNullException();
         }
 
-        public override void guardarOrden(compraModel orden, string cartId, string idUsuario, decimal descuento,object httpContext)
+        public override void guardarOrden(compraModel orden, string cartId, string idUsuario, decimal descuento, object httpContext)
         {
             //Existe un error al agregar una orden con cupón
             var model = new Orden();
@@ -96,7 +96,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
                     nombreProducto = producto.nombreProducto,
                     precioUnitario = cargaPrecio(producto),
                     total = cargaTotalRecord(item),
-                   
+                    sku = producto.sku
                 };
                 context.OrdenDetalle.Add(detalleOrden);
             }
@@ -106,7 +106,8 @@ namespace PymeTamFinal.Repositorios.Implementaciones
         private void guardaContexto(object context, object contextId)
         {
             var ctx = (HttpContextBase)context;
-            if (ctx.Session[idContext] == null) {
+            if (ctx.Session[idContext] == null)
+            {
                 ctx.Session[idContext] = contextId;
             }
         }
@@ -126,19 +127,21 @@ namespace PymeTamFinal.Repositorios.Implementaciones
             {
                 return item.contadorCarro * precio.precioEsp;
             }
-            else {
+            else
+            {
                 return item.contadorCarro * precio.precio;
             }
         }
 
         private decimal cargaPrecio(Producto producto)
         {
-            var precio = context.Precios.SingleOrDefault(a=>a.idProducto == producto.idProducto);
+            var precio = context.Precios.SingleOrDefault(a => a.idProducto == producto.idProducto);
             if (precio.descuentoActivo)
             {
                 return precio.precioEsp;
             }
-            else {
+            else
+            {
                 return precio.precio;
             }
         }

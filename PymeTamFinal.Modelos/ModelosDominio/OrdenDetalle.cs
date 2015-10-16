@@ -14,6 +14,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public int cantidad { get; set; }
         public decimal precioUnitario { get; set; }
         public decimal total { get; set; } 
+        public string sku { get; set; }
         [ForeignKey("idOrden")]
         public virtual Orden orden { get; set; }
     }

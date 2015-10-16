@@ -18,5 +18,6 @@ namespace PymeTamFinal.Modelos.ModelosVista
         public string telefonoEmpresa { get; set; }
         public string emailEmpresa { get; set; }
         public string direccionEmpresa { get; set; }
+        public string razonSocialEmpresa { get; set; }
     }
 }

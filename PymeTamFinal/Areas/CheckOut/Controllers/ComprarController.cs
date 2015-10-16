@@ -28,7 +28,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             IRepositorioBase<CostosEnvio> _envios,
             IRepositorioBase<Pais> _pais,
             IRepositorioBase<Estados> _estado,
-            IRepositorioBase<Empresa>_empresa,
+            IRepositorioBase<Empresa> _empresa,
             ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService) : base(_configPaypal, _paypalEncrypService)
         {
             this._clientes = _clientes;
@@ -169,55 +169,82 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             ViewBag.paypalToken = tokenPayPal;
             return View();
         }
-        public ActionResult Confirmar(string paymentId,string PayerID) {
+        public ActionResult Confirmar(string paymentId, string PayerID)
+        {
             var id = _orden.cargaContexto(HttpContext);
             int idOrden;
             ViewBag.paymentId = paymentId;
             ViewBag.PayerID = PayerID;
-            bool ok = int.TryParse(id.ToString(),out idOrden);
-            if (ok) {
+            bool ok = int.TryParse(id.ToString(), out idOrden);
+            if (ok)
+            {
                 return View(_orden.cargaOrden(id));
             }
             return HttpNotFound();
         }
         [HttpPost]
-        public ActionResult Confirmar(FormCollection forms, string paymentId, string PayerID) {
+        public ActionResult Confirmar(FormCollection forms, string paymentId, string PayerID)
+        {
             var paypalServiceModel = activePayPalApi;
             var id = _orden.cargaContexto(HttpContext);
             int idOrden;
             bool ok = int.TryParse(id.ToString(), out idOrden);
             if (ok)
             {
-                if (_paypal.EjecutarPago(paymentId, idOrden, PayerID,paypalServiceModel.decryptedId,paypalServiceModel.decryptedSecret))
+                if (_paypal.EjecutarPago(paymentId, idOrden, PayerID, paypalServiceModel.decryptedId, paypalServiceModel.decryptedSecret))
                 {
-                    return RedirectToAction("Finalizado", new { id=idOrden });
+                    return RedirectToAction("Finalizado", new { id = idOrden });
                 }
                 else
                 {
                     return View("ErrorPayPal");
                 }
             }
-            else {
+            else
+            {
                 //La sesión esta terminada pero el usuario puede pagar la orden despues
                 return View("SesionTerminada");
             }
         }
-        public ActionResult Finalizado(int id) {
+        public ActionResult Finalizado(int id)
+        {
+            var _id = _orden.cargaContexto(HttpContext);
+            if (_id <= 0 || id != _id)
+            {
+                return View("SesionTerminada");
+            }
             ViewBag.id = id;
             return View();
         }
-        public ActionResult Recibo(int id=1) {
+        public ActionResult Recibo(int id)
+        {
+            //Falta Validar que el recibo sea del usuario
             ReciboViewModel model = new ReciboViewModel();
             var orden = _orden.cargaOrden(id);
-            model.orden =(Orden)orden;
+            if (orden == null)
+            {
+                return HttpNotFound();
+            }
+            var cliente = _clientes.Cargar(a => a.idAsp == userId).SingleOrDefault();
+            if (cliente == null)
+            {
+                return HttpNotFound();
+            }
+            model.orden = (Orden)orden;
+            if (model.orden.idCliente != cliente.idCliente)
+            {
+                return HttpNotFound();
+            }
             model.cliente = _clientes.CargarPorId(model.orden.idCliente);
-            var empresa = _empresa.Cargar(a=>a.infoActiva==true).SingleOrDefault();
+            var empresa = _empresa.Cargar(a => a.infoActiva == true).SingleOrDefault();
             model.direccionEmpresa = empresa.direccionEmpresa;
+            model.nombreEmpresa = empresa.nombreEmpresa;
             model.emailEmpresa = empresa.correoVentasEmpresa;
             model.fecha = DateTime.Now.ToShortDateString();
             model.idOrden = model.orden.idOrden;
             model.logoEmpresa = empresa.imgPrincipalEmpresa;
             model.telefonoEmpresa = empresa.telefonoEmpresa;
+            model.razonSocialEmpresa = empresa.razonSocial;
             return new ViewAsPdf(model);
         }
         public ActionResult Credito()
@@ -231,7 +258,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         [HttpPost]
         public ActionResult Check(string token)
         {
-            return Redirect(string.Format(paypalEndPoint,token));
+            return Redirect(string.Format(paypalEndPoint, token));
         }
         public bool TieneDatos(string idusuario)
         {

@@ -49,5 +49,6 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public string imgPrincipalEmpresa { get; set; }
         public string empLat { get; set; }
         public string empLong { get; set; }
+        public string razonSocial { get; set; }
     }
 }
