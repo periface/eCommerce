@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Orden>
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.CompraModel>
 @{
     ViewBag.Title = "Mis Pedidos";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
@@ -56,7 +56,7 @@
                                 @item.ordenTipoPago
                             </td>
                             <td>
-                                <a tabindex="0" data-trigger="focus"  data-id="@item.idOrden" class="btn btn-xs btn-default monto">@Html.formatoPrecio(item.ordenTotal)</a>
+                                <a tabindex="0" data-html="true" data-toggle="popover" data-trigger="focus" title="Detalle (Monto)" data-content="<p>Sub Total: @Html.formatoPrecio(item.ordenSubTotal) </p><p>Descuento: @Html.formatoPrecio(item.ordenDescuento) </p><p>Costo de Envio: @Html.formatoPrecio(item.costoEnvio) </p><p>Total: @Html.formatoPrecio(item.ordenTotal) </p>"  data-id="@item.idOrden" class="btn btn-xs btn-default monto">@Html.formatoPrecio(item.ordenTotal)</a>
                             </td>
                             <td>
                                 <a type="button" class="btn btn-xs btn-default detalle" data-id="@item.idOrden" href="#">Detalle</a> @if (item.ordenPagado)
@@ -79,25 +79,54 @@
         $("body").on("click", ".pagar", function () {
             alert("Pago tardio");
         });
-        $("body").on("click", ".monto", function () {
-            var id = $(this).data("id");
-            $.get("/Clientes/DetalleMonto/" + id, function (d) {
-                $(".monto").popover({
-                    html:true,
-                    content: function () {
-                        var $contenido;
-                        $contenido = "<p>" + d.monto.subTotal + "<p>" + "<p>" + d.monto.descuento + "<p>" + "<p>" + d.monto.total + "<p>";
-                        return $contenido;
-                    }
-                });
-            });
-        });
+        //$("body").on("click", ".monto", function () {
+        //    var id = $(this).data("id");
+        //    var self = $(this);
+        //    $.get("/Clientes/DetalleMonto/" + id, function (d) {
+        //        var $contenido = "";
+        //        $contenido = "<p>Sub total: " + d.monto.subTotal + "<p>" + "<p>Descuento: " + d.monto.descuento + "<p>" + "<p>Envio: " + d.monto.envio+ "<p>" + "<p>Total: " + d.monto.total + "<p>";
+        //        self.popover({
+        //            html:true,
+        //            content: $contenido
+        //        });
+        //    });
+        //});
         $("body").on("click", ".detalle", function () {
             var id = $(this).data("id");
             $.get("/Clientes/DetallePedido/" + id, function (d) {
                 $modal.empty();
                 $modal.append(d);
-                $modal.modal("show");
+                $modal.modal({
+                    backdrop: "static",
+                    show: true
+                });
+                $('.detalleModal').DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ pedidos",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "No hay pedidos en su cuenta. <a href='/Tienda/Productos'>¡Comprar Ahora!</a>",
+                        "sInfo": "Mostrando pedidos del _START_ al _END_ de un total de _TOTAL_ pedidos",
+                        "sInfoEmpty": "Mostrando pedidos del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "bAutoWidth": false
+                });
             });
         });
         $('#pedidos').DataTable({
@@ -130,7 +159,7 @@
     </script>
 }
 @section Fin{
-    <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal fade"  id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 
     </div>
 }

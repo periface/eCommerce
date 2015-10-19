@@ -1,18 +1,166 @@
-﻿@model PymeTamFinal.Modelos.ModelosDominio.Orden
+﻿@model PymeTamFinal.Modelos.ModelosDominio.CompraModel
 @{
     ViewBag.Title = "DetallePedido";
-    Layout = "~/Views/Shared/_LayoutTienda.cshtml";
+    Layout = null;
 }
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="exampleModalLabel">Producto agregado al carro</h4>
+            <h4 class="modal-title" id="exampleModalLabel">Detalle del pedido #@Model.idOrden - @Model.ordenEstadoPedido</h4>
         </div>
         <div class="modal-body">
+            @if (!string.IsNullOrEmpty(Model.ordenComentarioEstado)) {
+                <div class="alert alert-info">
+                  <p>@Model.ordenComentarioEstado</p>  
+                </div>
+            }
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4>Cliente: </h4>
+                    <p class="lead">@Model.ordenNombre @Model.ordenApPaterno @Model.ordenApMaterno</p>
+                    <h4>Email: </h4>
+                    <p class="lead">@Model.ordenMail</p>
+                    <h4>Razón social: </h4>
+                    <p class="lead">@Model.razonSocial</p>
+                    <h4>Codigo de rastreo: </h4>
+                    <p class="lead">@if (string.IsNullOrEmpty(Model.ordenCodigoRastreo))
+                    {
+                        <span>
+                            Sin numero de rastreo.
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            @Model.ordenCodigoRastreo
+                        </span>
+                    }</p>
+                </div>
+                <div class="col-lg-6">
+                    <h4>Pais: </h4>
+                    <p class="lead">@Model.ordenPais</p>
+                    <h4>Estado: </h4>
+                    <p class="lead">@Model.ordenEstado</p>
+                    <h4>Ciudad: </h4>
+                    <p class="lead">@Model.ordenCiudad</p>
+                    <h4>Codigo Postal: </h4>
+                    <p class="lead">@Model.ordenCodigoPostal</p>
+                </div>
+            </div>
+            <div class="row">
+
+                <hr />
+                <div class="col-lg-7">
+
+                    <h4>Dirección Linea 1</h4>
+                    <p class="lead">@Model.ordenDireccionLinea1</p>
+                    <h4>Dirección Linea 2</h4>
+                    <p class="lead">@Model.ordenDireccionLinea2</p>
+                </div>
+                <div class="col-lg-5">
+                   
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h3></h3>
+                    <table class="detalleModal table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    #Producto
+                                </th>
+                                <th>
+                                    Precio unitario
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ordenDetalle)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.cantidad
+                                    </td>
+                                    <td>
+                                        @item.sku
+                                    </td>
+                                    <td>
+                                        @item.precioUnitario
+                                    </td>
+                                    <td>
+                                        @item.total
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <a class="btn btn-primary" role="button" data-toggle="collapse" aria-expanded="false" href="#collapseDetalle">Opciónes de envió y facturación</a>
+                    <div class="collapse" id="collapseDetalle">
+                        <div class="well">
+                            <p>@Model.ordenClienteComentarios</p>
+                            @if (Model.enviarADirFac)
+                            {
+                                <div class="alert alert-info ">
+                                    Se enviará a dirección de facturación
+                                </div>
+                                <h4>Dirección de facturación linea 1</h4>
+                                <p class="lead">@Model.ordenDireccionFACLinea1</p>
+                                <h4>Dirección de facturación linea 2</h4>
+                                <p class="lead">@Model.ordenDireccionFACLinea2</p>
+                            }
+                            @if (Model.requiereFactura)
+                            {
+                                <div class="alert alert-info ">
+                                    Requiere de factura
+
+                                </div>
+                                <h4>
+                                    Rfc:
+
+                                </h4>
+                                <p class="lead">@Model.ordenRfc</p>
+                                <h4>
+                                    Razón social:
+
+                                </h4>
+                                <p class="lead">@Model.razonSocial</p>
+
+
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <a class="btn btn-primary" role="button" data-toggle="collapse" aria-expanded="false" href="#collapseMonto">Montó</a>
+                    <div class="collapse" id="collapseMonto">
+                        <div class="well">
+                            <h4>Sub Total</h4>
+                            <p class="lead">@Html.formatoPrecio(Model.ordenSubTotal)</p>
+                            <h4>Descuento</h4>
+                            <p class="lead">@Html.formatoPrecio(Model.ordenDescuento)</p>
+                            <h4>Costó de envió</h4>
+                            <p class="lead">@Html.formatoPrecio(Model.costoEnvio)</p>
+                            <h4>Total</h4>
+                            <p class="lead">@Html.formatoPrecio(Model.ordenTotal)</p>
+                       
+                         </div>
+                    </div>
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -21,3 +169,4 @@
         </div>
     </div>
 
+</div>

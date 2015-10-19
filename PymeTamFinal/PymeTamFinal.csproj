@@ -246,6 +246,10 @@
     <Compile Include="Areas\Administrador\PlugIns\AdministradorTexto.cs" />
     <Compile Include="Areas\CheckOut\CheckOutAreaRegistration.cs" />
     <Compile Include="Areas\CheckOut\Controllers\ComprarController.cs" />
+    <Compile Include="Areas\CheckOut\Models\IMetodoPago.cs" />
+    <Compile Include="Areas\CheckOut\Models\metodoPagoTarjeta.cs" />
+    <Compile Include="Areas\CheckOut\Models\metodoPagoDeposito.cs" />
+    <Compile Include="Areas\CheckOut\Models\metodoPagoPayPal.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\MiCarroController.cs" />
@@ -598,7 +602,6 @@
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
-    <Folder Include="Areas\CheckOut\Models\" />
     <Folder Include="Content\Imagenes\Bancos\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />

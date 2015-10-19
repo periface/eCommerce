@@ -20,7 +20,7 @@ namespace PymeTamFinal
     "~/Content/Temas/Eshopper/js/main.js"
                 ));
             bundles.Add(new StyleBundle("~/bundles/TiendaCss").Include(
-                "~/Content/Temas/Eshopper/css/bootstrap.min.css",
+                "~/Content/bootstrap.min.css",
                 "~/Content/Temas/Eshopper/css/font-awesome.css",
                 "~/Content/Temas/Eshopper/css/prettyPhoto.css",
                 "~/Content/Temas/Eshopper/css/price-range.css",

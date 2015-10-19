@@ -43,7 +43,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public bool datosCapturados { get; set; }
         [Required(ErrorMessage = "Edad requerida")]
         public int edad { get; set; }
-        public virtual ICollection<Orden> ordenes { get; set; }
+        public virtual ICollection<CompraModel> ordenes { get; set; }
         /// <summary>
         /// Solo si el usuario fue encontrado
         /// </summary>

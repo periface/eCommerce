@@ -24,7 +24,7 @@ namespace PymeTamFinal.CapaDatos
         public DbSet<Empresa> Empresa { get; set; }
         public DbSet<Estados> Estados { get; set; }
         public DbSet<GaleriaProducto> GaleriaProducto { get; set; }
-        public DbSet<Orden> Orden { get; set; }
+        public DbSet<CompraModel> Orden { get; set; }
         public DbSet<OrdenDetalle> OrdenDetalle { get; set; }
         public DbSet<Pais> Pais { get; set; }
         public DbSet<Politicas> Politicas { get; set; }

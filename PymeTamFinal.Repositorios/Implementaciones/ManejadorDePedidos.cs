@@ -26,7 +26,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
         public override void guardarOrden(compraModel orden, string cartId, string idUsuario, decimal descuento, object httpContext)
         {
             //Existe un error al agregar una orden con cupón
-            var model = new Orden();
+            var model = new CompraModel();
             var carroItems = context.CarritoCompra.Where(a => a.idCarro == cartId).ToList();
             var usuario = context.Cliente.Where(a => a.idAsp == idUsuario).SingleOrDefault();
             var envio = context.CostosEnvio.SingleOrDefault(a => a.idEnvio == orden.idEnvio);

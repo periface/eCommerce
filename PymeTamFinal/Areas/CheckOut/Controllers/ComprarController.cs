@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using PymeTamFinal.Areas.CheckOut.Models;
 using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Controles;
 using PymeTamFinal.MetodosPago.CarritoCompra;
@@ -62,8 +63,6 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             decimal total = calculaTotal(envio.costo);
             return Json(new { total = "$ " + total.ToString("#.##") + " MXN", costoEnvio = "$ " + envio.costo.ToString("#.##") + " MXN" }, JsonRequestBehavior.AllowGet);
         }
-
-
         public ActionResult Condiciones(int id)
         {
             if (id == 0)
@@ -114,11 +113,12 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             switch (model.pago)
             {
                 case "Paypal":
-                    return paypalTransaccion;
+                    var paypal = new metodoPagoPayPal(Url.Action("PayPal", "Comprar", new { Area = "CheckOut" }).ToString());
+                    return paypal.result;
                 case "Deposito":
-                    return depositoInfo;
+                    return new metodoPagoDeposito(Url.Action("Deposito", "Comprar", new { Area = "CheckOut" }).ToString()).result;
                 case "Credito":
-                    return credito;
+                    return new metodoPagoTarjeta(Url.Action("PayPal", "Comprar", new { Area = "CheckOut" }).ToString()).result;
                 default:
                     break;
             }
@@ -201,7 +201,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             {
                 return HttpNotFound();
             }
-            model.orden = (Orden)orden;
+            model.orden = (CompraModel)orden;
             if (!model.orden.ordenPagado)
             {
                 return HttpNotFound();

@@ -16,7 +16,12 @@
         .modal-content {
             border-radius: 0px;
         }
+
+        .modal-dialog.modal-lg {
+            width: 900px !important;
+        }
     </style>
+
 </head>
 <body>
     @{Html.RenderAction("ScriptsSociales", "TiendaWidgets", new { Area = "" });}

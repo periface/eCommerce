@@ -16,8 +16,8 @@ namespace PymeTamFinal.Controllers
         IRepositorioBase<Cliente> _clientes;
         IRepositorioBase<Pais> _paises;
         IRepositorioBase<Estados> _estados;
-        IRepositorioBase<Orden> _pedidos;
-        public ClientesController(IRepositorioBase<Cliente> _clientes, IRepositorioBase<Pais> _paises, IRepositorioBase<Estados> _estados, IRepositorioBase<Orden> _pedidos)
+        IRepositorioBase<CompraModel> _pedidos;
+        public ClientesController(IRepositorioBase<Cliente> _clientes, IRepositorioBase<Pais> _paises, IRepositorioBase<Estados> _estados, IRepositorioBase<CompraModel> _pedidos)
         {
             this._clientes = _clientes;
             this._paises = _paises;
@@ -149,12 +149,13 @@ namespace PymeTamFinal.Controllers
             return Json(new { ok = true, monto = monto}, JsonRequestBehavior.AllowGet);
         }
 
-        private montoDetalle formatearDetalle(Orden pedido)
+        private montoDetalle formatearDetalle(CompraModel pedido)
         {
             return new montoDetalle() {
                 descuento = formatearPrecio(pedido.ordenDescuento),
                 subTotal = formatearPrecio(pedido.ordenSubTotal),
-                total = formatearPrecio(pedido.ordenTotal)
+                total = formatearPrecio(pedido.ordenTotal),
+                envio = formatearPrecio(pedido.costoEnvio)
             };
         }
 
@@ -168,6 +169,7 @@ namespace PymeTamFinal.Controllers
             public string total { get; set; }
             public string subTotal { get; set; }
             public string descuento { get; set; }
+            public string envio { get; set; }
         }
         public ActionResult Seguridad()
         {

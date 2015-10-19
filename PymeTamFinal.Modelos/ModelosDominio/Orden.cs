@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace PymeTamFinal.Modelos.ModelosDominio
 {
     [Table("Orden")]
-    public class Orden
+    public class CompraModel
     {
         [Key]
         public int idOrden { get; set; }
