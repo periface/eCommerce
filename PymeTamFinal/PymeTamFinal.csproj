@@ -593,6 +593,7 @@
     <Content Include="Views\Clientes\_datosUsuario.cshtml" />
     <Content Include="Views\Shared\_botonCompraRapido.cshtml" />
     <Content Include="Views\Shared\_modalCarro.cshtml" />
+    <Content Include="Views\Clientes\DetallePedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />

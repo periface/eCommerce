@@ -12,6 +12,10 @@
         .btn {
             border-radius: 0px;
         }
+
+        .modal-content {
+            border-radius: 0px;
+        }
     </style>
 </head>
 <body>
@@ -70,7 +74,7 @@
                 $.get("/MiCarro/AgregarAlCarro/?id=" + $id + "&cantidad=" + $cant, function (d) {
                     //Modal (Seguir comprando - ir a mi carrito)
                     if (d.ok) {
-                        $("#modalCarro").load("/TiendaWidgets/ModalCarro/"+$id, function () {
+                        $("#modalCarro").load("/TiendaWidgets/ModalCarro/" + $id, function () {
                             $("#modalCarro").modal("show");
                         });
                     }
@@ -105,13 +109,13 @@
 
             $(_self).attr("data-toggled", true);
         });
-        
+
     </script>
     <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 
     </div>
     <div class="modal fade" id="modalCarro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        
+
     </div>
 
 </body>

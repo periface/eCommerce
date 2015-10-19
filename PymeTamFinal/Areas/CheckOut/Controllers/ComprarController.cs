@@ -30,7 +30,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             IRepositorioBase<Pais> _pais,
             IRepositorioBase<Estados> _estado,
             IRepositorioBase<Empresa> _empresa,
-            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService,IRepositorioBase<Banco>_bancos) : base(_configPaypal, _paypalEncrypService)
+            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService, IRepositorioBase<Banco> _bancos) : base(_configPaypal, _paypalEncrypService)
         {
             this._clientes = _clientes;
             this._orden = _orden;
@@ -63,41 +63,6 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             return Json(new { total = "$ " + total.ToString("#.##") + " MXN", costoEnvio = "$ " + envio.costo.ToString("#.##") + " MXN" }, JsonRequestBehavior.AllowGet);
         }
 
-        private decimal calculaTotal(decimal costo)
-        {
-            decimal descuento = 0;
-            decimal subTotal = 0;
-            var carro = CarroCompras._CarroCompras(HttpContext);
-            var total = carro.cargaTotal();
-            if (_cupon != null)
-            {
-                carro.AgregarCupon(_cupon, HttpContext, out descuento);
-            }
-            if (descuento < 0)
-            {
-                subTotal = total + descuento;
-            }
-            else
-            {
-                subTotal = total;
-            }
-            return subTotal + costo;
-        }
-
-        private void resolverCupon(string cupon, CarroCompras carro)
-        {
-            decimal descuento = 0;
-            if (!string.IsNullOrEmpty(_cupon) && cupon == _cupon)
-            {
-                carro.AgregarCupon(_cupon, HttpContext, out descuento);
-                ViewBag.descuento = descuento;
-            }
-            else
-            {
-                Session["cupon"] = null;
-                return;
-            }
-        }
 
         public ActionResult Condiciones(int id)
         {
@@ -216,7 +181,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             var _id = _orden.cargaContexto(HttpContext);
             if (_id <= 0 || id != _id)
             {
-                return View("SesionTerminada");
+                return SesionTerminada;
             }
             ViewBag.id = id;
             _orden.limpiaContexto(HttpContext);
@@ -237,7 +202,8 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
                 return HttpNotFound();
             }
             model.orden = (Orden)orden;
-            if (!model.orden.ordenPagado) {
+            if (!model.orden.ordenPagado)
+            {
                 return HttpNotFound();
             }
             if (model.orden.idCliente != cliente.idCliente)
@@ -258,13 +224,17 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         }
         public ActionResult Credito()
         {
+            var contexto = _orden.cargaContexto(HttpContext);
+            if (contexto == 0)
+                return SesionTerminada;
             return View();
         }
         public ActionResult Deposito()
         {
             var contexto = _orden.cargaContexto(HttpContext);
-            if (contexto <=0) {
-                return View("SesionTerminada");
+            if (contexto <= 0)
+            {
+                return SesionTerminada;
             }
             ViewBag.id = contexto;
             var bancos = _bancos.Cargar(a => a.bancoActivo == true);
@@ -296,6 +266,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         {
             return _envios.Cargar(a => a.estados.Any(e => e.idEstado == idEstado)).ToList();
         }
+        #region Helpers
         private string _cupon
         {
             get
@@ -317,8 +288,46 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
                 return User.Identity.GetUserId();
             }
         }
-        private void limpiarCupon() {
+        private void limpiarCupon()
+        {
             Session["cupon"] = null;
         }
+
+        private decimal calculaTotal(decimal costo)
+        {
+            decimal descuento = 0;
+            decimal subTotal = 0;
+            var carro = CarroCompras._CarroCompras(HttpContext);
+            var total = carro.cargaTotal();
+            if (_cupon != null)
+            {
+                carro.AgregarCupon(_cupon, HttpContext, out descuento);
+            }
+            if (descuento < 0)
+            {
+                subTotal = total + descuento;
+            }
+            else
+            {
+                subTotal = total;
+            }
+            return subTotal + costo;
+        }
+
+        private void resolverCupon(string cupon, CarroCompras carro)
+        {
+            decimal descuento = 0;
+            if (!string.IsNullOrEmpty(_cupon) && cupon == _cupon)
+            {
+                carro.AgregarCupon(_cupon, HttpContext, out descuento);
+                ViewBag.descuento = descuento;
+            }
+            else
+            {
+                Session["cupon"] = null;
+                return;
+            }
+        }
+        #endregion
     }
 }

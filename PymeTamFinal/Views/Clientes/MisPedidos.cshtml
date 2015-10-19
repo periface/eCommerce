@@ -56,11 +56,12 @@
                                 @item.ordenTipoPago
                             </td>
                             <td>
-                              <a class="btn btn-xs btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">@Html.formatoPrecio(item.ordenTotal)</a>  
+                                <a tabindex="0" data-trigger="focus"  data-id="@item.idOrden" class="btn btn-xs btn-default monto">@Html.formatoPrecio(item.ordenTotal)</a>
                             </td>
                             <td>
-                                <a class="btn btn-xs btn-default" href="#">Detalle</a> @if (item.ordenPagado)
-                                {<span>| </span><a class="btn btn-xs btn-default" target="_blank" href="@Url.Action("Recibo", "Comprar", new { Area = "CheckOut", id = item.idOrden })">Recibo</a>}  @if (!item.ordenPagado) { <span>| </span><a   data-id="@item.idOrden" class="btn btn-xs btn-default pagar">Pagar</a>  }
+                                <a type="button" class="btn btn-xs btn-default detalle" data-id="@item.idOrden" href="#">Detalle</a> @if (item.ordenPagado)
+                                {<span>| </span><a class="btn btn-xs btn-default" target="_blank" href="@Url.Action("Recibo", "Comprar", new { Area = "CheckOut", id = item.idOrden })">Recibo</a>}  @if (!item.ordenPagado)
+                                { <span>| </span><a data-id="@item.idOrden" class="btn btn-xs btn-default pagar">Pagar</a>  }
                             </td>
                         </tr>
                     }
@@ -71,8 +72,33 @@
 </div>
 @section Scripts{
     <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        });
+        var $modal = $("#modalDetalle");
         $("body").on("click", ".pagar", function () {
             alert("Pago tardio");
+        });
+        $("body").on("click", ".monto", function () {
+            var id = $(this).data("id");
+            $.get("/Clientes/DetalleMonto/" + id, function (d) {
+                $(".monto").popover({
+                    html:true,
+                    content: function () {
+                        var $contenido;
+                        $contenido = "<p>" + d.monto.subTotal + "<p>" + "<p>" + d.monto.descuento + "<p>" + "<p>" + d.monto.total + "<p>";
+                        return $contenido;
+                    }
+                });
+            });
+        });
+        $("body").on("click", ".detalle", function () {
+            var id = $(this).data("id");
+            $.get("/Clientes/DetallePedido/" + id, function (d) {
+                $modal.empty();
+                $modal.append(d);
+                $modal.modal("show");
+            });
         });
         $('#pedidos').DataTable({
             "language": {
@@ -101,5 +127,10 @@
             },
             "bAutoWidth": false
         });
-</script>
-    }
+    </script>
+}
+@section Fin{
+    <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}
