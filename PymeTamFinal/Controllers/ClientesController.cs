@@ -114,6 +114,7 @@ namespace PymeTamFinal.Controllers
             return View(pedidos);
         }
         public ActionResult Seguridad() {
+            //Vistas de account controller
             return View();
         }
         private string userId {
