@@ -494,6 +494,7 @@
     <Content Include="Areas\CheckOut\Views\Shared\SesionTerminada.cshtml" />
     <Content Include="Areas\CheckOut\Views\Comprar\Deposito.cshtml" />
     <Content Include="Areas\CheckOut\Views\Comprar\Credito.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Comprar\PagoTardio.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />

@@ -150,6 +150,14 @@
     <Compile Include="Migrations\201510161539101_detalleSku.Designer.cs">
       <DependentUpon>201510161539101_detalleSku.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510201826183_historico.cs" />
+    <Compile Include="Migrations\201510201826183_historico.Designer.cs">
+      <DependentUpon>201510201826183_historico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510201847274_arreglado.cs" />
+    <Compile Include="Migrations\201510201847274_arreglado.Designer.cs">
+      <DependentUpon>201510201847274_arreglado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -238,6 +246,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510161539101_detalleSku.resx">
       <DependentUpon>201510161539101_detalleSku.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510201826183_historico.resx">
+      <DependentUpon>201510201826183_historico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510201847274_arreglado.resx">
+      <DependentUpon>201510201847274_arreglado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

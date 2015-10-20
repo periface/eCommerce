@@ -22,11 +22,10 @@ namespace PymeTamFinal.Repositorios.Implementaciones
             if (context == null)
                 throw new ArgumentNullException();
         }
-
         public override void guardarOrden(compraModel orden, string cartId, string idUsuario, decimal descuento, object httpContext)
         {
             //Existe un error al agregar una orden con cupón
-            var model = new CompraModel();
+            var model = new Orden();
             var carroItems = context.CarritoCompra.Where(a => a.idCarro == cartId).ToList();
             var usuario = context.Cliente.Where(a => a.idAsp == idUsuario).SingleOrDefault();
             var envio = context.CostosEnvio.SingleOrDefault(a => a.idEnvio == orden.idEnvio);

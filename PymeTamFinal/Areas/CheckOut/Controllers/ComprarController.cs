@@ -15,8 +15,11 @@ using System.Web.Mvc;
 
 namespace PymeTamFinal.Areas.CheckOut.Controllers
 {
+
+    [Authorize]
     public class ComprarController : CheckOutController
     {
+        private const string rutaTickets = "/Content/Imagenes/Tickets/";
         IRepositorioBase<Cliente> _clientes;
         IOrdenGeneradorBase<compraModel> _orden;
         IRepositorioBase<CostosEnvio> _envios;
@@ -46,8 +49,34 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         {
             return View();
         }
+        public ActionResult PagoTardio(int? id)
+        {
+            if (id.HasValue)
+            {
+                var pedido = _orden.cargaOrden(id);
+                return View((Orden)pedido);
+            }
+            return HttpNotFound();
+        }
+        [HttpPost]
+        public ActionResult PagoTardio(string pago, int? id)
+        {
+            _orden.actualizarMetodoDePago(id, pago, HttpContext);
+            switch (pago)
+            {
+                case "Paypal":
+                    var paypal = new metodoPagoPayPal(Url.Action("PayPal", "Comprar", new { Area = "CheckOut" }).ToString());
+                    return paypal.result;
+                case "Deposito":
+                    return new metodoPagoDeposito(Url.Action("Deposito", "Comprar", new { Area = "CheckOut", metodo = pago }).ToString()).result;
+                case "Credito":
+                    return new metodoPagoTarjeta(Url.Action("PayPal", "Comprar", new { Area = "CheckOut" }).ToString()).result;
+                default:
+                    break;
+            }
+            return View();
+        }
         // GET: CheckOut/Comprar
-        [Authorize]
         public ActionResult Resumen(string cupon)
         {
             var carro = CarroCompras._CarroCompras(HttpContext);
@@ -118,7 +147,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
                 case "Deposito":
                     return new metodoPagoDeposito(Url.Action("Deposito", "Comprar", new { Area = "CheckOut" }).ToString()).result;
                 case "Credito":
-                    return new metodoPagoTarjeta(Url.Action("PayPal", "Comprar", new { Area = "CheckOut" }).ToString()).result;
+                    return new metodoPagoTarjeta(Url.Action("Credito", "Comprar", new { Area = "CheckOut" }).ToString()).result;
                 default:
                     break;
             }
@@ -131,7 +160,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             {
                 pedido = contextId,
                 tipoMoneda = "MXN",
-                cancelUrl = Url.Action("Cancelar", "Comprar", new { Area = "CheckOut" }, protocol: Request.Url.Scheme).ToString() + "&cancel=true",
+                cancelUrl = Url.Action("Cancelar", "Comprar", new { Area = "CheckOut" }, protocol: Request.Url.Scheme).ToString() + "?cancel=true",
                 returnUrl = Url.Action("Confirmar", "Comprar", new { Area = "CheckOut" }, protocol: Request.Url.Scheme).ToString()
             };
             var paypalServiceModel = activePayPalApi;
@@ -201,7 +230,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             {
                 return HttpNotFound();
             }
-            model.orden = (CompraModel)orden;
+            model.orden = (Orden)orden;
             if (!model.orden.ordenPagado)
             {
                 return HttpNotFound();
@@ -229,8 +258,9 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
                 return SesionTerminada;
             return View();
         }
-        public ActionResult Deposito()
+        public ActionResult Deposito(string metodo)
         {
+
             var contexto = _orden.cargaContexto(HttpContext);
             if (contexto <= 0)
             {
@@ -240,6 +270,25 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             var bancos = _bancos.Cargar(a => a.bancoActivo == true);
             _orden.limpiaContexto(HttpContext);
             return View(bancos);
+        }
+        [HttpPost]
+        public ActionResult SubirTicket(int? id)
+        {
+            string ruta = string.Empty;
+            if (Request.Files.Count > 0)
+            {
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var imagen = Request.Files[i];
+                    ruta = Administrador.PlugIns.AdministradorDeArchivos.guardarArchivo(imagen, rutaTickets, id.Value.ToString());
+                    _orden.agregarTicket(id, ruta);
+                }
+                return Json(new { ok = true, ruta = ruta });
+            }
+            else
+            {
+                return Json(new { ok = false });
+            }
         }
         [HttpPost]
         public ActionResult Check(string token)

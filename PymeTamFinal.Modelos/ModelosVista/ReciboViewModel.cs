@@ -14,7 +14,7 @@ namespace PymeTamFinal.Modelos.ModelosVista
         public int idOrden { get; set; }
         public string fecha { get; set; }
         public Cliente cliente { get; set; }
-        public CompraModel orden { get; set; }
+        public Orden orden { get; set; }
         public string telefonoEmpresa { get; set; }
         public string emailEmpresa { get; set; }
         public string direccionEmpresa { get; set; }

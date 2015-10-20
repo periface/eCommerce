@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.CompraModel>
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Orden>
 @{
     ViewBag.Title = "Mis Pedidos";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
@@ -76,9 +76,7 @@
             $('[data-toggle="popover"]').popover()
         });
         var $modal = $("#modalDetalle");
-        $("body").on("click", ".pagar", function () {
-            alert("Pago tardio");
-        });
+
         //$("body").on("click", ".monto", function () {
         //    var id = $(this).data("id");
         //    var self = $(this);
@@ -156,10 +154,64 @@
             },
             "bAutoWidth": false
         });
+
+        $("body").on("click", ".pagar", function () {
+            var id = $(this).data("id");
+            $modal.load("/CheckOut/Comprar/PagoTardio/" + id);
+            $modal.modal("show");
+        });
+        $("body").on("click", ".subir", function () {
+            var id = $(this).data("id");
+            var data = new FormData($("#subirImagen")[0]);
+            $.ajax({
+                url: "/CheckOut/Comprar/SubirTicket?id=" + id,
+                type: "POST",
+                xhr: function () {
+                    var miXhr = $.ajaxSettings.xhr();
+                    if (miXhr.upload) {
+                        miXhr.upload.addEventListener('progress', manejadorProgreso, false);
+                    }
+                    return miXhr;
+                },
+                success: function (d) {
+                    if (d.ok) {
+                        if (d.ruta != "") {
+                            $(".mensajeSubida").prepend("<img style = 'width:300px;height:300px' src='"+d.ruta+"' class='img-responsive' />");
+                        }
+                        $(".progeso").removeClass("active");
+                        $(".mensajeSubida").append("<div class='alert alert-info'>¡Ticket guardado!</div>");
+                    }
+                },
+                beforesend: function () {
+
+                },
+                error: function () {
+                    $(".progeso").removeClass("active");
+                    $(".progeso").removeClass("progress-bar-success");
+                    $(".progeso").addClass("progress-bar-danger");
+                    $(".mensajeSubida").append("<div class='alert alert-danger'>¡Ocurrio un error!</div>");
+                },
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+        });
+        var manejadorProgreso = function (e) {
+            $(".progeso").addClass("active");
+            if (e.lengthComputable) {
+                var cargado = e.loaded;
+                var total = e.total;
+                var porcentajeCompletado = (cargado / total) * 100;
+                console.log(porcentajeCompletado);
+                $(".progeso").css("width", porcentajeCompletado + "%").attr("aria-valuenow", porcentajeCompletado);
+            };
+        }
     </script>
 }
 @section Fin{
-    <div class="modal fade"  id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 
     </div>
 }

@@ -96,6 +96,7 @@
     <Compile Include="ModelosDominio\Empresa.cs" />
     <Compile Include="ModelosDominio\Estados.cs" />
     <Compile Include="ModelosDominio\GaleriaProducto.cs" />
+    <Compile Include="ModelosDominio\HistoricoPedido.cs" />
     <Compile Include="ModelosDominio\Mutadores.cs" />
     <Compile Include="ModelosDominio\Orden.cs" />
     <Compile Include="ModelosDominio\OrdenDetalle.cs" />

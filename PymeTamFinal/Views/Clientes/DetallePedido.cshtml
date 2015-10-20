@@ -1,4 +1,4 @@
-﻿@model PymeTamFinal.Modelos.ModelosDominio.CompraModel
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Orden
 @{
     ViewBag.Title = "DetallePedido";
     Layout = null;
@@ -10,6 +10,49 @@
             <h4 class="modal-title" id="exampleModalLabel">Detalle del pedido #@Model.idOrden - @Model.ordenEstadoPedido</h4>
         </div>
         <div class="modal-body">
+            <div class="row">
+                <form id="subirImagen" enctype="multipart/form-data">
+                    <div class="col-lg-12">
+
+                        <hr />
+                        @if (Model.ordenTipoPago == "Deposito")
+                        {
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <label class="control-label">
+                                        Subir ticket de pago
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input style="border-radius:0px;" type="file" name="archivo" id="archivo" class="form-control archivo" /><br />
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" data-id="@Model.idOrden" class="btn btn-default btn-block col-lg-4 subir">Subir</button>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="progress">
+                                        <div id="progreso" class="progress-bar progress-bar-success progress-bar-striped progeso" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @Html.imagen(Model.ordenImagenTicket,null,300,300)
+                            <div class="mensajeSubida">
+
+                            </div>
+                        }
+                        <hr />
+                    </div>
+                </form>
+                
+            </div>
             @if (!string.IsNullOrEmpty(Model.ordenComentarioEstado)) {
                 <div class="alert alert-info">
                   <p>@Model.ordenComentarioEstado</p>  

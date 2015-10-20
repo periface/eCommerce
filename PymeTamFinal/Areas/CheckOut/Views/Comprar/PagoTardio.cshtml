@@ -1,0 +1,29 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Orden
+    @{
+        Layout = null;
+    }
+@using (Html.BeginForm())
+{
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Pagar del pedido #@Model.idOrden - @Model.ordenEstadoPedido</h4>
+            </div>
+            <div class="modal-body">
+                <br />
+                <br />
+
+                @{Html.RenderAction("MetodosDisponibles");}
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" >Pagar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+                    }
+    
+

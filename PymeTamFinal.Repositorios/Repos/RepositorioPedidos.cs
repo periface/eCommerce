@@ -10,18 +10,18 @@ using System.Linq.Expressions;
 
 namespace PymeTamFinal.Repositorios.Repos
 {
-    public class RepositorioPedidos : RepositorioBase<CompraModel>
+    public class RepositorioPedidos : RepositorioBase<Orden>
     {
         public RepositorioPedidos(DataContext context) : base(context)
         {
             if (context == null)
                 throw new ArgumentNullException();
         }
-        public override IQueryable<CompraModel> Cargar(Expression<Func<CompraModel, bool>> lambda)
+        public override IQueryable<Orden> Cargar(Expression<Func<Orden, bool>> lambda)
         {
             return context.Orden.Include("cliente").Where(lambda);
         }
-        public override CompraModel CargarPorId(object id)
+        public override Orden CargarPorId(object id)
         {
             int _id = (int)id;
             return context.Orden.Include("ordenDetalle").SingleOrDefault(a=>a.idOrden==_id);
