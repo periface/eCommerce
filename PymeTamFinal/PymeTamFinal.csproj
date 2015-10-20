@@ -237,6 +237,7 @@
     <Compile Include="Areas\Administrador\Controllers\EmpresaController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PanelControlController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PayPalController.cs" />
+    <Compile Include="Areas\Administrador\Controllers\PedidosController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PoliticasController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PreguntasFrecuentesController.cs" />
     <Compile Include="Areas\Administrador\Controllers\ProductosController.cs" />
@@ -603,6 +604,7 @@
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
+    <Folder Include="Areas\Administrador\Views\Pedidos\" />
     <Folder Include="Content\Imagenes\Bancos\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />
