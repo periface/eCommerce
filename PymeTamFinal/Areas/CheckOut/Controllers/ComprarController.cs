@@ -28,13 +28,14 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         IRepositorioBase<Empresa> _empresa;
         ITransaccionExterna<paypalPagoClienteModel> _paypal;
         IRepositorioBase<Banco> _bancos;
+        ITransaccionExterna<stripeTarjetaModel> _tarjeta;
         public ComprarController(IRepositorioBase<Cliente> _clientes,
             IOrdenGeneradorBase<compraModel> _orden,
             IRepositorioBase<CostosEnvio> _envios,
             IRepositorioBase<Pais> _pais,
             IRepositorioBase<Estados> _estado,
             IRepositorioBase<Empresa> _empresa,
-            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService, IRepositorioBase<Banco> _bancos) : base(_configPaypal, _paypalEncrypService)
+            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService, IRepositorioBase<Banco> _bancos, ITransaccionExterna<stripeTarjetaModel> _tarjeta) : base(_configPaypal, _paypalEncrypService)
         {
             this._clientes = _clientes;
             this._orden = _orden;
@@ -44,6 +45,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             this._paypal = _paypal;
             this._empresa = _empresa;
             this._bancos = _bancos;
+            this._tarjeta = _tarjeta;
         }
         public ActionResult MetodosDisponibles()
         {
@@ -256,6 +258,16 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             var contexto = _orden.cargaContexto(HttpContext);
             if (contexto == 0)
                 return SesionTerminada;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Credito(payPalTarjetaModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //var TOKEN = _tarjeta.GenerarToken(model, "sk_test_k3OHmjXrTHD5Ekdt9ztz4D7Z", "");
+                //_tarjeta.EjecutarPago(TOKEN, _orden.cargaContexto(HttpContext), "", "sk_test_k3OHmjXrTHD5Ekdt9ztz4D7Z", "");
+            }
             return View();
         }
         public ActionResult Deposito(string metodo)

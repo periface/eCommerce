@@ -1,4 +1,4 @@
-﻿
+﻿@model PymeTamFinal.Modelos.ModelosAuxiliares.stripeTarjetaModel
 @{
     ViewBag.Title = "Credito";
     Layout = "~/Views/Shared/_LayoutTienda.cshtml";
@@ -12,3 +12,8 @@
         </div>
     </div>
 </div>
+@using (Html.BeginForm()) {
+@Html.EditorForModel(Model)
+
+    <button type="submit">Guardar</button>
+}

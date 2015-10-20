@@ -82,6 +82,7 @@
     <Compile Include="ModelosAuxiliares\paypalConfigModel.cs" />
     <Compile Include="ModelosAuxiliares\paypalModel.cs" />
     <Compile Include="ModelosAuxiliares\paypalPagoClienteModel.cs" />
+    <Compile Include="ModelosAuxiliares\stripeTarjetaModel.cs" />
     <Compile Include="ModelosDominio\archivosEstilo.cs" />
     <Compile Include="ModelosDominio\Banco.cs" />
     <Compile Include="ModelosDominio\CajaComentarios.cs" />
