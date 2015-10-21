@@ -150,7 +150,7 @@ namespace PymeTamFinal.MetodosPago.PayPal.Servicios
             orden.ordenPagado = true;
             orden.ordenRevisado = false;
             orden.ordenCodigoPayPal = idPago;
-            orden.ordenEstadoPedido = "Pagado";
+            orden.ordenEstadoPedido = "Pagado - Pendiente de envió";
             context.Entry(orden).State = EntityState.Modified;
             context.SaveChanges();
         }
