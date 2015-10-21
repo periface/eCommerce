@@ -237,6 +237,7 @@
     <Compile Include="Areas\Administrador\Controllers\EmpresaController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PanelControlController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PayPalController.cs" />
+    <Compile Include="Areas\Administrador\Controllers\PedidosController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PoliticasController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PreguntasFrecuentesController.cs" />
     <Compile Include="Areas\Administrador\Controllers\ProductosController.cs" />
@@ -246,6 +247,10 @@
     <Compile Include="Areas\Administrador\PlugIns\AdministradorTexto.cs" />
     <Compile Include="Areas\CheckOut\CheckOutAreaRegistration.cs" />
     <Compile Include="Areas\CheckOut\Controllers\ComprarController.cs" />
+    <Compile Include="Areas\CheckOut\Models\IMetodoPago.cs" />
+    <Compile Include="Areas\CheckOut\Models\metodoPagoTarjeta.cs" />
+    <Compile Include="Areas\CheckOut\Models\metodoPagoDeposito.cs" />
+    <Compile Include="Areas\CheckOut\Models\metodoPagoPayPal.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\MiCarroController.cs" />
@@ -490,6 +495,7 @@
     <Content Include="Areas\CheckOut\Views\Shared\SesionTerminada.cshtml" />
     <Content Include="Areas\CheckOut\Views\Comprar\Deposito.cshtml" />
     <Content Include="Areas\CheckOut\Views\Comprar\Credito.cshtml" />
+    <Content Include="Areas\CheckOut\Views\Comprar\PagoTardio.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -593,11 +599,12 @@
     <Content Include="Views\Clientes\_datosUsuario.cshtml" />
     <Content Include="Views\Shared\_botonCompraRapido.cshtml" />
     <Content Include="Views\Shared\_modalCarro.cshtml" />
+    <Content Include="Views\Clientes\DetallePedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
-    <Folder Include="Areas\CheckOut\Models\" />
+    <Folder Include="Areas\Administrador\Views\Pedidos\" />
     <Folder Include="Content\Imagenes\Bancos\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />

@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PymeTamFinal.Repositorios.TransaccionBase
 {
@@ -21,6 +22,27 @@ namespace PymeTamFinal.Repositorios.TransaccionBase
             dbSet = context.Set<T>();
         }
 
+        public void actualizarMetodoDePago(int? idOrden, string metodo,object httpContext)
+        {
+            var orden = context.Orden.Find(idOrden);
+            if (orden != null) {
+                orden.ordenTipoPago = metodo;
+                context.SaveChanges();
+                var httpC = (HttpContextBase)httpContext;
+                httpC.Session["ordenCtx"] = orden.idOrden;
+            }
+        }
+
+        public void agregarTicket(int? idOrden, string ruta)
+        {
+            var orden = context.Orden.Find(idOrden.Value);
+            if (orden != null) {
+                orden.ordenImagenTicket = ruta;
+                orden.ordenEstadoPedido = "Ticket en revisión";
+                context.SaveChanges();
+            }
+            return;
+        }
         public virtual int cargaContexto(object context)
         {
             throw new NotImplementedException();

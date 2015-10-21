@@ -37,5 +37,6 @@ namespace PymeTamFinal.CapaDatos
         public DbSet<Mutadores> Mutadores { get; set; }
         public DbSet<Banco> Bancos { get; set; }
         public DbSet<PaypalConfig> Paypal { get; set; }
+        public DbSet<HistoricoPedido> Historial { get; set; }
     }
 }

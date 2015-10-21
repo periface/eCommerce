@@ -56,11 +56,12 @@
                                 @item.ordenTipoPago
                             </td>
                             <td>
-                              <a class="btn btn-xs btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">@Html.formatoPrecio(item.ordenTotal)</a>  
+                                <a tabindex="0" data-html="true" data-toggle="popover" data-trigger="focus" title="Detalle (Monto)" data-content="<p>Sub Total: @Html.formatoPrecio(item.ordenSubTotal) </p><p>Descuento: @Html.formatoPrecio(item.ordenDescuento) </p><p>Costo de Envio: @Html.formatoPrecio(item.costoEnvio) </p><p>Total: @Html.formatoPrecio(item.ordenTotal) </p>"  data-id="@item.idOrden" class="btn btn-xs btn-default monto">@Html.formatoPrecio(item.ordenTotal)</a>
                             </td>
                             <td>
-                                <a class="btn btn-xs btn-default" href="#">Detalle</a> @if (item.ordenPagado)
-                                {<span>| </span><a class="btn btn-xs btn-default" target="_blank" href="@Url.Action("Recibo", "Comprar", new { Area = "CheckOut", id = item.idOrden })">Recibo</a>}  @if (!item.ordenPagado) { <span>| </span><a   data-id="@item.idOrden" class="btn btn-xs btn-default pagar">Pagar</a>  }
+                                <a type="button" class="btn btn-xs btn-default detalle" data-id="@item.idOrden" href="#">Detalle</a> @if (item.ordenPagado)
+                                {<span>| </span><a class="btn btn-xs btn-default" target="_blank" href="@Url.Action("Recibo", "Comprar", new { Area = "CheckOut", id = item.idOrden })">Recibo</a>}  @if (!item.ordenPagado)
+                                { <span>| </span><a data-id="@item.idOrden" class="btn btn-xs btn-default pagar">Pagar</a>  }
                             </td>
                         </tr>
                     }
@@ -71,8 +72,60 @@
 </div>
 @section Scripts{
     <script>
-        $("body").on("click", ".pagar", function () {
-            alert("Pago tardio");
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        });
+        var $modal = $("#modalDetalle");
+
+        //$("body").on("click", ".monto", function () {
+        //    var id = $(this).data("id");
+        //    var self = $(this);
+        //    $.get("/Clientes/DetalleMonto/" + id, function (d) {
+        //        var $contenido = "";
+        //        $contenido = "<p>Sub total: " + d.monto.subTotal + "<p>" + "<p>Descuento: " + d.monto.descuento + "<p>" + "<p>Envio: " + d.monto.envio+ "<p>" + "<p>Total: " + d.monto.total + "<p>";
+        //        self.popover({
+        //            html:true,
+        //            content: $contenido
+        //        });
+        //    });
+        //});
+        $("body").on("click", ".detalle", function () {
+            var id = $(this).data("id");
+            $.get("/Clientes/DetallePedido/" + id, function (d) {
+                $modal.empty();
+                $modal.append(d);
+                $modal.modal({
+                    backdrop: "static",
+                    show: true
+                });
+                $('.detalleModal').DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ pedidos",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "No hay pedidos en su cuenta. <a href='/Tienda/Productos'>¡Comprar Ahora!</a>",
+                        "sInfo": "Mostrando pedidos del _START_ al _END_ de un total de _TOTAL_ pedidos",
+                        "sInfoEmpty": "Mostrando pedidos del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "bAutoWidth": false
+                });
+            });
         });
         $('#pedidos').DataTable({
             "language": {
@@ -101,5 +154,64 @@
             },
             "bAutoWidth": false
         });
-</script>
-    }
+
+        $("body").on("click", ".pagar", function () {
+            var id = $(this).data("id");
+            $modal.load("/CheckOut/Comprar/PagoTardio/" + id);
+            $modal.modal("show");
+        });
+        $("body").on("click", ".subir", function () {
+            var id = $(this).data("id");
+            var data = new FormData($("#subirImagen")[0]);
+            $.ajax({
+                url: "/CheckOut/Comprar/SubirTicket?id=" + id,
+                type: "POST",
+                xhr: function () {
+                    var miXhr = $.ajaxSettings.xhr();
+                    if (miXhr.upload) {
+                        miXhr.upload.addEventListener('progress', manejadorProgreso, false);
+                    }
+                    return miXhr;
+                },
+                success: function (d) {
+                    if (d.ok) {
+                        if (d.ruta != "") {
+                            $(".mensajeSubida").prepend("<img style = 'width:300px;height:300px' src='"+d.ruta+"' class='img-responsive' />");
+                        }
+                        $(".progeso").removeClass("active");
+                        $(".mensajeSubida").append("<div class='alert alert-info'>¡Ticket guardado!</div>");
+                    }
+                },
+                beforesend: function () {
+
+                },
+                error: function () {
+                    $(".progeso").removeClass("active");
+                    $(".progeso").removeClass("progress-bar-success");
+                    $(".progeso").addClass("progress-bar-danger");
+                    $(".mensajeSubida").append("<div class='alert alert-danger'>¡Ocurrio un error!</div>");
+                },
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+        });
+        var manejadorProgreso = function (e) {
+            $(".progeso").addClass("active");
+            if (e.lengthComputable) {
+                var cargado = e.loaded;
+                var total = e.total;
+                var porcentajeCompletado = (cargado / total) * 100;
+                console.log(porcentajeCompletado);
+                $(".progeso").css("width", porcentajeCompletado + "%").attr("aria-valuenow", porcentajeCompletado);
+            };
+        }
+    </script>
+}
+@section Fin{
+    <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}

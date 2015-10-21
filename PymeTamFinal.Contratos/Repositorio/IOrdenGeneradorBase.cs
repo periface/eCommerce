@@ -16,5 +16,7 @@ namespace PymeTamFinal.Contratos.Repositorio
         int cargaContexto(object context);
         void limpiaContexto(object context);
         object cargaOrden(object id);
+        void actualizarMetodoDePago(int? idOrden,string metodo,object context);
+        void agregarTicket(int? idOrden, string ruta);
     }
 }

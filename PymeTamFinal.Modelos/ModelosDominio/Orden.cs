@@ -41,7 +41,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public decimal ordenDescuento { get; set; }
         public string ordenTipoDescuento { get; set; }
         public string ordenNombreEnvio { get; set; }
-        public string ordenTipoPago { get; set; } 
+        public string ordenTipoPago { get; set; }
         public string ordenEstadoPedido { get; set; }
         public string ordenImagenTicket { get; set; }
         public string ordenBase64Imagen { get; set; }
@@ -53,5 +53,6 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         public virtual ICollection<OrdenDetalle> ordenDetalle { get; set; }
         [ForeignKey("idCliente")]
         public virtual Cliente cliente { get; set; }
+        public ICollection<HistoricoPedido> historial { get; set; }
     }
 }

@@ -54,6 +54,14 @@ namespace PymeTamFinal.Controles
                 return RedirectToAction("Deposito", "Comprar");
             }
         }
+        public ViewResult SesionTerminada{
+            get {
+                return new ViewResult()
+                {
+                    ViewName = "SesionTerminada",
+                };
+            }
+        }
         public ActionResult credito
         {
             get
