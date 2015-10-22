@@ -496,6 +496,7 @@
     <Content Include="Areas\CheckOut\Views\Comprar\Deposito.cshtml" />
     <Content Include="Areas\CheckOut\Views\Comprar\Credito.cshtml" />
     <Content Include="Areas\CheckOut\Views\Comprar\PagoTardio.cshtml" />
+    <Content Include="Areas\Administrador\Views\Pedidos\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -604,7 +605,6 @@
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
-    <Folder Include="Areas\Administrador\Views\Pedidos\" />
     <Folder Include="Content\Imagenes\Bancos\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />

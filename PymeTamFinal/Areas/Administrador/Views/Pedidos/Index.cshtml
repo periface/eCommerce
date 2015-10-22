@@ -1,0 +1,121 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Orden>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Pedidos <small>Administración de pedidos</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Mis pedidos
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="#">Volumen de ventas</a>
+            <a href="#">Grafica de estados</a>
+            <a href="#">Medios de pago</a>
+            <table id="pedidos" class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            #Id
+                        </th>
+                        <th>
+                            Cliente 
+                        </th>
+                        <th>
+                            Fecha
+                        </th>
+                        <th>
+                            Hora
+                        </th>
+                        <th>
+                            Monto 
+                        </th>
+                        <th>
+                            Estado 
+                        </th>
+                        <th>
+                            Tipo de pago 
+                        </th>
+                        <th>
+                            Estado del pago
+                        </th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.idOrden
+                            </td>
+                            <td>
+                                @item.ordenNombre
+                            </td>
+                            <td>
+                                @item.ordenFecha.ToShortDateString()
+                            </td>
+                            <td>
+                                @item.ordenFecha.ToShortTimeString()
+                            </td>
+                            <td>
+                               @Html.formatoPrecio(item.ordenTotal)
+                            </td>
+                            <td>
+                                @item.ordenEstadoPedido
+                            </td>
+                            <td>
+                                @item.ordenTipoPago
+                            </td>
+                            <td>@item.ordenPagado</td>
+                            <td>
+                                <a href="#">Detalle</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $('#pedidos').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "bAutoWidth": false
+        });
+    </script>
+}

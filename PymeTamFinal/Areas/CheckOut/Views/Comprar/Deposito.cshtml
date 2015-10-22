@@ -10,12 +10,6 @@
                 <h3>Pedido guardado como pendiente de pago.</h3>
                 <p>Una vez hecho el pago escaneé su recibo de deposito y subalo a travez de la pagina de pedidos.</p>
             </div>
-
-            <div class="col-lg-4">
-                <strong>
-                    ID de Operación: @ViewBag.id
-                </strong>
-            </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -29,6 +23,9 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
+                <strong>
+                    ID de Operación: @ViewBag.id
+                </strong>
                 <table class="table table-bordered table-responsive">
                     <tbody>
                         @foreach (var banco in Model)
