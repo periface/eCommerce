@@ -12,5 +12,6 @@ namespace PymeTamFinal.Contratos.Repositorio
         bool ComprobarConexion(string apiKey, string apiSecret, out string error);
         string GenerarToken(T modeloRequerido, string apiKey, string apiSecret);
         bool EjecutarPago(string idPago, int idOrden, string idComprador, string api, string secret);
+       
     }
 }

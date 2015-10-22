@@ -12,7 +12,7 @@
                 @{Html.RenderPartial("~/Views/TiendaWidgets/_listaCategorias.cshtml", Model._categorias);}
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-12">
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <a href="@Url.Action("Productos", "Tienda", new { orden = ViewBag.ordenNombre, idCategoria=ViewBag.categoriaActual })">Ordenar por nombre</a><br />
@@ -27,7 +27,7 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-12">
                             <div class="price-range">
                                 <!--price-range-->
                                 <h2>Rango de precios</h2>

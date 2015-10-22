@@ -21,5 +21,10 @@ namespace PymeTamFinal.Repositorios.Repos
         {
             return context.Orden.Include("cliente").Where(lambda);
         }
+        public override Orden CargarPorId(object id)
+        {
+            int _id = (int)id;
+            return context.Orden.Include("ordenDetalle").SingleOrDefault(a=>a.idOrden==_id);
+        }
     }
 }

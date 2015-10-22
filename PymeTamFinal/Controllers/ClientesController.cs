@@ -16,11 +16,11 @@ namespace PymeTamFinal.Controllers
         IRepositorioBase<Cliente> _clientes;
         IRepositorioBase<Pais> _paises;
         IRepositorioBase<Estados> _estados;
-        IRepositorioBase<Orden>_pedidos;
+        IRepositorioBase<Orden> _pedidos;
         public ClientesController(IRepositorioBase<Cliente> _clientes, IRepositorioBase<Pais> _paises, IRepositorioBase<Estados> _estados, IRepositorioBase<Orden> _pedidos)
         {
             this._clientes = _clientes;
-            this._paises=_paises;
+            this._paises = _paises;
             this._estados = _estados;
             this._pedidos = _pedidos;
         }
@@ -30,32 +30,39 @@ namespace PymeTamFinal.Controllers
             ViewBag.returnUrl = returnUrl;
             ViewBag.paises = paises;
             ViewBag.estados = estados;
-            var cliente = _clientes.Cargar(a=>a.idAsp==userId).SingleOrDefault();
-            if (cliente == null) {
+            var cliente = _clientes.Cargar(a => a.idAsp == userId).SingleOrDefault();
+            if (cliente == null)
+            {
                 var _cliente = new Cliente();
                 return View(_cliente);
             }
-            if (ControllerContext.IsChildAction) {
-                return View("_datosUsuario",cliente);
+            if (ControllerContext.IsChildAction)
+            {
+                return View("_datosUsuario", cliente);
             }
             return View(cliente);
         }
-        public JsonResult cargaEstados(int id) {
+        public JsonResult cargaEstados(int id)
+        {
             return cargaEstadosPorId(id);
         }
-        public JsonResult nombreDisponible(Cliente cliente) {
-            var usuario = _clientes.Cargar(a=>a.nombreUsuario==cliente.nombreUsuario && a.idAsp!=userId).SingleOrDefault();
-            if (usuario!=null)
+        public JsonResult nombreDisponible(Cliente cliente)
+        {
+            var usuario = _clientes.Cargar(a => a.nombreUsuario == cliente.nombreUsuario && a.idAsp != userId).SingleOrDefault();
+            if (usuario != null)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
-            else {
-                return Json(true,JsonRequestBehavior.AllowGet);
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpPost]
-        public ActionResult CapturaCliente(Cliente cliente,string returnUrl) {
-            if (ModelState.IsValid) {
+        public ActionResult CapturaCliente(Cliente cliente, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
                 if (cliente.idCliente != 0)
                 {
                     //Edicion
@@ -79,7 +86,7 @@ namespace PymeTamFinal.Controllers
                 return RedirectToAction("MisDatos");
             }
             return View(cliente);
-            
+
         }
 
         private bool capturoDatos(Cliente cliente)
@@ -91,7 +98,8 @@ namespace PymeTamFinal.Controllers
             {
                 return false;
             }
-            else {
+            else
+            {
                 return true;
             }
         }
@@ -109,16 +117,77 @@ namespace PymeTamFinal.Controllers
                 return true;
             }
         }
-        public ActionResult MisPedidos() {
-            var pedidos = _pedidos.Cargar(a=>a.cliente.idAsp==userId);
+        public ActionResult MisPedidos()
+        {
+            var pedidos = _pedidos.Cargar(a => a.cliente.idAsp == userId);
             return View(pedidos);
         }
-        public ActionResult Seguridad() {
+        public ActionResult DetallePedido(int id)
+        {
+            var pedido = _pedidos.CargarPorId(id);
+            if (pedido == null)
+            {
+                return Json(new { ok = false, error = "No encontrado" }, JsonRequestBehavior.AllowGet);
+            }
+            if (pedido.idCliente != cliente.idCliente)
+            {
+                return Json(new { ok = false, error = "No encontrado" }, JsonRequestBehavior.AllowGet);
+            }
+            return View(pedido);
+        }
+        public ActionResult DetalleMonto(int id) {
+            var pedido = _pedidos.CargarPorId(id);
+            if (pedido == null)
+            {
+                return Json(new { ok = false, error = "No encontrado" }, JsonRequestBehavior.AllowGet);
+            }
+            if (pedido.idCliente != cliente.idCliente)
+            {
+                return Json(new { ok = false, error = "No encontrado" }, JsonRequestBehavior.AllowGet);
+            }
+            var monto = formatearDetalle(pedido);
+            return Json(new { ok = true, monto = monto}, JsonRequestBehavior.AllowGet);
+        }
+
+        private montoDetalle formatearDetalle(Orden pedido)
+        {
+            return new montoDetalle() {
+                descuento = formatearPrecio(pedido.ordenDescuento),
+                subTotal = formatearPrecio(pedido.ordenSubTotal),
+                total = formatearPrecio(pedido.ordenTotal),
+                envio = formatearPrecio(pedido.costoEnvio)
+            };
+        }
+
+        private string formatearPrecio(decimal valor)
+        {
+                return string.Format("$ {0} MXN",valor);
+            
+        }
+
+        private class montoDetalle {
+            public string total { get; set; }
+            public string subTotal { get; set; }
+            public string descuento { get; set; }
+            public string envio { get; set; }
+        }
+        public ActionResult Seguridad()
+        {
+            //Vistas de account controller
             return View();
         }
-        private string userId {
-            get {
+        private string userId
+        {
+            get
+            {
                 return User.Identity.GetUserId();
+            }
+        }
+        private Cliente cliente
+        {
+            get
+            {
+                return _clientes.Cargar(a => a.idAsp == userId).SingleOrDefault();
             }
         }
     }
