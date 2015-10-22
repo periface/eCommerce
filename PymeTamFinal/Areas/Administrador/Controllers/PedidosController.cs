@@ -13,9 +13,11 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
     public class PedidosController : AdminController
     {
         IRepositorioBase<Orden> _orden;
-        public PedidosController(IRepositorioBase<Orden> _orden)
+        IGeneradorGraficas<GraficaVolumenVentas> _volumenVentas;
+        public PedidosController(IRepositorioBase<Orden> _orden, IGeneradorGraficas<GraficaVolumenVentas> _volumenVentas)
         {
             this._orden = _orden;
+            this._volumenVentas = _volumenVentas;
         }
         // GET: Administrador/Pedidos
         public ActionResult Index()
@@ -53,52 +55,26 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         public JsonResult VolumenVentas()
         {
             var pedidos = _orden.Cargar();
-            var graficas = GenerarGrafica(pedidos);
+            var graficas = _volumenVentas.generarGrafica(pedidos);
             return Json(graficas, JsonRequestBehavior.AllowGet);
         }
-
-        private GraficaVolumenVentas GenerarGrafica(IQueryable<Orden> pedidos)
-        {
-
-            GraficaVolumenVentas grafica = new GraficaVolumenVentas();
-            //Se puede reducir en el constructor
-            grafica.rangeSelector = new rangeSelector()
-            {
-               
-                selected = 1
-            };
-            grafica.series = new series()
-            {
-                name = "Volumen General",
-                data = pedidos.ToList().OrderBy(a=>a.ordenFecha).Select(x=>new[] { EpochMillis(x.ordenFecha.Date),(double)x.ordenTotal }).ToArray()
-            };
-
-            grafica.title = new title()
-            {
-                text = "Volumen de ventas"
-            };
-            return grafica;
+        public ActionResult Estados() {
+            return Json("",JsonRequestBehavior.AllowGet);
         }
-        private double EpochMillis(DateTime date)
-        {
-            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            TimeSpan diff = date - origin;
-            return Math.Floor(diff.TotalMilliseconds);
-        }
-        private List< Dictionary<string, int>> generarDiccionario(IQueryable<Orden> pedidos)
-        {
-            var lista = pedidos.ToList();
-            var dic = new List<Dictionary<string, int>>();
+        //private List< Dictionary<string, int>> generarDiccionario(IQueryable<Orden> pedidos)
+        //{
+        //    var lista = pedidos.ToList();
+        //    var dic = new List<Dictionary<string, int>>();
             
-            for (int i = 0; i < lista.Count; i++)
-            {
-                int val1 = Convert.ToInt16(lista[i].ordenTotal);
-                string val2 = lista[i].ordenFecha.ToShortDateString();
-                var valores = new Dictionary<string, int>();
-                valores.Add(val2,val1);
-                dic.Add(valores);
-            }
-            return dic;
-        }
+        //    for (int i = 0; i < lista.Count; i++)
+        //    {
+        //        int val1 = Convert.ToInt16(lista[i].ordenTotal);
+        //        string val2 = lista[i].ordenFecha.ToShortDateString();
+        //        var valores = new Dictionary<string, int>();
+        //        valores.Add(val2,val1);
+        //        dic.Add(valores);
+        //    }
+        //    return dic;
+        //}
     }
 }

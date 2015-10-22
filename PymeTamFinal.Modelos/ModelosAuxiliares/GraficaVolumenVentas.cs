@@ -8,7 +8,7 @@ namespace PymeTamFinal.Modelos.ModelosAuxiliares
 {
     public class GraficaVolumenVentas : IGrafica
     {
-        public series series { get; set; }
+        public List<series> series { get; set; }
     }
     public class series
     {

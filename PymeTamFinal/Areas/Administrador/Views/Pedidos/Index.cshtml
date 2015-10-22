@@ -23,7 +23,7 @@
             <a class="btn btn-primary" id="gEstados" href="#"><i class="fa fa-dashboard"></i> Grafica de estados</a>
             <a class="btn btn-primary" id="gPagos" href="#"><i class="fa fa-dashboard"></i> Medios de pago</a>
             <hr />
-            <table id="pedidos" class="table table-responsive">
+            <table id="pedidos" class="table table-responsive table-condensed">
                 <thead>
                     <tr>
                         <th>
@@ -101,7 +101,21 @@
         var $modalGraficas = $("#modalGraficas");
         var getConfig = function () {
             $.get("/Administrador/Pedidos/VolumenVentas", function (d) {
-                console.log(d);
+                //console.log(d);
+                //Se modifico para traer listas de series
+
+                var series = [];
+                $.each(d.series, function (i, e) {
+                    console.log(e);
+                    series.push({
+                        name: e.name,
+                        data: e.data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    });
+                });
+                //console.log(series);
                 $('#container').highcharts("StockChart", {
                     
                     rangeSelector: {
@@ -111,20 +125,20 @@
                     title: {
                         text: d.title.text
                     },
-
-                    series: [{
-                        name: d.series.name,
-                        data: d.series.data,
-                        tooltip: {
-                            valueDecimals: 2
-                        }
-                    }]
+                    series:series
+                    //series: [{
+                    //    name: d.series.name,
+                    //    data: d.series.data,
+                    //    tooltip: {
+                    //        valueDecimals: 2
+                    //    }
+                    //}]
                 });
             });
         }
         var getConfigPastel = function () {
             $.get("/Administrador/Pedidos/Estados", function (d) {
-                console.log(d);
+                //console.log(d);
                 $('#grafica').highcharts({
                     chart: {
                         plotBackgroundColor: null,
@@ -208,7 +222,6 @@
                 show: true
             });
         });
-        
         $('#pedidos').DataTable({
             "language": {
                 "sProcessing": "Procesando...",
