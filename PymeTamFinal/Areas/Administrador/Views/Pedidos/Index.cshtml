@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Orden>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pedidos";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
@@ -19,9 +19,9 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Volumen de ventas</a>
-            <a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Grafica de estados</a>
-            <a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Medios de pago</a>
+            <a class="btn btn-primary" href="#ventas"><i class="fa fa-dashboard"></i> Volumen de ventas</a>
+            <a class="btn btn-primary" id="gEstados" href="#"><i class="fa fa-dashboard"></i> Grafica de estados</a>
+            <a class="btn btn-primary" id="gPagos" href="#"><i class="fa fa-dashboard"></i> Medios de pago</a>
             <hr />
             <table id="pedidos" class="table table-responsive">
                 <thead>
@@ -88,9 +88,127 @@
             </table>
         </div>
     </div>
+    <div id="ventas" class="row">
+        <div  class="col-lg-12">
+            <div id="container" style="height: 400px; width:100%;"></div>
+        </div>
+    </div>
 </div>
 @section Scripts{
+<script src="~/Areas/Administrador/PlugIns/HighStock/highstock.js"></script>
+<script src="~/Areas/Administrador/PlugIns/HighStock/exporting.js"></script>
     <script>
+        var $modalGraficas = $("#modalGraficas");
+        var getConfig = function () {
+            $.get("/Administrador/Pedidos/VolumenVentas", function (d) {
+                console.log(d);
+                $('#container').highcharts("StockChart", {
+                    
+                    rangeSelector: {
+                        selected: 1
+                    },
+
+                    title: {
+                        text: d.title.text
+                    },
+
+                    series: [{
+                        name: d.series.name,
+                        data: d.series.data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    }]
+                });
+            });
+        }
+        var getConfigPastel = function () {
+            $.get("/Administrador/Pedidos/Estados", function (d) {
+                console.log(d);
+                $('#grafica').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Browser market shares January, 2015 to May, 2015'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: "Brands",
+                        colorByPoint: true,
+                        data: [{
+                            name: "Microsoft Internet Explorer",
+                            y: 56.33
+                        }, {
+                            name: "Chrome",
+                            y: 24.03,
+                            sliced: true,
+                            selected: true
+                        }, {
+                            name: "Firefox",
+                            y: 10.38
+                        }, {
+                            name: "Safari",
+                            y: 4.77
+                        }, {
+                            name: "Opera",
+                            y: 0.91
+                        }, {
+                            name: "Proprietary or Undetectable",
+                            y: 0.2
+                        }]
+                    }]
+                });
+            });
+        }
+        Highcharts.setOptions({
+            lang: {
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                downloadJPEG: 'Descargar archivo jpg',
+                downloadPDF: 'Descargar PDF',
+                printChart: "Imprimir grafica",
+                rangeSelectorTo: "A",
+                rangeSelectorFrom: "De",
+                downloadPNG: "Descargar PNG",
+                downloadSVG: "Descargar SVG",
+            },
+        });
+        $('#grafica').highcharts("StockChart", getConfigPastel());
+        $('#container').highcharts("StockChart", getConfig());
+        $("#gEstados").click(function () {
+           
+            var pastel = $('#grafica').highcharts();
+            $('#modalGraficas').on('show.bs.modal', function () {
+                $('#grafica').css('visibility', 'hidden');
+            });
+            $('#modalGraficas').on('shown.bs.modal', function () {
+                $('#grafica').css('visibility', 'initial');
+                pastel.reflow();
+            });
+            $modalGraficas.modal({
+                show: true
+            });
+        });
+        
         $('#pedidos').DataTable({
             "language": {
                 "sProcessing": "Procesando...",
@@ -119,4 +237,26 @@
             "bAutoWidth": false
         });
     </script>
+}
+@section final{
+    <div class="modal fade" id="modalGraficas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Volumen de ventas</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="grafica" style="height:400px;width:100%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }

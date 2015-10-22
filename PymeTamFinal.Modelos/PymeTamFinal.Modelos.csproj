@@ -78,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelosAuxiliares\compraModel.cs" />
+    <Compile Include="ModelosAuxiliares\GraficaPastel.cs" />
+    <Compile Include="ModelosAuxiliares\GraficaVolumenVentas.cs" />
+    <Compile Include="ModelosAuxiliares\IGrafica.cs" />
     <Compile Include="ModelosAuxiliares\IPedidoEstado.cs" />
     <Compile Include="ModelosAuxiliares\paypalConfigModel.cs" />
     <Compile Include="ModelosAuxiliares\paypalModel.cs" />
