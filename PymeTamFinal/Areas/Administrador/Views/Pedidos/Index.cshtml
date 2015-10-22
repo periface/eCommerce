@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Orden>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pedidos";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
@@ -19,10 +19,11 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <a href="#">Volumen de ventas</a>
-            <a href="#">Grafica de estados</a>
-            <a href="#">Medios de pago</a>
-            <table id="pedidos" class="table table-responsive">
+            <a class="btn btn-primary" href="#ventas"><i class="fa fa-dashboard"></i> Volumen de ventas</a>
+            <a class="btn btn-primary" id="gEstados" href="#"><i class="fa fa-dashboard"></i> Grafica de estados</a>
+            <a class="btn btn-primary" id="gPagos" href="#"><i class="fa fa-dashboard"></i> Medios de pago</a>
+            <hr />
+            <table id="pedidos" class="table table-responsive table-condensed">
                 <thead>
                     <tr>
                         <th>
@@ -87,9 +88,174 @@
             </table>
         </div>
     </div>
+    <div id="ventas" class="row">
+        <div  class="col-lg-12">
+            <div id="container" style="height: 400px; width:100%;"></div>
+        </div>
+    </div>
 </div>
 @section Scripts{
+<script src="~/Areas/Administrador/PlugIns/HighStock/highstock.js"></script>
+<script src="~/Areas/Administrador/PlugIns/HighStock/exporting.js"></script>
     <script>
+        var $modalGraficas = $("#modalGraficasPastel");
+        var $modalGraficasMedios = $("#modalGraficasPastelMedios");
+        var getConfig = function () {
+            $.get("/Administrador/Pedidos/VolumenVentas", function (d) {
+                //console.log(d);
+                //Se modifico para traer listas de series
+
+                var series = [];
+                $.each(d.series, function (i, e) {
+                    console.log(e);
+                    series.push({
+                        name: e.name,
+                        data: e.data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    });
+                });
+                //console.log(series);
+                $('#container').highcharts("StockChart", {
+                    
+                    rangeSelector: {
+                        selected: 1
+                    },
+
+                    title: {
+                        text: d.title.text
+                    },
+                    series:series
+                    //series: [{
+                    //    name: d.series.name,
+                    //    data: d.series.data,
+                    //    tooltip: {
+                    //        valueDecimals: 2
+                    //    }
+                    //}]
+                });
+            });
+        }
+        var getConfigPastel = function () {
+            $.get("/Administrador/Pedidos/Estados", function (d) {
+                var series = [];
+                $.each(d.series, function (i, e) {
+                    series.push({
+                        name: e.name,
+                        data: e.data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    });
+                });
+                $('#graficaPastel').highcharts({
+                    chart:d.chart,
+                    title: d.title,
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            },
+                        }
+                    },
+                    series: series
+                });
+            });
+        }
+        var getConfigPastelMedios = function () {
+            $.get("/Administrador/Pedidos/TiposPago", function (d) {
+                console.log(d);
+                var series = [];
+                $.each(d.series, function (i, e) {
+                    console.log(e);
+                    series.push({
+                        name: e.name,
+                        data: e.data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    });
+                });
+                $('#graficaPastelMedios').highcharts({
+                    chart: d.chart,
+                    title: d.title,
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '75%']
+                    },
+                    series: series
+                });
+            });
+        }
+        Highcharts.setOptions({
+            lang: {
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                downloadJPEG: 'Descargar archivo jpg',
+                downloadPDF: 'Descargar PDF',
+                printChart: "Imprimir grafica",
+                rangeSelectorTo: "A",
+                rangeSelectorFrom: "De",
+                downloadPNG: "Descargar PNG",
+                downloadSVG: "Descargar SVG",
+            },
+        });
+        $('#graficaPastel').highcharts("StockChart", getConfigPastel());
+        $('#graficaPastelMedios').highcharts("StockChart", getConfigPastelMedios());
+        $('#container').highcharts("StockChart", getConfig());
+        $("#gEstados").click(function () {
+           
+            var pastel = $('#graficaPastel').highcharts();
+            $('#modalGraficasPastel').on('show.bs.modal', function () {
+                $('#graficaPastel').css('visibility', 'hidden');
+            });
+            $('#modalGraficasPastel').on('shown.bs.modal', function () {
+                $('#graficaPastel').css('visibility', 'initial');
+                pastel.reflow();
+            });
+            $modalGraficas.modal({
+                show: true
+            });
+        });
+        $("#gPagos").click(function () {
+
+            var pastel = $('#graficaPastelMedios').highcharts();
+            $('#modalGraficasPastelMedios').on('show.bs.modal', function () {
+                $('#graficaPastelMedios').css('visibility', 'hidden');
+            });
+            $('#modalGraficasPastelMedios').on('shown.bs.modal', function () {
+                $('#graficaPastelMedios').css('visibility', 'initial');
+                pastel.reflow();
+            });
+            $modalGraficasMedios.modal({
+                show: true
+            });
+        });
         $('#pedidos').DataTable({
             "language": {
                 "sProcessing": "Procesando...",
@@ -118,4 +284,46 @@
             "bAutoWidth": false
         });
     </script>
+}
+@section final{
+    <div class="modal fade" id="modalGraficasPastel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Graficas</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="graficaPastel" style="height:400px;width:100%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" id="modalGraficasPastelMedios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Graficas</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="graficaPastelMedios" style="height:400px;width:100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 }

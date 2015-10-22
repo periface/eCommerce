@@ -273,6 +273,7 @@
     <Content Include="App_Data\aspnet-PymeTamFinal-20150916030315_log.ldf">
       <DependentUpon>aspnet-PymeTamFinal-20150916030315.mdf</DependentUpon>
     </Content>
+    <Content Include="Areas\Administrador\PlugIns\HighStock\exporting.js" />
     <Content Include="Areas\Administrador\PlugIns\FileUpload\css\demo-ie8.css" />
     <Content Include="Areas\Administrador\PlugIns\FileUpload\css\demo.css" />
     <Content Include="Areas\Administrador\PlugIns\FileUpload\css\jquery.fileupload-noscript.css" />
@@ -297,6 +298,8 @@
     <Content Include="Areas\Administrador\PlugIns\FileUpload\js\jquery.iframe-transport.js" />
     <Content Include="Areas\Administrador\PlugIns\FileUpload\js\main.js" />
     <Content Include="Areas\Administrador\PlugIns\FileUpload\js\vendor\jquery.ui.widget.js" />
+    <Content Include="Areas\Administrador\PlugIns\HighStock\highstock-all.js" />
+    <Content Include="Areas\Administrador\PlugIns\HighStock\highstock.js" />
     <Content Include="Areas\Administrador\PlugIns\jsNotify\notifIt.css" />
     <Content Include="Areas\Administrador\PlugIns\jsNotify\notifIt.js" />
     <Content Include="Areas\Administrador\PlugIns\tree.js" />
