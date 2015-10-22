@@ -98,7 +98,8 @@
 <script src="~/Areas/Administrador/PlugIns/HighStock/highstock.js"></script>
 <script src="~/Areas/Administrador/PlugIns/HighStock/exporting.js"></script>
     <script>
-        var $modalGraficas = $("#modalGraficas");
+        var $modalGraficas = $("#modalGraficasPastel");
+        var $modalGraficasMedios = $("#modalGraficasPastelMedios");
         var getConfig = function () {
             $.get("/Administrador/Pedidos/VolumenVentas", function (d) {
                 //console.log(d);
@@ -138,17 +139,56 @@
         }
         var getConfigPastel = function () {
             $.get("/Administrador/Pedidos/Estados", function (d) {
-                //console.log(d);
-                $('#grafica').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
+                var series = [];
+                $.each(d.series, function (i, e) {
+                    series.push({
+                        name: e.name,
+                        data: e.data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    });
+                });
+                $('#graficaPastel').highcharts({
+                    chart:d.chart,
+                    title: d.title,
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
-                    title: {
-                        text: 'Browser market shares January, 2015 to May, 2015'
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            },
+                        }
                     },
+                    series: series
+                });
+            });
+        }
+        var getConfigPastelMedios = function () {
+            $.get("/Administrador/Pedidos/TiposPago", function (d) {
+                console.log(d);
+                var series = [];
+                $.each(d.series, function (i, e) {
+                    console.log(e);
+                    series.push({
+                        name: e.name,
+                        data: e.data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    });
+                });
+                $('#graficaPastelMedios').highcharts({
+                    chart: d.chart,
+                    title: d.title,
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
@@ -163,33 +203,12 @@
                                     color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                                 }
                             }
-                        }
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '75%']
                     },
-                    series: [{
-                        name: "Brands",
-                        colorByPoint: true,
-                        data: [{
-                            name: "Microsoft Internet Explorer",
-                            y: 56.33
-                        }, {
-                            name: "Chrome",
-                            y: 24.03,
-                            sliced: true,
-                            selected: true
-                        }, {
-                            name: "Firefox",
-                            y: 10.38
-                        }, {
-                            name: "Safari",
-                            y: 4.77
-                        }, {
-                            name: "Opera",
-                            y: 0.91
-                        }, {
-                            name: "Proprietary or Undetectable",
-                            y: 0.2
-                        }]
-                    }]
+                    series: series
                 });
             });
         }
@@ -206,19 +225,34 @@
                 downloadSVG: "Descargar SVG",
             },
         });
-        $('#grafica').highcharts("StockChart", getConfigPastel());
+        $('#graficaPastel').highcharts("StockChart", getConfigPastel());
+        $('#graficaPastelMedios').highcharts("StockChart", getConfigPastelMedios());
         $('#container').highcharts("StockChart", getConfig());
         $("#gEstados").click(function () {
            
-            var pastel = $('#grafica').highcharts();
-            $('#modalGraficas').on('show.bs.modal', function () {
-                $('#grafica').css('visibility', 'hidden');
+            var pastel = $('#graficaPastel').highcharts();
+            $('#modalGraficasPastel').on('show.bs.modal', function () {
+                $('#graficaPastel').css('visibility', 'hidden');
             });
-            $('#modalGraficas').on('shown.bs.modal', function () {
-                $('#grafica').css('visibility', 'initial');
+            $('#modalGraficasPastel').on('shown.bs.modal', function () {
+                $('#graficaPastel').css('visibility', 'initial');
                 pastel.reflow();
             });
             $modalGraficas.modal({
+                show: true
+            });
+        });
+        $("#gPagos").click(function () {
+
+            var pastel = $('#graficaPastelMedios').highcharts();
+            $('#modalGraficasPastelMedios').on('show.bs.modal', function () {
+                $('#graficaPastelMedios').css('visibility', 'hidden');
+            });
+            $('#modalGraficasPastelMedios').on('shown.bs.modal', function () {
+                $('#graficaPastelMedios').css('visibility', 'initial');
+                pastel.reflow();
+            });
+            $modalGraficasMedios.modal({
                 show: true
             });
         });
@@ -252,17 +286,17 @@
     </script>
 }
 @section final{
-    <div class="modal fade" id="modalGraficas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal fade" id="modalGraficasPastel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">Volumen de ventas</h4>
+                    <h4 class="modal-title" id="exampleModalLabel">Graficas</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div id="grafica" style="height:400px;width:100%"></div>
+                            <div id="graficaPastel" style="height:400px;width:100%"></div>
                         </div>
                     </div>
                 </div>
@@ -272,4 +306,24 @@
             </div>
         </div>
     </div>
+<div class="modal fade" id="modalGraficasPastelMedios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Graficas</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="graficaPastelMedios" style="height:400px;width:100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 }

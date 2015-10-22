@@ -12,6 +12,7 @@ namespace PymeTamFinal.Modelos.ModelosAuxiliares
     }
     public class series
     {
+        public string type { get; set; }
         public string name { get; set; }
         public double[][] data { get; set; }
     }

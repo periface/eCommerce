@@ -6,37 +6,30 @@ using System.Threading.Tasks;
 
 namespace PymeTamFinal.Modelos.ModelosAuxiliares
 {
-    public class HighCharts : IGrafica
+    public class GraficaPastel : HighCharts
     {
-        public HighCharts()
+        public GraficaPastel()
         {
-            chart = new chart();
             series = new List<seriesPastel>();
         }
-        public string plotBackgroundColor { get; set; }
-        public string plotBorderWidth { get; set; }
-        public chart chart { get; set; }
         public List<seriesPastel> series { get; set; }
     }
-    public class chart
+    public class seriesPastel
     {
-        public string type { get; set; }
-        public bool plotShadow { get; set; }
-    }
-    public class seriesPastel {
         public seriesPastel()
         {
-            data = new dataPastel();
+            data = new List<dataPastel>();
         }
         public string name { get; set; }
         public bool colorByPoint { get; set; }
-        public dataPastel data { get; set; }
+        public List<dataPastel> data { get; set; }
+        public string innerSize { get; set; }
     }
-    public class dataPastel {
+    public class dataPastel
+    {
         public string name { get; set; }
         public double y { get; set; }
         public bool sliced { get; set; }
         public bool selected { get; set; }
     }
-
 }

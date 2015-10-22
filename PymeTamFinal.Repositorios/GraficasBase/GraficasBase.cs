@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace PymeTamFinal.Repositorios.GraficasBase
 {
@@ -37,7 +38,17 @@ namespace PymeTamFinal.Repositorios.GraficasBase
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public virtual T generarGrafica(object data)
+        public virtual object generarGrafica(IQueryable<T> data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual object generarGraficaAgrupacion(string prop)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual object generarGraficaAgrupacion()
         {
             throw new NotImplementedException();
         }
