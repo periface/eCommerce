@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PymeTamFinal.MetodosPago.PayPal.Servicios
 {
-    public class PayPalImplementacionTarjetas : ITransaccionExternaPayPalBase<payPalTarjetaModel>
+    public class PayPalImplementacionTarjetas : ITransaccionExternaPayPalBase<PayPalTarjetaModel>
     {
         public PayPalImplementacionTarjetas(DataContext context) : base(context)
         {

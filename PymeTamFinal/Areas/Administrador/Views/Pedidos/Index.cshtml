@@ -39,7 +39,7 @@
                             Hora
                         </th>
                         <th>
-                            Monto 
+                            Monto MXN
                         </th>
                         <th>
                             Estado 
@@ -54,7 +54,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @*@foreach (var item in Model)
                     {
                         <tr>
                             <td>
@@ -83,7 +83,7 @@
                                 <a href="#">Detalle</a>
                             </td>
                         </tr>
-                    }
+                    }*@
                 </tbody>
             </table>
         </div>
@@ -95,8 +95,11 @@
     </div>
 </div>
 @section Scripts{
+<script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+
 <script src="~/Areas/Administrador/PlugIns/HighStock/highstock.js"></script>
 <script src="~/Areas/Administrador/PlugIns/HighStock/exporting.js"></script>
+<script src="http://code.highcharts.com/highcharts-3d.js"></script>
     <script>
         var $modalGraficas = $("#modalGraficasPastel");
         var $modalGraficasMedios = $("#modalGraficasPastelMedios");
@@ -120,7 +123,7 @@
                 $('#container').highcharts("StockChart", {
                     
                     rangeSelector: {
-                        selected: 1
+                        selected: 5
                     },
 
                     title: {
@@ -150,13 +153,22 @@
                     });
                 });
                 $('#graficaPastel').highcharts({
-                    chart:d.chart,
+                    chart: d.chart,
+                    //chart: {
+                    //    type: 'pie',
+                    //    options3d: {
+                    //        enabled: true,
+                    //        alpha: 45
+                    //    }
+                    //},
                     title: d.title,
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
                     plotOptions: {
                         pie: {
+                            innerSize: 100,
+                            depth: 50,
                             allowPointSelect: true,
                             cursor: 'pointer',
                             dataLabels: {
@@ -256,7 +268,7 @@
                 show: true
             });
         });
-        $('#pedidos').DataTable({
+        var table = $('#pedidos').DataTable({
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -276,13 +288,58 @@
                     "sNext": "Siguiente",
                     "sPrevious": "Anterior"
                 },
+                "buttons": {
+                    "copyTitle": 'Tabla copiada',
+                    "copyInfo": {
+                        _: '%d Filas copiadas',
+                        1: '1 fila copiada'
+                    },
+                    'copy': 'Copiar',
+                    'excel': 'Exportar a excel',
+                    "colvis": "Columnas visibles"
+                },
                 "oAria": {
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
             },
-            "bAutoWidth": false
+            "dom": 'lrBftip',
+            buttons: [{
+                extend: 'excel',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4,5,6,7]
+                }
+            },
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                }
+            ],
+            "bAutoWidth": false,
+            "bServerSide": true,
+            "sAjaxSource": "/Administrador/Pedidos/PedidosJson",
+            "bProcessing": true,
+            "aoColumns": [
+              {
+                  "sName": "idOrden",
+              },
+              { "sName": "cliente" },
+              { "sName": "ordenFecha" },
+              { "sName": "ordenHora" },
+              { "sName": "ordenTotal" },
+              { "sName": "ordenEstadoPedido" },
+              { "sName": "ordenTipoPago" },
+              { "sName": "ordenPagado" },
+              {
+                  "sName": "ordenDetalle", "bSearchable": false,
+                  "bSortable": false,
+              }
+
+            ]
         });
+        table.buttons().container().appendTo($('.col-sm-6:eq(0)', table.table().container()));
     </script>
 }
 @section final{

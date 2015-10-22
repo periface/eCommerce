@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PymeTamFinal.Modelos.ModelosAuxiliares
 {
-    public class paypalModel
+    public class PaypalModel
     {
         public bool habilitada { get; set; }
         public string secret { get; set; }

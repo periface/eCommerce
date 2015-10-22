@@ -164,6 +164,11 @@ namespace PymeTamFinal.Repositorios.RepoBase
         public virtual void EliminarRelacion(int entidad0, int entidad1) {
             throw new NotImplementedException();
         }
+
+        public List<string[]> FiltradoParaDataTable(object filtro)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

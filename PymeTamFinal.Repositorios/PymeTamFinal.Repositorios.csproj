@@ -50,8 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatatablesBase\DataTablesBase.cs" />
     <Compile Include="GraficasBase\GraficasBase.cs" />
     <Compile Include="Implementaciones\EncryptarPayPalECB.cs" />
+    <Compile Include="Implementaciones\GeneradorDataTablesPedido.cs" />
     <Compile Include="Implementaciones\GraficasOrden.cs" />
     <Compile Include="PayPalEncryptBase\PaypalEncryptBase.cs" />
     <Compile Include="Implementaciones\ManejadorDePedidos.cs" />

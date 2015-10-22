@@ -45,14 +45,14 @@ namespace PymeTamFinal.Repositorios.Implementaciones
                 //el codigo dentro del mismo no es reconocido por EntityFrameWork
                 data = datosConvertidosEnum.Where(a => a.ordenPagado == false).OrderBy(a => a.ordenFecha).Select(x => new[] { EpochMillis(x.ordenFecha.Date), (double)x.ordenTotal }).ToArray()
             });
-            listSeries.Add(new series()
-            {
-                type = "pie",
-                name = "Volumen General (No Concretadas)",
-                //Cuando hablamos de IQueryables estamos enviando consultas a la base de datos, por lo tanto el metodo EpoChMillis nos arroja un error ya que
-                //el codigo dentro del mismo no es reconocido por EntityFrameWork
-                data = datosConvertidosEnum.Where(a => a.ordenPagado == false).OrderBy(a => a.ordenFecha).Select(x => new[] { EpochMillis(x.ordenFecha.Date), (double)x.ordenTotal }).ToArray()
-            });
+            //listSeries.Add(new series()
+            //{
+            //    type = "pie",
+            //    name = "Volumen General (No Concretadas)",
+            //    //Cuando hablamos de IQueryables estamos enviando consultas a la base de datos, por lo tanto el metodo EpoChMillis nos arroja un error ya que
+            //    //el codigo dentro del mismo no es reconocido por EntityFrameWork
+            //    data = datosConvertidosEnum.Where(a => a.ordenPagado == false).OrderBy(a => a.ordenFecha).Select(x => new[] { EpochMillis(x.ordenFecha.Date), (double)x.ordenTotal }).ToArray()
+            //});
             grafica.series = listSeries;
 
             grafica.title = new title()

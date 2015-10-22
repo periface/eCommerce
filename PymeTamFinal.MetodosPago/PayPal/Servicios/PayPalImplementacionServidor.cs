@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 namespace PymeTamFinal.MetodosPago.PayPal.Servicios
 {
-    public class PayPalImplementacionServidor : ITransaccionExternaPayPalBase<paypalPagoClienteModel>
+    public class PayPalImplementacionServidor : ITransaccionExternaPayPalBase<PaypalPagoClienteModel>
     {
         public PayPalImplementacionServidor(DataContext context):base(context)
         {
             if (context == null)
                 throw new ArgumentNullException();
         }
-        public override string GenerarToken(paypalPagoClienteModel modeloRequerido, string apiKey, string apiSecret)
+        public override string GenerarToken(PaypalPagoClienteModel modeloRequerido, string apiKey, string apiSecret)
         {
             //Muchas responsabilidades
             return crearPago(modeloRequerido,apiKey,apiSecret);
         }
-        private string crearPago(paypalPagoClienteModel modeloRequerido, string apiKey, string apiSecret)
+        private string crearPago(PaypalPagoClienteModel modeloRequerido, string apiKey, string apiSecret)
         {
             var ctx = (APIContext)GenerarContexto(apiKey, apiSecret);
             var items = new ItemList();

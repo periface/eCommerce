@@ -39,7 +39,7 @@ namespace PymeTamFinal.Modelos.ModelosAuxiliares
     //    public bool enviarADirFac { get; set; }
     //    public bool requiereFactura { get; set; }
     //}
-    public class compraModel {
+    public class CompraModel {
         public string cupon { get; set; }
         public bool requiereFactura { get; set; }
         public bool enviarDireccionEnvio { get; set; }

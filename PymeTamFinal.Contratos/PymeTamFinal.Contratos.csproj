@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositorio\IGeneradorDataTables.cs" />
     <Compile Include="Repositorio\IGeneradorGraficas.cs" />
     <Compile Include="Repositorio\IRepositorioBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
