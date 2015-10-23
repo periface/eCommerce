@@ -154,13 +154,13 @@
                 });
                 $('#graficaPastel').highcharts({
                     chart: d.chart,
-                    //chart: {
-                    //    type: 'pie',
-                    //    options3d: {
-                    //        enabled: true,
-                    //        alpha: 45
-                    //    }
-                    //},
+                    chart: {
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45
+                        }
+                    },
                     title: d.title,
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -199,13 +199,22 @@
                     });
                 });
                 $('#graficaPastelMedios').highcharts({
-                    chart: d.chart,
+                    //chart: d.chart,
+                    chart: {
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45
+                        }
+                    },
                     title: d.title,
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
                     plotOptions: {
                         pie: {
+                            innerSize: 100,
+                            depth: 50,
                             allowPointSelect: true,
                             cursor: 'pointer',
                             dataLabels: {
@@ -297,7 +306,8 @@
                     'copy': 'Copiar',
                     'excel': 'Exportar a excel',
                     "colvis": "Columnas visibles"
-                },
+                },
+
                 "oAria": {
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
