@@ -18,13 +18,14 @@
             </div>
         </div>
         <div class="col-sm-9">
-            <div class="row">
-                <div class="col-sm-12">
-                    @using (Html.BeginForm("CapturaCliente", "Clientes", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post))
-                    {
-                        if (Model.idCliente != 0)
+            @using (Html.BeginForm("CapturaCliente", "Clientes", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post))
+            {
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        @if (Model.idCliente != 0)
                         {
-                            @Html.HiddenFor(a => a.idCliente)
+                        @Html.HiddenFor(a => a.idCliente)
                         }
                         @Html.HiddenFor(a => a.idAsp)
                         @Html.HiddenFor(a => a.datosCapturados)
@@ -53,7 +54,7 @@
                             @Html.ValidationMessageFor(a => a.telefono)
                             <label>Edad</label>
                             @Html.TextBoxFor(a => a.edad, new { placeholder = "Edad", type = "number" })
-                            
+
                         </div>
                         <div class="formularioDos">
                             <div class="bill-to">
@@ -74,34 +75,37 @@
                             @Html.TextBoxFor(a => a.cp, new { placeholder = "Codigo postal" })
                             @Html.ValidationMessageFor(a => a.cp)
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-completo">
-                                    <div class="bill-to">
-                                        <p>Información de facturación (Opcional)</p>
-                                    </div>
-                                    <label>Razón social</label>
-                                    @Html.TextBoxFor(a => a.razonSocial, new { placeHolder = "Razón social" })
-                                    <label>Dirección de facturación linea uno</label>
-                                    @Html.TextBoxFor(a => a.direccionFacturacionLinea1, new { placeHolder = "Dirección de facturación linea 1" })
-                                    <label>Dirección de facturación linea dos</label>
-                                    @Html.TextBoxFor(a => a.direccionFacturacionLinea2, new { placeHolder = "Dirección de facturación linea 2" })
-                                    <label>RFC</label>
-                                    @Html.TextBoxFor(a => a.rfc, new { placeHolder = "RFC" })
 
 
 
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    }
+
+                    </div>
                 </div>
-               
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="formularioUno">
+                            <div class="bill-to">
+                                <p>Información de facturación (Opcional)</p>
+                            </div>
+                            <label>Razón social</label>
+                            @Html.TextBoxFor(a => a.razonSocial, new { placeHolder = "Razón social" })
+                            <label>Dirección de facturación linea uno</label>
+                            @Html.TextBoxFor(a => a.direccionFacturacionLinea1, new { placeHolder = "Dirección de facturación linea 1" })
+                            <label>Dirección de facturación linea dos</label>
+                            @Html.TextBoxFor(a => a.direccionFacturacionLinea2, new { placeHolder = "Dirección de facturación linea 2" })
+                            <label>RFC</label>
+                            @Html.TextBoxFor(a => a.rfc, new { placeHolder = "RFC" })
 
-            </div>
+
+
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
+
+
     </div>
 </div>
 @section Scripts {

@@ -61,15 +61,21 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             var graficas = _ordenGraficas.generarGrafica(pedidos);
             return Json(graficas, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult MediosFiltro(string medio)
+        {
+            var medios = _orden.Cargar(a => a.ordenTipoPago.Equals(medio));
+            return View(medios);
+        }
         public ActionResult Estados()
         {
             var estados = _ordenGraficas.generarGraficaAgrupacion("ordenEstadoPedido");
-            return Json((GraficaPastel)estados, JsonRequestBehavior.AllowGet);
+            return Json(estados, JsonRequestBehavior.AllowGet);
         }
         public ActionResult TiposPago()
         {
             var estados = _ordenGraficas.generarGraficaAgrupacion();
-            return Json((GraficaPastel)estados, JsonRequestBehavior.AllowGet);
+            return Json(estados, JsonRequestBehavior.AllowGet);
         }
         public JsonResult PedidosJson(JQueryDataTableParamModel param)
         {

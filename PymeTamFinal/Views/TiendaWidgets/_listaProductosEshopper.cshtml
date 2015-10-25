@@ -9,14 +9,14 @@
         <div class="product-image-wrapper">
             <div class="single-products">
                 <div class="productinfo text-center">
-                    @Html.imagen(item.imagen,null,350,350,true)
-                    <h2>@Html.formatoPrecio(item.precio)</h2>
+                    @Html.imagen(item.imagen, new string[] { "imgPers" }, 350,350,true)
+                    <h2>@Html.formatoPrecio(item)</h2>
                     @{ Html.RenderPartial("_botonCompraRapido",item);}
                 </div>
                 <div class="product-overlay">
                     <div class="overlay-content">
                         <h1>@item.nombreProducto</h1>
-                        <h2>@Html.formatoPrecio(item.precio)</h2>
+                        <h2>@Html.formatoPrecio(item)</h2>
                         <p>@item.descCorta</p>
                         @{ Html.RenderPartial("_botonCompraRapido", item);}
                     </div>

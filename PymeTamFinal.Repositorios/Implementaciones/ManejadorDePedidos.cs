@@ -83,6 +83,11 @@ namespace PymeTamFinal.Repositorios.Implementaciones
             model.razonSocial = usuario.razonSocial;
             model.requiereFactura = orden.requiereFactura;
             context.Orden.Add(model);
+            var cupon = context.CuponDescuento.SingleOrDefault(a=>a.codigoCupon==orden.cupon);
+            if (cupon != null) {
+                cupon.usado = true;
+                cupon.cantidadesUso--;
+            }
             //Guardamos la orden
             context.SaveChanges();
             foreach (var item in carroItems)

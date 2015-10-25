@@ -67,6 +67,7 @@ namespace PymeTamFinal.Controllers
                     case CarroCompras.mensajes.cuponNoEncontrado:
                         ViewBag.estadoCupon = "Cupon no encontrado";
                         break;
+                    case CarroCompras.mensajes.cuponNoValido:
                     case CarroCompras.mensajes.cuponOk:
                         ViewBag.estadoCupon = "Cupon agregado";
                         ViewBag.cupon = cupon;

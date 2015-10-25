@@ -1,6 +1,7 @@
 ﻿using PymeTamFinal.CapaDatos;
 using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Modelos.ModelosDominio;
+using PymeTamFinal.Modelos.ModelosVista;
 using PymeTamFinal.Repositorios.Repos;
 using System;
 using System.Collections.Generic;
@@ -143,6 +144,19 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
         public static string formatoPrecio(this HtmlHelper helper, decimal precio)
         {
             return "$ " + precio.ToString("#.##") + " MXN";
+        }
+        public static string formatoPrecio(this HtmlHelper helper, ProductoListaViewModel producto)
+        {
+            IRepositorioBase<Precios> precios = new RepositorioPrecios(new DataContext());
+            var precio = precios.CargarPorId(producto.idProducto);
+            if (precio.descuentoActivo)
+            {
+                return string.Format("$ {0} {1} MXN", precio.precioEsp," -" + precio.descuento + "%");
+            }
+            else
+            {
+                return string.Format("$ {0} MXN", precio.precio);
+            }
         }
         public static string determinaDescuento(this HtmlHelper helper, decimal? descuento)
         {

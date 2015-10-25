@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Orden>
+@{
+    Layout = null;
+}
+<h3>Ordenes</h3>
+<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<table class="table table-responsive table-condensed pedidosFiltroMedio">
+    <thead>
+        <tr>
+            <td>
+                #Pedido
+            </td>
+            <td>
+                Fecha
+            </td>
+            <td>
+                Estatus
+            </td>
+            <td>
+                Tipo de pago
+            </td>
+            <td>
+                Monto MXN
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.idOrden
+                </td>
+                <td>
+                    @item.ordenFecha.ToShortDateString() | @Html.haceTiempo(item.ordenFecha)
+                </td>
+                <td>
+                    @item.ordenEstadoPedido
+                </td>
+                <td>
+                    @item.ordenTipoPago
+                </td>
+                <td>
+                    <a tabindex="0" data-html="true" data-toggle="popover" data-trigger="focus" title="Detalle (Monto)" data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h4 class="popover-title"></h4><div  class="row"><div  class="col-lg-12"><div class="popover-content"></div></div></div></div>' data-content="<p>Sub Total: @Html.formatoPrecio(item.ordenSubTotal) </p><p>Descuento: @Html.formatoPrecio(item.ordenDescuento) </p><p>Envio: @Html.formatoPrecio(item.costoEnvio) </p><p>Total: @Html.formatoPrecio(item.ordenTotal) </p>"  data-id="@item.idOrden" class="btn btn-xs btn-default monto">@Html.formatoPrecio(item.ordenTotal)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

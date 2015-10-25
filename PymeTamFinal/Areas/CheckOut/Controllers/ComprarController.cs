@@ -29,13 +29,14 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         ITransaccionExterna<PaypalPagoClienteModel> _paypal;
         IRepositorioBase<Banco> _bancos;
         ITransaccionExterna<StripeTarjetaModel> _tarjeta;
+        IRepositorioBase<Orden> _ordenDb;
         public ComprarController(IRepositorioBase<Cliente> _clientes,
             IOrdenGeneradorBase<CompraModel> _orden,
             IRepositorioBase<CostosEnvio> _envios,
             IRepositorioBase<Pais> _pais,
             IRepositorioBase<Estados> _estado,
             IRepositorioBase<Empresa> _empresa,
-            ITransaccionExterna<PaypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService, IRepositorioBase<Banco> _bancos, ITransaccionExterna<StripeTarjetaModel> _tarjeta) : base(_configPaypal, _paypalEncrypService)
+            ITransaccionExterna<PaypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService, IRepositorioBase<Banco> _bancos, ITransaccionExterna<StripeTarjetaModel> _tarjeta, IRepositorioBase<Orden> _ordenDb) : base(_configPaypal, _paypalEncrypService)
         {
             this._clientes = _clientes;
             this._orden = _orden;
@@ -46,6 +47,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             this._empresa = _empresa;
             this._bancos = _bancos;
             this._tarjeta = _tarjeta;
+            this._ordenDb = _ordenDb;
         }
         public ActionResult MetodosDisponibles()
         {

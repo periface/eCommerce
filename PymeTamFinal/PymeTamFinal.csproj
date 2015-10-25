@@ -500,6 +500,8 @@
     <Content Include="Areas\CheckOut\Views\Comprar\Credito.cshtml" />
     <Content Include="Areas\CheckOut\Views\Comprar\PagoTardio.cshtml" />
     <Content Include="Areas\Administrador\Views\Pedidos\Index.cshtml" />
+    <Content Include="Areas\Administrador\Views\Pedidos\MediosFiltro.cshtml" />
+    <Content Include="Areas\Administrador\Views\Pedidos\MediosFiltroEstado.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -604,6 +606,7 @@
     <Content Include="Views\Shared\_botonCompraRapido.cshtml" />
     <Content Include="Views\Shared\_modalCarro.cshtml" />
     <Content Include="Views\Clientes\DetallePedido.cshtml" />
+    <Content Include="Views\Clientes\MiCuenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />

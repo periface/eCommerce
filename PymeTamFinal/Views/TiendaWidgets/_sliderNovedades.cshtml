@@ -27,7 +27,7 @@
                                 <div class="col-sm-6">
                                     <h1>@p.nombreProducto</h1>
                                     <p>@p.descCorta</p>
-                                    <a href="@Url.Action("DetalleProducto", "Tienda", new { id=p.idProducto,slug=p.slug})" class="btn btn-default get">Ver Producto</a>
+                                    <a onclick="_trackEvent('DetalleProducto','Click','@p.nombreProducto') " href="@Url.Action("DetalleProducto", "Tienda", new { id=p.idProducto,slug=p.slug})" class="btn btn-default get">Ver Producto</a>
                                 </div>
                                 <div class="col-sm-6">
                                     @Html.imagen(p.imagen, null, 400, 400)
