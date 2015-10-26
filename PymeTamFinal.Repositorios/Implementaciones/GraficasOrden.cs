@@ -161,6 +161,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
             pastel.series = series;
 
             //return pastel;
+            //Llame un metodo privado que regresa un objeto de otro tipo
             return generarGraficaWDrill();
         }
         private object generarGraficaWDrill()

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Repositorio\IGeneradorDataTables.cs" />
     <Compile Include="Repositorio\IGeneradorGraficas.cs" />
+    <Compile Include="Repositorio\IGeneradorGraficasVersionNueva.cs" />
     <Compile Include="Repositorio\IRepositorioBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\IOrdenGeneradorBase.cs" />
