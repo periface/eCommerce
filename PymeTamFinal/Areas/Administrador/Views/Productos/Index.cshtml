@@ -3,8 +3,8 @@
     ViewBag.Title = "Productos";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
-<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css" rel="stylesheet" />
+@*@*<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css" rel="stylesheet" />*@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
@@ -30,7 +30,7 @@
 </div>
 
 @section Scripts{
-    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    @*<script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>*@
     <script>
         $(function () {
             var table = $('#productos').DataTable({
