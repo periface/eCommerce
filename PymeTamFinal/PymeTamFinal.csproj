@@ -251,6 +251,7 @@
     <Compile Include="Areas\CheckOut\Models\metodoPagoTarjeta.cs" />
     <Compile Include="Areas\CheckOut\Models\metodoPagoDeposito.cs" />
     <Compile Include="Areas\CheckOut\Models\metodoPagoPayPal.cs" />
+    <Compile Include="Areas\MiNegocio\MiNegocioAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\MiCarroController.cs" />
@@ -502,6 +503,7 @@
     <Content Include="Areas\Administrador\Views\Pedidos\Index.cshtml" />
     <Content Include="Areas\Administrador\Views\Pedidos\MediosFiltro.cshtml" />
     <Content Include="Areas\Administrador\Views\Pedidos\MediosFiltroEstado.cshtml" />
+    <Content Include="Areas\MiNegocio\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />
@@ -611,6 +613,9 @@
   <ItemGroup>
     <Folder Include="Areas\Administrador\Models\" />
     <Folder Include="Areas\Administrador\PlugIns\ckeditor\" />
+    <Folder Include="Areas\MiNegocio\Controllers\" />
+    <Folder Include="Areas\MiNegocio\Models\" />
+    <Folder Include="Areas\MiNegocio\Views\Shared\" />
     <Folder Include="Content\Imagenes\Bancos\" />
     <Folder Include="Content\Imagenes\Empresa\" />
     <Folder Include="Content\Imagenes\Genericas\" />

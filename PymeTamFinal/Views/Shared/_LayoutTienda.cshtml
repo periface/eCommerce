@@ -129,7 +129,10 @@
 
             $(_self).attr("data-toggled", true);
         });
-
+        var linkDetalle = document.getElementsByClassName("detalle_slider");
+        $("body").on('click',linkDetalle , function () {
+            ga('send', 'event', 'button', 'click', 'sliderDetalle');
+        });
     </script>
     <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 
