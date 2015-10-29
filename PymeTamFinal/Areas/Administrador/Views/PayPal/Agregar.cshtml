@@ -75,26 +75,26 @@
             });
         });
         var okFun = function () {
-            notif({
-                type: "success",
-                msg: "<span>Conexión establecida</span>",
-                //width: 'all',
-                //position: 'bottom',
-                //bgcolor: 'rgba(39, 174, 96, 1.0)',
-                position: 'right',
-                fade: true
+            $.bigBox({
+                title: "PymeTam",
+                content: "Conexión establecida",
+                color: "#3276B1",
+                //timeout: 6000,
+                icon: "fa fa-bell shake animated",
+                //number: "1",
+                timeout: 6000
             });
         }
 
         var errorFunc = function (error) {
-            notif({
-                type: "error",
-                msg: "<span>A ocurrido un error "+error+"</span>",
-                width: 'all',
-                //position: 'bottom',
-                //bgcolor: 'rgba(39, 174, 96, 1.0)',
-                position: 'right',
-                fade: true
+            $.bigBox({
+                title: "PymeTam",
+                content: "A ocurrido un error: "+error+"",
+                color: "#C46A69",
+                //timeout: 6000,
+                icon: "fa fa-warning shake animated",
+                //number: "1",
+                timeout: 6000
             });
         }
     </script>

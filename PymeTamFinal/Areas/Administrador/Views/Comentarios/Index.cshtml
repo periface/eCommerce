@@ -90,11 +90,29 @@
             </article>
         </div>
     </section>
-
+    <div id="contenedor" style="height:300px;width:500px"></div>
 </div>
 @section Scripts{
+<script src="~/Areas/Administrador/PlugIns/HighStock/highstock.js"></script>
+<script src="~/Areas/Administrador/PlugIns/HighStock/exporting.js"></script>
     <script>
-
+        var $contenedor = $("#contenedor");
+        $(function () {
+            var cargaBarras = function () {
+                $.get("/Administrador/Comentarios/GraficaCalificaciones", function (data) {
+                    console.log(data);
+                    $contenedor.highcharts({
+                        chart: {
+                            type: "column"
+                        },
+                        title: data.title,
+                        xAxis: data.xAxis,
+                        series: data.series
+                    });
+                });
+            }
+            cargaBarras();
+        });
         /* // DOM Position key index //
 
 			l - Length changing (dropdown)
@@ -130,10 +148,6 @@
                 "dataSrc": '',
                 "deferRender": true,
             },
-            "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" +
-						"t" +
-						"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
-
             "autoWidth": true,
             "preDrawCallback": function () {
                 // Initialize the responsive datatables helper once.
@@ -156,40 +170,7 @@
                 { data: 'calificacion' },
                 { data: 'opciones' }
             ],
-            "language": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "buttons": {
-                    "copyTitle": 'Tabla copiada',
-                    "copyInfo": {
-                        _: '%d Filas copiadas',
-                        1: '1 fila copiada'
-                    },
-                    'copy': 'Copiar',
-                    'excel': 'Exportar a excel',
-                    "colvis": "Columnas visibles"
-                },
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            },
+            "language": dataTableLang,
         });
         $(function () {
             $("body").on("click", ".editar", function () {
@@ -205,6 +186,7 @@
                 });
             });
         });
+
     </script>
 }
 @section final{

@@ -305,7 +305,7 @@
                             <a href="@Url.Action("Index","Empresa", new {Area="Administrador" })">Información</a>
                         </li>
                         <li>
-                            <a href="#">Politicas</a>
+                            <a href="@Url.Action("Index","Politicas", new { Area="Administrador" })">Politicas</a>
                         </li>
                         <li>
                             <a href="#">Preguntas Frecuentes</a>
@@ -393,7 +393,6 @@
                     <a href="#">Planes de Negocio</a>
                 </li>
             </ul>
-
         </nav>
         <span class="minifyme" data-action="minifyMenu">
             <i class="fa fa-arrow-circle-left hit"></i>
@@ -588,7 +587,7 @@
     {
 
         <script>
-            notif({
+            @*notif({
                 type: "@ViewBag.tipoMensaje",
                 msg: "<span>@ViewBag.mensajeSituacion</span>",
                 //width: 'all',
@@ -607,9 +606,34 @@
                     position: 'right',
                     fade: true
                 });
-            }
+            }*@
         </script>
+        <script>
+            $(function () {
 
+                $.bigBox({
+                    title: "PymeTam",
+                    content: "@ViewBag.mensajeSituacion",
+                    color: "@ViewBag.tipoMensaje",
+                    //timeout: 6000,
+                    icon: "fa fa-bell shake animated",
+                    //number: "1",
+                    timeout: 6000
+                });
+
+                var errorFunc = function(){
+                    $.bigBox({
+                        title: "PymeTam",
+                        content: "Ha ocurrido un error en la operación",
+                        color: "#C46A69",
+                        //timeout: 6000,
+                        icon: "fa fa-warning shake animated",
+                        //number: "1",
+                        timeout: 6000
+                    });
+                } 
+            });
+        </script>
     }
     @RenderSection("scripts", required: false)
 

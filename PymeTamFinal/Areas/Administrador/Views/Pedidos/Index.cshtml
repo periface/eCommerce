@@ -34,7 +34,7 @@
         <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-comments"></i> Pedidos <span>> Mis Pedidos</span></h1>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-lg-12 col-md-12">
             <div class="row">
                 <div id="content">
                     <div id="widget-grid" class="">
@@ -332,7 +332,7 @@
         }
         var getConfigPastelMedios = function () {
             $.get("/Administrador/Pedidos/TiposPago", function (d) {
-                console.log(d);
+                
                 var colors = Highcharts.getOptions().colors;
                 var pagosData = [];
                 var estadosData = [];
@@ -560,30 +560,7 @@
             "drawCallback": function (oSettings) {
                 responsiveHelper_dt_basic.respond();
             },
-            "language": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            },
+            "language": dataTableLang,
             "bAutoWidth": false,
             "bServerSide": true,
             "sAjaxSource": "/Administrador/Pedidos/PedidosJson",

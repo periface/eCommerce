@@ -55,6 +55,7 @@
     <Compile Include="GraficasBase\GraficasSegundaVersionBase.cs" />
     <Compile Include="Implementaciones\EncryptarPayPalECB.cs" />
     <Compile Include="Implementaciones\GeneradorDataTablesPedido.cs" />
+    <Compile Include="Implementaciones\GraficasComentariosCalificaciones.cs" />
     <Compile Include="Implementaciones\GraficasOrden.cs" />
     <Compile Include="Implementaciones\GraficasOrdenVolumenDeVentas.cs" />
     <Compile Include="PayPalEncryptBase\PaypalEncryptBase.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Repos\RepositorioPaises.cs" />
     <Compile Include="Repos\RepositorioPayPalConfig.cs" />
     <Compile Include="Repos\RepositorioPedidos.cs" />
+    <Compile Include="Repos\RepositorioPoliticas.cs" />
     <Compile Include="Repos\RepositorioPrecios.cs" />
     <Compile Include="Repos\RepositorioProductos.cs" />
     <Compile Include="Repos\RepositorioSecciones.cs" />

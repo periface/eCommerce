@@ -2,6 +2,7 @@
 using PymeTamFinal.Controles;
 using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
+using PymeTamFinal.Modelos.ModelosAuxiliares;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Modelos.ModelosVista;
 using System;
@@ -17,11 +18,13 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         IRepositorioBase<CajaComentarios> _comentarios;
         IRepositorioBase<Producto> _productos;
         IRepositorioBase<Cliente> _clientes;
-        public ComentariosController(IRepositorioBase<CajaComentarios> _comentarios, IRepositorioBase<Producto> _productos, IRepositorioBase<Cliente> _clientes)
+        IGeneradorGraficasVersionNueva<GraficaBarras, CajaComentarios> _graficaBarrasComentarios;
+        public ComentariosController(IRepositorioBase<CajaComentarios> _comentarios, IRepositorioBase<Producto> _productos, IRepositorioBase<Cliente> _clientes, IGeneradorGraficasVersionNueva<GraficaBarras, CajaComentarios> _graficaBarrasComentarios)
         {
             this._comentarios = _comentarios;
             this._productos = _productos;
             this._clientes = _clientes;
+            this._graficaBarrasComentarios = _graficaBarrasComentarios;
         }
         // GET: Administrador/Comentarios
         public ActionResult Index()
@@ -132,6 +135,13 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             }
             a.MergeAttribute("target", "_blank");
             return a.ToString();
+        }
+        public ActionResult GraficaCalificaciones() {
+            var grafica = _graficaBarrasComentarios.GenerarGraficaBaseEnumerable(_comentarios.Cargar());
+            return Json(grafica,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GraficaCalificacionesProducto(int id) {
+            return View();
         }
         private string generarOpciones(int idComentario)
         {

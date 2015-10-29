@@ -798,6 +798,9 @@
     <Content Include="Content\Temas\SmartAdmin\js\plugin\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="Content\Temas\SmartAdmin\js\plugin\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Content\Temas\SmartAdmin\js\plugin\ckeditor\skins\moono\readme.md" />
+    <Content Include="Areas\Administrador\Views\Politicas\NuevaPolitica.cshtml" />
+    <Content Include="Areas\Administrador\Views\Politicas\EditarPolitica.cshtml" />
+    <Content Include="Areas\Administrador\Views\Politicas\EliminarPolitica.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.css" />
     <Content Include="Scripts\datatables\DataTables-1.10.9\css\dataTables.bootstrap.min.css" />

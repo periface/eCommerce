@@ -1,0 +1,32 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Politicas
+@{
+    ViewBag.Title = "NuevaPolitica";
+    Layout = null;
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "smart-form"}))
+{
+    <fieldset>
+        <div class="row">
+            <section class="col col-6">
+                <label class="input">
+                    <i class="icon-prepend fa fa-pencil"></i>
+                    @Html.TextBoxFor(a => a.nombrePolitica,new { placeholder = "Nombre de Politica",required="required" })
+                </label>
+            </section>
+        </div>
+    </fieldset>
+    <fieldset>
+        <section>
+            <label class="textarea">
+                @Html.TextAreaFor(a=>a.contenidoPolitica, new { placeHolder = "Contenido", required = "required" })
+            </label>
+        </section>
+    </fieldset>
+                            <footer>
+                                <button type="submit" class="btn btn-primary">
+                                    Guardar
+                                </button>
+
+                                @Html.ValidationBootstrap("danger", "")
+                            </footer>
+}

@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelosAuxiliares\CompraModel.cs" />
+    <Compile Include="ModelosAuxiliares\GraficaBarras.cs" />
     <Compile Include="ModelosAuxiliares\GraficaPastel.cs" />
     <Compile Include="ModelosAuxiliares\HighCharts.cs" />
     <Compile Include="ModelosAuxiliares\GraficaVolumenVentas.cs" />

@@ -24,27 +24,27 @@ namespace PymeTamFinal.HtmlHelpers.MensajeServicio
             {
                 case enumMensaje.Agregado:
                     controller.ViewBag.mensajeSituacion = "Elemento agregado correctamente";
-                    controller.ViewBag.tipoMensaje = "success";
+                    controller.ViewBag.tipoMensaje = "#3276B1";
                     break;
                 case enumMensaje.Editado:
                     controller.ViewBag.mensajeSituacion = "Elemento editado correctamente";
-                    controller.ViewBag.tipoMensaje = "info";
+                    controller.ViewBag.tipoMensaje = "#3276B1";
                     break;
                 case enumMensaje.Eliminado:
                     controller.ViewBag.mensajeSituacion = "Elemento eliminado correctamente";
-                    controller.ViewBag.tipoMensaje = "warning";
+                    controller.ViewBag.tipoMensaje = "#C46A69";
                     break;
                 case enumMensaje.ErrorRecurrencia:
                     controller.ViewBag.mensajeSituacion = "El elemento no puede ser hijo del mismo elemento.";
-                    controller.ViewBag.tipoMensaje = "error";
+                    controller.ViewBag.tipoMensaje = "#C46A69";
                     break;
                 case enumMensaje.Habilitado:
                     controller.ViewBag.mensajeSituacion = "El elemento se ha habilitado correctamente.";
-                    controller.ViewBag.tipoMensaje = "success";
+                    controller.ViewBag.tipoMensaje = "#3276B1";
                     break;
                 case enumMensaje.ErrorBasico:
                     controller.ViewBag.mensajeSituacion = "Ocurrio un error durante la operación.";
-                    controller.ViewBag.tipoMensaje = "error";
+                    controller.ViewBag.tipoMensaje = "#C46A69";
                     break;
                 default:
                     break;
