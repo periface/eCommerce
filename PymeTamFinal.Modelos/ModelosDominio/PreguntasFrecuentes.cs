@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace PymeTamFinal.Modelos.ModelosDominio
 {
@@ -14,6 +15,7 @@ namespace PymeTamFinal.Modelos.ModelosDominio
         [Key]
         public int idPregunta { get; set; }
         public string pregunta { get; set; }
+        [AllowHtml]
         public string respuesta { get; set; }
         public DateTime fechaPublicacion { get; set; }
     }

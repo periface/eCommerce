@@ -25,6 +25,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         }
         public ActionResult NuevaPolitica()
         {
+            ServicioDeMensajes.obtieneMensaje(ControllerContext.Controller, ModelState);
             return View();
         }
         [HttpPost]
@@ -38,7 +39,8 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                 ServicioDeMensajes.darMensaje(HtmlHelpers.Abstraccion.enumMensaje.Agregado, ControllerContext.Controller);
                 return RedirectToAction("Index");
             }
-            return View(model);
+            ServicioDeMensajes.darMensaje(HtmlHelpers.Abstraccion.enumMensaje.ErrorValidacion, ControllerContext.Controller, ModelState);
+            return RedirectToAction("Index");
         }
         public ActionResult EditarPolitica(int? id)
         {
@@ -67,6 +69,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         [HttpPost]
         public ActionResult EditarPolitica([Bind(Include = "contenidoPolitica,nombrePolitica,fechaPublicacion,idPolitica")] Politicas model)
         {
+            ViewBag.parcial = false;
             if (ModelState.IsValid)
             {
                 model.fechaActualizacion = DateTime.Now;

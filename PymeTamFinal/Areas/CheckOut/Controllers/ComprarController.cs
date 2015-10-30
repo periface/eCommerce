@@ -83,12 +83,17 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         // GET: CheckOut/Comprar
         public ActionResult Resumen(string cupon)
         {
-            var carro = CarroCompras._CarroCompras(HttpContext);
-            if (!carro.cargaItems().Any())
-                return DetalleCarro;
-            //No necesito nada solo voy a mostrarle los datos al usuario
-            resolverCupon(cupon, carro);
-            return View();
+            if (TieneDatos(userId)) {
+
+
+                var carro = CarroCompras._CarroCompras(HttpContext);
+                if (!carro.cargaItems().Any())
+                    return DetalleCarro;
+                //No necesito nada solo voy a mostrarle los datos al usuario
+                resolverCupon(cupon, carro);
+                return View();
+            }
+            return RedirectToAction("MisDatos","Clientes", new { Area="",returnUrl = Url.Action("Resumen","Comprar","CheckOut") });
         }
         public ActionResult EnvioCosto(int id)
         {

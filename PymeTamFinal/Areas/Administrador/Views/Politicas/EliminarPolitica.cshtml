@@ -16,6 +16,7 @@
                         <h4>¿Seguro que desea eliminar esta politica?</h4>
                         <div class="form-group">
                             <label class="control-label">Nombre de Politica</label>
+                            @Html.HiddenFor(a=>a.idPolitica)
                             @Html.TextBoxFor(a => a.nombrePolitica, new { @class = "form-control", disabled = "disabled" })
                         </div>
                         <div class="form-group">

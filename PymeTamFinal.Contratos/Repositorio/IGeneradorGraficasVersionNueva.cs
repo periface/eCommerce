@@ -17,5 +17,6 @@ namespace PymeTamFinal.Contratos.Repositorio
         List<Tipo> GenerarGraficas(Modelo model);
         List<Tipo> GenerarGraficasBaseEnumerable(IEnumerable<Modelo> model);
         double FechaAMilliSeg(DateTime fecha);
+        Tipo GenerarGraficaParamPers(object model);
     }
 }

@@ -130,7 +130,7 @@
             <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
                 <li class="">
                     <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
-                        <img src="img/avatars/sunny.png" alt="John Doe" class="online" />
+                        @*<img src="img/avatars/sunny.png" alt="John Doe" class="online" />*@
                     </a>
 
                     <ul class="dropdown-menu pull-right">
@@ -322,7 +322,9 @@
                         <li>
                             <a href="@Url.Action("Index","Cupones", new { Area="Administrador" })">Cupones</a>
                         </li>
-
+                        <li>
+                            <a href="@Url.Action("Index","Carritos", new { Area="Administrador" })">Carros de compra</a>
+                        </li>
                         <li>
                             <a href="#">Pagos y Enviós</a>
                             <ul>
@@ -387,10 +389,10 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Nomina</a>
+                    <a  href="#"><i class="fa fa-lg fa-fw fa-money"></i> <span class="menu-item-parent"> Nomina</span></a>
                 </li>
                 <li>
-                    <a href="#">Planes de Negocio</a>
+                    <a href="#"><i class="fa fa-lg fa-fw fa-building"></i><span class="menu-item-parent"> Planes de Negocio</span></a>
                 </li>
             </ul>
         </nav>

@@ -47,6 +47,11 @@ namespace PymeTamFinal.Repositorios.GraficasBase
             throw new NotImplementedException();
         }
 
+        public virtual Tipo GenerarGraficaParamPers(object model)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual List<Tipo> GenerarGraficas(Modelo model)
         {
             throw new NotImplementedException();

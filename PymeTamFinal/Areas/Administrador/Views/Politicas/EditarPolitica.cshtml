@@ -30,6 +30,8 @@
                             <label class="control-label">Nombre de Politica</label>
                             @Html.TextAreaFor(a => a.contenidoPolitica, new { @class = "form-control", id = "editarPolitica" })
                         </div>
+
+                        @Html.ValidationBootstrap()
                     </div>
                 </div>
             </div>
@@ -47,10 +49,7 @@
         <script src="~/Content/Temas/SmartAdmin/js/plugin/ckeditor/ckeditor.js"></script>
         <script src="~/Content/Temas/SmartAdmin/js/plugin/ckeditor/lang/es.js"></script>
         <script>
-            CKEDITOR.replace("editarPolitica", {
-                languaje: "es",
-                filebrowserImageUploadUrl: '/Administrador/Productos/SubirImagen'
-            });
+            CKEDITOR.replace("editarPolitica", ckConfig);
         </script>
     }
 }

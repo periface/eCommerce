@@ -127,16 +127,24 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             if (producto != null)
             {
                 a.SetInnerText(producto.nombreProducto);
-                a.MergeAttribute("href", Url.Action("EditarProducto", "Productos", new { id = producto.idProducto }));
+                a.AddCssClass("gComentarioProducto btn btn-xs btn-primary");
+                a.MergeAttribute("data-id",producto.idProducto.ToString());
+                
             }
             else
             {
                 a.SetInnerText("No asignado");
             }
-            a.MergeAttribute("target", "_blank");
             return a.ToString();
         }
-        public ActionResult GraficaCalificaciones() {
+        public ActionResult GraficaCalificaciones(int? id) {
+            if (id.HasValue) {
+                var modelo = new GraficaCalificacionesCProducto() {
+                    idProducto = id.Value,
+                    comentarios = _comentarios.Cargar()
+                };
+                return Json(_graficaBarrasComentarios.GenerarGraficaParamPers(modelo),JsonRequestBehavior.AllowGet);
+            }
             var grafica = _graficaBarrasComentarios.GenerarGraficaBaseEnumerable(_comentarios.Cargar());
             return Json(grafica,JsonRequestBehavior.AllowGet);
         }

@@ -89,8 +89,62 @@
                 <!-- end widget -->
             </article>
         </div>
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div data-widget-colorbutton="false"
+                data-widget-editbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-deletebutton="false"
+                data-widget-fullscreenbutton="false"
+                data-widget-custombutton="false"
+                data-widget-sortable="false" class="jarviswidget jarviswidget-color-darken" id="wid-id-0">
+                    <!-- widget options:
+                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                data-widget-colorbutton="false"
+                data-widget-editbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-deletebutton="false"
+                data-widget-fullscreenbutton="false"
+                data-widget-custombutton="false"
+                data-widget-collapsed="true"
+                data-widget-sortable="false"
+
+                -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Grafica de calificaciónes </h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            <div id="contenedor" style="height:300px;width:100%"></div>
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+        </div>
     </section>
-    <div id="contenedor" style="height:300px;width:500px"></div>
 </div>
 @section Scripts{
 <script src="~/Areas/Administrador/PlugIns/HighStock/highstock.js"></script>
@@ -107,11 +161,53 @@
                         },
                         title: data.title,
                         xAxis: data.xAxis,
-                        series: data.series
+                        series: data.series,
+                        yAxis: {
+                            title: {
+                                text: "Cantidad"
+                            },
+                        },
                     });
                 });
             }
+
             cargaBarras();
+            var cargaBarrasParam = function (id) {
+                $.get("/Administrador/Comentarios/GraficaCalificaciones/"+id, function (data) {
+                    console.log(data);
+                    $contenedor.highcharts().destroy();
+                    $contenedor.highcharts({
+                        chart: {
+                            type: "column"
+                        },
+                        title: data.title,
+                        xAxis: data.xAxis,
+                        series: data.series,
+                        yAxis: {
+                            title: {
+                                text: "Cantidad"
+                            },
+                        },
+                    });
+                });
+            }
+            $("body").on("click", ".gComentarioProducto", function () {
+                var id = $(this).data("id");
+                cargaBarrasParam(id);
+            });
+        });
+        Highcharts.setOptions({
+            lang: {
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                downloadJPEG: 'Descargar archivo jpg',
+                downloadPDF: 'Descargar PDF',
+                printChart: "Imprimir grafica",
+                rangeSelectorTo: "A",
+                rangeSelectorFrom: "De",
+                downloadPNG: "Descargar PNG",
+                downloadSVG: "Descargar SVG",
+            },
         });
         /* // DOM Position key index //
 

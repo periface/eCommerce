@@ -103,5 +103,17 @@
             "language": dataTableLang,
             "bAutoWidth": false
         });
+        var $modalCupon = $("#modalCupon");
+        $("body").on("click", ".eliminar", function () {
+            var id = $(this).data("id");
+            $modalCupon.load("/Administrador/Cupones/EliminarCupon/"+id, function () {
+                $modalCupon.modal("show");
+            });
+        });
     </script>
+}
+@section final{
+    <div class="modal fade" id="modalCupon" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
 }

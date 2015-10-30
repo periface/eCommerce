@@ -158,6 +158,10 @@
     <Compile Include="Migrations\201510201847274_arreglado.Designer.cs">
       <DependentUpon>201510201847274_arreglado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510301817414_validacionPoliticas.cs" />
+    <Compile Include="Migrations\201510301817414_validacionPoliticas.Designer.cs">
+      <DependentUpon>201510301817414_validacionPoliticas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -252,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510201847274_arreglado.resx">
       <DependentUpon>201510201847274_arreglado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510301817414_validacionPoliticas.resx">
+      <DependentUpon>201510301817414_validacionPoliticas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

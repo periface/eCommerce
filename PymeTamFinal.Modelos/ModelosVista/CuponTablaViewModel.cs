@@ -18,5 +18,6 @@ namespace PymeTamFinal.Modelos.ModelosVista
         public string usoEnDescuentos { get; set; }
         public DateTime fechaCaducidad { get; set; }
         public decimal minimoRequerido { get; set; }
+        public string opciones { get; set; }
     }
 }

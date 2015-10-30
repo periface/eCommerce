@@ -1,17 +1,17 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Modelos.ModelosDominio;
+using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.Modelos.ModelosAuxiliares;
 using PymeTamFinal.Repositorios.Repos;
+using PymeTamFinal.Repositorios.Implementaciones;
 using PymeTamFinal.Controllers;
 using Microsoft.AspNet.Identity;
 using PymeTamFinal.Models;
+using PymeTamFinal.MetodosPago.PayPal.Servicios;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using PymeTamFinal.Modelos.ModelosAuxiliares;
-using PymeTamFinal.MetodosPago.PayPal.Servicios;
-using PymeTamFinal.Repositorios.Implementaciones;
 
 namespace PymeTamFinal.App_Start
 {
@@ -70,7 +70,7 @@ namespace PymeTamFinal.App_Start
             container.RegisterType<IRepositorioBase<Politicas>, RepositorioPoliticas>();
             container.RegisterType<ITransaccionExterna<PaypalPagoClienteModel>, PayPalImplementacionServidor>();
             container.RegisterType<ITransaccionExterna<StripeTarjetaModel>, MetodosPago.Stripe.Servicios.StripeImplementacion>();
-            container.RegisterType<IGeneradorGraficasVersionNueva<GraficaBarras, CajaComentarios>,GraficasComentariosCalificaciones>();
+            container.RegisterType<IGeneradorGraficasVersionNueva<GraficaBarras, CajaComentarios>, GraficasComentariosCalificaciones>();
             container.RegisterType<IGeneradorGraficas<Orden>, GraficasOrden>();
             container.RegisterType<IGeneradorDataTables<TablaPedidosViewModel, Orden>, GeneradorDataTablesPedido>();
             //Para user el accountController

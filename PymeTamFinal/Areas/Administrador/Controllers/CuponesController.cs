@@ -1,4 +1,5 @@
 ﻿using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.Controles;
 using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
 using PymeTamFinal.Modelos.ModelosDominio;
@@ -11,7 +12,7 @@ using System.Web.Mvc;
 
 namespace PymeTamFinal.Areas.Administrador.Controllers
 {
-    public class CuponesController : Controller
+    public class CuponesController : AdminController
     {
         IRepositorioBase<CuponDescuento> _descuentos;
         IRepositorioBase<Cliente> _clientes;
@@ -37,7 +38,8 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
                     minimoRequerido = item.minimoRequerido,
                     tipoDesc = item.tipoDesc,
                     usado = cargaEstado(item.usado),
-                    usoEnDescuentos = cargaCondicion(item.usoEnDescuentos)
+                    usoEnDescuentos = cargaCondicion(item.usoEnDescuentos),
+                    opciones = "<a href='#' class='eliminar' data-id="+item.idCupon+">Eliminar</a>"
                 });
             }
             return View(cupones);
@@ -76,6 +78,19 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             ViewBag.usuarios = _clientes.Cargar();
             ViewBag.tipos = cargaTipos;
             return View();
+        }
+        public ActionResult EliminarCupon(int id) {
+            var cupon = _descuentos.CargarPorId(id);
+            if (cupon != null) {
+                return View(cupon);
+            }
+            return error404Parcial;
+        }
+        [HttpPost]
+        public ActionResult EliminarCupon(CuponDescuento model) {
+            _descuentos.Eliminar(model);
+            ServicioDeMensajes.darMensaje(enumMensaje.Eliminado,ControllerContext.Controller);
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult NuevoCupon(CuponDescuento model) {

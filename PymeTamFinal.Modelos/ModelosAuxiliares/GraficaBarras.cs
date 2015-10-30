@@ -20,6 +20,7 @@ namespace PymeTamFinal.Modelos.ModelosAuxiliares
     }
     public class seriesBarras {
         public string name { get; set; }
+        public string type { get; set; }
         public decimal[] data { get; set; }
     }
 }

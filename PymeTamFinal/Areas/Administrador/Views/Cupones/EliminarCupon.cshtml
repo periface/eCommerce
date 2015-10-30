@@ -1,0 +1,28 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.CuponDescuento
+@{
+    Layout = null;
+}
+@using (Html.BeginForm())
+{
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Eliminar cupón</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>Seguro(a) que desea eliminar este cupón</h3>
+                        <label class="label label-default">@Model.codigoCupon</label>
+                        @Html.HiddenFor(a => a.idCupon)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}

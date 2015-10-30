@@ -14,8 +14,10 @@ namespace PymeTamFinal.HtmlHelpers.Abstraccion
         Eliminado,
         ErrorRecurrencia,
         Habilitado,
-        ErrorBasico
+        ErrorBasico,
+        ErrorValidacion,
     }
+    
     public enum enumMensajeCliente
     {
         NoInformacionUsuarioComentarios,
@@ -23,7 +25,6 @@ namespace PymeTamFinal.HtmlHelpers.Abstraccion
     }
     public interface IServicioMensajes
     {
-        
         void obtieneMensaje(ControllerBase controller);
         void darMensaje(enumMensaje mensaje, ControllerBase controller);
     }

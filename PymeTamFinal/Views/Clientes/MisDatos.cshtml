@@ -27,6 +27,11 @@
                         {
                         @Html.HiddenFor(a => a.idCliente)
                         }
+                        else
+                        {
+
+                            <h3>Antes de realizar una compra en el sitio, es necesario que capture sus datos.</h3>
+                        }
                         @Html.HiddenFor(a => a.idAsp)
                         @Html.HiddenFor(a => a.datosCapturados)
                         @Html.HiddenFor(a => a.facturacionCapturada)
