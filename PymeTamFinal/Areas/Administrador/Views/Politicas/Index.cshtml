@@ -1,17 +1,208 @@
-﻿
+﻿@model IEnumerable<PymeTamFinal.Modelos.ModelosDominio.Politicas>
 @{
     ViewBag.Title = "Politicas";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">
-            Politicas <small>Administración de politicas</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li class="active">
-                <i class="fa fa-thumb-tack"></i> Politicas
-            </li>
-        </ol>
-    </div>
+<div id="ribbon">
+
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+						<i class="fa fa-refresh"></i>
+					</span>
+    </span>
+
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Inicio</li>
+        <li>Politicas</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- You can also add more buttons to the
+    ribbon for further usability
+
+    Example below:
+
+    <span class="ribbon-button-alignment pull-right">
+    <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+    <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+    <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+    </span> -->
+
 </div>
+<div id="content">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-comments"></i> Politicas <span>> Administrar Politicas</span></h1>
+    </div>
+
+    <br />
+    <div id="widget-grid" class="">
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div data-widget-deletebutton="false" class="jarviswidget jarviswidget-color-darken" id="wid-id-politicas" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-info-circle"></i> </span>
+                        <h2>Politicas </h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            @*@Html.TablaPModel(Model.ToList(),"idPolitica", new string[]{ "/","/" },"Id","Nombre","Contenido","Slug","Fecha de Publicación","Fecha de Modificación")*@
+                            <table id="tablaPoliticas" class="table table-responsive table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #Id
+                                        </th>
+                                        <th>
+                                            Nombre politica
+                                        </th>
+                                        <th>
+                                            Fecha de creación
+                                        </th>
+                                        <th>
+                                            Fecha de actualización
+                                        </th>
+                                        <th>
+                                            Opciones
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.idPolitica
+                                            </td>
+                                            <td>
+                                                @item.nombrePolitica
+                                            </td>
+                                            <td>
+                                                @Html.formatearFecha(item.fechaPublicacion) - @Html.haceTiempo(item.fechaPublicacion)
+                                            </td>
+                                            <td>
+                                                @Html.formatearFecha(item.fechaActualizacion) - @Html.haceTiempo(item.fechaActualizacion)
+                                            </td>
+                                            <td>
+                                                <a href="#" data-id="@item.idPolitica" class="editar">Editar</a> | <a href="#" data-id="@item.idPolitica" class="eliminar">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+            </article>
+        </div>
+
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div data-widget-sortable="false" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" class="jarviswidget jarviswidget-color-darken" id="wid-id-editarPolitica" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-info"></i> </span>
+                        <h2>Agregar politica </h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            @*@Html.TablaPModel(Model.ToList(),"idPolitica", new string[]{ "/","/" },"Id","Nombre","Contenido","Slug","Fecha de Publicación","Fecha de Modificación")*@
+                            @{Html.RenderAction("NuevaPolitica");}
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+            </article>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+
+    <script src="~/Content/Temas/SmartAdmin/js/plugin/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/Temas/SmartAdmin/js/plugin/ckeditor/lang/es.js"></script>
+    <script>
+        $(function () {
+            CKEDITOR.replace('contenidoPolitica', ckConfig);
+            $("#tablaPoliticas").DataTable({
+                "language": dataTableLang
+            });
+        });
+
+        var $modalPolitica = $("#modalPolitica");
+        $(".editar").click(function () {
+            var id = $(this).data("id");
+            $modalPolitica.load("/Administrador/Politicas/EditarPolitica/" + id, function () {
+                $modalPolitica.modal("show");
+                CKEDITOR.replace("editarPolitica", ckConfig);
+            });
+        });
+        $(".eliminar").click(function () {
+            var id = $(this).data("id");
+            $modalPolitica.load("/Administrador/Politicas/EliminarPolitica/" + id, function () {
+                $modalPolitica.modal("show");
+                CKEDITOR.replace("editarPolitica", ckConfig);
+            });
+        });
+    </script>
+}
+@section final{
+    <div class="modal fade" id="modalPolitica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+    </div>
+}

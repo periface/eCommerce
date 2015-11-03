@@ -2,6 +2,7 @@
 using PymeTamFinal.Controles;
 using PymeTamFinal.HtmlHelpers.Abstraccion;
 using PymeTamFinal.HtmlHelpers.MensajeServicio;
+using PymeTamFinal.Modelos.ModelosAuxiliares;
 using PymeTamFinal.Modelos.ModelosDominio;
 using PymeTamFinal.Modelos.ModelosVista;
 using System;
@@ -17,11 +18,13 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
         IRepositorioBase<CajaComentarios> _comentarios;
         IRepositorioBase<Producto> _productos;
         IRepositorioBase<Cliente> _clientes;
-        public ComentariosController(IRepositorioBase<CajaComentarios> _comentarios, IRepositorioBase<Producto> _productos, IRepositorioBase<Cliente> _clientes)
+        IGeneradorGraficasVersionNueva<GraficaBarras, CajaComentarios> _graficaBarrasComentarios;
+        public ComentariosController(IRepositorioBase<CajaComentarios> _comentarios, IRepositorioBase<Producto> _productos, IRepositorioBase<Cliente> _clientes, IGeneradorGraficasVersionNueva<GraficaBarras, CajaComentarios> _graficaBarrasComentarios)
         {
             this._comentarios = _comentarios;
             this._productos = _productos;
             this._clientes = _clientes;
+            this._graficaBarrasComentarios = _graficaBarrasComentarios;
         }
         // GET: Administrador/Comentarios
         public ActionResult Index()
@@ -124,14 +127,29 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             if (producto != null)
             {
                 a.SetInnerText(producto.nombreProducto);
-                a.MergeAttribute("href", Url.Action("EditarProducto", "Productos", new { id = producto.idProducto }));
+                a.AddCssClass("gComentarioProducto btn btn-xs btn-primary");
+                a.MergeAttribute("data-id",producto.idProducto.ToString());
+                
             }
             else
             {
                 a.SetInnerText("No asignado");
             }
-            a.MergeAttribute("target", "_blank");
             return a.ToString();
+        }
+        public ActionResult GraficaCalificaciones(int? id) {
+            if (id.HasValue) {
+                var modelo = new GraficaCalificacionesCProducto() {
+                    idProducto = id.Value,
+                    comentarios = _comentarios.Cargar()
+                };
+                return Json(_graficaBarrasComentarios.GenerarGraficaParamPers(modelo),JsonRequestBehavior.AllowGet);
+            }
+            var grafica = _graficaBarrasComentarios.GenerarGraficaBaseEnumerable(_comentarios.Cargar());
+            return Json(grafica,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GraficaCalificacionesProducto(int id) {
+            return View();
         }
         private string generarOpciones(int idComentario)
         {

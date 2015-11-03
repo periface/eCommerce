@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PymeTamFinal.Modelos.ModelosAuxiliares
 {
-    public class payPalTarjetaModel
+    public class PayPalTarjetaModel
     {
         public string numero { get; set; }
         public string tipo { get; set; }

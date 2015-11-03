@@ -23,7 +23,8 @@ namespace PymeTamFinal.MetodosPago.CarritoCompra
             cuponUsado,
             cuponSoloUsuario,
             cuponNoEncontrado,
-            cuponOk
+            cuponOk,
+            cuponNoValido
         }
         string idCarro;
         CapaDatos.DataContext db = new CapaDatos.DataContext();

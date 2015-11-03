@@ -3,103 +3,249 @@
     ViewBag.Title = "Pedidos";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
-<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Pedidos <small>Administración de pedidos</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li class="active">
-                    <i class="fa fa-dashboard"></i> Mis pedidos
-                </li>
-            </ol>
-        </div>
+<div id="ribbon">
+
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Esto borrara las configuraciónes de los widgets." data-html="true">
+						<i class="fa fa-refresh"></i>
+					</span>
+    </span>
+
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Inventario</li>
+        <li>Pedidos</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- You can also add more buttons to the
+    ribbon for further usability
+
+    Example below:
+
+    <span class="ribbon-button-alignment pull-right">
+    <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+    <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+    <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+    </span> -->
+
+</div>
+<div id="content">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-comments"></i> Pedidos <span>> Mis Pedidos</span></h1>
     </div>
     <div class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-primary" href="#ventas"><i class="fa fa-dashboard"></i> Volumen de ventas</a>
-            <a class="btn btn-primary" id="gEstados" href="#"><i class="fa fa-dashboard"></i> Grafica de estados</a>
-            <a class="btn btn-primary" id="gPagos" href="#"><i class="fa fa-dashboard"></i> Medios de pago</a>
-            <hr />
-            <table id="pedidos" class="table table-responsive table-condensed">
-                <thead>
-                    <tr>
-                        <th>
-                            #Id
-                        </th>
-                        <th>
-                            Cliente 
-                        </th>
-                        <th>
-                            Fecha
-                        </th>
-                        <th>
-                            Hora
-                        </th>
-                        <th>
-                            Monto 
-                        </th>
-                        <th>
-                            Estado 
-                        </th>
-                        <th>
-                            Tipo de pago 
-                        </th>
-                        <th>
-                            Estado del pago
-                        </th>
-                        <th>Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @item.idOrden
-                            </td>
-                            <td>
-                                @item.ordenNombre
-                            </td>
-                            <td>
-                                @item.ordenFecha.ToShortDateString()
-                            </td>
-                            <td>
-                                @item.ordenFecha.ToShortTimeString()
-                            </td>
-                            <td>
-                               @Html.formatoPrecio(item.ordenTotal)
-                            </td>
-                            <td>
-                                @item.ordenEstadoPedido
-                            </td>
-                            <td>
-                                @item.ordenTipoPago
-                            </td>
-                            <td>@item.ordenPagado</td>
-                            <td>
-                                <a href="#">Detalle</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div id="ventas" class="row">
-        <div  class="col-lg-12">
-            <div id="container" style="height: 400px; width:100%;"></div>
+        <div class="col-sm-12 col-lg-12 col-md-12">
+            <div class="row">
+                <div id="content">
+                    <div id="widget-grid" class="">
+
+                        <div class="row">
+                            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-pedidos" data-widget-editbutton="false">
+                                    <!-- widget options:
+                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                data-widget-colorbutton="false"
+                data-widget-editbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-deletebutton="false"
+                data-widget-fullscreenbutton="false"
+                data-widget-custombutton="false"
+                data-widget-collapsed="true"
+                data-widget-sortable="false"
+
+                -->
+                                    <header>
+                                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                                        <h2>Pedidos </h2>
+
+                                    </header>
+
+                                    <!-- widget div-->
+                                    <div>
+
+                                        <!-- widget edit box -->
+                                        <div class="jarviswidget-editbox">
+                                            <!-- This area used as dropdown edit box -->
+
+                                        </div>
+                                        <!-- end widget edit box -->
+                                        <!-- widget content -->
+
+                                        <div class="widget-body no-padding">
+
+
+                                            <table id="pedidos" class="table table-responsive table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            #Id
+                                                        </th>
+                                                        <th>
+                                                            Cliente
+                                                        </th>
+                                                        <th>
+                                                            Fecha
+                                                        </th>
+                                                        <th>
+                                                            Hora
+                                                        </th>
+                                                        <th>
+                                                            Monto MXN
+                                                        </th>
+                                                        <th>
+                                                            Estado
+                                                        </th>
+                                                        <th>
+                                                            Tipo de pago
+                                                        </th>
+                                                        <th>
+                                                            Estado del pago
+                                                        </th>
+                                                        <th>Opciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @*@foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.idOrden
+                                            </td>
+                                            <td>
+                                                @item.ordenNombre
+                                            </td>
+                                            <td>
+                                                @item.ordenFecha.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @item.ordenFecha.ToShortTimeString()
+                                            </td>
+                                            <td>
+                                               @Html.formatoPrecio(item.ordenTotal)
+                                            </td>
+                                            <td>
+                                                @item.ordenEstadoPedido
+                                            </td>
+                                            <td>
+                                                @item.ordenTipoPago
+                                            </td>
+                                            <td>@item.ordenPagado</td>
+                                            <td>
+                                                <a href="#">Detalle</a>
+                                            </td>
+                                        </tr>
+                                    }*@
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- end widget content -->
+
+                                    </div>
+                                    <!-- end widget div -->
+
+                                </div>
+                            </article>
+                        </div>
+                        <div class="row">
+                            <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-graficaPastelMediosPedidos" data-widget-editbutton="false">
+                                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                        -->
+                                    <header>
+                                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                                        <h2>Medios y estados de pedidos</h2>
+
+                                    </header>
+
+                                    <!-- widget div-->
+                                    <div>
+
+                                        <!-- widget edit box -->
+                                        <div class="jarviswidget-editbox">
+                                            <!-- This area used as dropdown edit box -->
+
+                                        </div>
+                                        <!-- end widget edit box -->
+                                        <!-- widget content -->
+                                        <div class="widget-body no-padding">
+                                            <div id="graficaPastelMedios" class="col-lg-12" style="height:400px;"></div>
+                                            
+                                        </div>
+                                        <!-- end widget content -->
+
+                                    </div>
+                                    <!-- end widget div -->
+
+                                </div>
+                            </article>
+                            <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-graficaPastelMetodosPedidos" data-widget-editbutton="false">
+                                    <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+
+            -->
+                                    <header>
+                                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                                        <h2>Estatus de pedidos </h2>
+
+                                    </header>
+
+                                    <!-- widget div-->
+                                    <div>
+
+                                        <!-- widget edit box -->
+                                        <div class="jarviswidget-editbox">
+                                            <!-- This area used as dropdown edit box -->
+
+                                        </div>
+                                        <!-- end widget edit box -->
+                                        <!-- widget content -->
+                                        <div class="widget-body no-padding">
+                                            <div id="graficaPastel" class="col-lg-12" style="height:400px;"></div>
+
+                                        </div>
+                                        <!-- end widget content -->
+
+                                    </div>
+                                    <!-- end widget div -->
+
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 @section Scripts{
-<script src="~/Areas/Administrador/PlugIns/HighStock/highstock.js"></script>
-<script src="~/Areas/Administrador/PlugIns/HighStock/exporting.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+
+    <script src="~/Areas/Administrador/PlugIns/HighStock/highstock.js"></script>
+    <script src="~/Areas/Administrador/PlugIns/HighStock/exporting.js"></script>
+    <script src="http://code.highcharts.com/highcharts-3d.js"></script>
     <script>
-        var $modalGraficas = $("#modalGraficasPastel");
-        var $modalGraficasMedios = $("#modalGraficasPastelMedios");
         var getConfig = function () {
             $.get("/Administrador/Pedidos/VolumenVentas", function (d) {
                 //console.log(d);
@@ -118,15 +264,15 @@
                 });
                 //console.log(series);
                 $('#container').highcharts("StockChart", {
-                    
+
                     rangeSelector: {
-                        selected: 1
+                        selected: 5
                     },
 
                     title: {
                         text: d.title.text
                     },
-                    series:series
+                    series: series
                     //series: [{
                     //    name: d.series.name,
                     //    data: d.series.data,
@@ -150,13 +296,25 @@
                     });
                 });
                 $('#graficaPastel').highcharts({
-                    chart:d.chart,
+                    chart: d.chart,
+                    chart: {
+                        type: 'pie',
+                        //options3d: {
+                        //    enabled: true,
+                        //    alpha: 45
+                        //}
+                    },
                     title: d.title,
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
                     plotOptions: {
                         pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+
+                            //innerSize: 50,
+                            //depth: 20,
                             allowPointSelect: true,
                             cursor: 'pointer',
                             dataLabels: {
@@ -174,41 +332,146 @@
         }
         var getConfigPastelMedios = function () {
             $.get("/Administrador/Pedidos/TiposPago", function (d) {
-                console.log(d);
-                var series = [];
-                $.each(d.series, function (i, e) {
-                    console.log(e);
-                    series.push({
-                        name: e.name,
-                        data: e.data,
-                        tooltip: {
-                            valueDecimals: 2
-                        }
+                
+                var colors = Highcharts.getOptions().colors;
+                var pagosData = [];
+                var estadosData = [];
+                var brightness;
+                var pagosLen = d.series[0].data.length;
+                for (var i = 0; i < pagosLen; i++) {
+                    pagosData.push({
+                        name: d.categorias[i],
+                        y: d.series[0].data[i].y,
+                        color: colors[i]
                     });
-                });
+                    var dataDrillLength = d.series[0].data[i].drillDown.data.length;
+                    for (var j = 0; j < dataDrillLength; j++) {
+                        brightness = 0.2 - (j / dataDrillLength) / 5;
+                        estadosData.push({
+                            name: d.series[0].data[i].drillDown.categories[j],
+                            y: d.series[0].data[i].drillDown.data[j],
+                            color: Highcharts.Color(pagosData[i].color).brighten(brightness).get(),
+                        });
+                    }
+                }
                 $('#graficaPastelMedios').highcharts({
-                    chart: d.chart,
+                    //chart: d.chart,
+                    chart: {
+                        type: 'pie',
+                        //options3d: {
+                        //    enabled: true,
+                        //    alpha: 45
+                        //},
+                    },
                     title: d.title,
+                    subtitle: {
+                        text: 'Medios de pago utilizados y distribución de estatus de pedidos'
+                    },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
                     plotOptions: {
                         pie: {
-                            allowPointSelect: true,
+                            shadow: false,
+                            center: ['50%', '50%'],
+                            //allowPointSelect: true,
                             cursor: 'pointer',
+                            //point: {
+                            //    events: {
+                            //        click: function (event) {
+                            //            $("#medios").fadeOut();
+                            //            var options = this.options;
+                            //            var medio = event.currentTarget.name;
+                            //            console.log(medio);
+                            //            $("#contenedorMedios").load("/Administrador/Pedidos/MediosFiltro/?medio=" + medio, function () {
+                            //                var tableFiltroMedio = $('.pedidosFiltroMedio').DataTable({
+                            //                    "language": {
+                            //                        "sProcessing": "Procesando...",
+                            //                        "sLengthMenu": "Mostrar _MENU_ registros",
+                            //                        "sZeroRecords": "No se encontraron resultados",
+                            //                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            //                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            //                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            //                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            //                        "sInfoPostFix": "",
+                            //                        "sSearch": "Buscar:",
+                            //                        "sUrl": "",
+                            //                        "sInfoThousands": ",",
+                            //                        "sLoadingRecords": "Cargando...",
+                            //                        "oPaginate": {
+                            //                            "sFirst": "Primero",
+                            //                            "sLast": "Último",
+                            //                            "sNext": "Siguiente",
+                            //                            "sPrevious": "Anterior"
+                            //                        },
+                            //                        "buttons": {
+                            //                            "copyTitle": 'Tabla copiada',
+                            //                            "copyInfo": {
+                            //                                _: '%d Filas copiadas',
+                            //                                1: '1 fila copiada'
+                            //                            },
+                            //                            'copy': 'Copiar',
+                            //                            'excel': 'Exportar a excel',
+                            //                            "colvis": "Columnas visibles"
+                            //                        },
+
+                            //                        "oAria": {
+                            //                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            //                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            //                        }
+                            //                    },
+
+                            //                });
+                            //                $("#medios").fadeIn();
+                            //            });
+
+                            //        }
+                            //    }
+                            //},
+                            //innerSize: 100,
+                            //depth: 50,
+                            //dataLabels: {
+                            //    enabled: true,
+                            //    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            //    style: {
+                            //        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            //    }
+                            //},
+
+
+                        },
+                        //startAngle: -90,
+                        //endAngle: 90,
+                        //center: ['50%', '75%']
+                    },
+                    series: [
+                        {
+                            size: '60%',
                             dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                formatter: function () {
+                                    return this.y > 5 ? this.point.name : null;
+                                },
+                                color: '#ffffff',
+                                distance: -30
+                            },
+                            name: "Tipos de pago",
+                            data: pagosData,
+                        },
+                        {
+                            size: '80%',
+                            innerSize: '60%',
+                            name: "Estado de pedidos",
+                            data: estadosData,
+                            dataLabels: {
+                                formatter: function () {
+                                    // display only if larger than 1
+                                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
                                 }
                             }
                         },
-                        startAngle: -90,
-                        endAngle: 90,
-                        center: ['50%', '75%']
-                    },
-                    series: series
+
+
+                    ]
                 });
             });
         }
@@ -229,7 +492,7 @@
         $('#graficaPastelMedios').highcharts("StockChart", getConfigPastelMedios());
         $('#container').highcharts("StockChart", getConfig());
         $("#gEstados").click(function () {
-           
+
             var pastel = $('#graficaPastel').highcharts();
             $('#modalGraficasPastel').on('show.bs.modal', function () {
                 $('#graficaPastel').css('visibility', 'hidden');
@@ -237,9 +500,6 @@
             $('#modalGraficasPastel').on('shown.bs.modal', function () {
                 $('#graficaPastel').css('visibility', 'initial');
                 pastel.reflow();
-            });
-            $modalGraficas.modal({
-                show: true
             });
         });
         $("#gPagos").click(function () {
@@ -252,78 +512,78 @@
                 $('#graficaPastelMedios').css('visibility', 'initial');
                 pastel.reflow();
             });
-            $modalGraficasMedios.modal({
-                show: true
-            });
         });
-        $('#pedidos').DataTable({
-            "language": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        /* BASIC ;*/
+        var responsiveHelper_dt_basic = undefined;
+        var responsiveHelper_datatable_fixed_column = undefined;
+        var responsiveHelper_datatable_col_reorder = undefined;
+        var responsiveHelper_datatable_tabletools = undefined;
+
+        var breakpointDefinition = {
+            tablet: 1024,
+            phone: 480
+        };
+
+        var table = $('#pedidos').DataTable({
+
+            "autoWidth": true,
+            "preDrawCallback": function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper_dt_basic) {
+                    responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#pedidos'), breakpointDefinition);
                 }
             },
-            "bAutoWidth": false
+            "sDom": "<'dt-toolbar'<'col-xs-4' l><'col-xs-12 col-sm-4'f><'col-sm-4 col-xs-6 hidden-xs'T>r>" +
+                    "t" +
+                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+            "oTableTools": {
+                "aButtons": [
+                "csv",
+                "xls",
+                   {
+                       "sExtends": "pdf",
+                       "sTitle": "SmartAdmin_PDF",
+                       "sPdfMessage": "Exportar pdf",
+                       "sPdfSize": "letter",
+                       "sButtonText": "Pdf"
+                   },
+                   {
+                       "sExtends": "copy",
+                       "sButtonText": "Copiar"
+                   }
+                ],
+                "sSwfPath": "/Content/Temas/SmartAdmin/js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+            },
+            "rowCallback": function (nRow) {
+                responsiveHelper_dt_basic.createExpandIcon(nRow);
+            },
+            "drawCallback": function (oSettings) {
+                responsiveHelper_dt_basic.respond();
+            },
+            "language": dataTableLang,
+            "bAutoWidth": false,
+            "bServerSide": true,
+            "sAjaxSource": "/Administrador/Pedidos/PedidosJson",
+            "bProcessing": true,
+            "aoColumns": [
+              {
+                  "sName": "idOrden",
+              },
+              { "sName": "cliente" },
+              { "sName": "ordenFecha" },
+              { "sName": "ordenHora" },
+              { "sName": "ordenTotal" },
+              { "sName": "ordenEstadoPedido" },
+              { "sName": "ordenTipoPago" },
+              { "sName": "ordenPagado" },
+              {
+                  "sName": "ordenDetalle", "bSearchable": false,
+                  "bSortable": false,
+              }
+
+            ]
         });
+
+        //table.buttons().container().appendTo($('.col-sm-6:eq(0)', table.table().container()));
     </script>
-}
-@section final{
-    <div class="modal fade" id="modalGraficasPastel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">Graficas</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div id="graficaPastel" style="height:400px;width:100%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-<div class="modal fade" id="modalGraficasPastelMedios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Graficas</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div id="graficaPastelMedios" style="height:400px;width:100%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
 }

@@ -205,8 +205,8 @@
                     zoom: 14,
                     clickable: true,
                     click: function (e) {
-                        var lat = e.latLng.G;
-                        var long = e.latLng.K;
+                        var lat = e.latLng;
+                        var long = e.latLng;
                         $("#empLat").val(lat);
                         $("#empLong").val(long);
                         map.removeMarkers();

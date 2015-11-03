@@ -21,21 +21,22 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
     {
         private const string rutaTickets = "/Content/Imagenes/Tickets/";
         IRepositorioBase<Cliente> _clientes;
-        IOrdenGeneradorBase<compraModel> _orden;
+        IOrdenGeneradorBase<CompraModel> _orden;
         IRepositorioBase<CostosEnvio> _envios;
         IRepositorioBase<Pais> _pais;
         IRepositorioBase<Estados> _estado;
         IRepositorioBase<Empresa> _empresa;
-        ITransaccionExterna<paypalPagoClienteModel> _paypal;
+        ITransaccionExterna<PaypalPagoClienteModel> _paypal;
         IRepositorioBase<Banco> _bancos;
-        ITransaccionExterna<stripeTarjetaModel> _tarjeta;
+        ITransaccionExterna<StripeTarjetaModel> _tarjeta;
+        IRepositorioBase<Orden> _ordenDb;
         public ComprarController(IRepositorioBase<Cliente> _clientes,
-            IOrdenGeneradorBase<compraModel> _orden,
+            IOrdenGeneradorBase<CompraModel> _orden,
             IRepositorioBase<CostosEnvio> _envios,
             IRepositorioBase<Pais> _pais,
             IRepositorioBase<Estados> _estado,
             IRepositorioBase<Empresa> _empresa,
-            ITransaccionExterna<paypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService, IRepositorioBase<Banco> _bancos, ITransaccionExterna<stripeTarjetaModel> _tarjeta) : base(_configPaypal, _paypalEncrypService)
+            ITransaccionExterna<PaypalPagoClienteModel> _paypal, IRepositorioBase<PaypalConfig> _configPaypal, IPaypalCryptBase<PaypalConfig> _paypalEncrypService, IRepositorioBase<Banco> _bancos, ITransaccionExterna<StripeTarjetaModel> _tarjeta, IRepositorioBase<Orden> _ordenDb) : base(_configPaypal, _paypalEncrypService)
         {
             this._clientes = _clientes;
             this._orden = _orden;
@@ -46,6 +47,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             this._empresa = _empresa;
             this._bancos = _bancos;
             this._tarjeta = _tarjeta;
+            this._ordenDb = _ordenDb;
         }
         public ActionResult MetodosDisponibles()
         {
@@ -81,12 +83,17 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         // GET: CheckOut/Comprar
         public ActionResult Resumen(string cupon)
         {
-            var carro = CarroCompras._CarroCompras(HttpContext);
-            if (!carro.cargaItems().Any())
-                return DetalleCarro;
-            //No necesito nada solo voy a mostrarle los datos al usuario
-            resolverCupon(cupon, carro);
-            return View();
+            if (TieneDatos(userId)) {
+
+
+                var carro = CarroCompras._CarroCompras(HttpContext);
+                if (!carro.cargaItems().Any())
+                    return DetalleCarro;
+                //No necesito nada solo voy a mostrarle los datos al usuario
+                resolverCupon(cupon, carro);
+                return View();
+            }
+            return RedirectToAction("MisDatos","Clientes", new { Area="",returnUrl = Url.Action("Resumen","Comprar","CheckOut") });
         }
         public ActionResult EnvioCosto(int id)
         {
@@ -120,7 +127,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         }
         [HttpPost]
         [HandleError(View = "ErrorPayPal")]
-        public ActionResult Comprar(compraModel model)
+        public ActionResult Comprar(CompraModel model)
         {
             if (model.idEnvio == 0)
             {
@@ -158,7 +165,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
         public ActionResult PayPal()
         {
             var contextId = _orden.cargaContexto(HttpContext);
-            var pagoClienteModel = new paypalPagoClienteModel()
+            var pagoClienteModel = new PaypalPagoClienteModel()
             {
                 pedido = contextId,
                 tipoMoneda = "MXN",
@@ -261,7 +268,7 @@ namespace PymeTamFinal.Areas.CheckOut.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Credito(payPalTarjetaModel model)
+        public ActionResult Credito(PayPalTarjetaModel model)
         {
             if (ModelState.IsValid)
             {

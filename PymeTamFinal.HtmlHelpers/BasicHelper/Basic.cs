@@ -1,6 +1,7 @@
 ﻿using PymeTamFinal.CapaDatos;
 using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Modelos.ModelosDominio;
+using PymeTamFinal.Modelos.ModelosVista;
 using PymeTamFinal.Repositorios.Repos;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,18 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
 {
     public static class Basic
     {
+        public static string formatearFecha(this HtmlHelper helper,DateTime fecha) {
+            if (fecha != null) {
+                return fecha.ToShortDateString();
+            }
+            return "Sin fecha";
+        }
+        public static string formatearHora(this HtmlHelper helper,DateTime fecha) {
+            if (fecha == null) {
+                return fecha.ToShortTimeString();
+            }
+            return "Sin hora";
+        }
         public static IHtmlString imagen(this HtmlHelper helper, string imagen, string[] clasesAdicionales)
         {
             TagBuilder img = new TagBuilder("img");
@@ -144,6 +157,19 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
         {
             return "$ " + precio.ToString("#.##") + " MXN";
         }
+        public static string formatoPrecio(this HtmlHelper helper, ProductoListaViewModel producto)
+        {
+            IRepositorioBase<Precios> precios = new RepositorioPrecios(new DataContext());
+            var precio = precios.CargarPorId(producto.idProducto);
+            if (precio.descuentoActivo)
+            {
+                return string.Format("$ {0} {1} MXN", precio.precioEsp, " -" + precio.descuento + "%");
+            }
+            else
+            {
+                return string.Format("$ {0} MXN", precio.precio);
+            }
+        }
         public static string determinaDescuento(this HtmlHelper helper, decimal? descuento)
         {
             if (!descuento.HasValue || descuento == 0)
@@ -249,17 +275,17 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
             }
             if (delta < 30 * DAY)
             {
-                return "hace "+ts.Days + " dias";
+                return "hace " + ts.Days + " dias";
             }
             if (delta < 12 * MONTH)
             {
                 int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
-                return months <= 1 ? "hace un mes" : "hace "+months + " meses";
+                return months <= 1 ? "hace un mes" : "hace " + months + " meses";
             }
             else
             {
                 int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
-                return years <= 1 ? "hace un año" :"hace "+ years + " años";
+                return years <= 1 ? "hace un año" : "hace " + years + " años";
             }
         }
         public static string CargaNombre(this HtmlHelper helper, string nombre, string viewBagVal)
@@ -273,6 +299,7 @@ namespace PymeTamFinal.HtmlHelpers.BasicHelper
                 return string.Format("{0} {1}", nombre, viewBagVal);
             }
         }
+        
         /// <summary>
         /// Genera el codigo de google necesario para mostrar el formulario de validacion de captcha
         /// </summary>

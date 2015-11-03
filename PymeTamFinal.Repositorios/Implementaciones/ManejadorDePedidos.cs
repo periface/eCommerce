@@ -14,7 +14,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
     /// <summary>
     /// Manejador de pedidos, guarda los pedidos de manera predeterminada usando entity framework
     /// </summary>
-    public class ManejadorDePedidos : TransaccionBase<compraModel>
+    public class ManejadorDePedidos : TransaccionBase<CompraModel>
     {
         private const string idContext = "ordenCtx";
         public ManejadorDePedidos(DataContext context) : base(context)
@@ -22,7 +22,7 @@ namespace PymeTamFinal.Repositorios.Implementaciones
             if (context == null)
                 throw new ArgumentNullException();
         }
-        public override void guardarOrden(compraModel orden, string cartId, string idUsuario, decimal descuento, object httpContext)
+        public override void guardarOrden(CompraModel orden, string cartId, string idUsuario, decimal descuento, object httpContext)
         {
             //Existe un error al agregar una orden con cupón
             var model = new Orden();
@@ -83,6 +83,11 @@ namespace PymeTamFinal.Repositorios.Implementaciones
             model.razonSocial = usuario.razonSocial;
             model.requiereFactura = orden.requiereFactura;
             context.Orden.Add(model);
+            var cupon = context.CuponDescuento.SingleOrDefault(a=>a.codigoCupon==orden.cupon);
+            if (cupon != null) {
+                cupon.usado = true;
+                cupon.cantidadesUso--;
+            }
             //Guardamos la orden
             context.SaveChanges();
             foreach (var item in carroItems)

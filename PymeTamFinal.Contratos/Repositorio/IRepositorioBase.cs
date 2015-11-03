@@ -30,6 +30,7 @@ namespace PymeTamFinal.Contratos.Repositorio
         void DesAsociar(T entidad);
         void AgregarRelacion(int entidad0, int entidad1);
         void EliminarRelacion(int entidad0, int entidad1);
+        List<string[]> FiltradoParaDataTable(object filtro);
         #endregion
         #region Async
         Task AgregarAsync(T entidad);

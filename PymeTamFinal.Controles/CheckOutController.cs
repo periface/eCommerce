@@ -28,9 +28,9 @@ namespace PymeTamFinal.Controles
                 return "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token={0}";
             }
         }
-        public paypalConfigModel activePayPalApi {
+        public PaypalConfigModel activePayPalApi {
             get {
-                var model = new paypalConfigModel();
+                var model = new PaypalConfigModel();
                 var paypal = _paypal.Cargar(a=>a.habilitada==true).SingleOrDefault();
                 model.decryptedId = _paypalEncrypService.Desencriptar(paypal.appId,true);
                 model.decryptedSecret = _paypalEncrypService.Desencriptar(paypal.secret,true);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PymeTamFinal.Modelos.ModelosAuxiliares
 {
-    public class stripeTarjetaModel
+    public class StripeTarjetaModel
     {
 
         public string numero { get; set; }

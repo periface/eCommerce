@@ -58,6 +58,9 @@ namespace PymeTamFinal.Controllers
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult MiCuenta() {
+            return View();
+        }
         [HttpPost]
         public ActionResult CapturaCliente(Cliente cliente, string returnUrl)
         {

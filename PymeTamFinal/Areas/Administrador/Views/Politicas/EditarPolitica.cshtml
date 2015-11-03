@@ -1,0 +1,55 @@
+﻿@model PymeTamFinal.Modelos.ModelosDominio.Politicas
+@{
+    if (ViewBag.parcial)
+    {
+        Layout = null;
+    }
+    else
+    {
+        Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
+    }
+}
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(a => a.idPolitica)
+    @Html.HiddenFor(a => a.fechaPublicacion)
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Editar @Model.nombrePolitica @if(ViewBag.parcial) { <a href="@Url.Action("EditarPolitica","Politicas", new { id = Model.idPolitica })">Editar en nueva ventana</a>}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Nombre de Politica</label>
+                            @Html.TextBoxFor(a => a.nombrePolitica, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Nombre de Politica</label>
+                            @Html.TextAreaFor(a => a.contenidoPolitica, new { @class = "form-control", id = "editarPolitica" })
+                        </div>
+
+                        @Html.ValidationBootstrap()
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}
+@if (!ViewBag.parcial)
+{
+    @section Scripts{
+
+        <script src="~/Content/Temas/SmartAdmin/js/plugin/ckeditor/ckeditor.js"></script>
+        <script src="~/Content/Temas/SmartAdmin/js/plugin/ckeditor/lang/es.js"></script>
+        <script>
+            CKEDITOR.replace("editarPolitica", ckConfig);
+        </script>
+    }
+}

@@ -9,9 +9,9 @@
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
-                            @Html.imagen(item.imagen,null,350,350, true)
+                            @Html.imagen(item.imagen, new string[] { "imgPers" }, 350,350, true)
                             @*<img src="@Url.Content(item.imagen + "?w=350&h=350")" alt="">*@
-                            <h2>@Html.formatoPrecio(item.precio)</h2>
+                            <h2>@Html.formatoPrecio(item)</h2>
                             <p>
                                 @Html.generarEstrellasCalif(item.calificacionProm)
                             </p>

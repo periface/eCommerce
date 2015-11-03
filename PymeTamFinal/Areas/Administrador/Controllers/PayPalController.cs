@@ -14,8 +14,8 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
     public class PayPalController : AdminController
     {
         IPaypalCryptBase<PaypalConfig> _config;
-        ITransaccionExterna<paypalPagoClienteModel> _paypal;
-        public PayPalController(IPaypalCryptBase<PaypalConfig> _config, ITransaccionExterna<paypalPagoClienteModel> _paypal)
+        ITransaccionExterna<PaypalPagoClienteModel> _paypal;
+        public PayPalController(IPaypalCryptBase<PaypalConfig> _config, ITransaccionExterna<PaypalPagoClienteModel> _paypal)
         {
             this._config = _config;
             this._paypal = _paypal;
@@ -30,7 +30,7 @@ namespace PymeTamFinal.Areas.Administrador.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Agregar(paypalModel model) {
+        public ActionResult Agregar(PaypalModel model) {
             var dbPaypal = new PaypalConfig()
             {
                 appId = _config.Encriptar(model.appId, true),

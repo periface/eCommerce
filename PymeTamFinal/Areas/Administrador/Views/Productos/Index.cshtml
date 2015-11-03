@@ -3,8 +3,8 @@
     ViewBag.Title = "Productos";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
-<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css" rel="stylesheet" />
+@*@*<link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css" rel="stylesheet" />*@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
@@ -30,7 +30,7 @@
 </div>
 
 @section Scripts{
-    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    @*<script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>*@
     <script>
         $(function () {
             var table = $('#productos').DataTable({
@@ -41,7 +41,7 @@
                     "dataSrc": '',
                     "deferRender": true,
                 },
-                dom: 'Bfrtip',
+                "dom": 'lrBftip',
                 buttons: [{
                     extend: 'excel',
                     exportOptions: {
@@ -65,40 +65,7 @@
                     { data: 'categoria' },
                     { data: 'opciones' },
                 ],
-                "language": {
-                    "sProcessing": "Procesando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningún dato disponible en esta tabla",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
-                    "sUrl": "",
-                    "buttons": {
-                        "copyTitle": 'Tabla copiada',
-                        "copyInfo": {
-                            _: '%d Filas copiadas',
-                            1: '1 fila copiada'
-                        },
-                        'copy': 'Copiar',
-                        'excel': 'Exportar a excel',
-                        "colvis": "Columnas visibles"
-                    },
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                    }
-                },
+                "language": dataTableLang,
             });
             $("body").on("click", ".editarGaleria", function () {
                 var id = $(this).data("id");

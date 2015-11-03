@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 namespace PymeTamFinal.MetodosPago.Stripe.Servicios
 {
     //No usado
-    public class StripeImplementacion : ITransaccionExternaStripeBase<stripeTarjetaModel>
+    public class StripeImplementacion : ITransaccionExternaStripeBase<StripeTarjetaModel>
     {
         public StripeImplementacion(DataContext context) : base(context)
         {
             if (context == null)
                 throw new ArgumentNullException();
         }
-        public override string GenerarToken(stripeTarjetaModel modeloRequerido, string apiKey = "", string apiSecret = "")
+        public override string GenerarToken(StripeTarjetaModel modeloRequerido, string apiKey = "", string apiSecret = "")
         {
             var token = new StripeTokenCreateOptions()
             {

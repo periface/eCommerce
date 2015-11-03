@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Mi Cuenta";
+    Layout = "~/Views/Shared/_LayoutTienda.cshtml";
+}
+<div class="section">
+    <div class="container">
+        <div class="col-sm-3">
+            <div class="left-sidebar">
+                <div class="brands_products">
+                    <!--brands_products-->
+                    <h2>Menu</h2>
+                    <div class="brands-name">
+                        @{Html.RenderAction("MenuAdmCliente", "TiendaWidgets");}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            @{Html.RenderAction("Index", "Manage", new { Area = "" });}
+        </div>
+    </div>
+</div>

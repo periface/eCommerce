@@ -97,7 +97,7 @@ namespace PymeTamFinal.Controllers
             List<MenuCliente> menu = new List<MenuCliente>() {
                 new MenuCliente { texto = "Mis Datos",accion = "MisDatos",control="Clientes" },
                 new MenuCliente { texto = "Mis Pedidos",accion = "MisPedidos",control="Clientes" },
-                new MenuCliente { texto = "Mis Cuenta",accion = "MiCuenta",control="Clientes" }
+                new MenuCliente { texto = "Mi Cuenta",accion = "MiCuenta",control="Clientes" }
             };
 
             string accion = ControllerContext.ParentActionViewContext.RouteData.Values["action"].ToString();

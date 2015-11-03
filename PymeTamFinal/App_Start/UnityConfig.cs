@@ -1,17 +1,17 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using PymeTamFinal.Contratos.Repositorio;
 using PymeTamFinal.Modelos.ModelosDominio;
+using PymeTamFinal.Contratos.Repositorio;
+using PymeTamFinal.Modelos.ModelosAuxiliares;
 using PymeTamFinal.Repositorios.Repos;
+using PymeTamFinal.Repositorios.Implementaciones;
 using PymeTamFinal.Controllers;
 using Microsoft.AspNet.Identity;
 using PymeTamFinal.Models;
+using PymeTamFinal.MetodosPago.PayPal.Servicios;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using PymeTamFinal.Modelos.ModelosAuxiliares;
-using PymeTamFinal.MetodosPago.PayPal.Servicios;
-using PymeTamFinal.Repositorios.Implementaciones;
 
 namespace PymeTamFinal.App_Start
 {
@@ -49,7 +49,7 @@ namespace PymeTamFinal.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IRepositorioBase<Empresa>, RepositorioEmpresa>();
-            container.RegisterType<IRepositorioBase<Seccion>,RepositorioSecciones>();
+            container.RegisterType<IRepositorioBase<Seccion>, RepositorioSecciones>();
             container.RegisterType<IRepositorioBase<Categoria>, RepositorioCategorias>();
             container.RegisterType<IRepositorioBase<Producto>, RepositorioProductos>();
             container.RegisterType<IRepositorioBase<GaleriaProducto>, RepositorioGaleria>();
@@ -62,14 +62,17 @@ namespace PymeTamFinal.App_Start
             container.RegisterType<IRepositorioBase<CostosEnvio>, RepositorioEnvios>();
             container.RegisterType<IRepositorioBase<CuponDescuento>, RepositorioCupones>();
             container.RegisterType<IRepositorioBase<Cliente>, RepositorioClientes>();
-            container.RegisterType<IRepositorioBase<Banco>,RepositorioBancos>();
-            container.RegisterType<IOrdenGeneradorBase<compraModel>, ManejadorDePedidos>();
+            container.RegisterType<IRepositorioBase<Banco>, RepositorioBancos>();
+            container.RegisterType<IOrdenGeneradorBase<CompraModel>, ManejadorDePedidos>();
             container.RegisterType<IPaypalCryptBase<PaypalConfig>, EncryptarPayPalECB>();
             container.RegisterType<IRepositorioBase<PaypalConfig>, RepositorioPayPalConfig>();
             container.RegisterType<IRepositorioBase<Orden>, RepositorioPedidos>();
-            container.RegisterType<ITransaccionExterna<paypalPagoClienteModel>,PayPalImplementacionServidor>();
-            container.RegisterType<ITransaccionExterna<stripeTarjetaModel>,MetodosPago.Stripe.Servicios.StripeImplementacion>();
+            container.RegisterType<IRepositorioBase<Politicas>, RepositorioPoliticas>();
+            container.RegisterType<ITransaccionExterna<PaypalPagoClienteModel>, PayPalImplementacionServidor>();
+            container.RegisterType<ITransaccionExterna<StripeTarjetaModel>, MetodosPago.Stripe.Servicios.StripeImplementacion>();
+            container.RegisterType<IGeneradorGraficasVersionNueva<GraficaBarras, CajaComentarios>, GraficasComentariosCalificaciones>();
             container.RegisterType<IGeneradorGraficas<Orden>, GraficasOrden>();
+            container.RegisterType<IGeneradorDataTables<TablaPedidosViewModel, Orden>, GeneradorDataTablesPedido>();
             //Para user el accountController
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());

@@ -13,7 +13,7 @@ namespace PymeTamFinal.Areas.CheckOut.Models
     public class metodoPagoPayPal : IMetodoPago
     {
         private int idOrden;
-        private readonly IOrdenGeneradorBase<compraModel> _orden;
+        private readonly IOrdenGeneradorBase<CompraModel> _orden;
         public metodoPagoPayPal(string rtname, int orden)
         {
             result = new RedirectResult(rtname);
@@ -23,7 +23,7 @@ namespace PymeTamFinal.Areas.CheckOut.Models
         {
             result = new RedirectResult(rtname);
         }
-        public metodoPagoPayPal(string rtname,int orden,IOrdenGeneradorBase<compraModel>_orden)
+        public metodoPagoPayPal(string rtname,int orden,IOrdenGeneradorBase<CompraModel>_orden)
         {
             this._orden = _orden;
             result = new RedirectResult(rtname);

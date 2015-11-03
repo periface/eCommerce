@@ -77,16 +77,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelosAuxiliares\compraModel.cs" />
+    <Compile Include="ModelosAuxiliares\CompraModel.cs" />
+    <Compile Include="ModelosAuxiliares\GraficaBarras.cs" />
+    <Compile Include="ModelosAuxiliares\GraficaCalificacionesCProducto.cs" />
     <Compile Include="ModelosAuxiliares\GraficaPastel.cs" />
     <Compile Include="ModelosAuxiliares\HighCharts.cs" />
     <Compile Include="ModelosAuxiliares\GraficaVolumenVentas.cs" />
     <Compile Include="ModelosAuxiliares\IGrafica.cs" />
     <Compile Include="ModelosAuxiliares\IPedidoEstado.cs" />
-    <Compile Include="ModelosAuxiliares\paypalConfigModel.cs" />
-    <Compile Include="ModelosAuxiliares\paypalModel.cs" />
-    <Compile Include="ModelosAuxiliares\paypalPagoClienteModel.cs" />
-    <Compile Include="ModelosAuxiliares\stripeTarjetaModel.cs" />
+    <Compile Include="ModelosAuxiliares\JqueryDataTableParamModel.cs" />
+    <Compile Include="ModelosAuxiliares\JQueryDataTableReponseModel.cs" />
+    <Compile Include="ModelosAuxiliares\PaypalConfigModel.cs" />
+    <Compile Include="ModelosAuxiliares\PaypalModel.cs" />
+    <Compile Include="ModelosAuxiliares\PaypalPagoClienteModel.cs" />
+    <Compile Include="ModelosAuxiliares\StripeTarjetaModel.cs" />
+    <Compile Include="ModelosAuxiliares\TablaPedidosViewModel.cs" />
     <Compile Include="ModelosDominio\archivosEstilo.cs" />
     <Compile Include="ModelosDominio\Banco.cs" />
     <Compile Include="ModelosDominio\CajaComentarios.cs" />
@@ -107,7 +112,7 @@
     <Compile Include="ModelosDominio\OrdenDetalle.cs" />
     <Compile Include="ModelosDominio\Pais.cs" />
     <Compile Include="ModelosDominio\PaypalConfig.cs" />
-    <Compile Include="ModelosAuxiliares\payPalTarjetaModel.cs" />
+    <Compile Include="ModelosAuxiliares\PayPalTarjetaModel.cs" />
     <Compile Include="ModelosDominio\Politicas.cs" />
     <Compile Include="ModelosDominio\Precios.cs" />
     <Compile Include="ModelosDominio\PreguntasFrecuentes.cs" />
