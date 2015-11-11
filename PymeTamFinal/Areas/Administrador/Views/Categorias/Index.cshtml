@@ -3,6 +3,33 @@
     ViewBag.Title = "Categorias";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
+<div id="ribbon">
+
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Esto borrara las configuraciónes de los widgets." data-html="true">
+						<i class="fa fa-refresh"></i>
+					</span>
+    </span>
+
+
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Inicio</li>
+        <li>Categorias</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- You can also add more buttons to the
+    ribbon for further usability
+
+    Example below:
+
+    <span class="ribbon-button-alignment pull-right">
+    <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+    <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+    <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+    </span> -->
+
+</div>
 <link href="~/Scripts/datatables/DataTables-1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <style>
     /*Estilo de arbol*/
@@ -54,7 +81,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Categorias <small>Administración de categorias</small>
+               <i class="fa fa-th-list"> </i> Categorias <spam>> Administración de categorias </spam>
             </h1>
             <ol class="breadcrumb">
                 <li class="active">

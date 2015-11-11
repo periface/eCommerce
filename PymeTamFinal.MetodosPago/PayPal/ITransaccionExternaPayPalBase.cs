@@ -11,7 +11,6 @@ namespace PymeTamFinal.MetodosPago.PayPal
 {
     public class ITransaccionExternaPayPalBase<T> : ITransaccionExterna<T> where T :class
     {
-        //Mi comentario
         #region Props
         internal DataContext context;
         internal DbSet<T> dbSet;

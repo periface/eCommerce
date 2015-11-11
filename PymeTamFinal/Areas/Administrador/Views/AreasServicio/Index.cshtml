@@ -3,15 +3,43 @@
     ViewBag.Title = "Areas de servicio";
     Layout = "~/Areas/Administrador/Views/Shared/_Layout.cshtml";
 }
+<div id="ribbon">
+
+    <span class="ribbon-button-alignment">
+        <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Esto borrara las configuraciónes de los widgets." data-html="true">
+						<i class="fa fa-refresh"></i>
+					</span>
+    </span>
+
+
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Inicio</li>
+        <li>Areas de Servicio</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- You can also add more buttons to the
+    ribbon for further usability
+
+    Example below:
+
+    <span class="ribbon-button-alignment pull-right">
+    <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+    <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+    <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+    </span> -->
+
+</div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Areas de servicio <small>Administración de areas de servicio</small>
+            <i class="fa fa-puzzle-piece"></i> Areas de servicio <sapm>> Administración de areas de servicio </sapm>
             </h1>
             <ol class="breadcrumb">
                 <li class="active">
-                    <i class="fa fa-dashboard"></i> Areas de servicio
+                    <i class="fa fa-puzzle-piece"></i> Areas de servicio
                 </li>
             </ol>
         </div>
